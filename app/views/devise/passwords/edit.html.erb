@@ -1,0 +1,58 @@
+ <body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu 1-column login-bg  blank-page blank-page" data-open="click" data-menu="vertical-modern-menu" data-col="1-column">
+    <div class="row">
+      <div class="col s12">
+        <div class="container"><div id="login-page" class="row">
+          <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <h5 class="ml-4">Sign in</h5>
+                  </div>
+                  <div>
+                    <%= render "devise/shared/error_messages", resource: resource %>
+                    <%= f.hidden_field :reset_password_token %>
+                  </div>
+                </div>
+               <div class="row margin">
+                <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+                <% end %>
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix pt-2">lock_outline</i>
+                    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+                    <label for="username" class="center-align">Password</label>
+                  </div>
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix pt-2">lock_outline</i>
+                      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                    <label for="password">Confirm new password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m12 l12 ml-2 mt-1">
+                    <p>
+                      <% if devise_mapping.rememberable? %>
+                        <label>
+                          <%= f.check_box :remember_me %>
+                          <span>Remember Me</span>
+                          <%#= f.label :remember_me %>
+                        </label>
+                      <% end %>
+                    </p>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 actions">
+                    <%= f.submit "Change my password", class: "btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12 "%>
+                  </div>
+                </div>
+            <% end %>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

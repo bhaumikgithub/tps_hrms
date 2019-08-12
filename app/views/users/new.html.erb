@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Create Role</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_for(@resource, url: registration_path(:user)) do |f| %>
+                <div class="col s12">
+                  <div class="input-field col s12">
+                    <%= f.text_field :first_name,id: "first_name" %><br />
+                    <label for="first_name">first_name</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :last_name,id: "last_name" %><br />
+                    <label for="last_name">last_name</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :first_name,id: "first_name" %><br />
+                    <label for="first_name">first_name</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :personal_email,id: "personal_email" %><br />
+                    <label for="personal_email">personal_email</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :comp_email,id: "comp_email" %><br />
+                    <label for="comp_email">comp_email</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :emergency_contact,id: "emergency_contact" %><br />
+                    <label for="emergency_contact">emergency_contact</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :contact,id: "contact" %><br />
+                    <label for="contact">contact</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :birthday,id: "birthday" %><br />
+                    <label for="birthday">birthday</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :marterial_status,id: "marterial_status" %><br />
+                    <label for="marterial_status">marterial_status</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :anniversary_date,id: "anniversary_date" %><br />
+                    <label for="anniversary_date">anniversary_date</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :join_date,id: "join_date" %><br />
+                    <label for="join_date">join_date</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :job_status,id: "job_status" %><br />
+                    <label for="job_status">job_status</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :address,id: "address" %><br />
+                    <label for="address">address</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :degree,id: "degree" %><br />
+                    <label for="degree">degree</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :experience,id: "experience" %><br />
+                    <label for="experience">experience</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :designation,id: "designation" %><br />
+                    <label for="designation">designation</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :mentor,id: "mentor" %><br />
+                    <label for="mentor">mentor</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :dept,id: "dept" %><br />
+                    <label for="dept">dept</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :adhar_no,id: "adhar_no" %><br />
+                    <label for="adhar_no">adhar_no</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :pan_no,id: "pan_no" %><br />
+                    <label for="pan_no">pan_no</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :user_type,id: "user_type" %><br />
+                    <label for="user_type">user_type</label>
+                  </div>
+                  
+                  <div class="input-field col s12">
+                   <%= f.submit %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

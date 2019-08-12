@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TpsHrms</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <% if user_signed_in? %>
+    <body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu 2-columns  " data-open="click" data-menu="vertical-modern-menu" data-col="2-columns">
+      <%= render "layouts/header" %>
+      <%= render "layouts/sidebar" %>
+      <div id="main">
+        <div class="row">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+          <div class="col s12">
+            <div class="container">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% else %>
+    <%= yield %>
+  <% end %>
+  </body>
+</html>
+  

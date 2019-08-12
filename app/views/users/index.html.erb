@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12 m6 l10">
+                <h3 class="card-title"><b>User<b></h3>
+              </div>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to 'Create New', new_user_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th data-field="id">Name</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |user| %>
+                      <tr>
+                        <td><%= user.email %></td>
+                        <td><%= link_to 'Edit', edit_user_path(user.id) %></td>
+                        <td><%= link_to 'Delet', user_path(user.id), method: :delete %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

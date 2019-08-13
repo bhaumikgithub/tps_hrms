@@ -1,2 +1,114 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">User Profile</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <div class="col s6">
+                First name: <%= @user.first_name %>
+              </div>
+              <div class="col s6">
+                Last name: <%= @user.last_name %>
+              </div>
+            </div>
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Company email: <%= @user.comp_email %>
+              </div>
+              <div class="col s6">
+                <p>Contact: <%= @user.contact %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Birthday: <%= @user.birthday %>
+              </div>
+              <div class="col s6">
+                Emergency contact: <%= @user.emergency_contact %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Marital Status: <%= @user.marterial_status %>
+              </div>
+              <div class="col s6">
+                Anniversary date: <%= @user.anniversary_date %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Join date: <%= @user.join_date %>
+              </div>
+              <div class="col s6">
+                Job status: <%= @user.job_status %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Address: <%= @user.address %>
+              </div>
+              <div class="col s6">
+                Degree: <%= @user.degree %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Experience: <%= @user.experience %>
+              </div>
+              <div class="col s6">
+                Designation: <%= @user.designation %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                JMentor: <%= @user.mentor %>
+              </div>
+              <div class="col s6">
+                Department: <%= @user.dept %>
+              </div>
+            </div>
+
+            <br><br>
+            <div class="col s12">
+              <div class="col s6">
+                Aadhar card number: <%= @user.adhar_no %>
+              </div>
+              <div class="col s6">
+                PAN number: <%= @user.pan_no %>
+              </div>
+            </div>
+
+            <br><br>
+
+            <div class="col s12">
+              <div class="col s3">
+                <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

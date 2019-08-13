@@ -4,6 +4,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+  skip_before_action :require_no_authentication, only: [:create]
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -11,16 +13,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    exit
-    binding.pry
-    build_resource(sign_up_params)
-
+    password = user_password
+    build_resource(sign_up_params.merge(password: password))
     resource.save
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
+        UserMailer.new_registration(resource.email, password).deliver
         respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
@@ -59,7 +60,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
+
+  def user_password
+    generated_password = Devise.friendly_token.first(8)
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
@@ -72,9 +77,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    users_path
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)

@@ -28,7 +28,7 @@ module InheritAction
 
   def create
     @resource = resource_class.new(resource_params)
-    if @resource.save
+    if @resource.save!
       yield @resource if block_given?
       configure_redirect_path
     else

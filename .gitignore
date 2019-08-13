@@ -27,4 +27,6 @@
 /config/master.key
 
 config/database.yml
-logs/*
+
+Gemfile.lock
+/db/schema.rb

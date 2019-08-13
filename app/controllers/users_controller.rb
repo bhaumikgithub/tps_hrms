@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user
-      user.destroy
+      @user.destroy
     end
     redirect_to users_path
   end

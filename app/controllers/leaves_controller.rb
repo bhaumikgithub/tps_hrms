@@ -12,6 +12,6 @@ class LeavesController < ApplicationController
   end
 
   def resource_params
-    params.require(:leave).permit(:leave_type,:date, :approved_by, :user_id)
+    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id)
   end
 end

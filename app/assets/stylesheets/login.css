@@ -3,7 +3,7 @@
 ------------------------------------------*/
 .login-bg
 {
-    background-image: url('flat-bg.jpg');
+    background-image: url('/images/flat-bg.jpg');
     background-repeat: no-repeat;
     -webkit-background-size: cover;
             background-size: cover;

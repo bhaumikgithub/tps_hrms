@@ -26,11 +26,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% @resources.each do |user| %>
+                    <% @users.each do |user| %>
                       <tr>
                         <td><%= user.email %></td>
-                        <td><%= link_to 'Edit', edit_user_path(user.id) %></td>
-                        <td><%= link_to 'Delet', user_path(user.id), method: :delete %></td>
+                        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+                        <td><%= link_to 'View profile', user_path(user) %></td>
+                        <td><%= link_to 'Delete', user_path(user.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
                       </tr>
                     <% end %>
                   </tbody>

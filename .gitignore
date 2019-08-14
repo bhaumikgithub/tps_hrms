@@ -28,5 +28,4 @@
 
 config/database.yml
 
-Gemfile.lock
 /db/schema.rb

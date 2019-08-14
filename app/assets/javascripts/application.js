@@ -13,8 +13,13 @@
 //= require rails-ujs
 //= require jquery
 //= require jquery_ujs
+//= require moment 
+//= require fullcalendar.min
 //= require activestorage
 //= plugins
 //= materialize
 //= vendors.min
 //= require_tree .
+
+$('#calendar').fullCalendar({});
+

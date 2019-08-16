@@ -6,4 +6,14 @@ class User < ApplicationRecord
   belongs_to :company, optional: true 
 
   has_many :leaves
+
+
+
+  def full_name
+    if self.first_name
+      self.first_name
+    else
+      self.email
+    end
+  end
 end

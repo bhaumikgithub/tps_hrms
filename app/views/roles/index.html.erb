@@ -9,7 +9,7 @@
               </div>
               <div class="col s12 m6 l2">
                 <ul class="">
-                  <li><%= link_to 'Create New', new_role_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                  <li><%= link_to 'ADD', new_role_path, class: "btn cyan waves-effect waves-lightc " %></li>
                 </ul>
               </div>
             </div>
@@ -30,7 +30,7 @@
                       <tr>
                         <td><%= role.name %></td>
                         <td><%= link_to 'Edit', edit_role_path(role.id) %></td>
-                        <td><%= link_to 'Delete', role_path(role.id), method: :delete %></td>
+                        <td><%= link_to 'Delete', role_path(role.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                       </tr>
                     <% end %>
                   </tbody>

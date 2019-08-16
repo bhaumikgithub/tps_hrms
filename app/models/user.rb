@@ -9,11 +9,11 @@ class User < ApplicationRecord
   USER_TYPE = ["Employee", "Consultant", "Trainee"]
   JOB_STATUS = ["Active", "Inactive"]
   has_many :leaves
-
+  validates_presence_of :first_name, :last_name, :contact
 
   def full_name
     if self.first_name
-      self.first_name
+      self.first_name + ' ' + self.last_name.to_s
     else
       self.email
     end

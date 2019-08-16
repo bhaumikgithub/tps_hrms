@@ -8,3 +8,6 @@
 //= require_tree .
 //= require moment 
 //= require fullcalendar
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });

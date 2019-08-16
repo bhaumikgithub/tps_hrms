@@ -90,7 +90,7 @@
   </div>
 
   <div class="input-field col s12">
-    <%= f.select(:mentor, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+    <%= f.select(:mentor, User.all.collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
     <label>Mentor</label>
   </div>
 

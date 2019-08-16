@@ -9,5 +9,7 @@ Rails.application.routes.draw do
     end
   end
   resources :leaves
+  resources :holidays
+
   
 end

@@ -5,11 +5,11 @@
           <div class="card-title">
             <div class="row">
               <div class="col s12 m6 l10">
-                <h3 class="card-title"><b>User<b></h3>
+                <h3 class="card-title"><b>holiday<b></h3>
               </div>
               <div class="col s12 m6 l2">
                 <ul class="">
-                  <li><%= link_to 'ADD', new_user_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                  <li><%= link_to 'ADD', new_holiday_path, class: "btn cyan waves-effect waves-lightc " %></li>
                 </ul>
               </div>
             </div>
@@ -20,20 +20,20 @@
                 <table>
                   <thead>
                     <tr>
-                      <th data-field="id">Name</th>
+                      <th data-field="id">Festival</th>
+                      <th data-field="id">Date</th>
+
                       <th></th>
                       <th></th>
-                      <th></th>
-                      
                     </tr>
                   </thead>
                   <tbody>
-                    <% @users.each do |user| %>
+                    <% @resources.each do |holiday| %>
                       <tr>
-                        <td><%= user.email %></td>
-                        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                        <td><%= link_to 'View profile', user_path(user) %></td>
-                        <td><%= link_to 'Delete', user_path(user.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+                        <td><%= holiday.holiday_name %></td>
+                        <td><%= holiday.holiday_date&.strftime('%d-%b-%Y') %></td>
+                        <td><%= link_to 'Edit', edit_holiday_path(holiday.id) %></td>
+                        <td><%= link_to 'Delete', holiday_path(holiday.id), method: :delete , data: {confirm: "Are you sure?"} %></td>
                       </tr>
                     <% end %>
                   </tbody>

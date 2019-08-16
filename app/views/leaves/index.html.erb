@@ -39,7 +39,7 @@
 
 
                         <td><%= link_to 'Edit', edit_leafe_path(leave.id) %></td>
-                        <td><%= link_to 'Delet', leafe_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Delete', leafe_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                       </tr>
                     <% end %>
                   </tbody>
@@ -53,34 +53,13 @@
 </div>
 
 
-<!-- template calender -->
-
-<div id="app-calendar">
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <h4 class="card-title">
-                        Basic Calendar
-                    </h4>
-                    <div id="calendar"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
           defaultDate: '2019-08-12',
           editable: true,
           eventLimit: true,
-          events: [{
-          title: 'Simple static event',
-          start: '2019-08-25',
-          description: 'Super cool event'
-        }]
+          events: '/leaves/get_events'
         });
     });
 </script>

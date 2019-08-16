@@ -16,6 +16,8 @@
  *= login
  *= forgot
  *= require material_icons
- *= require fullcalendar.min
+ *= require materialize.min
+ *= require app-calendar
  *= require_self
+ *= require fullcalendar
  */

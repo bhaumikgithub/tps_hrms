@@ -4,10 +4,10 @@
 //= plugins
 //= materialize
 //= vendors.min
-//= require app-calendar
 //= require_tree .
 //= require moment 
 //= require fullcalendar
+//= require app-calendar
   $(document).ready(function(){
     $('.datepicker').datepicker();
   });

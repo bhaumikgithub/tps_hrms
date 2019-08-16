@@ -4,9 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   belongs_to :company, optional: true 
-
+  MARITAL_STATUS =  ["Married", "Single"].freeze
+  DEPARTMENT = ["ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
+  USER_TYPE = ["Employee", "Consultant", "Trainee"]
+  JOB_STATUS = ["Active", "Inactive"]
   has_many :leaves
-
 
 
   def full_name

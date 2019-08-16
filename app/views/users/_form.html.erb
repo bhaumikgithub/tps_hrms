@@ -17,13 +17,13 @@
   </div>
 
   <div class="input-field col s12">
-    <%= f.text_field :email,  id: "personal_email" %><br />
+    <%= f.email_field :email,  id: "personal_email" %><br />
     <label for="personal_email">personal_email</label>
   </div>
 
 
   <div class="input-field col s12">
-    <%= f.text_field :comp_email,id: "comp_email" %><br />
+    <%= f.email_field :comp_email,id: "comp_email" %><br />
     <label for="comp_email">comp_email</label>
   </div>
 
@@ -41,31 +41,31 @@
 
 
   <div class="input-field col s12">
-    <%= f.text_field :birthday,id: "birthday" %><br />
-    <label for="birthday">birthday</label>
+     <label for="birthdate">Birthday</label>
+    <%= f.text_field :birthday, class: 'datepicker',id:"birthdate" %>
   </div>
 
 
   <div class="input-field col s12">
-    <%= f.text_field :marital_status,id: "marterial_status" %><br />
-    <label for="marterial_status">marterial_status</label>
+    <%= f.select(:marital_status, User::MARITAL_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+    <label>Marterial Status</label>
   </div>
 
 
   <div class="input-field col s12">
-    <%= f.text_field :anniversary_date,id: "anniversary_date" %><br />
-    <label for="anniversary_date">anniversary_date</label>
+    <label for="birthdate">Anniversary Date</label>
+    <%= f.text_field :anniversary_date, class: 'datepicker',id:"birthdate" %>
   </div>
 
 
   <div class="input-field col s12">
-    <%= f.text_field :join_date,id: "join_date" %><br />
-    <label for="join_date">join_date</label>
+    <label for="birthdate">Join Date</label>
+    <%= f.text_field :join_date, class: 'datepicker',id:"birthdate" %>
   </div>
 
   <div class="input-field col s12">
-    <%= f.text_field :job_status,id: "job_status" %><br />
-    <label for="job_status">job_status</label>
+    <%= f.select(:job_status, User::JOB_STATUS.map { |e| [e.humanize, e]  }, {:class => "some_class"} ) %>
+    <label>Status</label>
   </div>
 
   <div class="input-field col s12">
@@ -90,13 +90,13 @@
   </div>
 
   <div class="input-field col s12">
-    <%= f.text_field :mentor,id: "mentor" %><br />
-    <label for="mentor">mentor</label>
+    <%= f.select(:mentor, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+    <label>Mentor</label>
   </div>
 
   <div class="input-field col s12">
-    <%= f.text_field :dept,id: "dept" %><br />
-    <label for="dept">dept</label>
+    <%= f.select(:dept, User::DEPARTMENT.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+    <label>Department</label>
   </div>
 
   <div class="input-field col s12">
@@ -110,8 +110,8 @@
   </div>
 
   <div class="input-field col s12">
-    <%= f.text_field :user_type,id: "user_type" %><br />
-    <label for="user_type">user_type</label>
+    <%= f.select(:user_type, User::USER_TYPE.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+    <label>Type</label>
   </div>
   
   <div class="input-field col s12">

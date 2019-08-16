@@ -1,6 +1,15 @@
 class LeavesController < ApplicationController
   include InheritAction
 
+  def get_events
+    leaves = Leave.all
+    events = []
+    leaves.each do |leave|
+      events << {:id => leave.id, :title => "#{leave.leave_type} - #{leave.user.full_name} ", :start => "#{leave.leave_date.to_date}",:end => "#{leave.end_date.to_date}" }
+    end
+    render :json => events.to_json
+  end
+
   private
 
   def resource_class
@@ -12,6 +21,6 @@ class LeavesController < ApplicationController
   end
 
   def resource_params
-    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id)
+    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id, :end_date)
   end
 end

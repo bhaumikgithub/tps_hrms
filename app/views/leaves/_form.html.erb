@@ -30,10 +30,20 @@
                   </div>
 
                   <div class="input-field col s12">
-                    <div id="view-date-picker">
-                      <label for="birthdate">Date</label>
-                      <%= f.text_field :leave_date, class: 'datepicker',id:"birthdate" %>
+                    <div class="col s6">
+                      <div id="view-date-picker">
+                        <label for="birthdate">Start date</label>
+                        <%= f.text_field :leave_date, class: 'datepicker',id:"birthdate" %>
+                      </div>                      
                     </div>
+
+                    <div class="col s6">
+                      <div id="view-date-picker">
+                        <label for="birthdate">End date</label>
+                        <%= f.text_field :end_date, class: 'datepicker',id:"birthdate" %>
+                      </div>                      
+                    </div>
+
                     <%= f.submit 'Submit', class: "btn cyan waves-effect waves-light" %>
                   </div>
                 </div>

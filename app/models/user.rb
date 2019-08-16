@@ -18,4 +18,9 @@ class User < ApplicationRecord
       self.email
     end
   end
+
+
+  def user_mentor
+    User.find_by(id: self.mentor.to_i)
+  end
 end

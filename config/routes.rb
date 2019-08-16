@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       post :create_user
     end
   end
-  resources :leaves
+  resources :leaves do
+    get :get_events, on: :collection
+  end
   
 end

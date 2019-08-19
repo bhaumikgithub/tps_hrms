@@ -15,17 +15,17 @@
               <%= form_for @resource, class: 'row' do |f| %>
                 <div class="col s12">
                   <div class="input-field col s12">
-                    <%= f.select(:leave_type, Leave::LEAVE_TYPES.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:leave_type, Leave::LEAVE_TYPES.keys.map { |e| [e.humanize, e]  }, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Type</label>
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.select(:user_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:user_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Employee</label>
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.select(:approved_by_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:approved_by_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Approved By</label>
                   </div>
 

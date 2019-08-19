@@ -5,7 +5,7 @@ class LeavesController < ApplicationController
     leaves = Leave.all
     events = []
     leaves.each do |leave|
-      events << {:id => leave.id, :title => "#{leave.user.full_name.humanize}", :start => "#{leave.leave_date&.to_date}",:end => "#{leave.try(:end_date).try(:to_date)+1}", :color => leave.color }
+      events << {:id => leave.id, :title => "#{leave.user.full_name.humanize}", :start => "#{leave.leave_date&.to_date}",:end => "#{leave.try(:end_date).try(:to_date)}", :color => leave.color }
     end
     holidays = Holiday.all
     holidays.each do |holiday|

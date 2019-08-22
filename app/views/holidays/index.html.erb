@@ -31,7 +31,7 @@
                     <% @resources.each do |holiday| %>
                       <tr>
                         <td><%= holiday.holiday_name %></td>
-                        <td><%= holiday.holiday_date&.strftime('%d-%b-%Y') %></td>
+                        <td><%= holiday.holiday_date&.strftime('%d-%b-%Y -  %A') %></td>
                         <td><%= link_to 'Edit', edit_holiday_path(holiday.id) %></td>
                         <td><%= link_to 'Delete', holiday_path(holiday.id), method: :delete , data: {confirm: "Are you sure?"} %></td>
                       </tr>

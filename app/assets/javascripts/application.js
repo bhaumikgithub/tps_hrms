@@ -9,5 +9,8 @@
 //= require fullcalendar
 //= require app-calendar
   $(document).ready(function(){
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({
+     disableWeekends: true
+
+    });
   });

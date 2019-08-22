@@ -5,7 +5,7 @@
         <div class="card-title">
           <div class="row">
             <div class="col s12 m6 l10">
-              <h4 class="card-title">Create Role</h4>
+              <h4 class="card-title">Create Holiday</h4>
             </div>
           </div>
         </div>
@@ -27,7 +27,9 @@
                     </div>
                   </div>
                   <div class="input-field col s12">
-                    <%= f.submit 'Submit', class: "btn cyan waves-effect waves-light" %>
+                    <%= f.submit 'Submit', class: "btn btn-success" %>
+                    <%= link_to("Cancel", holidays_path , class: "btn cyan waves-effect waves-light" ) %>
+
                   </div>
                 </div>
                <% end %>

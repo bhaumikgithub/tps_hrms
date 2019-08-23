@@ -4,119 +4,204 @@
     <li><%= msg %></li>
   <% end %>
 </ul>
-<% end %>                
-<div class="col s12">
-  <div class="input-field col s12">
-    <%= f.text_field :first_name,id: "first_name" %><br />
-    <label for="first_name">First Name</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.text_field :last_name,id: "last_name" %><br />
-    <label for="last_name">Last Name</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.email_field :email,  id: "personal_email" %><br />
-    <label for="personal_email">Personal Email</label>
-  </div>
-
-
-  <div class="input-field col s12">
-    <%= f.email_field :comp_email,id: "comp_email" %><br />
-    <label for="comp_email">Company Email</label>
-  </div>
-
-
-  <div class="input-field col s12">
-    <%= f.text_field :emergency_contact,id: "emergency_contact" %><br />
-    <label for="emergency_contact">Emergency Contact</label>
-  </div>
-
-
-  <div class="input-field col s12">
-    <%= f.text_field :contact,id: "contact" %><br />
-    <label for="contact">Contact</label>
-  </div>
-
-
-  <div class="input-field col s12">
-     <label for="birthdate">Birthday</label>
-    <%= f.text_field :birthday, class: 'datepicker',id:"birthdate" %>
-  </div>
-
-
-  <div class="input-field col s12">
-    <%= f.select(:marital_status, User::MARITAL_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
-    <label>Marterial Status</label>
-  </div>
-
-
-  <div class="input-field col s12">
-    <label for="birthdate">Anniversary Date</label>
-    <%= f.text_field :anniversary_date, class: 'datepicker',id:"birthdate" %>
-  </div>
-
-
-  <div class="input-field col s12">
-    <label for="birthdate">Join Date</label>
-    <%= f.text_field :join_date, class: 'datepicker',id:"birthdate" %>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.select(:job_status, User::JOB_STATUS.map { |e| [e.humanize, e]  }, {:class => "some_class"} ) %>
-    <label>Status</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.text_field :address,id: "address" %><br />
-    <label for="address">Address</label>
-  </div>
-
-
-  <div class="input-field col s12">
-    <%= f.text_field :degree,id: "degree" %><br />
-    <label for="degree">Degree</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.text_field :experience,id: "experience" %><br />
-    <label for="experience">Experience</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.text_field :designation,id: "designation" %><br />
-    <label for="designation">Designation</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.select(:mentor, User.all.collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
-    <label>Mentor</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.select(:dept, User::DEPARTMENT.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
-    <label>Department</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.text_field :adhar_no,id: "adhar_no" %><br />
-    <label for="adhar_no">Adhar Number</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.text_field :pan_no,id: "pan_no" %><br />
-    <label for="pan_no">Pan Number</label>
-  </div>
-
-  <div class="input-field col s12">
-    <%= f.select(:user_type, User::USER_TYPE.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
-    <label>Type</label>
-  </div>
-  
-  <div class="input-field col s12">
-    <%= f.submit 'Submit' ,class: "btn btn-success" %>
-    <%= link_to("Cancel", users_path , class: "btn cyan waves-effect waves-light" ) %>
-
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div class="col s12 m6 l10">
+      <h4 class="card-title">Create User</h4>
+    </div>
   </div>
 </div>
+<div id="view-input-fields">
+  <div class="row">
+    <div class="col s12">
+      <%= form_for @user, :url => url_for(:controller => 'users', :action => (params['action'] == 'new') ? 'create_user' : 'update') do |f| %>
+        <div class="col s12">
+          <div id="input-fields" class="card card-tabs">
+            <div class="card-content">
+              <div class="card-title">
+                <span><b>Basic Details</b></span>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <%= f.text_field :first_name,id: "first_name" %><br />
+                    <label for="first_name">First Name</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                    <%= f.text_field :last_name,id: "last_name" %><br />
+                    <label for="last_name">Last Name</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                     <label for="birthdate">Birthday</label>
+                    <%= f.text_field :birthday, class: 'datepicker',id:"birthdate" %>
+                  </div>
+
+
+                  <div class="input-field col s6">
+                    <%= f.select(:marital_status, User::MARITAL_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "marital_status"} ) %>
+                    <label>Marterial Status</label>
+                  </div>
+
+
+                  <div class="input-field col s6 anniversary_date_div">
+                    <label for="birthdate">Anniversary Date</label>
+                    <%= f.text_field :anniversary_date, class: 'datepicker',id:"anniversary_date" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12">
+          <div id="input-fields" class="card card-tabs">
+            <div class="card-content">
+              <div class="card-title">
+                <span><b>Contact Details</b></span>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <%= f.email_field :email,  id: "personal_email" %><br />
+                    <label for="personal_email">Personal Email</label>
+                  </div>
+                  
+                  <div class="input-field col s6">
+                    <%= f.email_field :comp_email,id: "comp_email" %><br />
+                    <label for="comp_email">Company Email</label>
+                  </div>
+
+
+                  <div class="input-field col s6">
+                    <%= f.text_field :emergency_contact,id: "emergency_contact" %><br />
+                    <label for="emergency_contact">Emergency Contact</label>
+                  </div>
+
+
+                  <div class="input-field col s6">
+                    <%= f.text_field :contact,id: "contact" %><br />
+                    <label for="contact">Contact</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :address,id: "address" %><br />
+                    <label for="address">Address</label>
+                  </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col s12">
+          <div id="input-fields" class="card card-tabs">
+            <div class="card-content">
+              <div class="card-title">
+                <span><b>Employment Details</b></span>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <%= f.select(:job_status, User::JOB_STATUS.map { |e| [e.humanize, e]  }, {:class => "some_class"} ) %>
+                    <label>Status</label>
+                  </div>
+                  
+                  <div class="input-field col s6">
+                    <%= f.select(:user_type, User::USER_TYPE.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label>Type</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                    <label for="birthdate">Join Date</label>
+                    <%= f.text_field :join_date, class: 'datepicker',id:"birthdate" %>
+                  </div>
+
+
+                  <div class="input-field col s6">
+                    <%= f.text_field :designation,id: "designation" %><br />
+                    <label for="designation">Designation</label>
+                  </div>
+
+
+
+                  <div class="input-field col s6">
+                    <%= f.select(:mentor, User.all.collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label>Mentor</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                    <%= f.select(:dept, User::DEPARTMENT.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label>Department</label>
+                  </div>
+                 
+                  <div class="input-field col s6">
+                    <%= f.text_field :experience,id: "experience" %><br />
+                    <label for="experience">Experience</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                    <%= f.text_field :degree,id: "degree" %><br />
+                    <label for="degree">Degree</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       <!--  <div class="col s12">
+          <div id="input-fields" class="card card-tabs">
+            <div class="card-content">
+              <div class="card-title">
+                <span><b>Basic Details</b></span>
+                <div class="row">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="col s12">
+          <div id="input-fields" class="card card-tabs">
+            <div class="card-content">
+              <div class="card-title">
+                <span><b>KYC Details</b></span>
+                 <div class="row">
+                    <div class="input-field col s6">
+                      <%= f.text_field :adhar_no,id: "adhar_no" %><br />
+                      <label for="adhar_no">Adhar Number</label>
+                    </div>
+
+                    <div class="input-field col s6">
+                      <%= f.text_field :pan_no,id: "pan_no" %><br />
+                      <label for="pan_no">Pan Number</label>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="input-field col s12">
+          <%= f.submit 'Submit' ,class: "btn btn-success" %>
+          <%= link_to("Cancel", users_path , class: "btn cyan waves-effect waves-light" ) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    debugger
+    if($('.marital_status').val() == 'Married')
+      $('.anniversary_date_div').show()
+    else
+      $('.anniversary_date_div').hide()
+  });
+  $(".marital_status").on('change', function() {
+    if($('option:selected', this).text() == 'Married')
+      $('.anniversary_date_div').show()
+    else
+      $('.anniversary_date_div').hide()
+
+  });
+</script>

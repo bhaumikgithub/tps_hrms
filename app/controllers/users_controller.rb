@@ -12,7 +12,8 @@ class UsersController < ApplicationController
 
   def create_user
     password = user_password
-    @user = User.new(user_params.merge(password: password))
+    role = Role.find_by_name('User')
+    @user = User.new(user_params.merge(password: password, role: role.id))
     if @user.save
       UserMailer.new_registration(@user.email, password).deliver
       redirect_to users_path

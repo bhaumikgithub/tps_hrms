@@ -9,4 +9,4 @@
 
 role = Role.create(name: "Admin")
 Role.create(name: "User")
-User.create(email: 'admin@gmail.com', password: 123456, first_name: 'admin', role_id: 'role.id', password_confirmation: 123456)
+User.create(email: 'admin@gmail.com', password: 123456, first_name: 'admin', last_name: 'admin', contact: '1234567890', role_id: 'role.id', password_confirmation: 123456)

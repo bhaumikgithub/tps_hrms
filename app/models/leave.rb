@@ -19,7 +19,11 @@ class Leave < ApplicationRecord
   end
 
   def leave_array
-    ((self.leave_date.to_date..self.end_date.to_date).map { |e| e unless [0,6].include? e.wday  } - holiday_leave).reject { |e| e.to_s.empty? }
+    if (self.leave_date.to_date..self.end_date.to_date).count < 10
+      ((self.leave_date.to_date..self.end_date.to_date).map { |e| e unless [0,6].include? e.wday  } - holiday_leave).reject { |e| e.to_s.empty? }
+    else
+      (self.leave_date.to_date..self.end_date.to_date)
+    end
   end
 
 

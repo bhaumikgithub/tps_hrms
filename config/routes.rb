@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   root 'home#index'
+  get '/employee_handbook' => 'home#employee_handbook', :as => 'employee_handbook'
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
   resources :roles
   resources :users do

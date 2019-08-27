@@ -14,36 +14,40 @@
             <div class="col s12">
               <%= form_for @resource, class: 'row' do |f| %>
                 <div class="col s12">
-                  <div class="input-field col s12">
+                  <div class="input-field col s6">
                     <%= f.select(:leave_type, Leave::LEAVE_TYPES.keys.map { |e| [e.humanize, e]  }, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Type</label>
                   </div>
 
-                  <div class="input-field col s12">
+                   <div class="input-field col s6">
+                    <%= f.select(:status, Leave::LEAVE_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <label>Type</label>
+                  </div>
+
+                  <div class="input-field col s6">
                     <%= f.select(:user_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Employee</label>
                   </div>
 
-                  <div class="input-field col s12">
+                  <div class="input-field col s6">
                     <%= f.select(:approved_by_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Approved By</label>
                   </div>
 
-                  <div class="input-field col s12">
-                    <div class="col s6">
-                      <div id="view-date-picker">
-                        <label for="start_date">Start date</label>
-                        <%= f.text_field :leave_date, class: 'datepicker',id:"start_date" %>
-                      </div>                      
-                    </div>
-                    <div class="col s6">
-                      <div id="view-date-picker">
-                        <label for="end_date">End date</label>
-                        <%= f.text_field :end_date, class: 'datepicker',id:"end_date" %>
-                      </div>                      
-                    </div>
-
+                  <div class="input-field col s6">
+                    <div id="view-date-picker">
+                      <label for="start_date">Start date</label>
+                      <%= f.text_field :leave_date, class: 'datepicker',id:"start_date" %>
+                    </div>                      
                   </div>
+
+                  <div class="input-field col s6">
+                    <div id="view-date-picker">
+                      <label for="end_date">End date</label>
+                      <%= f.text_field :end_date, class: 'datepicker',id:"end_date" %>
+                    </div>                      
+                  </div>
+
                   <div class="input-field col s12">
                     <%= f.submit 'Submit', class: "btn btn-success" %>
                     <%= link_to("Cancel", leaves_path , class: "btn cyan waves-effect waves-light" ) %>

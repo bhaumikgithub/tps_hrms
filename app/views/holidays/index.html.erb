@@ -9,7 +9,9 @@
               </div>
               <div class="col s12 m6 l2">
                 <ul class="">
-                  <li><%= link_to 'ADD', new_holiday_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                  <% if current_user.admin? %>
+                    <li><%= link_to 'ADD', new_holiday_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                  <% end %>
                 </ul>
               </div>
             </div>
@@ -32,8 +34,10 @@
                       <tr>
                         <td><%= holiday.holiday_name %></td>
                         <td><%= holiday.holiday_date&.strftime('%d-%b-%Y -  %A') %></td>
-                        <td><%= link_to 'Edit', edit_holiday_path(holiday.id) %></td>
-                        <td><%= link_to 'Delete', holiday_path(holiday.id), method: :delete , data: {confirm: "Are you sure?"} %></td>
+                        <% if current_user.admin? %>
+                          <td><%= link_to 'Edit', edit_holiday_path(holiday.id) %></td>
+                          <td><%= link_to 'Delete', holiday_path(holiday.id), method: :delete , data: {confirm: "Are you sure?"} %></td>
+                        <% end %>
                       </tr>
                     <% end %>
                   </tbody>

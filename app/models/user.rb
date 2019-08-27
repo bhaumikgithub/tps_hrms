@@ -9,6 +9,7 @@ class User < ApplicationRecord
   USER_TYPE = ["Employee", "Consultant", "Trainee"]
   JOB_STATUS = ["Active", "Inactive"]
   has_many :leaves
+  belongs_to :role
   validates_presence_of :first_name, :last_name, :contact
 
   def full_name
@@ -19,6 +20,11 @@ class User < ApplicationRecord
     end
   end
 
+  ['user', 'admin'].each do |user_role|
+    define_method "#{user_role}?" do
+      self.role.name == user_role
+    end
+  end
 
   def user_mentor
     User.find_by(id: self.mentor.to_i)

@@ -9,7 +9,9 @@
               </div>
               <div class="col s12 m6 l2">
                 <ul class="">
-                  <li><%= link_to 'ADD', new_user_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                  <% if current_user.admin? %>
+                    <li><%= link_to 'ADD', new_user_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                  <% end %>
                 </ul>
               </div>
             </div>
@@ -33,14 +35,16 @@
                   <tbody>
                     <% @users.each do |user| %>
                       <tr>
-                        <td><%= link_to user.full_name, user_path(user) %></td>
+                        <td><%= link_to_if  current_user.admin? ,user.full_name, user_path(user) %></td>
                         <td><%= user.email %></td>
                         <td><%= user.contact %></td>
                         <td><%= user.designation %></td>
                         <td><%= user.dept %></td>
-                        <td><%= user.mentor %></td>
-                        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                        <td><%= link_to 'Delete', user_path(user.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+                        <td><%= user.user_mentor&.full_name %></td>
+                        <% if current_user.admin? %>
+                          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+                          <td><%= link_to 'Delete', user_path(user.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+                        <% end %>
                       </tr>
                     <% end %>
                   </tbody>

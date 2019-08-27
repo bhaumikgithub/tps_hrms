@@ -13,13 +13,12 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
         $('#calendar').fullCalendar({
           defaultDate: '2019-08-12',
-          editable: true,
+          editable: false,
           eventLimit: true,
-          events: '/leaves/get_events',
+          events: '/leaves/get_events'
         });
     });
-  
 </script>

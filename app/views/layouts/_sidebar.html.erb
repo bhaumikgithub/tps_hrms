@@ -7,27 +7,28 @@
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         
         <% if current_user.admin? %>
+          <li class=" <%= active_class(root_path) %> + bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
+          </li>
+           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
+          </li>
+           <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+          </li>
+          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
+          </li>
 
-          <li class="active bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
-          </li>
-           <li><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
-          </li>
-           <li><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
-          </li>
-          <li><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
-          </li>
         <% else %>
-
-          <li class="active bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
+          <li class=" <%= active_class(root_path) %> + bold" ><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>
-           <li><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
+           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
           </li>
-           <li><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+           <li class=" <%= active_class(calender_path) %> + bold"><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
-          <li><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
+          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
           </li>
 
         <% end %>
+         <li class=" <%= active_class(employee_handbook_path) %> + bold"><%= link_to(employee_handbook_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
+          </li>
        
       </ul>
      

@@ -8,13 +8,14 @@ class User < ApplicationRecord
   DEPARTMENT = ["ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Employee", "Consultant", "Trainee"]
   JOB_STATUS = ["Active", "Inactive"]
-  has_many :leaves
+  # has_many :leaves
+  has_many :user_leaves, class_name: "Leave"
   belongs_to :role
   validates_presence_of :first_name, :last_name, :contact
 
   def full_name
     if self.first_name
-      self.first_name + ' ' + self.last_name.to_s
+      (self.first_name + ' ' + self.last_name.to_s).humanize
     else
       self.email
     end

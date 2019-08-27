@@ -27,7 +27,6 @@
                         <th>End Date</th>
                         <th>Leave count</th>
                         <th>Approved By</th>
-                        <!-- <th></th> -->
                         <th></th>
                       </tr>
                     </thead>
@@ -38,10 +37,8 @@
                           <td><%= leave.leave_type %></td>
                           <td><%= leave.leave_date&.strftime('%d-%m-%Y') %></td>
                           <td><%= leave.end_date&.strftime('%d-%m-%Y') %></td>
-                          <td><%= (leave&.end_date.to_date - leave&.leave_date.to_date).to_i  + 1 %></td>
+                          <td><%= leave.leave_array.count %></td>
                           <td><%= leave.approved_by&.first_name %></td>
-
-                          <!-- <td><%#= link_to 'Edit', edit_leafe_path(leave.id) %></td> -->
                           <td><%= link_to 'Delete', leafe_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                         </tr>
                       <% end %>
@@ -62,4 +59,3 @@
 <p>Blue Color: Full day leave</p>
 <p>Black Color: Half day leave</p>
 <p>Green Color: Work from home</p>
-

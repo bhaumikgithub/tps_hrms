@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   end
   
   resources :leaves do
-    get :get_events, on: :collection
+    collection do
+      get :get_events
+      get :user_events
+    end
   end
   resources :holidays
   get '/calender' => 'leaves#index', :as => 'calender'

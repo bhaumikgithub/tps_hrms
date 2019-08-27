@@ -1,55 +1,55 @@
 <% if current_user.admin? %>
   <div class="row">
-      <div class="col s12">
-        <div id="borderless-table" class="card card-tabs">
-          <div class="card-content">
-            <div class="card-title">
-              <div class="row">
-                <div class="col s12 m6 l10">
-                  <h3 class="card-title"><b>Leaves<b></h3>
-                </div>
-                <div class="col s12 m6 l2">
-                  <ul class="">
-                    <li><%= link_to 'Add Leave', new_leafe_path, class: "btn cyan waves-effect waves-lightc " %></li>
-                  </ul>
-                </div>
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12 m6 l10">
+                <h3 class="card-title"><b>Leaves<b></h3>
+              </div>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to 'Add Leave', new_leafe_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                </ul>
               </div>
             </div>
-            <div id="view-borderless-table">
-              <div class="row">
-                <div class="col s12">
-                  <table>
-                    <thead>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Employee</th>
+                      <th>Leave</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Leave count</th>
+                      <th>Approved By</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |leave| %>
                       <tr>
-                        <th>Employee</th>
-                        <th>Leave</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Leave count</th>
-                        <th>Approved By</th>
-                        <th></th>
+                        <td><%= leave.user&.first_name %></td>
+                        <td><%= leave.leave_type %></td>
+                        <td><%= leave.leave_date&.strftime('%d-%m-%Y') %></td>
+                        <td><%= leave.end_date&.strftime('%d-%m-%Y') %></td>
+                        <td><%= (leave.leave_array[0].count)*leave.leave_array[1] %></td>
+                        <td><%= leave.approved_by&.first_name %></td>
+                        <td><%= link_to 'Delete', leafe_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      <% @resources.each do |leave| %>
-                        <tr>
-                          <td><%= leave.user&.first_name %></td>
-                          <td><%= leave.leave_type %></td>
-                          <td><%= leave.leave_date&.strftime('%d-%m-%Y') %></td>
-                          <td><%= leave.end_date&.strftime('%d-%m-%Y') %></td>
-                          <td><%= leave.leave_array.count %></td>
-                          <td><%= leave.approved_by&.first_name %></td>
-                          <td><%= link_to 'Delete', leafe_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
-                        </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
-                </div>
+                    <% end %>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 <% end %>
 

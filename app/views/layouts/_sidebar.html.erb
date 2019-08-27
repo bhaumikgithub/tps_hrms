@@ -6,14 +6,28 @@
       </div>
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         
-        <li class="active bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
-        </li>
-         <li><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
-        </li>
-         <li><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
-        </li>
-        <li><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
-        </li>
+        <% if current_user.admin? %>
+
+          <li class="active bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
+          </li>
+           <li><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
+          </li>
+           <li><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+          </li>
+          <li><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
+          </li>
+        <% else %>
+
+          <li class="active bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
+          </li>
+           <li><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
+          </li>
+           <li><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+          </li>
+          <li><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
+          </li>
+
+        <% end %>
        
       </ul>
      

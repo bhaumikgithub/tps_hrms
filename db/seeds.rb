@@ -7,6 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-role = Role.create(name: "Admin")
-Role.create(name: "User")
+role = Role.create(name: "admin")
+Role.create(name: "user")
 User.create(email: 'admin@gmail.com', password: 123456, first_name: 'admin', last_name: 'admin', contact: '1234567890', role_id: role.id, password_confirmation: 123456)

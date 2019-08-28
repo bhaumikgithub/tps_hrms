@@ -38,10 +38,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :comp_email
       t.string :emergency_contact
       t.string :contact
-      t.string :birthday
+      t.date :birthday
       t.string :marital_status
-      t.string :anniversary_date
-      t.string :join_date
+      t.date :anniversary_date
+      t.date :join_date
       t.string :job_status
       t.string :address
       t.string :degree

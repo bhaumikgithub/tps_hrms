@@ -1,0 +1,24 @@
+<div class="col s12">
+  <div class="card">
+    <div class="card-content">
+      <h4 class="card-title">
+      </h4>
+      <div id="calendar"></div>
+    </div>
+  </div>
+</div>
+
+<p>Blue Color: Anniversary</p>
+<p>Green Color: Birthday</p>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      defaultDate: '2019-08-12',
+      editable: false,
+      eventLimit: true,
+      displayEventTime: false,
+      events: '/users/user_data',
+    });
+  });
+</script>

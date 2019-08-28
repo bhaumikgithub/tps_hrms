@@ -40,6 +40,19 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def birthday_anniversary
+  end
+
+  def user_data
+    users = User.all
+    events = []
+    users.each do |user|
+      events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user.birthday ,:end => user.birthday,  color: '#008000' }
+       events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user.anniversary_date ,:end => user.anniversary_date, color: '#0000FF' }
+    end
+    render :json => events.to_json
+  end
+
   private
 
   def user_params

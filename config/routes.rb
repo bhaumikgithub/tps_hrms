@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       post :create_user
+      get :birthday_anniversary
+      get :user_data
     end
   end
   

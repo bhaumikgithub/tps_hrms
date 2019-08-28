@@ -5,11 +5,15 @@
           <div class="card-content">
             <table class="table table-borderless">
               <% @users.each do |user| %>
-                <tr class="user_events" id="<%= user.id %>">
-                  <td><%= user.full_name+ ':' %></td>
+                <tr>
+                  <td id="<%= user.id %>"><%= user.full_name+ ':' %></td>
                   <td><%= ( user.user_leaves.present? ? user.user_leaves.map { |e| (e.leave_array[0].count)*e.leave_array[1]  } : [0] ).sum%></td>
                 </tr>
               <% end %>
+              <tr>
+                <td id=''>All</td>
+                <td></td>
+              </tr>
             </table>
 
           </div>
@@ -28,32 +32,29 @@
 </div>
 
 <script>
+  $(document).on("click", ".table-borderless td", function(e) {
+    var user_id = $(this).attr('id');
+    get_user_events(user_id)
+  }); 
   $(document).ready(function() {
-        $('#calendar').fullCalendar({
-          defaultDate: '2019-08-12',
-          editable: false,
-          eventLimit: true,
-          events: '/leaves/get_events',
-        });
-    $('.user_events').on( "click", function() {
-      // get_user_events();
-      $('#calendar').fullCalendar({
-        defaultDate: '2019-08-12',
-        editable: false,
-        eventLimit: true,
-        events: "/leaves/get_events",
-      });
-    })
-    function get_user_events() {
-      user_id = $('.user_events').attr('id')
-      // $.ajax({
-      //   type: "GET", 
-      //   url: "/leaves/user_events",
-      //   data: {user_id: user_id},
-      //   success: function(data){
-      //   }
-      // })
-    }
+    $('#calendar').fullCalendar({
+      defaultDate: '2019-08-12',
+      editable: false,
+      eventLimit: true,
+      events: '/leaves/get_events',
     });
+  });
+
+  function get_user_events(user_id) {
+    $.ajax({
+      type: "GET", 
+      url: "/leaves/get_events",
+      data: {user_id: user_id},
+      success: function(data){
+        $("#calendar").fullCalendar('removeEvents'); 
+        $("#calendar").fullCalendar('addEventSource', data); 
+      }
+    })
+  }
 
 </script>

@@ -9,7 +9,7 @@ class User < ApplicationRecord
   USER_TYPE = ["Employee", "Consultant", "Trainee"]
   JOB_STATUS = ["Active", "Inactive"]
   # has_many :leaves
-  has_many :user_leaves, class_name: "Leave"
+  has_many :user_leaves, class_name: "Leave", dependent: :destroy
   belongs_to :role
   validates_presence_of :first_name, :last_name, :contact
 

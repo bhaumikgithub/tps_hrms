@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     password = user_password
     role = Role.find_by_name('user')
     @user = User.new(user_params.merge(password: password, role_id: role.id))
+    @user.profile_picture = params[:user][:profile_picture]
     if @user.save
       UserMailer.new_registration(@user.email, password).deliver
       redirect_to users_path
@@ -25,6 +26,7 @@ class UsersController < ApplicationController
 
 
   def update
+    @user.profile_picture = params[:user][:profile_picture]
     if @user.update(user_params)
       redirect_to user_path(@user)
     else

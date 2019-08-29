@@ -3,7 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  belongs_to :company, optional: true 
+  belongs_to :company, optional: true
+  has_one_attached :profile_picture
+
   MARITAL_STATUS =  ["Married", "Single"].freeze
   DEPARTMENT = ["ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Employee", "Consultant", "Trainee"]

@@ -1,13 +1,18 @@
 class UsersController < ApplicationController
 
-  before_action :find_user, only: [:edit, :update, :destroy, :show]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :authenticate_user]
+  before_action :authenticate_user, only:  [:destroy, :show, :update, :edit]
 
   def index
     @users = User.all
   end
 
   def new
-    @user = User.new
+    if  current_user.role.name == 'admin'
+      @user = User.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create_user
@@ -68,6 +73,13 @@ class UsersController < ApplicationController
   end
 
   def find_user
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by(id: params[:id]) || current_user
+  end
+
+  def authenticate_user
+    if @user.id == current_user.id || current_user.role.name == 'admin'
+    else
+      redirect_to root_path
+    end
   end
 end

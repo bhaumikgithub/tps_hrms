@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
 
   MARITAL_STATUS =  ["Married", "Single"].freeze
-  DEPARTMENT = ["ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
+  DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Employee", "Consultant", "Trainee"]
   JOB_STATUS = ["Active", "Inactive"]
   # has_many :leaves

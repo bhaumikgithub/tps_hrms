@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= jquery.dataTables.min
 //= require activestorage
 //= plugins
 //= materialize

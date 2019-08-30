@@ -1,3 +1,4 @@
+
 <% if current_user.admin? %>
   <div class="row">
     <div class="col s12">
@@ -18,7 +19,7 @@
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12">
-                <table>
+                <table class='leave_table'>
                   <thead>
                     <tr>
                       <th>Employee</th>
@@ -59,3 +60,14 @@
 <p>Blue Color: Full day leave</p>
 <p>Black Color: Half day leave</p>
 <p>Green Color: Work from home</p>
+
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+  
+$('.leave_table').DataTable({
+        conditionalPaging: true,
+        responsive: true
+    });
+</script>
+

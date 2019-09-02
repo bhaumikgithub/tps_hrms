@@ -23,12 +23,12 @@
                 <span><b>Basic Details</b></span>
                 <div class="row">
                   <div class="input-field col s6">
-                    <%= f.text_field :first_name,id: "first_name" %><br />
+                    <%= f.text_field :first_name,id: "first_name", class: "validate" %><br />
                     <label for="first_name">First Name</label>
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.text_field :last_name,id: "last_name" %><br />
+                    <%= f.text_field :last_name,id: "last_name" ,class: "validate"%><br />
                     <label for="last_name">Last Name</label>
                   </div>
 
@@ -205,7 +205,6 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    debugger
     if($('.marital_status').val() == 'Married')
       $('.anniversary_date_div').show()
     else

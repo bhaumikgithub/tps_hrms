@@ -1,115 +1,192 @@
-<div class="row">
-  <div class="col s12">
-    <div id="input-fields" class="card card-tabs">
-      <div class="card-content">
-        <div class="card-title">
-          <div class="row">
-            <div class="col s12 m6 l10">
-              <h4 class="card-title">User Profile</h4>
-            </div>
+ <div class="col s12 card-content-link">
+      <div class="card z-depth-0 card-border-gray pb-3">
+        <div class="card-content">
+          <div class="col s12">
+            <br>
+          </div>
+          <div class="col s12 m3">
+            <%=  image_tag(@user&.profile_picture, class: 'responsive-img circle z-depth-5') if @user&.profile_picture&.attached? %>
+          </div>
+          <div class="col s12 m1">
+          </div>
+          <div class="col s12 m6">
+            <h5><%= @user.full_name %></h5>
+            <p><%= @user.designation %></p><br>
+            <p> Wish me on: <b> <%= @user.birthday %> </b></p>
           </div>
         </div>
-        <div id="view-input-fields">
-          <div class="row">
-            <div class="col s12">
-              <div class="col s6">
-                First name: <%= @user.first_name %>
-              </div>
-              <div class="col s6">
-                Last name: <%= @user.last_name %>
-              </div>
-            </div>
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Company email: <%= @user.comp_email %>
-              </div>
-              <div class="col s6">
-                <p>Contact: <%= @user.contact %>
-              </div>
-            </div>
+      </div>
+    </div>
 
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Birthday: <%= @user.birthday %>
-              </div>
-              <div class="col s6">
-                Emergency contact: <%= @user.emergency_contact %>
-              </div>
+
+    <div class="col s12 card-content-link">
+      <div class="card z-depth-0 card-border-gray pb-3">
+        <div class="card-content">
+          <div class="col s12">
+            <h5>Contact Details</h5>
+            <br>
+          </div>
+        
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Email:</b></span>
             </div>
-
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Marital Status: <%= @user.marital_status %>
-              </div>
-              <div class="col s6">
-                Anniversary date: <%= @user.anniversary_date %>
-              </div>
+            <div class="col s12 m3">
+              <span><%= @user.email %></span>
             </div>
-
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Join date: <%= @user.join_date %>
-              </div>
-              <div class="col s6">
-                Job status: <%= @user.job_status %>
-              </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Official Email:</b></span>
             </div>
-
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Address: <%= @user.address %>
-              </div>
-              <div class="col s6">
-                Degree: <%= @user.degree %>
-              </div>
+            <div class="col s12 m3">
+              <span><%= @user.comp_email %></span>
             </div>
-
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Experience: <%= @user.experience %>
-              </div>
-              <div class="col s6">
-                Designation: <%= @user.designation %>
-              </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Mobile:</b></span>
             </div>
-
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Mentor: <%= @user.user_mentor&.full_name %>
-              </div>
-              <div class="col s6">
-                Department: <%= @user.dept %>
-              </div>
+            <div class="col s12 m3">
+              <span><%= @user.contact %></span>
             </div>
-
-            <br><br>
-            <div class="col s12">
-              <div class="col s6">
-                Aadhar card number: <%= @user.adhar_no %>
-              </div>
-              <div class="col s6">
-                PAN number: <%= @user.pan_no %>
-              </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Emergency Mobile:</b></span>
             </div>
-
-            <br><br>
-
-            <div class="col s12">
-              <div class="col s6">
-                <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
-                <%= link_to 'Cancel', users_path, class: 'btn cyan waves-effect waves-light' %>
-              </div>
+            <div class="col s12 m3">
+              <span><%= @user.emergency_contact %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Address</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.address %></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="col s12 card-content-link">
+      <div class="card z-depth-0 card-border-gray pb-3">
+        <div class="card-content">
+          <div class="col s12">
+            <h5>Employment Details</h5>
+            <br>
+          </div>
+        
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Join Date:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.join_date.to_date&.strftime('%d-%m-%Y') %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Status:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.job_status %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Type:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.user_type %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Mentor</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.user_mentor&.full_name %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Department:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.dept %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Experience</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.experience %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Degree</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.degree %></span>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col s12 card-content-link">
+      <div class="card z-depth-0 card-border-gray pb-3">
+        <div class="card-content">
+          <div class="col s12">
+            <h5>KYC Details</h5>
+            <br>
+          </div>
+        
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Adhar Number:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.adhar_no %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Pan Number:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.pan_no %></span>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12">
+      <div class="col s6">
+        <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', users_path, class: 'btn cyan waves-effect waves-light' %>
+      </div>
+    </div>
+    <br>
+    

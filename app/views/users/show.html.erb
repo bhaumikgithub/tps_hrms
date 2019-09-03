@@ -88,7 +88,7 @@
               <span><b>Join Date:</b></span>
             </div>
             <div class="col s12 m3">
-              <span><%= @user.join_date.to_date&.strftime('%d-%m-%Y') %></span>
+              <span><%= @user.join_date&.to_date&.strftime('%d-%m-%Y') %></span>
             </div>
           </div>
           <br>

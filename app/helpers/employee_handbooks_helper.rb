@@ -1,0 +1,2 @@
+module EmployeeHandbooksHelper
+end

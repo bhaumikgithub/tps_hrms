@@ -11,7 +11,6 @@
 //= require app-calendar
   $(document).ready(function(){
     $('.datepicker').datepicker({
-     disableWeekends: true
 
     });
   });

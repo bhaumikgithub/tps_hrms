@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
 
   def update
-    @user.profile_picture = params[:user][:profile_picture]
+    @user.profile_picture = params[:user][:profile_picture] if params[:user][:profile_picture].present?
     if @user.update(user_params)
       redirect_to user_path(@user)
     else

@@ -6,6 +6,8 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   has_one_attached :profile_picture
 
+  validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
+
   MARITAL_STATUS =  ["Married", "Single"].freeze
   DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Employee", "Consultant", "Trainee"]

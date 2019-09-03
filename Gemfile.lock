@@ -282,7 +282,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chromedriver-helper
-  ckeditor (~> 4.1.6)
+  ckeditor
   cloudinary
   coffee-rails (~> 4.2)
   devise

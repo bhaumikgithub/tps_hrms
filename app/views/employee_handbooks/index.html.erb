@@ -1,34 +1,174 @@
-<div class="row">
-    <div class="col s12">
-      <div id="borderless-table" class="card card-tabs">
-        <div class="card-content">
-          <div class="card-title">
-            <div class="row">
-              <div class="col s12 m6 l10">
-                <h3 class="card-title"><b>Employee Handbooks<b></h3>
-              </div>
-              <div class="col s12 m6 l2">
-                <ul class="">
-                  <% if current_user.admin? %>
-                    <li><%= link_to 'ADD', new_employee_handbook_path, class: "btn cyan waves-effect waves-lightc " %></li>
-                  <% end %>
-                </ul>
-              </div>
+<div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Employee Handbook</h4>   
+                        </div>
+                    </div>              
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p>Considering the past and current situations, we would like to share here the generic points about the Company Policy and the Culture</p>
+                            
+                            <ol>
+                                <li><span class="smltitle">Source code :</span>
+                                    <ul>
+                                        <li>Please avoid to use Source code and Live URL of any of the project that you have developed at Techplus Software Pvt. Ltd. </li>
+                                        <li>In-case you need to share somewhere e.g Your own Portfolio/CV, please make sure that you get our permission.</li>
+                                        <li>If you’ve been found using it without our permission, we may take strict action against the person who used it. </li>
+                                        <li>Reason : Many of our Clients have signed a legal NDA with us and we should respect the IT Policy for the same. </li>
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">Use of Mobile, Skype (internal/external unnecessary chats) and Social sites : </span>
+                                    <ul>
+                                        <li>Do not use Mobile extensively during working hours.</li>
+                                        <li>Unnecessary chat (skype/whatsapp) in between the friends (internal or external) is not allowed during the working hours.</li>
+                                        <li>All social media websites (Example: facebook/youtube/whatsapp/twitter) for the entertainment purpose are not allowed during working hours.</li>
+                                        <li>If you’ve been found using it during the working hours without any genuine reason, you will get 2 warnings in private and 3rd warning will be in public and still if there are no improvements, we may have to take serious action against the person.</li>
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">In-Out Timings and office hours : </span>
+                                    <ul>
+                                        <li>Ideal in-time is: 9:30 AM to 10:15 AM. Late by late in-time can be 10:30 AM. Due to some circumstances if you want to come late, you need to take prior approval from the mentors. </li>
+                                        <li>It is compulsory to complete 8:30 working hours from the In-time, excluding lunch break or any other break. </li>
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">Holidays and Saturday off : </span>
+                                    <ul>
+                                        <li>As per Company Policy, every 1st and 3rd Saturday of the Month will be an off day.</li>
+                                        <li>All Sundays are off.</li>
+                                        <li>For the National holidays and Festival holidays we will put the list before a specific month starts. It may be possible we may switch the date for festival on other days. For example, 15th August and 26th January leaves will be given on adjacent working Saturdays. </li>
+                                        <li>
+                                          Holidays of 2018
+                                          <ul>
+                                            <li>Uttarayan - 14 Jan Sunday</li>
+                                            <li>Vasi Uttarayan - 15 Jan Monday</li>
+                                            <li>Republic day - 26 Jan Friday</li>
+                                            <li>Dhuleti - 2 Mar Friday</li>
+                                            <li>Independence day - 15 Aug Wednesday</li>
+                                            <li>Rakshabandhan - 26 Aug Sunday</li>
+                                            <li>Dusherra - 19 Oct Friday</li>
+                                            <li>Diwali - 7 Nov Wed</li>
+                                            <li>Hindu New Year - 8 Nov Thu</li>
+                                            <li>Bhai Duj - 9 Nov Fri</li>
+                                          </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">Leaves : </span>
+                                    <ul>
+                                        <li>Conditions</li>
+                                        <ul>
+                                            <li>Genuine sick leave and emergency leave can be taken immediately.</li>
+                                            <li>For any other leaves, approval is required 5 working days prior the leaves. </li>
+                                            <li>Every month, each person gets 1 free leave. If you do not take leave in that month, it will be carried forward to the next month.</li>
+                                            <li>When you place your resignation, and when you are being considered under Notice Period, your leave Balance will turn to 0. You won’t get monthly free leave during the notice period. </li>
+                                            <li>If you are on leave for continuously 10 calendar days Covered Saturday/Sunday/Holidays will be counted as leave.</li>
+                                            <li>If you are on leave for continuously 10 calendar days containing 1 or more half days Saturday/Sunday/Holidays will be counted as leave.</li>
+                                        </ul>
+                                        <li>We may ask team or individual to come on Saturday</li>
+                                        <ul>
+                                            <li>In case of emergency or unavoidable situation.</li>
+                                            <li>Replacement of leaves / Holidays (e.g if 15th Aug is on weekday then we may activate
+one of the Saturdays to cover up the pending work.)</li>
+                                            <li>Client’s request due to deadline</li>
+                                            <li>Events or Picnic arrangement</li>
+                                        </ul>
+                                        <li>Decision</li>
+                                        <ul>
+                                            <li>If Leave will be approved then it will be deducted from your leave balance. If leave balance is not sufficient, it will be deducted from the salary. 1 leave amount = total salary amount(on paper) / 30 days. </li>
+                                            <li>If leave is rejected and still you have to take a leave, number of rejected leaves will be deducted from the leave balance and also from the salary.</li>
+                                            <li>The approval and rejection of the leave is completely based on the situation of the project in which you are involved and/or mentor’s decision based on your situation/performance/time of taking leave.</li>
+                                        </ul>
+                                        <li>Half Day Consideration </li>
+                                        <ul>
+                                            <li>7:30 working hours or less will be counted as half day.</li>
+                                            <li>If you have taken half day leave, then you must have to complete 4:15 working hours. (Lunch break will not be considered as working hours). If you work &lt; 4:15 hours, it will be considered as Full Day Leave in-place of Half-day. </li>
+                                            <li>For special cases, discuss time flexibility for half/full day with your mentors.</li>
+                                        </ul>
+                                        <li>Special leaves</li>
+                                        <ul>
+                                            <li>Funeral Leaves (Parents/Children/Spouse/Siblings) will be allowed for 5 days in 1 Month. These will neither be deducted from leave balance or salary will not be deducted too.</li>
+                                            <li>3 free Leaves will be allowed for Your Marriage. These will neither be deducted from leave balance or salary will not be deducted too.</li>
+                                            <li>3 free leaves for the new born baby. These will neither be deducted from leave balance or salary will not be deducted too.</li>
+                                            <li>If you have not taken these special leaves then these leaves will not be added as leave balance.</li>
+                                        </ul>
+
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">Notice period :</span>
+                                    <ul>
+                                        <li>Everyone has 2 Months notice period</li>
+                                        <li>Whenever you put your resignation, your leave balance will become 0 and no leave will be allowed during notice period. </li>
+                                        <li>The leave which you’ve taken during notice period will be deducted from salary and we can extend your leaving date to number of taken leaves. </li>
+                                        <li>If you leave the job before 2 Months notice period, you are not eligible to receive an experience letter from the Company. </li>
+                                        <li>If your 10% deducted credits are with us and you place resignation before the given refund-date, you are not eligible to receive deducted amount.</li>
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">Salary, Performance, Bonus and Appraisal  :</span>
+                                    <ul>
+                                        <li>Generally salary will be done in between 5th to 10th Day of the Month.</li>
+                                        <li>It will happen once in a year. In special cases, we can do appraisal middle of it any time which is not fixed.</li>
+                                        <li>Bonus is dependent on the client’s feedback, mentor‘s evaluation and director’s decision.</li>
+                                        <li>Asking or sharing your salary with any of the team members is strictly restricted. We may take action against the person who will be victim of this</li>
+                                        <li>We do not provide additional pay (bonus) during Diwali.</li>
+                                    </ul>
+                                </li>
+                               
+                                <li><span class="smltitle">Other activities  :</span>
+                                   <ul>
+                                        <li>If you want to participate in any group please add your nomination in the suggestion box/complain box. We have following positions available:</li>
+                                        <ul>
+                                            <li>Manage Events – Handle birthday celebration, Saturday event, new year event, tours etc</li>
+                                            <li>Session- Handle session arrangement, survey for the session, arrange session, take feedback of session, bring participants</li>
+                                            <li>Marketing – Handle the social media and other marketing stuff of TPS</li>
+                                            <li>Networking -  Solve network related issues of TPS</li>
+                                            <li>Training – Interview during training, allocate leaders, find projects, assign project and technology, provide proper certificate, choose schedule, handle queries, follow up projects, arrange demo session </li>
+                                            <li>Advisor – Team which take advice from the team to improve company’s culture and environment and convey to the Directors or Mentors. Do the one-to-one meeting with the team members for the opinion. </li>
+                                        </ul>
+                                    </ul>
+                                </li>
+                                <li><span class="smltitle">General Ethics :</span>
+                                    <ul>
+                                        <li>Help each other to grow together</li>
+                                        <li>Work as a team not as an individual</li>
+                                        <li>Give respect to clients and their requirements. </li>
+                                        <li>Do not compromise with quality</li>
+                                        <li>Do not give up for challenging tasks. Successful completion of challenging task makes us standout from crowd. </li>
+                                        <li>Do work within realistic deadline</li>
+
+                                        <li>You should not feel annoyed with the repetitive tasks.</li>
+                                        <li>In Idle time, keep inform to your mentor</li>
+                                        <li>Do the smart work.</li>
+                                        <li>Re-use your code to improve your speed.</li>
+                                        <li>Involve mentor when you tried  at least 4-5 different ways to solve an issue</li>
+                                        <li>Do best in communication.</li>
+                                        <li>Keep inform about status of work to mentors and client everyday.</li>
+                                        <li>If you learn new things, share it with the collegues. You can ask mentor to arrange session.</li>
+                    <li>If you want to learn something, ask your mentor to arrange session for the same</li>
+                                        <li>If you are not happy with the company or any member or you are angry, discuss with the mentors in private only. If you are angry with mentor, you can discuss with mentor’s mentor. If you are angry with director, write in a complain box/suggestion box.</li>
+                                    </ul>
+                                    </li><li><span class="smltitle">Steps for accessing techplusteam.com email :</span>
+                                    <ul>                                    
+                                        <li>Step 1 : Open <a href="https://mail.yandex.com/" target="_blank">https://mail.yandex.com/</a></li>
+                                        <li>Step 2 : Username - your emai id which you can find on the <a href="designation.html" target="_blank">designation.html</a> </li>
+                                        <li>Step 3 : Password as abc@123_4 </li>
+                                        <li>Step 4 : Fill all the correct information </li>
+                                        <li>Step 5 : After checking inbox, go to My Profile from top right user icon. </li>
+                                        <li>Step 6 : Click on change password. Change to your desired secure password and re-login</li>
+                                        <li>Step 7 : Done </li>
+                                    </ul>
+                                    <ul>
+                                    
+                                    <li>Use email regularly because following announcement will be broadcasted</li>
+                                    <ul>
+                                    <li>Salary mail/Salary slip will come on this email id</li>
+                                    <li>Birthday, New Joining and other announcment </li>
+                                    <li>Use this id for the techplus purpose and change in tpstracker too</li>
+                                    <li>You can download application yandex in mobile if you want to access.</li>
+                                    </ul>                             
+                                
+                            </ul></li></ol>
+                        </div>
+                </div>
             </div>
-          </div>
-          <div id="view-borderless-table">
-            <div class="row">
-              <div class="col s12">
-                <% @resources.each do |handbook| %>
-                  <div>
-                    <%= handbook.section %>
-                    <%= handbook.content.html_safe %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>

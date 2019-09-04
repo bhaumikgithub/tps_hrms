@@ -5,11 +5,11 @@
 //= plugins
 //= materialize
 //= vendors.min
-//= require ckeditor/init
 //= require_tree .
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
+//= require ckeditor/init
   $(document).ready(function(){
     var currentYear = (new Date).getFullYear()
     $('.anniversary_date, .birthdate ').datepicker({

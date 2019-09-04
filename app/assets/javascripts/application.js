@@ -10,7 +10,8 @@
 //= require fullcalendar
 //= require app-calendar
   $(document).ready(function(){
+      debugger
     $('.datepicker').datepicker({
-
+      yearRange: [1950,2005],
     });
   });

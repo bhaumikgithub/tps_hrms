@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name, :contact
 
   def full_name
-    if self.first_name
+    if self.first_name && self.last_name
       (self.first_name + ' ' + self.last_name.to_s).humanize
     else
       self.email

@@ -52,7 +52,7 @@ gem 'holidays'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem 'activestorage-validator'
-gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ckeditor', '~> 4.3'
 
 
 group :development, :test do

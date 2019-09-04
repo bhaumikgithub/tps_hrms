@@ -3,6 +3,7 @@
 //= jquery.dataTables.min
 //= require activestorage
 //= plugins
+//= require ckeditor/init
 //= materialize
 //= vendors.min
 //= require_tree .

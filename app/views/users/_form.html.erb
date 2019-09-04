@@ -108,7 +108,7 @@
 
 
         <div class="col s12">
-          <div id="input-fields" class="card card-tabs">
+          <div id="input-fields" class="card card-tabs custom-Card">
             <div class="card-content">
               <div class="card-title">
                 <span><b>Employment Details</b></span>
@@ -141,7 +141,7 @@
                     <label>Mentor</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col s6 custom-dropdown">
                     <%= f.select(:dept, User::DEPARTMENT.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Department</label>
                   </div>
@@ -218,3 +218,10 @@
 
   });
 </script>
+
+
+<style type="text/css">
+  .custom-Card{
+    overflow: visible;
+  }
+</style>

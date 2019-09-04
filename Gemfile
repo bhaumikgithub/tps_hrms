@@ -52,6 +52,7 @@ gem 'holidays'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem 'activestorage-validator'
+gem 'ckeditor'
 
 
 group :development, :test do

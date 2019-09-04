@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/galetahub/ckeditor.git
+  revision: ab55dff215999c6efbb9190459bc84ab2514ea1c
+  specs:
+    ckeditor (5.0.0)
+      orm_adapter (~> 0.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,8 +80,6 @@ GEM
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
-    ckeditor (5.0.0)
-      orm_adapter (~> 0.5.0)
     cloudinary (1.11.1)
       aws_cf_signer
       rest-client
@@ -276,7 +281,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chromedriver-helper
-  ckeditor
+  ckeditor!
   cloudinary
   coffee-rails (~> 4.2)
   devise

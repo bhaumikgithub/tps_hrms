@@ -5,6 +5,7 @@
 //= plugins
 //= materialize
 //= vendors.min
+//= require ckeditor/init
 //= require_tree .
 //= require moment 
 //= require fullcalendar

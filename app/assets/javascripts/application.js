@@ -5,13 +5,17 @@
 //= plugins
 //= materialize
 //= vendors.min
-//= require ckeditor/init
 //= require_tree .
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
+//= require ckeditor/init
   $(document).ready(function(){
-    $('.datepicker').datepicker({
-
+    var currentYear = (new Date).getFullYear()
+    $('.anniversary_date, .birthdate ').datepicker({
+      yearRange: [currentYear - 79,currentYear -14],
+    });
+    $('.join_date').datepicker({
+      yearRange: [currentYear - 100,currentYear],
     });
   });

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_29_092916) do
+ActiveRecord::Schema.define(version: 2019_09_03_111840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,11 +47,19 @@ ActiveRecord::Schema.define(version: 2019_08_29_092916) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "employee_handbooks", force: :cascade do |t|
+    t.string "section"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "holidays", force: :cascade do |t|
     t.string "holiday_name"
     t.datetime "holiday_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "signature"
   end
 
   create_table "leaves", force: :cascade do |t|
@@ -86,10 +94,10 @@ ActiveRecord::Schema.define(version: 2019_08_29_092916) do
     t.string "comp_email"
     t.string "emergency_contact"
     t.string "contact"
-    t.date "birthday"
+    t.string "birthday"
     t.string "marital_status"
-    t.date "anniversary_date"
-    t.date "join_date"
+    t.string "anniversary_date"
+    t.string "join_date"
     t.string "job_status"
     t.string "address"
     t.string "degree"

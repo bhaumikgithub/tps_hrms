@@ -11,8 +11,11 @@
 //= require fullcalendar
 //= require app-calendar
   $(document).ready(function(){
-      debugger
-    $('.datepicker').datepicker({
-      yearRange: [1950,2005],
+    var currentYear = (new Date).getFullYear()
+    $('.anniversary_date, .birthdate ').datepicker({
+      yearRange: [currentYear - 79,currentYear -14],
+    });
+    $('.join_date').datepicker({
+      yearRange: [currentYear - 100,currentYear],
     });
   });

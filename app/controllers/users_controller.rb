@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     role = Role.find_by_name('user')
     @user = User.new(user_params.merge(password: password, role_id: role.id))
     if @user.save
-      UserMailer.new_registration(@user.email, password).deliver
+      UserMailer.new_registration(@user.comp_email, password).deliver
       redirect_to users_path
     else
       puts @user.errors.inspect

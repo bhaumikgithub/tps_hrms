@@ -15,13 +15,13 @@ class User < ApplicationRecord
   # has_many :leaves
   has_many :user_leaves, class_name: "Leave", dependent: :destroy
   belongs_to :role
-  validates_presence_of :first_name, :last_name, :contact
+  validates_presence_of :first_name, :last_name, :contact, :comp_email
 
   def full_name
     if self.first_name && self.last_name
       (self.first_name + ' ' + self.last_name.to_s).humanize
     else
-      self.email
+      self.comp_email
     end
   end
 

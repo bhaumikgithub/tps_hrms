@@ -6,7 +6,9 @@ class Leave < ApplicationRecord
   LEAVE_STATUS = ["pending", "approved"]
   LEAVE_TYPES =  {"full" => '#0000FF', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
 
-  before_save :update_color
+  before_save     :update_color
+  after_create    :update_leave_balance
+  before_destroy  :add_leave_balance
 
   def update_color
     self.color = Leave::LEAVE_TYPES[self.leave_type.downcase]
@@ -34,6 +36,19 @@ class Leave < ApplicationRecord
     else
       0
     end  
+  end
+
+
+  def update_leave_balance
+    leaves = (self.leave_array[0].count)*self.leave_array[1] 
+    balance = self.user.leave_bal - leaves
+    self.user.update(leave_bal: balance) if balance >= 0
+  end
+
+  def add_leave_balance
+    leaves = (self.leave_array[0].count)*self.leave_array[1]
+    balance = self.user.leave_bal + leaves
+    self.user.update(leave_bal: balance) if balance >= 0
   end
 
 

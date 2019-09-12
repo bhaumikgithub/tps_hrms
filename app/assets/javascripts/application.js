@@ -18,4 +18,6 @@
     $('.join_date').datepicker({
       yearRange: [currentYear - 100,currentYear],
     });
+    $('.leave_date, .leave_end_date').datepicker({
+    });
   });

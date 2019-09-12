@@ -1,0 +1,21 @@
+<% if @users.present? %>
+  <div class="col s3 user_leave_count">
+    <div class="card">
+      <div class="card-content">
+        <table class="table table-borderless">
+          <% @users.each do |user| %>
+            <tr>
+              <td id="<%= user.id %>"><%= user.full_name+ ':' %></td>
+              <td><%= ( user.user_leaves.present? ? user.user_leaves.map { |e| (e.leave_array[0].count)*e.leave_array[1]  } : [0] ).sum%></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td id=''>All</td>
+            <td></td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+<% end %>

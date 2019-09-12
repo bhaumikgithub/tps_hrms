@@ -12,6 +12,11 @@ class User < ApplicationRecord
   DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Employee", "Consultant", "Trainee"]
   JOB_STATUS = ["Active", "Inactive"]
+
+
+  scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
+
+  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.day, Date.today.day )}
   # has_many :leaves
   has_many :user_leaves, class_name: "Leave", dependent: :destroy
   belongs_to :role

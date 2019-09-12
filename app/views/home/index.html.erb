@@ -1,1 +1,20 @@
 <h3 class="center">welcome <%= current_user.full_name %></h3>
+
+    <div class="row">
+      <div class="col s4">
+        <div class="card">
+          <div class="card-content">
+            <h5>Leave Balance</h5>
+            <table class="table table-borderless">
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.full_name+ ':' %></td>
+                  <td><%= user.leave_bal > 0 ? user.leave_bal : 0%></td>
+                </tr>
+              <% end %>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>

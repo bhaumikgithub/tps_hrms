@@ -1,1 +1,14 @@
 <h3 class="center">welcome <%= current_user.full_name %></h3>
+<h5><%= User.today_birthday.present? ?  'Todays Birthday' : ''%></h5> 
+
+<% User.today_birthday.each do |user| %>
+  <%= user.full_name %>
+<% end %>
+
+<h5><%= User.upcoming_birthday.present? ?  'Upcoming Birthdays' : ''%></h5> 
+
+
+<% User.upcoming_birthday.each do |user| %>
+  <%= user.full_name %> : <b> <%= user.birthday.strftime('%d-%m-%Y') %></b>
+<% end %>
+

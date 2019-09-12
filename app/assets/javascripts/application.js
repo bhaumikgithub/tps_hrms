@@ -12,10 +12,10 @@
 //= require app-calendar
   $(document).ready(function(){
     var currentYear = (new Date).getFullYear()
-    $('.anniversary_date, .birthdate ').datepicker({
+    $('.birthdate ').datepicker({
       yearRange: [currentYear - 79,currentYear -14],
     });
-    $('.join_date').datepicker({
+    $('.join_date, .anniversary_date').datepicker({
       yearRange: [currentYear - 100,currentYear],
     });
   });

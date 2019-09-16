@@ -9,9 +9,9 @@
 
 
 <% User.upcoming_birthday.each do |user| %>
-  <%= user.full_name %> : <b> <%= user.birthday.strftime('%d-%m-%Y') %></b>
+  <%= user.full_name %> : <b> <%= user.birthday&.strftime('%d-%m-%Y') %></b>
 <% end %>
-<% if Date.parse(current_user.leave_added_on.strftime('%y-%m-%d')) + 1.month <= Date.today  &&  current_user.admin?  %>
+<% if Date.parse(current_user.leave_added_on&.strftime('%y-%m-%d')) + 1.month <= Date.today  &&  current_user.admin?  %>
   <div class="row">
     <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
   </div>

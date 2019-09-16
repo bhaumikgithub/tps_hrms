@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
   get '/designations' => 'home#employee_designation', :as => 'employee_designation'
+  get '/add_leaves' => 'home#add_leave', :as => 'add_leave'
+
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
   resources :roles
   resources :users do

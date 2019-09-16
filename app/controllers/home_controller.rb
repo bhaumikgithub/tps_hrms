@@ -8,4 +8,12 @@ class HomeController < ApplicationController
 
   def employee_designation
   end
+
+  def add_leave
+    Role.where(name: 'user').first.users.each do |user|
+      user.update(leave_bal: user.leave_bal+1, leave_added_on: Date.today)
+    end
+    current_user.update(leave_added_on: Date.today)
+    redirect_to root_path
+  end
 end

@@ -15,6 +15,10 @@
   <div class="row">
     <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
   </div>
+<% elsif !current_user.leave_added_on.present? %>
+  <div class="row">
+    <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
+  </div>
 <% end %>
 
 

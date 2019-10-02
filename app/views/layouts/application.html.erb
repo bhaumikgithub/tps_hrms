@@ -17,11 +17,11 @@
       <%= render "layouts/sidebar" %>
       <div id="main">
         <div class="row">
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
           <div class="col s12">
             <div class="container">
-              <%= yield %>
+              <p class="notice text-danger"><%= notice %></p>
+              <p class="alert alert-warning"><%= alert %></p>
+              <%= yield %> 
             </div>
           </div>
         </div>

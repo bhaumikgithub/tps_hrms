@@ -15,6 +15,10 @@
   <div class="row">
     <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
   </div>
+<% elsif !current_user.leave_added_on.present? %>
+  <div class="row">
+    <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
+  </div>
 <% end %>
 
 
@@ -24,12 +28,16 @@
           <div class="card-content">
             <h5>Leave Balance</h5>
             <table class="table table-borderless">
+            <%  if current_user.admin? %>
               <% @users.each do |user| %>
                 <tr>
                   <td><%= user.full_name+ ':' %></td>
                   <td><%= user.leave_bal.present? ? user.leave_bal > 0 ? user.leave_bal : 0 : '0'%></td>
                 </tr>
               <% end %>
+            <% else %>
+              <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal > 0 ? current_user.leave_bal : 0 : '0'%></td></tr>
+            <% end %>
             </table>
 
           </div>

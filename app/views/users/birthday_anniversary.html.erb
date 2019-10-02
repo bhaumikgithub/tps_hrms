@@ -14,10 +14,13 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#calendar').fullCalendar({
-      defaultDate: '2019-08-12',
       editable: false,
       eventLimit: true,
-      events: '/users/user_data',
+      eventLimit: true,
+      eventSources: [
+        '/users/user_data',
+        '/users/recurring_user_data'
+      ]
     });
   });
 </script>

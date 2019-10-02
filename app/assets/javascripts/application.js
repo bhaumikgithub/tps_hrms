@@ -15,8 +15,9 @@
     $('.birthdate ').datepicker({
       yearRange: [currentYear - 79,currentYear -14],
     });
+      // debugger;
     $('.join_date, .anniversary_date').datepicker({
-      yearRange: [currentYear - 100,currentYear],
+      yearRange: [currentYear - 100,currentYear - 0],
     });
     $('.leave_date, .leave_end_date').datepicker({
     });

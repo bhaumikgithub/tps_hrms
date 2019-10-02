@@ -26,6 +26,14 @@ class LeavesController < ApplicationController
     super
   end
 
+  def create
+    if Leave.exists?(user_id: params[:leave][:user_id], leave_date: params[:leave][:leave_date], end_date: params[:leave][:end_date])
+      redirect_to leaves_path , notice: 'You can not create same entry again'
+    else
+      super
+    end
+  end
+
   private
 
   def resource_class
@@ -37,6 +45,6 @@ class LeavesController < ApplicationController
   end
 
   def resource_params
-    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id, :end_date)
+    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id, :end_date, :status)
   end
 end

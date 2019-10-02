@@ -120,7 +120,7 @@
                   
                   <div class="input-field col s6">
                     <%= f.select(:user_type, User::USER_TYPE.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
-                    <label>Type</label>
+                    <label>Employment Type</label>
                   </div>
 
                   <div class="input-field col s6">
@@ -148,7 +148,7 @@
                  
                   <div class="input-field col s6">
                     <%= f.text_field :experience,id: "experience" %><br />
-                    <label for="experience">Experience</label>
+                    <label for="experience">Total Experience</label>
                   </div>
 
                   <div class="input-field col s6">

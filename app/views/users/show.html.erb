@@ -12,7 +12,7 @@
           <div class="col s12 m6">
             <h5><%= @user.full_name %></h5>
             <p><%= @user.designation %></p><br>
-            <p> Wish me on: <b> <%= @user.birthday %> </b></p>
+            <p> Wish me on: <b> <%= @user.birthday.strftime('%d %b') %> </b></p>
           </div>
         </div>
       </div>
@@ -22,10 +22,7 @@
     <div class="col s12 card-content-link">
       <div class="card z-depth-0 card-border-gray pb-3">
         <div class="card-content">
-          <div class="col s12">
-            <h5>Contact Details</h5>
-            <br>
-          </div>
+          <h5>Contact Details</h5><br>
         
           <div class="row">  
             <div class="col s12 m3">
@@ -78,10 +75,8 @@
     <div class="col s12 card-content-link">
       <div class="card z-depth-0 card-border-gray pb-3">
         <div class="card-content">
-          <div class="col s12">
-            <h5>Employment Details</h5>
-            <br>
-          </div>
+          <h5>Employment Details</h5>
+          <br>
         
           <div class="row">  
             <div class="col s12 m3">
@@ -155,11 +150,8 @@
     <div class="col s12 card-content-link">
       <div class="card z-depth-0 card-border-gray pb-3">
         <div class="card-content">
-          <div class="col s12">
-            <h5>KYC Details</h5>
-            <br>
-          </div>
-        
+          <h5>KYC Details</h5>
+          <br>
           <div class="row">  
             <div class="col s12 m3">
               <span><b>Adhar Number:</b></span>

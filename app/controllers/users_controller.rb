@@ -54,8 +54,22 @@ class UsersController < ApplicationController
     users.each do |user|
       user_birthday = user.birthday.present? ? Date.new(Date.today.year, user.birthday.try(:month), user.birthday.try(:day)) : user.birthday
       user_anniversary = user.anniversary_date.present? ? Date.new(Date.today.year, user.anniversary_date.try(:month), user.anniversary_date.try(:day)) : user.anniversary_date
-      events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user_birthday ,:end => user_birthday,  color: '#008000' }
+      events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user_birthday ,:end => user_birthday,  color: '#008000', repeat: 2 }
        events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user_anniversary ,:end => user_anniversary, color: '#0000FF' }
+    end
+    render :json => events.to_json
+  end
+
+  def recurring_user_data
+    users = User.all
+    events = []
+    users.each do |user|
+      user_birthday = user.birthday.present? ? Date.new(Date.today.year, user.birthday.try(:month), user.birthday.try(:day)) : user.birthday
+      user_anniversary = user.anniversary_date.present? ? Date.new(Date.today.year, user.anniversary_date.try(:month), user.anniversary_date.try(:day)) : user.anniversary_date
+      for i in 1..50 do
+        events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user_birthday+i.year ,:end => user_birthday+i.year,  color: '#008000' } if user_birthday
+        events << {:id => user.id, :title => "#{user.full_name.humanize}", :start => user_anniversary+i.year ,:end => user_anniversary+i.year, color: '#0000FF' } if user_anniversary
+      end
     end
     render :json => events.to_json
   end

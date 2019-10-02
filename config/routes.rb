@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post :create_user
       get :birthday_anniversary
       get :user_data
+      get :recurring_user_data
     end
   end
   

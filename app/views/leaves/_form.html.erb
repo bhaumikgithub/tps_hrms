@@ -21,7 +21,7 @@
 
                    <div class="input-field col s6">
                     <%= f.select(:status, Leave::LEAVE_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => false}, {:class => "some_class"} ) %>
-                    <label>Type</label>
+                    <label>Status</label>
                   </div>
 
                   <div class="input-field col s6">

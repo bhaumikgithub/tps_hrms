@@ -35,7 +35,7 @@
                   <tbody>
                     <% @resources.each do |leave| %>
                       <tr>
-                        <td><%= leave.user&.first_name %></td>
+                        <td class="center"><%= leave.user&.first_name %></td>
                         <td><%= leave.leave_type %></td>
                         <td><%= leave.leave_date&.strftime('%d-%m-%Y') %></td>
                         <td><%= leave.end_date&.strftime('%d-%m-%Y') %></td>

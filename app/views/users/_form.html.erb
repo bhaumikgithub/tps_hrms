@@ -130,7 +130,7 @@
 
 
                   <div class="input-field col s6">
-                    <%= f.text_field :designation,id: "designation" %><br />
+                    <%= f.select(:designation_id, Designation.all.collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="designation">Designation</label>
                   </div>
 
@@ -142,7 +142,7 @@
                   </div>
 
                   <div class="input-field col s6 custom-dropdown">
-                    <%= f.select(:dept, User::DEPARTMENT.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:department_id, Department.all.collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Department</label>
                   </div>
                  
@@ -152,7 +152,7 @@
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.text_field :degree,id: "degree" %><br />
+                     <%= f.select(:degree_id, Degree.all.collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="degree">Degree</label>
                   </div>
 

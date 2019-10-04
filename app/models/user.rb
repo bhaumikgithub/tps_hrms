@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   belongs_to :company, optional: true
   has_one_attached :profile_picture
+  belongs_to :degree
+  belongs_to :department
+  belongs_to :designation
+
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
@@ -42,8 +46,8 @@ class User < ApplicationRecord
   end
 
   def format_experience
-    if self.experience.include? "."
-      experience = self.experience.split(".")
+    if self.experience.to_s.include? "."
+      experience = self.experience.to_s.split(".")
       total_experience = experience[0] + " years " + experience[1] + " months"
     else
       total_experience = self.experience + " years "

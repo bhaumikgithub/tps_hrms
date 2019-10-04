@@ -12,7 +12,7 @@
           <div class="col s12 m6">
             <h5><%= @user.full_name %></h5>
             <p><%= @user.designation %></p><br>
-            <p> Wish me on: <b> <%= @user.birthday.strftime('%d %b') %> </b></p>
+            <p> Wish me on: <b> <%= @user.birthday&.strftime('%d %b') %> </b></p>
           </div>
         </div>
       </div>

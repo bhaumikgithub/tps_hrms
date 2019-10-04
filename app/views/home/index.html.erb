@@ -1,16 +1,4 @@
 <h3 class="center">welcome <%= current_user.full_name %></h3>
-<h5><%= User.today_birthday.present? ?  'Todays Birthday' : ''%></h5> 
-
-<% User.today_birthday.each do |user| %>
-  <%= user.full_name %>
-<% end %>
-
-<h5><%= User.upcoming_birthday.present? ?  'Upcoming Birthdays' : ''%></h5> 
-
-
-<% User.upcoming_birthday.each do |user| %>
-  <%= user.full_name %> : <b> <%= user.birthday&.strftime('%d-%m-%Y') %></b>
-<% end %>
 <% if current_user.admin? %>
   <% if current_user.leave_added_on.present? &&  Date.parse(current_user.leave_added_on&.strftime('%y-%m-%d')) + 1.month <= Date.today    %>
     <div class="row">
@@ -22,27 +10,92 @@
     </div>
   <% end %>
 <% end %>
-
-
-    <div class="row">
-      <div class="col s4">
-        <div class="card">
-          <div class="card-content">
-            <h5>Leave Balance</h5>
-            <table class="table table-borderless">
-            <%  if current_user.admin? %>
-              <% @users.each do |user| %>
-                <tr>
-                  <td><%= user.full_name+ ':' %></td>
-                  <td><%= user.leave_bal.present? ? user.leave_bal > 0 ? user.leave_bal : 0 : '0'%></td>
-                </tr>
-              <% end %>
-            <% else %>
-              <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal > 0 ? current_user.leave_bal : 0 : '0'%></td></tr>
+<div class="col-12">
+  <div class="col-6">
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+          <h5>Leave Balance</h5>
+          <table class="table table-borderless">
+          <%  if current_user.admin? %>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.full_name+ ':' %></td>
+                <td><%= user.leave_bal.present? ? user.leave_bal > 0 ? user.leave_bal : 0 : '0'%></td>
+              </tr>
             <% end %>
-            </table>
+          <% else %>
+            <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal > 0 ? current_user.leave_bal : 0 : '0'%></td></tr>
+          <% end %>
+          </table>
 
-          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="col-3">
+    <% if  User.today_birthday.present? %>
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <h5>Today's Birthday</h5> 
+              <% User.today_birthday.each do |user| %>
+                <%= user.full_name %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+
+  <div class="col-3">
+    <% if  User.upcoming_birthday.present? %>
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <h5>Upcoming Birthdays</h5> 
+              <% User.upcoming_birthday.each do |user| %>
+                <%= user.full_name %> : <b> <%= user.birthday&.strftime('%d %B') %></b><br>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="col-12">
+  <div class="row">
+  <div class="col-6">
+    <% if  User.upcoming_anniversary.present? %>
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <h5>Upcoming Anniversary</h5> 
+              <% User.upcoming_anniversary.each do |user| %>
+                <%= user.full_name %> : <b> <%= user.anniversary_date&.strftime('%d %B') %></b>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  <div class="col-6">
+    <% if  User.upcoming_work_anniversary.present? %>
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <h5>Upcoming Work Anniversary</h5> 
+              <% User.upcoming_work_anniversary.each do |user| %>
+                <%= user.full_name %> : <b> <%= user.join_date&.strftime('%d %B') %></b>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+</div>
+
+
+

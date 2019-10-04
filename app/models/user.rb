@@ -20,11 +20,17 @@ class User < ApplicationRecord
 
   scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
 
-  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.day, Date.today.day )}
+  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.month, Date.today.day )}
+
+  scope :upcoming_anniversary, -> { where( 'EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?',Date.today.month, Date.today.day )}
+
+  scope :upcoming_work_anniversary, -> { where( 'EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) >= ?',Date.today.month, Date.today.day )}
+
+
   # has_many :leaves
   has_many :user_leaves, class_name: "Leave", dependent: :destroy
   belongs_to :role
-  validates_presence_of :first_name, :last_name, :contact, :comp_email
+  validates_presence_of :first_name, :last_name, :contact, :comp_email, :leave_bal
   validates :comp_email, uniqueness: true
 
   def full_name

@@ -30,7 +30,7 @@
                           <td><%= i+1 %></td>
                           <td><%= user.full_name.to_s+' - '+user.email.to_s %></td>
                           <td><%= user.designation.name.humanize %></td>
-                          <td><%= user.try(:user_mentor).try(:name) %></td>
+                          <td><%= user.try(:user_mentor).try(:full_name) %></td>
                         </tr>
                       <% end %>
                     <% end %>

@@ -11,7 +11,7 @@
           </div>
           <div class="col s12 m6">
             <h5><%= @user.full_name %></h5>
-            <p><%= @user.designation.name %></p><br>
+            <p><%= @user.designation&.name %></p><br>
             <p> Wish me on: <b> <%= @user.birthday&.strftime('%d %b') %> </b></p>
           </div>
         </div>
@@ -77,7 +77,26 @@
         <div class="card-content">
           <h5>Employment Details</h5>
           <br>
-        
+          
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Employee Code:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.emp_code%></span>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Gender:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.gender%></span>
+            </div>
+          </div>
+          <br>
           <div class="row">  
             <div class="col s12 m3">
               <span><b>Join Date:</b></span>
@@ -119,7 +138,7 @@
               <span><b>Department:</b></span>
             </div>
             <div class="col s12 m3">
-              <span><%= @user.department.name %></span>
+              <span><%= @user.department&.name %></span>
             </div>
           </div>
           <br>
@@ -137,7 +156,7 @@
               <span><b>Degree</b></span>
             </div>
             <div class="col s12 m3">
-              <span><%= @user.degree.name %></span>
+              <span><%= @user.degree&.name %></span>
             </div>
           </div>
 

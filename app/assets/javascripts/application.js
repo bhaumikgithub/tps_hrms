@@ -19,6 +19,12 @@
     $('.join_date, .anniversary_date').datepicker({
       yearRange: [currentYear - 100,currentYear - 0],
     });
-    $('.leave_date, .leave_end_date').datepicker({
+    $('.leave_date').datepicker();
+    $('.leave_end_date').datepicker({
+      onOpen: function(){
+        var startDate = new Date($("#start_date").val());
+        var instance = M.Datepicker.getInstance($('.leave_end_date'));
+        instance.options.minDate = new Date(startDate);
+      }
     });
   });

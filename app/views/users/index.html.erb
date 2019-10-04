@@ -43,8 +43,8 @@
                         <td><%= user.email %></td>
                         <td><%= user.contact %></td>
                         <th><%= user.join_date&.to_date&.strftime('%d-%m-%Y') %></th>
-                        <td><%= user.designation %></td>
-                        <td><%= user.department %></td>
+                        <td><%= user.try(:designation).try(:name) %></td>
+                        <td><%= user.try(:department).try(:name) %></td>
                         <td><%= user.user_mentor&.full_name %></td>
                         <% if current_user.admin? %>
                           <td><%= link_to 'Edit', edit_user_path(user) %></td>

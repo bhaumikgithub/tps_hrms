@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   end
 
   def employee_designation
+    @departments = Department.all.includes(:users)
   end
 
   def add_leave

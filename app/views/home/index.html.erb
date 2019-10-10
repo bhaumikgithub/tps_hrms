@@ -1,6 +1,6 @@
 <h3 class="center">welcome <%= current_user.full_name %></h3>
 <% if current_user.admin? %>
-  <% if current_user.leave_added_on.present? &&  current_user.leave_added_on.end_of_month >= current_user.leave_added_on.end_of_month + 1.day    %>
+  <% if current_user.leave_added_on.present? &&  current_user.leave_added_on.end_of_month <= current_user.leave_added_on.end_of_month + 1.day    %>
     <div class="row">
       <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
     </div>

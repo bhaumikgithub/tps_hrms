@@ -9,40 +9,40 @@
         <% if current_user.admin? %>
           <li class=" <%= active_class(root_path) %> + bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>
-           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
+           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
           </li>
-           <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+           <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
-          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(designations_path) %> + bold"><%= link_to(designations_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Designation Management</span><% end %>
+          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
           </li>
 
-          <li class=" <%= active_class(degrees_path) %> + bold"><%= link_to(degrees_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Degree</span><% end %>
+          <li class=" <%= active_class(designations_path) %> + bold"><%= link_to(designations_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation Management</span><% end %>
           </li>
 
-          <li class=" <%= active_class(departments_path) %> + bold"><%= link_to(departments_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Department</span><% end %>
+          <li class=" <%= active_class(degrees_path) %> + bold"><%= link_to(degrees_path, class: "waves-effect waves-cyan") do %><i class="material-icons">school</i><span class="menu-title" data-i18n="">Degree</span><% end %>
+          </li>
+
+          <li class=" <%= active_class(departments_path) %> + bold"><%= link_to(departments_path, class: "waves-effect waves-cyan") do %><i class="material-icons">business</i><span class="menu-title" data-i18n="">Department</span><% end %>
           </li>
 
 
         <% else %>
           <li class=" <%= active_class(root_path) %> + bold" ><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>
-           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Users</span><% end %>
+           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
           </li>
-           <li class=" <%= active_class(calender_path) %> + bold"><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+           <li class=" <%= active_class(calender_path) %> + bold"><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
-          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
+          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
           </li>
 
         <% end %>
-         <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
+         <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
           </li>
-          <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
+          <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
           </li>
 
-          <li class=" <%= active_class(employee_designation_path) %> + bold"><%= link_to(employee_designation_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Designation</span><% end %>
+          <li class=" <%= active_class(employee_designation_path) %> + bold"><%= link_to(employee_designation_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation</span><% end %>
           </li>
       </ul>
      

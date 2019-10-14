@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     collection do
       get :get_events
       get :user_events
+      get :leave_filter
     end
   end
   resources :holidays

@@ -23,7 +23,15 @@ class LeavesController < ApplicationController
 
   def index
     @users = User.all.includes(:user_leaves)
-    super
+    @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC').page(params[:page]).per(10)
+  end
+
+  def leave_filter
+    if params[:leave_type] == "Past"
+      @resources = Leave.where("leave_date <= (?)", Date.today).order('created_at DESC').page(params[:page]).per(10)
+    else
+      @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC').page(params[:page]).per(10)
+    end
   end
 
   def create

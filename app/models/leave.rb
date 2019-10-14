@@ -41,7 +41,7 @@ class Leave < ApplicationRecord
 
   def update_leave_balance
     leaves = (self.leave_array[0].count)*self.leave_array[1] 
-    balance = self.user.leave_bal - leaves
+    balance = self.user.leave_bal.to_f - leaves
     self.user.update(leave_bal: balance) if balance >= 0
   end
 

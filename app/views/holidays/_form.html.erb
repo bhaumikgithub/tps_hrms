@@ -14,7 +14,7 @@
             <div class="col s12">
               <%= form_for @resource, class: 'row' do |f| %>
                 <div class="col s12">
-                  <div class="input-field col s12">
+                  <div class="input-field col s12 custom-Card">
                      <%= f.select(:holiday_name, Holiday::HNAMES.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Holiday</label>
                     <%#= f.text_field :holiday_name,id: "holiday_name" %><br />

@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).on("click", ".table-borderless td", function(e) {
     var user_id = $(this).attr('id');
     $('.leave_table').find('tr').removeClass("active_class");
@@ -83,4 +83,33 @@
       }
     })
   }
+</script> -->
+
+<script>
+  $(document).on("click", ".table-borderless td", function(e) {
+    var user_id = $(this).attr('id');
+    $('.leave_table').find('tr').removeClass("active_class");
+    $(this).closest('tr').addClass("active_class");
+    get_user_events(user_id)
+  }); 
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      editable: false,
+      eventLimit: true,
+      events: '/leaves/get_events',
+    });
+  });
+
+  function get_user_events(user_id) {
+    $.ajax({
+      type: "GET", 
+      url: "/leaves/get_events",
+      data: {user_id: user_id},
+      success: function(data){
+        $("#calendar").fullCalendar('removeEvents'); 
+        $("#calendar").fullCalendar('addEventSource', data); 
+      }
+    })
+  }
+
 </script>

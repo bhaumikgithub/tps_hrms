@@ -36,7 +36,7 @@ class LeavesController < ApplicationController
 
   def create
     if Leave.exists?(user_id: params[:leave][:user_id], leave_date: params[:leave][:leave_date], end_date: params[:leave][:end_date])
-      redirect_to leaves_path , notice: 'You can not create same entry again'
+      redirect_to leaves_path , alert: 'You can not create same entry again'
     else
       super
     end

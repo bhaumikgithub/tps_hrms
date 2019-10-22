@@ -26,3 +26,24 @@
   {
     color: red;
   }
+.custom-Card{
+    overflow: visible;
+  }
+  nav.clean {
+  background: none;
+  box-shadow: none;
+}
+nav.clean .breadcrumb {
+  color: black;
+  font-size: 14px;
+}
+nav.clean .breadcrumb:before {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.active_class{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.leave_table{
+  cursor: pointer;
+}

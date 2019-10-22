@@ -6,7 +6,7 @@
     <td><%= leave.end_date&.strftime('%d-%m-%Y') %></td>
     <td><%= (leave.leave_array[0].count)*leave.leave_array[1] %></td>
     <td><%= leave.status %></td>
-    <td><%= leave.approved_by&.first_name %></td>
+    <td><%= (leave.status == 'pending') ?  '-' : leave.approved_by&.first_name %></td>
     <% if leave.end_date > Date.today %>
       <td><%= link_to 'Delete', leafe_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}   %></td>
     <% else %>

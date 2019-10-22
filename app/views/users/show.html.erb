@@ -5,7 +5,9 @@
             <br>
           </div>
           <div class="col s12 m3">
-            <%=  image_tag(@user&.profile_picture, class: 'responsive-img circle z-depth-5') if @user&.profile_picture&.attached? %>
+            <div class="img_wrapper">
+              <%=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5') if @user&.profile_picture&.attached? %>
+            </div>
           </div>
           <div class="col s12 m1">
           </div>

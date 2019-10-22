@@ -1,7 +1,16 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Users", users_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
 <% if @user.errors.any? %>
 <ul>
   <% @user.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+    <li class="red_font_clr"><%= msg %></li>
   <% end %>
 </ul>
 <% end %>

@@ -1,3 +1,12 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Holiday", holidays_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
 <% if @resource.errors.any? %>
 <ul>
   <% @resource.errors.full_messages.each do |msg| %>
@@ -36,7 +45,6 @@
                   <div class="input-field col s12">
                     <%= f.submit 'Submit', class: "btn btn-success" %>
                     <%= link_to("Cancel", holidays_path , class: "btn cyan waves-effect waves-light" ) %>
-
                   </div>
                 </div>
                <% end %>
@@ -55,10 +63,3 @@
     });
   });
 </script>
-
-<style type="text/css">
-  .custom-Card{
-    overflow: visible;
-  }
-</style>
-

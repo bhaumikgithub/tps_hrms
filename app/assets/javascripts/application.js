@@ -11,13 +11,26 @@
 //= require fullcalendar
 //= require app-calendar
   $(document).ready(function(){
+    if($('.marital_status').val() == 'Married')
+      $('.anniversary_date_div').show()
+    else
+      $('.anniversary_date_div').hide()
+    $(".marital_status").on('change', function() {
+      if($('option:selected', this).text() == 'Married')
+        $('.anniversary_date_div').show()
+      else
+        $('.anniversary_date_div').hide()
+    });
     var currentYear = (new Date).getFullYear()
     $('.birthdate ').datepicker({
-      yearRange: [currentYear - 79,currentYear -14],
+      yearRange: [currentYear - 50,currentYear -14],
     });
-      // debugger;
     $('.join_date, .anniversary_date').datepicker({
-      yearRange: [currentYear - 100,currentYear - 0],
+       yearRange: [currentYear - 50,currentYear],
+    });
+     $('.join_date').datepicker({
+
+       yearRange: [2011 ,currentYear],
     });
     $('.leave_date').datepicker();
     $('.leave_end_date').datepicker({
@@ -27,4 +40,5 @@
         instance.options.minDate = new Date(startDate);
       }
     });
+
   });

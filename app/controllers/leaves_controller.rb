@@ -43,15 +43,6 @@ class LeavesController < ApplicationController
   end
 
   def get_user_leaves
-    # start_date = Date.new(params[:year].to_i, params[:month].to_i)
-    # # end_date = Date.new(params[:year].to_i, params[:month].to_i).end_of_month
-    # @test = 'testing'
-    # @user_leaves = {}
-    # User.all.each do |user|
-    #   @user_leaves[user.full_name] = [user.id ,user.user_month_leave(params[:month].to_i, params[:year].to_i)]
-    #   # binding.pry
-    # end
-    # render json: @user_leaves
   end
 
   private

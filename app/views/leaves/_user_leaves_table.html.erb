@@ -1,0 +1,12 @@
+<table class="table table-borderless">
+  <% @user_leaves.each do |k,v| %>
+    <tr>
+      <td id="<%= v[0] %>"><%= k+ ':' %></td>
+      <td><%= v[1]%></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td id=''>All</td>
+    <td></td>
+  </tr>
+</table>

@@ -76,7 +76,7 @@
 
 
                   <div class="input-field col s6 anniversary_date_div">
-                    <label for="birthdate">Anniversary Date</label>
+                    <label for="anniversary_date">Anniversary Date</label>
                     <%= f.text_field :anniversary_date, class: 'datepicker, anniversary_date',id:"anniversary_date" , :value => @user.anniversary_date&.strftime("%d-%m-%Y") %>
                   </div>
 
@@ -185,18 +185,6 @@
           </div>
         </div>
 
-       <!--  <div class="col s12">
-          <div id="input-fields" class="card card-tabs">
-            <div class="card-content">
-              <div class="card-title">
-                <span><b>Basic Details</b></span>
-                <div class="row">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div class="col s12">
           <div id="input-fields" class="card card-tabs">
             <div class="card-content">
@@ -227,23 +215,6 @@
   <% end %>
 </div>
 </div>
-<script type="text/javascript">
-  $(document).ready(function(){
-    if($('.marital_status').val() == 'Married')
-      $('.anniversary_date_div').show()
-    else
-      $('.anniversary_date_div').hide()
-  });
-  $(".marital_status").on('change', function() {
-    if($('option:selected', this).text() == 'Married')
-      $('.anniversary_date_div').show()
-    else
-      $('.anniversary_date_div').hide()
-
-  });
-</script>
-
-
 <style type="text/css">
   .custom-Card{
     overflow: visible;

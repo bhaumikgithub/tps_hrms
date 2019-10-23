@@ -10,6 +10,7 @@
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
+//= require cropping
   $(document).ready(function(){
     var currentYear = (new Date).getFullYear()
     $('.birthdate ').datepicker({

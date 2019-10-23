@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :authenticate_user]
+  skip_before_action :verify_authenticity_token, :only => [:change_profile]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :authenticate_user]
   before_action :authenticate_user, only:  [:destroy, :show, :update, :edit]
 
   def index
@@ -37,6 +37,9 @@ class UsersController < ApplicationController
     end
   end
   
+  def change_profile
+    head :ok
+  end
 
   def destroy
     if @user

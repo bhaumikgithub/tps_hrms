@@ -6,7 +6,7 @@
           </div>
           <div class="col s12 m3">
             <div class="img_wrapper">
-              <%=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5') if @user&.profile_picture&.attached? %>
+              <%=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5', id: "crop_image") if @user&.profile_picture&.attached? %>
             </div>
           </div>
           <div class="col s12 m1">
@@ -15,6 +15,12 @@
             <h5><%= @user.full_name %></h5>
             <p><%= @user.designation&.name %></p><br>
             <p> Wish me on: <b> <%= @user.birthday&.strftime('%d %b') %> </b></p>
+            <p>
+              <a class="custome_style">
+                <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
+                <span id="student_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -201,5 +207,54 @@
         <%= link_to 'Cancel', users_path, class: 'btn cyan waves-effect waves-light' %>
       </div>
     </div>
-    <br>
-    
+    <br> 
+
+  <div id="image_cropping" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Crop Profile image</h4>
+      <div>
+        <div class="">
+          <img id="prof_pic_img" class="">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close btn btn-lg" id="close_modal">Close</a>
+      <%= link_to "Remove", "#", :class => "btn btn-lg btn default" %>
+      <button class="rotate btn btn-lg default ">Rotate</button>
+      <button class="cropbutton btn btn-lg default confirm_btn">Confirm</button>
+    </div>
+  </div>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).on('click','.cropbutton',function(){
+    var canvas = $("#prof_pic_img").cropper('getCroppedCanvas');
+    var dataURL = canvas.toDataURL("image/jpeg");
+    $('#divLoading').show();
+    var closeModal = document.getElementById("close_modal");
+    closeModal.click();
+    blob_url = URL.createObjectURL(dataURItoBlob(dataURL));
+    $('#crop_image').attr('src', dataURL);
+      $.ajax({
+        url: '/users/<%= @user.id %>/change_profile',
+        type: 'PATCH',
+        dataType: 'script',
+        data: {profile_picture: blob_url},
+      })
+      .done(function() {
+         // $('#crop_image').attr('src', dataURL);
+         $('#divLoading').hide();
+        console.log("success");
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      $('#image_cropping').cropper("destroy");
+      });
+  });
+</script>

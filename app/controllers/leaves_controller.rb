@@ -21,16 +21,26 @@ class LeavesController < ApplicationController
     render :json => events.to_json
   end
 
-  def index
+ def index
     @users = User.all.includes(:user_leaves)
-    @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC').page(params[:page]).per(10)
+    @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC')
+    @user_leaves = {}
+    # binding.pry
+    User.all.each do |user|
+      leave = user.user_month_leave(params[:month].to_i, params[:year].to_i)
+      @user_leaves[user.full_name] = [user.id ,leave] if leave > 0
+      # binding.pry
+    end
+    # respond_to do |format|
+    #   format.js
+    # end  
   end
 
   def leave_filter
     if params[:leave_type] == "Past"
-      @resources = Leave.where("leave_date <= (?)", Date.today).order('created_at DESC').page(params[:page]).per(10)
+      @resources = Leave.where("leave_date <= (?)", Date.today).order('created_at DESC')
     else
-      @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC').page(params[:page]).per(10)
+      @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC')
     end
   end
 

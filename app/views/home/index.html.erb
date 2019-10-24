@@ -82,6 +82,7 @@
         </div>
     <% end %>
   </div>
+
   <div class="col-6">
     <% if  User.upcoming_work_anniversary.present? %>
         <div class="col s4">
@@ -96,6 +97,22 @@
         </div>
     <% end %>
   </div>
+
+   <div class="col-6">
+    <% if  @leaves.present? %>
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <h5>Today's Leave</h5> 
+              <% @leaves.each do |leave| %>
+                <%= leave.user.full_name %> : <b> <%= leave.leave_type.humanize  %></b><br>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+
 </div>
 </div>
 

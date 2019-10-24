@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token, :only => [:change_profile]
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :authenticate_user]
+  skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user]
   before_action :authenticate_user, only:  [:destroy, :show, :update, :edit]
 
   def index
@@ -38,7 +38,21 @@ class UsersController < ApplicationController
   end
   
   def change_profile
+    data = params[:profile_picture]
+    @original_filename = "profile_picture.jpg"
+    if data.present?
+      image_data = Base64.decode64(data['data:image/jpeg;base64,'.length .. -1]) if data.include?("data:image/jpeg;base64")
+      new_file=File.new("public/images/#{@original_filename}", 'wb')
+      new_file.write(image_data)
+      @user.profile_picture.attach(io: File.open("public/images/#{@original_filename}"), filename: 'profile_picture.jpg', content_type: 'application/jpg')
+      File.delete("public/images/#{@original_filename}")
+    end
     head :ok
+  end
+
+  def remove_profile
+    @user.profile_picture.purge
+    redirect_to user_path(@user)
   end
 
   def destroy

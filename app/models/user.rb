@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
 
-  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.month, Date.today.day )}
+  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) > ?',Date.today.month, Date.today.day )}
 
   scope :upcoming_anniversary, -> { where( 'EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?',Date.today.month, Date.today.day )}
 

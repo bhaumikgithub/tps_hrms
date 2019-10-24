@@ -3,18 +3,9 @@
       <div class="col s3">
         <div class="card">
           <div class="card-content">
-            <table class="table table-borderless">
-              <% @users.each do |user| %>
-                <tr>
-                  <td id="<%= user.id %>"><%= user.full_name+ ':' %></td>
-                  <td><%= ( user.user_leaves.present? ? user.user_leaves.map { |e| (e.leave_array[0].count)*e.leave_array[1]  } : [0] ).sum%></td>
-                </tr>
-              <% end %>
-              <tr>
-                <td id=''>All</td>
-                <td></td>
-              </tr>
-            </table>
+            <div class="user_leaves_table">
+              
+            </div>
 
           </div>
         </div>
@@ -31,7 +22,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).on("click", ".table-borderless td", function(e) {
     var user_id = $(this).attr('id');
     $('.leave_table').find('tr').removeClass("active_class");
@@ -72,15 +63,71 @@
     });
   });
 
-  // function get_user_events(user_id) {
-  //   $.ajax({
-  //     type: "GET", 
-  //     url: "/leaves/get_events",
-  //     data: {user_id: user_id},
-  //     success: function(data){
-  //       $("#calendar").fullCalendar('removeEvents'); 
-  //       $("#calendar").fullCalendar('addEventSource', data); 
-  //     }
-  //   })
-  // }
+  function get_user_events(user_id) {
+    $.ajax({
+      type: "GET", 
+      url: "/leaves/get_events",
+      data: {user_id: user_id},
+      success: function(data){
+        $("#calendar").fullCalendar('removeEvents'); 
+        $("#calendar").fullCalendar('addEventSource', data); 
+      }
+    })
+  }
+</script> -->
+
+<script>
+  $(document).on("click", ".table-borderless td", function(e) {
+    var user_id = $(this).attr('id');
+    $('.user_leaves_table').find('tr').removeClass("active_class");
+    $(this).closest('tr').addClass("active_class");
+    get_user_events(user_id)
+  }); 
+  // $(document).ready(function() {
+  //   $('#calendar').fullCalendar({
+  //     editable: false,
+  //     eventLimit: true,
+  //     events: '/leaves/get_events',
+  //   });
+  // });
+
+
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      editable: false,
+      eventLimit: true,
+      events: '/leaves/get_events',
+      viewRender : function (view, element) {
+        var date = $("#calendar").fullCalendar('getDate');
+        var month = date.month() + 1;
+        var year = date.year();
+        console.log(month)
+        // debugger
+        $.ajax({
+          type: "GET", 
+          url: "/leaves",
+          data: {month: month, year: year},
+          dataType: 'script',
+          success: function(data){
+            // debugger
+            // console.log(JSON.stringify(data))
+          }
+        })
+      }
+    });
+  });
+
+
+  function get_user_events(user_id) {
+    $.ajax({
+      type: "GET", 
+      url: "/leaves/get_events",
+      data: {user_id: user_id},
+      success: function(data){
+        $("#calendar").fullCalendar('removeEvents'); 
+        $("#calendar").fullCalendar('addEventSource', data); 
+      }
+    })
+  }
+
 </script>

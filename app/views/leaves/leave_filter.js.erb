@@ -5,7 +5,6 @@ $('#leave_table_info').html('');
 $('#leave_table_paginate').html('');
 $('.leave_body').html("<%= escape_javascript(render partial: 'leave', locals: {resources: @resources}) %>");
 $('#leave_table').DataTable({
-  conditionalPaging: true,
   responsive: true
 });
 $('select').formSelect();

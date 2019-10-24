@@ -54,7 +54,6 @@
     </div>
   </div>
 <% end %>
-<%= binding.pry %>
 <%= render 'calender' %>
 
 <p>Red Color: Leave without informed</p>
@@ -68,8 +67,7 @@
 <script type="text/javascript">
   
 $('#leave_table').DataTable({
-  conditionalPaging: true,
-  responsive: true
+    responsive: true
 });
 $('.leave_type_seletbox').on('change', function(){
   var leave_type = $(this).val();

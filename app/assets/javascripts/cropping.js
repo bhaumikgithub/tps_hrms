@@ -18,7 +18,7 @@ function dataURItoBlob(dataURI) {
   return blob;
 }
 
-$(document).on('click', '#student_pic_span', function(){
+$(document).on('click', '#user_pic_span', function(){
   var fileinput = document.getElementById("upload");
   fileinput.click();
 });
@@ -59,9 +59,10 @@ function applyCroppie(){
     viewMode: 1,
     minCanvasWidth: 0,
     minCanvasHeight: 0,
-    minCropBoxWidth: 0,
-    minCropBoxHeight: 0,
+    minCropBoxWidth: 80,
+    minCropBoxHeight: 80,
     minContainerWidth: 200,
-    minContainerHeight: 200
+    minContainerHeight: 200,
+    zoomOnWheel: false
   });
 }

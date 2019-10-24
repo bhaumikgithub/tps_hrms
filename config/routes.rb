@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
   resources :roles
   resources :users do
+    member do
+      patch :change_profile
+      delete :remove_profile
+    end
     collection do
       post :create_user
       get :birthday_anniversary

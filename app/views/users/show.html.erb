@@ -23,7 +23,7 @@
             <p>
               <a class="custome_style">
                 <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
-                <span id="student_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
+                <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
               </a>
               </p>
           </div>
@@ -232,7 +232,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>
 
-
 <script type="text/javascript">
   $(document).on('click','.cropbutton',function(){
     var canvas = $("#prof_pic_img").cropper('getCroppedCanvas');
@@ -248,7 +247,7 @@
       })
       .done(function() {
          $('#crop_image').attr('src', dataURL);
-         $("#student_pic_span").text("Change photo");
+         $("#user_pic_span").text("Change photo");
          $("#remove_profile").show();
          // $('#divLoading').hide();
         console.log("success");

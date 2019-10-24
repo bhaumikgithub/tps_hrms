@@ -58,3 +58,8 @@ nav.clean .breadcrumb:before {
   background-color: #d4edda;
   border-color: #c3e6cb;
 }
+ /* Profile photo css start */
+  #user_pic_span {
+    cursor: pointer;
+  }
+ /* Profile photo css end */

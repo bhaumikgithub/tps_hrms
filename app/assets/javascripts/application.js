@@ -10,6 +10,7 @@
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
+//= require cropping
   $(document).ready(function(){
     if($('.marital_status').val() == 'Married')
       $('.anniversary_date_div').show()

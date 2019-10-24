@@ -23660,6 +23660,13 @@ nav.clean .breadcrumb:before {
     cursor: pointer;
   }
  /* Profile photo css end */
+
+/*datatable font css start*/
+.dataTables_wrapper {
+  font-size: 16px;
+  font-weight: normal;
+}
+/*datatable font css end*/
 /*!
  * FullCalendar v3.9.0
  * Docs & License: https://fullcalendar.io/

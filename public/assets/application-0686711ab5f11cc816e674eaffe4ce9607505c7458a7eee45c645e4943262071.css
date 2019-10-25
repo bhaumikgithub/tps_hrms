@@ -23667,6 +23667,15 @@ nav.clean .breadcrumb:before {
   font-weight: normal;
 }
 /*datatable font css end*/
+
+.float-right-cls {
+  float: right;
+}
+
+.mr-20
+{
+  margin-right: 20px !important;
+}
 /*!
  * FullCalendar v3.9.0
  * Docs & License: https://fullcalendar.io/

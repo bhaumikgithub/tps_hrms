@@ -1,38 +1,40 @@
 <div class="row">
-    <div class="col s12">
-      <div id="borderless-table" class="card card-tabs">
-        <div class="card-content">
-          <div class="card-title">
-            <div class="row">
-              <div class="col s12 m6 l10">
-                <h3 class="card-title"><b>Employee Handbook<b></h3>
-              </div>
-              <div class="col s12 m6 l2">
-                <ul class="">
-                  <li><%= link_to 'ADD', new_employee_handbook_path, class: "btn cyan waves-effect waves-lightc " if current_user.admin? %></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <% @resources.each do |resource| %>
+  <div class="col s12">
+    <div id="borderless-table" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
           <div class="row">
-            <div class="col s12">
-                <div id="borderless-table" class="card card-tabs">
-                  <div class="card-content">
-                    <div class="card-title">
-                      <b><%= resource.section %></b><br><br>
-                      <%= resource.content.html_safe %>
-                    </div>
-                  </div>
-                </div>
+            <div class="col s12 m6 l10">
+              <h3 class="card-title"><b>Employee Handbook<b></h3>
+            </div>
+            <div class="col s12 m6 l2">
+              <ul class="">
+                <li><%= link_to 'ADD', new_employee_handbook_path, class: "btn cyan waves-effect waves-lightc " if current_user.admin? %></li>
+              </ul>
             </div>
           </div>
-        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% @resources.each do |resource| %>
+  <div class="row">
+    <div class="col s12">
+        <div id="borderless-table" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <span class="float-right-cls"><%= link_to "Delete", employee_handbook_path(resource), method: :delete, data: {confirm: "Are you sure?"}   if current_user.admin? %></span>
+              <span class="float-right-cls"><%= link_to "Edit", edit_employee_handbook_path(resource), class: 'mr-20'  if current_user.admin? %></span><br>
+              <b><%= resource.section %></b>
+              <%= resource.content.html_safe %>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+<% end %>
 <!-- <h5>Employee Handbook</h5>
 <ol>
 

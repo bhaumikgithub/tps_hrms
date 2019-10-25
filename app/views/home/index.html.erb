@@ -103,7 +103,7 @@
         <div class="col s4">
           <div class="card">
             <div class="card-content">
-              <h5>Today's Leave</h5> 
+              <h5>Upcoming Leaves</h5> 
               <% @leaves.each do |leave| %>
                 <%= leave.user.full_name %> : <b> <%= leave.leave_type.humanize  %></b><br>
               <% end %>
@@ -112,7 +112,6 @@
         </div>
     <% end %>
   </div>
-
 </div>
 </div>
 

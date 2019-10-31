@@ -23662,9 +23662,9 @@ nav.clean .breadcrumb:before {
  /* Profile photo css end */
 
 /*datatable font css start*/
-.dataTables_wrapper {
-  font-size: 16px;
-  font-weight: normal;
+.dataTables_wrapper, .user_table, #app-calendar {
+  font-size: 16px !important;
+  font-weight: normal !important;
 }
 /*datatable font css end*/
 

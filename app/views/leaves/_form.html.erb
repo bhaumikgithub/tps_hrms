@@ -41,12 +41,12 @@
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.select(:user_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <%= f.select(:user_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Employee</label>
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.select(:approved_by_id, User.all.collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <%= f.select(:approved_by_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
                     <label>Approved By</label>
                   </div>
 

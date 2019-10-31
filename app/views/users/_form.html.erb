@@ -70,7 +70,7 @@
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.select(:marital_status, User::MARITAL_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "marital_status"} ) %>
+                    <%= f.select(:marital_status, User::MARITAL_STATUS.map { |e| [e.humanize, e]  }, {:class => "marital_status"} ) %>
                     <label>Marterial Status</label>
                   </div>
 
@@ -149,19 +149,19 @@
 
 
                   <div class="input-field col s6">
-                    <%= f.select(:designation_id, Designation.all.collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="designation">Designation</label>
                   </div>
 
 
 
                   <div class="input-field col s6">
-                    <%= f.select(:mentor, User.all.collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Mentor</label>
                   </div>
 
                   <div class="input-field col s6 custom-dropdown">
-                    <%= f.select(:department_id, Department.all.collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Department</label>
                   </div>
                  
@@ -171,7 +171,7 @@
                   </div>
 
                   <div class="input-field col s6">
-                     <%= f.select(:degree_id, Degree.all.collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                     <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="degree">Degree</label>
                   </div>
 
@@ -220,3 +220,4 @@
     overflow: visible;
   }
 </style>
+

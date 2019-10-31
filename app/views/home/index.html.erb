@@ -73,7 +73,7 @@
             <div class="card-content">
               <h5>Upcoming Leaves</h5> 
               <% @leaves.each do |leave| %>
-                  <%= leave.leave_date == Date.today ? 'Today' : leave.leave_date.strftime('%d-%b-%y') %> -  <%= leave.leave_type.humanize  %> - <%= leave.user.full_name %> <br>
+                  <%= leave.leave_date == Date.today ? 'Today' : leave.leave_array[0].join(', ') %> -  <%= leave.leave_type.humanize  %> - <%= leave.user.full_name %> <br>
               <% end %>
             </div>
           </div>

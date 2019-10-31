@@ -65,7 +65,7 @@ nav.clean .breadcrumb:before {
  /* Profile photo css end */
 
 /*datatable font css start*/
-.dataTables_wrapper, .user_table, #app-calendar, #borderless-table {
+.dataTables_wrapper, .user_table, #app-calendar, #view-borderless-table {
   font-size: 16px !important;
   font-weight: normal !important;
 }

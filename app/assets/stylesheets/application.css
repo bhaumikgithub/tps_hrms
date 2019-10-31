@@ -65,11 +65,12 @@ nav.clean .breadcrumb:before {
  /* Profile photo css end */
 
 /*datatable font css start*/
-.dataTables_wrapper, .user_table, #app-calendar {
+.dataTables_wrapper, .user_table, #app-calendar, #borderless-table {
   font-size: 16px !important;
   font-weight: normal !important;
 }
 /*datatable font css end*/
+
 
 .float-right-cls {
   float: right;

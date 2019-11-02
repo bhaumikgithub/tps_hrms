@@ -44,4 +44,13 @@ class User < ApplicationRecord
   def user_mentor
     User.find_by(id: self.mentor.to_i)
   end
+
+  def format_experience
+    if self.experience.include? "."
+      experience = self.experience.split(".")
+      total_experience = experience[0] + " years " + experience[1] + " months"
+    else
+      total_experience = self.experience + " years "
+    end
+  end
 end

@@ -128,7 +128,7 @@
               <span><b>Experience</b></span>
             </div>
             <div class="col s12 m3">
-              <span><%= @user.experience %></span>
+              <span><%= @user.experience.present? ? @user.format_experience : "-" %></span>
             </div>
           </div>
           <br>

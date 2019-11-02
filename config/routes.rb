@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   
+
   mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
-  get '/designations' => 'home#employee_designation', :as => 'employee_designation'
+  get '/employee_designations' => 'home#employee_designation', :as => 'employee_designation'
   get '/add_leaves' => 'home#add_leave', :as => 'add_leave'
 
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
@@ -23,6 +24,9 @@ Rails.application.routes.draw do
     end
   end
   resources :holidays
+  resources :degrees
+  resources :departments
+  resources :designations
   resources :employee_handbooks
   get '/calender' => 'leaves#index', :as => 'calender'
   

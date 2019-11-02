@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_052331) do
+ActiveRecord::Schema.define(version: 2019_10_02_115748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,30 @@ ActiveRecord::Schema.define(version: 2019_09_25_052331) do
     t.string "subdomain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "degrees", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_degrees_on_user_id"
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_departments_on_user_id"
+  end
+
+  create_table "designations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_designations_on_user_id"
   end
 
   create_table "employee_handbooks", force: :cascade do |t|
@@ -99,11 +123,8 @@ ActiveRecord::Schema.define(version: 2019_09_25_052331) do
     t.datetime "join_date"
     t.string "job_status"
     t.string "address"
-    t.string "degree"
     t.string "college"
-    t.string "designation"
     t.string "mentor"
-    t.string "dept"
     t.string "adhar_no"
     t.string "pan_no"
     t.string "user_type"
@@ -116,6 +137,9 @@ ActiveRecord::Schema.define(version: 2019_09_25_052331) do
     t.float "experience"
     t.string "gender"
     t.string "emp_code"
+    t.integer "degree_id"
+    t.integer "department_id"
+    t.integer "designation_id"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -123,6 +147,9 @@ ActiveRecord::Schema.define(version: 2019_09_25_052331) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "degrees", "users"
+  add_foreign_key "departments", "users"
+  add_foreign_key "designations", "users"
   add_foreign_key "leaves", "users"
   add_foreign_key "leaves", "users", column: "approved_by_id"
   add_foreign_key "users", "companies"

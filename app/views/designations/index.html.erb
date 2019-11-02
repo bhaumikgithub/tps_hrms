@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12 m6 l10">
+                <h3 class="card-title"><b>Designations<b></h3>
+              </div>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to 'ADD', new_designation_path, class: "btn cyan waves-effect waves-lightc " %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th data-field="id">Name</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |designation| %>
+                      <tr>
+                        <td><%= designation.name %></td>
+                        <td><%= link_to 'Edit', edit_designation_path(designation.id) %></td>
+                        <td><%= link_to 'Delete', designation_path(designation.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   belongs_to :company, optional: true
   has_one_attached :profile_picture
+  has_one :degree
+  has_one :department
+  has_one :designation
+
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 

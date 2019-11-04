@@ -6,7 +6,7 @@
     </div>
   </div>
 </nav>
-<% if current_user.admin? %>
+<% if can? :manage, Leave %>
   <div class="row">
     <div class="col s12">
       <div id="borderless-table" class="card card-tabs">

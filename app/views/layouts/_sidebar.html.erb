@@ -25,7 +25,8 @@
           <li class=" <%= active_class(departments_path) %> + bold"><%= link_to(departments_path, class: "waves-effect waves-cyan") do %><i class="material-icons">business</i><span class="menu-title" data-i18n="">Department</span><% end %>
           </li>
 
-
+          <li class=" <%= active_class(roles_path) %> + bold"><%= link_to(roles_path, class: "waves-effect waves-cyan") do %><i class="material-icons">toll</i><span class="menu-title" data-i18n="">Role</span><% end %>
+          </li>
         <% else %>
           <li class=" <%= active_class(root_path) %> + bold" ><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>

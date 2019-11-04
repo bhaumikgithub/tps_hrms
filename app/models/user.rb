@@ -41,7 +41,7 @@ class User < ApplicationRecord
     end
   end
 
-  ['user', 'admin'].each do |user_role|
+  ['user', 'admin', 'team_leader'].each do |user_role|
     define_method "#{user_role}?" do
       self.role.name == user_role
     end
@@ -63,5 +63,9 @@ class User < ApplicationRecord
   def user_month_leave month, year
     sum = self.user_leaves.where.not(leave_type: 'wfh').where( '(EXTRACT(month FROM leave_date) = ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) = ? AND EXTRACT(year FROM end_date) = ?) ',month, year, month, year ).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
     sum.flatten.compact.count
+  end
+
+  def role_name
+    self&.role&.name
   end
 end

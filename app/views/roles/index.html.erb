@@ -28,7 +28,7 @@
                   <tbody>
                     <% @resources.each do |role| %>
                       <tr>
-                        <td><%= role.name %></td>
+                        <td><%= role.name.to_s&.humanize %></td>
                         <td><%= link_to 'Edit', edit_role_path(role.id) %></td>
                         <td><%= link_to 'Delete', role_path(role.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                       </tr>

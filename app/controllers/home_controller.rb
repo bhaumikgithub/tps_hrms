@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
+  
   def index
-    @users = Role.find_by(name: 'user').users.where(job_status: 'Active')
+    @users = User.where(job_status: 'Active')
     @leaves = Leave.where('leave_date >= ? and leave_date <= ?', Date.today, Date.today + 7.days).order('leave_date ASC')
+    @employees_leaves = Leave.joins(:user).where('leave_date >= ? and leave_date <= ? and mentor = ? ', Date.today, Date.today + 14.days, current_user.id.to_s)
+    @employees_leaves += current_user.user_leaves.where('leave_date >= ? and leave_date <= ?', Date.today, Date.today + 7.days).order('leave_date ASC')
   end
 
   def employee_handbook

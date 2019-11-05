@@ -49,7 +49,7 @@
                         <td><%= link_to_if  current_user.admin? ,user.full_name, user_path(user) %></td>
                         <td><%= user.comp_email %></td>
                         <td><%= user.contact %></td>
-                        <th><%= user.join_date&.to_date&.strftime('%d-%m-%Y') %></th>
+                        <td><%= user.join_date&.to_date&.strftime('%d-%m-%Y') %></td>
                         <td><%= user.try(:designation).try(:name) %></td>
                         <td><%= user.try(:department).try(:name) %></td>
                         <td><%= user.user_mentor&.full_name %></td>
@@ -75,6 +75,6 @@
 $('.user_table').DataTable({
         conditionalPaging: true,
         responsive: true,
-        
+
     });
 </script>

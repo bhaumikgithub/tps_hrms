@@ -26,7 +26,7 @@
                 Today - <%= user.full_name %>
               <% end %><br>
               <% User.upcoming_birthday.each do |user| %>
-                <b> <%= user.birthday&.strftime('%d %b') %></b> - <%= user.full_name %><br>
+                 <%= user.birthday&.strftime('%d %b') %> - <%= user.full_name %><br>
               <% end %>
             </div>
           </div>
@@ -41,7 +41,7 @@
             <div class="card-content">
               <h5>Upcoming Anniversary</h5> 
               <% User.upcoming_anniversary.each do |user| %>
-                 <b> <%=   user.anniversary_date == Date.today ? 'Today' : user.anniversary_date&.strftime('%d %B') %></b> - <%= user.full_name %>
+                  <%=   user.anniversary_date == Date.today ? 'Today' : user.anniversary_date&.strftime('%d %B') %> - <%= user.full_name %>
               <% end %>
             </div>
           </div>
@@ -56,7 +56,7 @@
             <div class="card-content">
               <h5>Upcoming Work Anniversary</h5> 
               <% User.upcoming_work_anniversary.each do |user| %>
-                <b> <%= user.join_date&.strftime('%d %b') %></b> - <%= user.full_name %> <br>
+                 <%= user.join_date&.strftime('%d %b') %> - <%= user.full_name %> <br>
               <% end %>
             </div>
           </div>
@@ -65,21 +65,42 @@
   </div>
 
 </div>
-<div class="col-12">
-   <div class="col-6">
-    <% if  @leaves.present? %>
-        <div class="col s4">
-          <div class="card">
-            <div class="card-content">
-              <h5>Upcoming Leaves</h5> 
-              <% @leaves.each do |leave| %>
-                 <b> <%= leave.leave_date == Date.today ? 'Today' : leave.leave_date.strftime('%d-%b-%y') %> -  <%= leave.leave_type.humanize  %></b> - <%= leave.user.full_name %> <br>
-              <% end %>
+
+<% if current_user.admin? %>
+  <div class="col-12">
+     <div class="col-6">
+      <% if  @leaves.present? %>
+          <div class="col s4">
+            <div class="card">
+              <div class="card-content">
+                <h5>Upcoming Leaves</h5> 
+                <% @leaves.each do |leave| %>
+                    <%= leave.leave_date == Date.today ? 'Today' : leave.leave_array[0].join(', ') %> -  <%= leave.leave_type.humanize  %> - <%= leave.user.full_name %> <br>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+<% end %>
+
+<% if current_user.team_leader? %>
+  <div class="col-12">
+     <div class="col-6">
+      <% if  @leaves.present? %>
+          <div class="col s4">
+            <div class="card">
+              <div class="card-content">
+                <h5>Upcoming Leaves</h5> 
+                <% @employees_leaves.each do |leave| %>
+                    <%= leave.leave_date == Date.today ? 'Today' : leave.leave_array[0].join(', ') %> -  <%= leave.leave_type.humanize  %> - <%= leave.user.full_name %> <br>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+<% end %>
   
   <div class="col-6">
     <div class="col s4">

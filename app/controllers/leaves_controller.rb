@@ -34,6 +34,8 @@ class LeavesController < ApplicationController
   def leave_filter
     if params[:leave_type] == "Past"
       @resources = Leave.where("leave_date <= (?)", Date.today).order('created_at DESC')
+    elsif params[:month].present?
+      @resources = Leave.where('extract(month from leave_date) = (?) AND extract(year from leave_date) = (?)' , params[:month], Date.today.year)
     else
       @resources = Leave.where("leave_date > (?)", Date.today).order('created_at DESC')
     end

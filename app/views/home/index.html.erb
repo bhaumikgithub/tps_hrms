@@ -84,7 +84,7 @@
     </div>
 <% end %>
 
-<% if current_user.team_leader? || current_user.project_manager? %>
+<% if current_user.team_leader? %>
   <div class="col-12">
      <div class="col-6">
       <% if  @leaves.present? %>

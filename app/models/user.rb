@@ -8,6 +8,7 @@ class User < ApplicationRecord
   belongs_to :degree
   belongs_to :department
   belongs_to :designation
+  has_many :employees, :class_name=>"User", :foreign_key=>"mentor"
 
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
@@ -41,7 +42,7 @@ class User < ApplicationRecord
     end
   end
 
-  ['user', 'admin', 'team_leader'].each do |user_role|
+  Role.pluck(:name).each do |user_role|
     define_method "#{user_role}?" do
       self.role.name == user_role
     end

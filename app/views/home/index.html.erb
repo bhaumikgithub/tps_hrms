@@ -93,7 +93,7 @@
               <div class="card-content">
                 <h5>Upcoming Leaves</h5> 
                 <% @employees_leaves.each do |leave| %>
-                    <%= leave.leave_date == Date.today ? 'Today' : leave.leave_array[0].join(', ') %> -  <%= leave.leave_type.humanize  %> - <%= leave.user.full_name %> <br>
+                    <span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> -  <span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span> - <%= leave.user.first_name %> <br>
                 <% end %>
               </div>
             </div>

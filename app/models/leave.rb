@@ -30,6 +30,34 @@ class Leave < ApplicationRecord
     end
   end
 
+  def shorten_leave
+    start_date = self.leave_date.to_date
+    end_date = self.end_date.to_date
+    if start_date.strftime("%b") == end_date.strftime("%b")
+      same_leave_month(start_date, end_date)
+    else
+      diff_leave_month(start_date, end_date)
+    end
+  end
+
+  def same_leave_month(start_date, end_date)
+    if (start_date..end_date).count == 1
+      start_date.strftime("%d %b")
+    elsif (start_date..end_date).count == 2
+      start_date.strftime("%d") + " & " + end_date.strftime("%d %b")
+    else
+      start_date.strftime("%d") + " to " + end_date.strftime("%d %b")
+    end
+  end
+
+  def diff_leave_month(start_date, end_date)
+    if (start_date..end_date).count == 2
+      start_date.strftime("%d %b") + " & " + end_date.strftime("%d %b")
+    else
+      start_date.strftime("%d %b") + " to " + end_date.strftime("%d %b")
+    end
+  end
+
   def leave_index
     if ['full', 'not informed'].include? self.leave_type
       1

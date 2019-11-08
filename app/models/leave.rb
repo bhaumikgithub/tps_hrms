@@ -4,13 +4,15 @@ class Leave < ApplicationRecord
 
   # enum leave_type: [:full, :first_half, :second_half, :not_informed, :wfh]
   LEAVE_STATUS = ["pending", "approved"]
-  LEAVE_TYPES =  {"full" => '#0000FF', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
+  LEAVE_TYPES =  {"full day" => '#0000FF', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
 
   before_save     :update_color
   after_create    :update_leave_balance
   before_destroy  :add_leave_balance
 
   validates_presence_of :leave_date, :end_date
+
+
 
   def update_color
     self.color = Leave::LEAVE_TYPES[self.leave_type.downcase]
@@ -59,7 +61,7 @@ class Leave < ApplicationRecord
   end
 
   def leave_index
-    if ['full', 'not informed'].include? self.leave_type
+    if ['full day', 'not informed'].include? self.leave_type
       1
     elsif ['first half', 'second half'].include? self.leave_type
       0.5

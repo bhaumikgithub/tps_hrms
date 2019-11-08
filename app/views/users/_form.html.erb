@@ -181,7 +181,7 @@
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.select(:role_id, Role.all.collect{|p| [p.name&.humanize, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:role_id, Role.all.order('name').collect{|p| [p.name&.humanize, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="designation">Role</label>
                   </div>
                 </div>

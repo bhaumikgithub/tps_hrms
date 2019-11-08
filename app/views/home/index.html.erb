@@ -1,4 +1,4 @@
-<h3 class="center">welcome <%= current_user.full_name %></h3>
+<h3 class="center">Welcome <%= current_user.full_name %></h3>
 <% if current_user.admin? %>
   <% if current_user.leave_added_on.present? %>
     <% if current_user.leave_added_on.month != Date.today.month  %>
@@ -21,13 +21,15 @@
         <div class="col s4">
           <div class="card">
             <div class="card-content">
-              <h5>Upcoming Birthdays</h5> 
-               <% User.today_birthday.each do |user| %>
-                Today - <%= user.full_name %>
-              <% end %><br>
+              <table class="table table-borderless">
+              <span class="font-22">Upcoming Birthdays</span> 
               <% User.upcoming_birthday.each do |user| %>
-                 <%= user.birthday&.strftime('%d %b') %> - <%= user.full_name %><br>
+                <tr>
+                  <td><span class="red-text text-darken-2"><%= user.birthday == Date.today ? 'Today' : user.birthday&.strftime('%d %b') %></span></td>
+                  <td><%= user.full_name %></td>
+                </tr>
               <% end %>
+            </table>
             </div>
           </div>
         </div>
@@ -39,10 +41,15 @@
         <div class="col s4">
           <div class="card">
             <div class="card-content">
-              <h5>Upcoming Anniversary</h5> 
-              <% User.upcoming_anniversary.each do |user| %>
-                  <%=   user.anniversary_date == Date.today ? 'Today' : user.anniversary_date&.strftime('%d %B') %> - <%= user.full_name %>
-              <% end %>
+              <table class="table table-borderless">
+                <span class="font-22">Upcoming Anniversary</span> 
+                <% User.upcoming_anniversary.each do |user| %>
+                  <tr>
+                    <td><span class="red-text text-darken-2"><%= user.anniversary_date == Date.today ? 'Today' : user.anniversary_date&.strftime('%d %B') %></span></td>
+                    <td><%= user.full_name %></td>
+                  </tr>
+                <% end %>
+              </table>
             </div>
           </div>
         </div>
@@ -54,10 +61,15 @@
         <div class="col s4">
           <div class="card">
             <div class="card-content">
-              <h5>Upcoming Work Anniversary</h5> 
-              <% User.upcoming_work_anniversary.each do |user| %>
-                 <%= user.join_date&.strftime('%d %b') %> - <%= user.full_name %> <br>
-              <% end %>
+              <table class="table table-borderless">
+                <span class="font-22">Upcoming Work Anniversary</span> 
+                <% User.upcoming_work_anniversary.each do |user| %>
+                  <tr>
+                    <td><span class="red-text text-darken-2"><%= user.join_date&.strftime('%d %b') %></span></td>
+                    <td><%= user.full_name.titleize %></td> 
+                  </tr>
+                <% end %>
+              </table>
             </div>
           </div>
         </div>
@@ -65,24 +77,27 @@
   </div>
 
 </div>
-
-<% if current_user.admin? %>
-  <div class="col-12">
-     <div class="col-6">
-      <% if  @leaves.present? %>
-          <div class="col s4">
-            <div class="card">
-              <div class="card-content">
-                <h5>Upcoming Leaves</h5> 
-                <% @leaves.each do |leave| %>
-                    <span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> -  <span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span> - <%= leave.user.first_name %> <br>
-                <% end %>
+  <% if current_user.admin? %>
+    <div class="col-12">
+       <div class="col-6">
+        <% if  @leaves.present? %>
+            <div class="col s4">
+              <div class="card">
+                <div class="card-content">
+                  <table class="table table-borderless">
+                    <span class="font-22">Upcoming Leaves</span> 
+                    <% @leaves.each do |leave| %>
+                      <tr>
+                        <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span></td>  <td>  <span class="black-text text-darken-2"><%= leave.leave_type.titleize  %></span> </td> <td> <%= leave.user.first_name.humanize %> </td>
+                      </tr>
+                    <% end %>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
-      <% end %>
-    </div>
-<% end %>
+        <% end %>
+      </div>
+  <% end %>
 
 <% if current_user.team_leader? %>
   <div class="col-12">
@@ -91,10 +106,16 @@
           <div class="col s4">
             <div class="card">
               <div class="card-content">
-                <h5>Upcoming Leaves</h5> 
-                <% @employees_leaves.each do |leave| %>
-                    <span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> -  <span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span> - <%= leave.user.first_name %> <br>
-                <% end %>
+                <span class="font-22">Upcoming Leaves</span> 
+                <table class="table table-borderless">
+                  <% @employees_leaves.each do |leave| %>
+                    <tr>
+                      <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td>
+                      <td><span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span></td>
+                      <td><%= leave.user.first_name.humanize %></td>
+                    </tr>
+                  <% end %>
+                </table>
               </div>
             </div>
           </div>
@@ -106,12 +127,12 @@
     <div class="col s4">
       <div class="card">
         <div class="card-content">
-          <h5>Leave Balance</h5>
+          <span class="font-22">Leave Balance</span>
           <table class="table table-borderless">
           <%  if current_user.admin? %>
             <% @users.each do |user| %>
               <tr>
-                <td><%= user.full_name+ ':' %></td>
+                <td><%= user.full_name.titleize + ':' %></td>
                 <td><%= user.leave_bal.present? ? user.leave_bal > 0 ? user.leave_bal : 0 : '0'%></td>
               </tr>
             <% end %>

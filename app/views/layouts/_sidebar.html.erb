@@ -1,8 +1,10 @@
  <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
       <div class="brand-sidebar">
-        <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html">
+        <h1 class="logo-wrapper">
+          <%= link_to root_path , class: "brand-logo darken-1" do %>
+          <!-- <a class="brand-logo darken-1" href="index.html"> -->
           <%#= image_tag("logo.jpeg", height: '50', width: '160') %>
-          <span class="logo-text hide-on-med-and-down">TPS HRMS</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+          <span class="logo-text hide-on-med-and-down">TPS HRMS</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i><% end %></h1>
       </div>
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         

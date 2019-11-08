@@ -27,7 +27,7 @@
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12">
-                <table  id="scroll-vert-hor" class="display nowrap">
+                <table id="user_table" >
                   <thead>
                     <tr>
                       <th></th>
@@ -37,6 +37,7 @@
                       <th>Joining Date</th>
                       <th>Designation</th>
                       <th>Department</th>
+                      <th>Employee Type</th>
                       <th>Mentor</th>
                       <th></th>
                       <th></th>
@@ -52,6 +53,7 @@
                         <td><%= user.join_date&.to_date&.strftime('%d-%m-%Y') %></td>
                         <td><%= user.try(:designation).try(:name) %></td>
                         <td><%= user.try(:department).try(:name) %></td>
+                        <td><%= user.user_type.humanize %></td>
                         <td><%= user.user_mentor&.full_name %></td>
                         <% if current_user.admin? %>
                           <td><%= link_to 'Edit', edit_user_path(user) %></td>
@@ -68,13 +70,16 @@
       </div>
     </div>
 </div>
-
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
   
-$('.user_table').DataTable({
-        conditionalPaging: true,
-        responsive: true,
-
+$('#user_table').DataTable({
+        responsive: true
     });
 </script>
+<style type="text/css">
+  .card
+  {
+    overflow: auto !important
+  }
+</style>

@@ -7,7 +7,7 @@
             </div> -->
             <ul class="navbar-list right">
              
-              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><%= image_tag("avatar.png", height: '50', width: '160') %><i></i></span></a></li>
+              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><%= image_tag(current_user.profile_picture.present? ? current_user.profile_picture : "avatar.png", height: '100', width: '100') %><i></i></span></a></li>
               
             </ul>
             

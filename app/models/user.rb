@@ -15,13 +15,13 @@ class User < ApplicationRecord
 
   MARITAL_STATUS =  ["Married", "Single"].freeze
   DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
-  USER_TYPE = ["Employee", "Consultant", "Trainee"]
+  USER_TYPE = ["Consultant",  "Director", "Employee", "Trainee",]
   JOB_STATUS = ["Active", "Inactive"]
 
 
-  scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
+  # scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
 
-  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) > ?',Date.today.month, Date.today.day )}
+  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.month, Date.today.day ).order('birthday DESC')}
 
   scope :upcoming_anniversary, -> { where( 'EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?',Date.today.month, Date.today.day )}
 

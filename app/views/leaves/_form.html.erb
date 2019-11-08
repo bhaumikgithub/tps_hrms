@@ -40,12 +40,12 @@
                     <label>Status</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col s6 custom-dropdown">
                     <%= f.select(:user_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "employee"} ) %>
                     <label>Employee</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col s6 custom-dropdown">
                     <%= f.select(:approved_by_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "mentor"} ) %>
                     <label>Approved By</label>
                   </div>

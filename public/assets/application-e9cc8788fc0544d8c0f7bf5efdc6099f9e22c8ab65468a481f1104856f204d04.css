@@ -23677,6 +23677,12 @@ nav.clean .breadcrumb:before {
 {
   margin-right: 20px !important;
 }
+
+.font-22
+{
+  font-size: 22px;
+  color: #232b2b;
+}
 /*!
  * FullCalendar v3.9.0
  * Docs & License: https://fullcalendar.io/

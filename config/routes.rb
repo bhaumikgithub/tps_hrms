@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get :user_events
       get :leave_filter
       get :get_user_leaves
+      get :get_mentor
     end
   end
   resources :holidays

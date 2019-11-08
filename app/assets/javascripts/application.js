@@ -12,11 +12,11 @@
 //= require app-calendar
 //= require cropping
   $(document).ready(function(){
-    if($('.marital_status').val() == 'Married')
+    if($('#user_marital_status').val() == 'Married')
       $('.anniversary_date_div').show()
     else
       $('.anniversary_date_div').hide()
-    $(".marital_status").on('change', function() {
+    $("#user_marital_status").on('change', function() {
       if($('option:selected', this).text() == 'Married')
         $('.anniversary_date_div').show()
       else

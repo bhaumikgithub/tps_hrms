@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user, only:  [:destroy, :show, :update, :edit]
 
   def index
-    @users = User.all
+    @users = User.all.order('first_name ASC')
   end
 
   def new

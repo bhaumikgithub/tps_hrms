@@ -41,12 +41,12 @@
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.select(:user_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <%= f.select(:user_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "employee"} ) %>
                     <label>Employee</label>
                   </div>
 
                   <div class="input-field col s6">
-                    <%= f.select(:approved_by_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <%= f.select(:approved_by_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "mentor"} ) %>
                     <label>Approved By</label>
                   </div>
 
@@ -81,5 +81,19 @@
 <script type="text/javascript">
     $("#start_date").change(function(){
       $('#end_date').val($("#start_date").val())
+    });
+    $('.employee').on('change', function (e) {
+      var valueSelected = this.value;
+      $.ajax({
+        url:  "/leaves/get_mentor",
+        dataType: "json",
+        data: {
+           emp_id:valueSelected
+        },
+        success: function(data) { 
+          $('.mentor').val(data)
+          $('select').formSelect()
+        }
+      });
     });
 </script>

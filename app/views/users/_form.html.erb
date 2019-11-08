@@ -26,7 +26,7 @@
     <div class="col s12">
       <%= form_for @user, :url => url_for(:controller => 'users', :action => params['id'].present?  ? 'update' : 'create_user') do |f| %>
         <div class="col s12">
-          <div id="input-fields" class="card card-tabs">
+          <div id="input-fields" class="card card-tabs O-visible">
             <div class="card-content">
               <div class="card-title">
                 <span><b>Basic Details</b></span>
@@ -127,7 +127,7 @@
 
 
         <div class="col s12">
-          <div id="input-fields" class="card card-tabs custom-Card">
+          <div id="input-fields" class="card card-tabs O-visible">
             <div class="card-content">
               <div class="card-title">
                 <span><b>Employment Details</b></span>
@@ -221,8 +221,6 @@
 </div>
 </div>
 <style type="text/css">
-  .custom-Card{
-    overflow: visible;
-  }
+  
 </style>
 

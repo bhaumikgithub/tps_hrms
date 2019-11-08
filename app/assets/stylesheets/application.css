@@ -86,3 +86,7 @@ nav.clean .breadcrumb:before {
   font-size: 22px;
   color: #232b2b;
 }
+
+.O-visible{
+  overflow: visible;
+}

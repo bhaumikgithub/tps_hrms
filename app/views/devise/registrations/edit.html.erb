@@ -19,9 +19,18 @@
 
             <div class="row">
               <div class="input-field col s12">
-                <i class="material-icons prefix">email</i>
+                <i class="material-icons prefix">lock_outline</i>
+                <%= f.password_field :current_password, autocomplete: "current-password", id:'current_password' %>
+                <label for="current_password">Current Password</label>
+                <i>(we need your current password to confirm your changes)</i><br />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock_outline</i>
                 <%= f.password_field :password, autocomplete: "password" , id: "password"%>
-                <label for="password">Password</label>
+                <label for="password">New Password</label>
 
                
               </div>
@@ -30,18 +39,10 @@
               <div class="input-field col s12">
                 <i class="material-icons prefix">lock_outline</i>
                 <%= f.password_field :password_confirmation, autocomplete: "password_new" , id: "password_new"%>
-                <label for="password_new">New Password</label>
+                <label for="password_new">Confirm New Password</label>
               </div>
             </div>
 
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">lock_outline</i>
-                <%= f.password_field :current_password, autocomplete: "current-password", id:'current_password' %>
-                <label for="current_password">Current Password</label>
-                <i>(we need your current password to confirm your changes)</i><br />
-              </div>
-            </div>
               <div class="row">
                 <div class="input-field col s12">
                    <%= f.submit "Update", class: 'btn success waves-effect waves-light right' %>

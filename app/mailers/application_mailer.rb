@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'hr@techplus.com'
+  default from: 'hr@techplussoftware.com'
   layout 'mailer'
 end

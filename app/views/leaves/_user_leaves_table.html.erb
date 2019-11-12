@@ -7,6 +7,6 @@
   <% end %>
   <tr>
     <td id=''>All</td>
-    <td></td>
+    <td><%= @user_leaves.values.transpose.map{|e| e.inject(:+)}[1]%></td>
   </tr>
 </table>

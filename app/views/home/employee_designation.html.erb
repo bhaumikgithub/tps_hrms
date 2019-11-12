@@ -18,6 +18,7 @@
                     <tr>
                       <th data-field="id">Id</th>
                       <th data-field="id">Name</th>
+                      <th data-field="id">Email</th>
                       <th data-field="name">Designation</th>
                       <th data-field="price">Mentor Name</th>
                     </tr>
@@ -28,7 +29,8 @@
                       <% dept.users.each_with_index do |user,i| %>
                         <tr>
                           <td><%= i+1 %></td>
-                          <td><%= user.full_name.to_s+' - '+user.comp_email.to_s %></td>
+                          <td><%= user.full_name.to_s %></td>
+                          <td><%= user.comp_email.to_s  %></td>
                           <td><%= user.designation.name.humanize %></td>
                           <td><%= user.try(:user_mentor).try(:full_name) %></td>
                         </tr>

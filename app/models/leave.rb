@@ -10,6 +10,8 @@ class Leave < ApplicationRecord
   after_create    :update_leave_balance
   before_destroy  :add_leave_balance
 
+  validates_presence_of :leave_date, :end_date
+
   def update_color
     self.color = Leave::LEAVE_TYPES[self.leave_type.downcase]
     true

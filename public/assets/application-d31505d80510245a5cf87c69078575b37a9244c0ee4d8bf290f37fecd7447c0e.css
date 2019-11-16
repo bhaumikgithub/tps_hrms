@@ -23619,6 +23619,10 @@ tr.group:hover
 .select_width{
   width: 230px;
 }
+.red_font_clr
+  {
+    color: red;
+  }
 /*!
  * FullCalendar v3.9.0
  * Docs & License: https://fullcalendar.io/

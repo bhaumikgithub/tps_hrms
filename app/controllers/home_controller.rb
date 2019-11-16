@@ -12,8 +12,8 @@ class HomeController < ApplicationController
 
   def add_leave
     Role.where(name: 'user').first.users.each do |user|
-      leave_bal = user.leave_bal.present? ? user.leave_bal : 0
-      # user.update(leave_bal: leave_bal, leave_added_on: Date.today)
+      leave_bal = user.leave_bal.present? ? user.leave_bal + 1 : 0
+      user.update(leave_bal: leave_bal, leave_added_on: Date.today)
     end
     current_user.leave_added_on = Date.today
     current_user.save(validate: false)

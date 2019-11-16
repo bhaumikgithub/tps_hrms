@@ -1,3 +1,10 @@
+<% if @resource.errors.any? %>
+<ul>
+  <% @resource.errors.full_messages.each do |msg| %>
+    <li class="red_font_clr"><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
 <div class="row">
   <div class="col s12">
     <div id="input-fields" class="card card-tabs">

@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+  load_and_authorize_resource
+  skip_authorize_resource :only => :birthday_anniversary
+  
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
   before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user]
   before_action :authenticate_user, only:  [:destroy, :show, :update, :edit]

@@ -7,8 +7,14 @@ class Ability
     @user = user || User.new
     if @user.team_leader? || @user.admin?
         can [:read, :manage], Leave
+        can :manage, User
+        can :manage, Holiday
     else
         can :read, Leave
+        can :read, User
+        can :read, Holiday
+
+
     end
     # Define abilities for the passed in user here. For example:
     #

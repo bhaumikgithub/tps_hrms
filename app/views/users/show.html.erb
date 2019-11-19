@@ -12,20 +12,19 @@
                 <%= image_tag("avatar.png", class: 'responsive-img  z-depth-5', id: "crop_image") %>
               <% end %>
               <%= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}%>
+              <a class="custome_style">
+                <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
+                <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
+              </a>
             </div>
           </div>
           <div class="col s12 m1">
           </div>
           <div class="col s12 m6">
             <h5><%= @user.full_name %></h5>
-            <p><%= @user.designation&.name %></p><br>
+            <p><%= @user.designation&.name %></p>
+            <%= @user.job_status %>
             <p> Wish me on: <b> <%= @user.birthday&.strftime('%d %b') %> </b></p><br>
-            <p>
-              <a class="custome_style">
-                <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
-                <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
-              </a>
-              </p>
           </div>
         </div>
       </div>
@@ -121,6 +120,15 @@
           <br>
           <div class="row">  
             <div class="col s12 m3">
+              <span><b>Degree</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= @user.degree&.name %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
               <span><b>Status:</b></span>
             </div>
             <div class="col s12 m3">
@@ -173,14 +181,7 @@
             </div>
           </div>
           <br>
-          <div class="row">  
-            <div class="col s12 m3">
-              <span><b>Degree</b></span>
-            </div>
-            <div class="col s12 m3">
-              <span><%= @user.degree&.name %></span>
-            </div>
-          </div>
+          
 
 
         </div>
@@ -219,6 +220,7 @@
     <div class="col s12">
       <div class="col s6">
         <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' if current_user.admin? %>
+        <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2',  method: :delete, data: {confirm: "Are you sure?"} %>
         <%= link_to 'Cancel', users_path, class: 'btn cyan waves-effect waves-light' %>
       </div>
     </div>

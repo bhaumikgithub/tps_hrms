@@ -90,3 +90,8 @@ nav.clean .breadcrumb:before {
 .O-visible{
   overflow: visible;
 }
+
+.custome_style{
+
+  margin-left: 10px;
+}

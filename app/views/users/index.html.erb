@@ -30,35 +30,31 @@
                 <table id="user_table" >
                   <thead>
                     <tr>
-                      <th></th>
-                      <th data-field="id">Name</th>
-                      <th>Official Email</th>
+                      <!-- <th></th> -->
+                      <th>Name</th>
+                      <!-- <th>Official Email</th> -->
                       <th>Mobile</th>
                       <th>Joining Date</th>
                       <th>Designation</th>
-                      <th>Department</th>
-                      <th>Employee Type</th>
+                      <th>Dept</th>
+                      <th>Type</th>
                       <th>Mentor</th>
-                      <th></th>
-                      <th></th>
+                      <!-- <th></th>
+                      <th></th> -->
                     </tr>
                   </thead>
                   <tbody>
                     <% @users.each do |user| %>
                       <tr>
-                        <td><%=  image_tag(user&.profile_picture.variant(resize: "50x50"), class: 'responsive-img z-depth-5') if user&.profile_picture&.attached? %></td>
+                        <!-- <td><%#=  image_tag(user&.profile_picture.variant(resize: "50x50"), class: 'responsive-img z-depth-5') if user&.profile_picture&.attached? %></td> -->
                         <td><%= link_to_if  current_user.admin? ,user.full_name, user_path(user) %></td>
-                        <td><%= user.comp_email %></td>
+                        <!-- <td><%#= user.comp_email %></td> -->
                         <td><%= user.contact %></td>
                         <td><%= user.join_date&.to_date&.strftime('%d-%m-%Y') %></td>
                         <td><%= user.try(:designation).try(:name) %></td>
                         <td><%= user.try(:department).try(:name) %></td>
                         <td><%= user.user_type.humanize %></td>
                         <td><%= user.user_mentor&.full_name %></td>
-                        <% if current_user.admin? %>
-                          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                          <td><%= link_to 'Delete', user_path(user.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
-                        <% end %>
                       </tr>
                     <% end %>
                   </tbody>

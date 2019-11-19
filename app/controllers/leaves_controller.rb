@@ -1,6 +1,8 @@
 class LeavesController < ApplicationController
+  load_and_authorize_resource
+  skip_authorize_resource :only => :index
   include InheritAction
-
+  
   def get_events
     if params[:user_id].present?
       user = User.find_by(id: params[:user_id].to_i)

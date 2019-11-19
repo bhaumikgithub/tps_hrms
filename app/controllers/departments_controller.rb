@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  load_and_authorize_resource
   include InheritAction
   def index
     @resources = resource_class.all.order('name ASC').page(params[:page]).per(10)

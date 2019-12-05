@@ -51,9 +51,9 @@
                         <!-- <td><%#= user.comp_email %></td> -->
                         <td><%= user.contact %></td>
                         <td><%= user.join_date&.to_date&.strftime('%d-%m-%Y') %></td>
-                        <td><%= user.try(:designation).try(:name) %></td>
-                        <td><%= user.try(:department).try(:name) %></td>
-                        <td><%= user.user_type.humanize %></td>
+                        <td><%= user&.designation&.name %></td>
+                        <td><%= user&.department&.name %></td>
+                        <td><%= user&.user_type&.humanize %></td>
                         <td><%= user.user_mentor&.full_name %></td>
                       </tr>
                     <% end %>

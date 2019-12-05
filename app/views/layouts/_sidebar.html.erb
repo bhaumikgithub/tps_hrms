@@ -1,21 +1,24 @@
  <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
       <div class="brand-sidebar">
         <h1 class="logo-wrapper">
-          <%= link_to root_path , class: "brand-logo darken-1" do %>
-          <!-- <a class="brand-logo darken-1" href="index.html"> -->
-          <%#= image_tag("logo.jpeg", height: '50', width: '160') %>
-          <span class="logo-text hide-on-med-and-down">TPS HRMS</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i><% end %></h1>
+          <%= link_to root_path , class: "brand-logo darken-1" do %>TPS HRMS<% end %></h1>
       </div>
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         
         <% if current_user.admin? %>
           <li class=" <%= active_class(root_path) %> + bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>
-           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
-          </li>
            <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
+          <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
+          </li>
           <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
+          </li>
+           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
+          </li>
+          <li class=" <%= active_class(employee_designation_path) %> + bold"><%= link_to(employee_designation_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation</span><% end %>
+          </li>
+         <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
           </li>
 
           <li class=" <%= active_class(designations_path) %> + bold"><%= link_to(designations_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation Management</span><% end %>
@@ -40,13 +43,8 @@
           </li>
 
         <% end %>
-         <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
-          </li>
-          <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
-          </li>
 
-          <li class=" <%= active_class(employee_designation_path) %> + bold"><%= link_to(employee_designation_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation</span><% end %>
-          </li>
+        
       </ul>
      
     </aside>

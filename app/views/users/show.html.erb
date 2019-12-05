@@ -221,10 +221,10 @@
       <div class="col s6">
         <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' if current_user.admin? %>
         <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2',  method: :delete, data: {confirm: "Are you sure?"} %>
-        <%= link_to 'Cancel', users_path, class: 'btn cyan waves-effect waves-light' %>
+        <%= link_to 'Back', users_path, class: 'btn cyan waves-effect waves-light' %>
       </div>
+      <br><br><br> 
     </div>
-    <br> 
 
   <div id="image_cropping" class="modal modal-fixed-footer">
     <div class="modal-content">

@@ -9,12 +9,15 @@ class Ability
         can [:read, :manage], Leave
         can :manage, User
         can :manage, Holiday
+        can :manage, EmployeeHandbook
+        can :manage, Designation
+        can :manage, Degree
+        can :manage, Department
     else
         can :read, Leave
         can :read, User
         can :read, Holiday
-
-
+        can :read, EmployeeHandbook
     end
     # Define abilities for the passed in user here. For example:
     #

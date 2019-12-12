@@ -30,7 +30,11 @@ Rails.application.routes.draw do
       get :get_mentor
     end
   end
-  resources :holidays
+  resources :holidays do
+    collection do
+      get :holiday_filter
+    end
+  end
   resources :degrees
   resources :departments
   resources :designations

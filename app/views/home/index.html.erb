@@ -17,85 +17,101 @@
 
 <div class="col-12">
   <div class="col-3">
-    <% if  User.upcoming_birthday.present? %>
-        <div class="col s4">
-          <div class="card">
-            <div class="card-content">
-              <table class="table table-borderless">
-              <span class="font-22">Upcoming Birthdays</span> 
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+          <table class="table table-borderless">
+          <span class="font-22">Upcoming Birthdays</span> 
+            <% if  User.upcoming_birthday.present? %>
               <% User.upcoming_birthday.each do |user| %>
                 <tr>
                   <td><span class="red-text text-darken-2"><%= user.birthday == Date.today ? 'Today' : user.birthday&.strftime('%d %b') %></span></td>
                   <td><%= user.full_name %></td>
                 </tr>
               <% end %>
-            </table>
-            </div>
-          </div>
+            <% else %>
+              <tr>
+                <td>No record found</td>
+              </tr>
+            <%end %>
+        </table>
         </div>
-    <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="col-3">
-    <% if  User.upcoming_anniversary.present? %>
-        <div class="col s4">
-          <div class="card">
-            <div class="card-content">
-              <table class="table table-borderless">
-                <span class="font-22">Upcoming Anniversary</span> 
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+          <table class="table table-borderless">
+            <span class="font-22">Upcoming Anniversary</span> 
+              <% if  User.upcoming_anniversary.present? %>
                 <% User.upcoming_anniversary.each do |user| %>
                   <tr>
                     <td><span class="red-text text-darken-2"><%= user.anniversary_date == Date.today ? 'Today' : user.anniversary_date&.strftime('%d %B') %></span></td>
                     <td><%= user.full_name %></td>
                   </tr>
                 <% end %>
-              </table>
-            </div>
-          </div>
+              <% else %>
+                <tr>
+                  <td>No record found</td>
+                </tr>
+              <% end %>
+          </table>
         </div>
-    <% end %>
+      </div>
+    </div>
   </div>
 
  <div class="col-6">
-    <% if  User.upcoming_work_anniversary.present? %>
-        <div class="col s4">
-          <div class="card">
-            <div class="card-content">
-              <table class="table table-borderless">
-                <span class="font-22">Upcoming Work Anniversary</span> 
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+          <table class="table table-borderless">
+            <span class="font-22">Upcoming Work Anniversary</span> 
+              <% if  User.upcoming_work_anniversary.present? %>
                 <% User.upcoming_work_anniversary.each do |user| %>
                   <tr>
                     <td><span class="red-text text-darken-2"><%= user.join_date&.strftime('%d %b') %></span></td>
                     <td><%= user.full_name.titleize %></td> 
                   </tr>
                 <% end %>
-              </table>
-            </div>
-          </div>
+              <% else %>
+                <tr>
+                  <td>No record found</td>
+                </tr>
+              <% end %>
+          </table>
         </div>
-    <% end %>
+      </div>
+    </div>
   </div>
 
 </div>
   <% if current_user.admin? %>
     <div class="col-12">
        <div class="col-6">
-        <% if  @leaves.present? %>
-            <div class="col s4">
-              <div class="card">
-                <div class="card-content">
-                  <table class="table table-borderless">
-                    <span class="font-22">Upcoming Leaves</span> 
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <table class="table table-borderless">
+                <span class="font-22">Upcoming Leaves</span> 
+                  <% if  @leaves.present? %>
                     <% @leaves.each do |leave| %>
                       <tr>
                         <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span></td>  <td>  <span class="black-text text-darken-2"><%= leave.leave_type.titleize  %></span> </td> <td> <%= leave.user.first_name.humanize %> </td>
                       </tr>
                     <% end %>
-                  </table>
-                </div>
-              </div>
+                  <% else %>
+                    <tr>
+                      <td>No record found</td>
+                    </tr>
+                  <% end %>
+              </table>
             </div>
-        <% end %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
@@ -103,12 +119,12 @@
 <% if current_user.team_leader? %>
   <div class="col-12">
      <div class="col-6">
-      <% if  @leaves.present? %>
-          <div class="col s4">
-            <div class="card">
-              <div class="card-content">
-                <span class="font-22">Upcoming Leaves</span> 
-                <table class="table table-borderless">
+        <div class="col s4">
+          <div class="card">
+            <div class="card-content">
+              <span class="font-22">Upcoming Leaves</span> 
+              <table class="table table-borderless">
+                <% if  @leaves.present? %>
                   <% @employees_leaves.each do |leave| %>
                     <tr>
                       <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td>
@@ -116,11 +132,15 @@
                       <td><%= leave.user.first_name.humanize %></td>
                     </tr>
                   <% end %>
-                </table>
-              </div>
+                <% else %>
+                  <tr>
+                    <td>No record found</td>
+                  </tr>
+                <% end %>
+              </table>
             </div>
           </div>
-      <% end %>
+        </div>
     </div>
   </div>
 <% end %>

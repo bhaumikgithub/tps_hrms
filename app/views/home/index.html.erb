@@ -3,22 +3,47 @@
   <% if current_user.leave_added_on.present? %>
     <% if current_user.leave_added_on.month != Date.today.month  %>
       <div class="row">
-        <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
+        <div class="col s12">
+        <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left mr-2 add_leave' %>
       </div>
+    </div>
     <% end %>
   <% elsif current_user.leave_added_on.blank? %>
     <div class="row">
-      <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left ml-2 add_leave' %>
+        <div class="col s12">
+      <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left add_leave' %>
+    </div>
     </div>
   <% end %>
 <% end %>
 
  
-
-<div class="col-12">
-  <div class="col-3">
-    <div class="col s4">
+<div class="row">
+  <div class="col l3 s12">
       <div class="card">
+        <div class="card-content">
+          <span class="font-22">Leave Balance</span>
+          <table class="table table-borderless">
+          <%  if current_user.admin? %>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.full_name.titleize + ':' %></td>
+                <td><%= user.leave_bal.present? ? user.leave_bal > 0 ? user.leave_bal : 0 : '0'%></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal > 0 ? current_user.leave_bal : 0 : '0'%></td></tr>
+          <% end %>
+          </table>
+
+        </div>
+      </div>
+
+</div>
+  <div class="col l9 s12">
+    <div class="row">
+      <div class="col l6 s12">
+         <div class="card">
         <div class="card-content">
           <table class="table table-borderless">
           <span class="font-22">Upcoming Birthdays</span> 
@@ -38,11 +63,8 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="col-3">
-    <div class="col s4">
-      <div class="card">
+     <div class="col l6 s12">
+        <div class="card">
         <div class="card-content">
           <table class="table table-borderless">
             <span class="font-22">Upcoming Anniversary</span> 
@@ -62,11 +84,8 @@
         </div>
       </div>
     </div>
-  </div>
-
- <div class="col-6">
-    <div class="col s4">
-      <div class="card">
+    <div class="col l6 s12">
+        <div class="card">
         <div class="card-content">
           <table class="table table-borderless">
             <span class="font-22">Upcoming Work Anniversary</span> 
@@ -86,14 +105,9 @@
         </div>
       </div>
     </div>
-  </div>
-
-</div>
-  <% if current_user.admin? %>
-    <div class="col-12">
-       <div class="col-6">
-        <div class="col s4">
-          <div class="card">
+      <div class="col l6 s12">
+        <% if current_user.admin? %>
+         <div class="card">
             <div class="card-content">
               <table class="table table-borderless">
                 <span class="font-22">Upcoming Leaves</span> 
@@ -111,16 +125,9 @@
               </table>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-<% if current_user.team_leader? %>
-  <div class="col-12">
-     <div class="col-6">
-        <div class="col s4">
-          <div class="card">
+          <% end %>
+          <% if current_user.team_leader? %>
+            <div class="card">
             <div class="card-content">
               <span class="font-22">Upcoming Leaves</span> 
               <table class="table table-borderless">
@@ -140,33 +147,19 @@
               </table>
             </div>
           </div>
-        </div>
-    </div>
-  </div>
-<% end %>
-  
-  <div class="row">
-    <div class="col s4">
-      <div class="card">
-        <div class="card-content">
-          <span class="font-22">Leave Balance</span>
-          <table class="table table-borderless">
-          <%  if current_user.admin? %>
-            <% @users.each do |user| %>
-              <tr>
-                <td><%= user.full_name.titleize + ':' %></td>
-                <td><%= user.leave_bal.present? ? user.leave_bal > 0 ? user.leave_bal : 0 : '0'%></td>
-              </tr>
-            <% end %>
-          <% else %>
-            <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal > 0 ? current_user.leave_bal : 0 : '0'%></td></tr>
           <% end %>
-          </table>
 
-        </div>
+
+
+
       </div>
-    </div>
-  </div>
+
+</div>
+
+</div>
+
+</div>
+
 <!-- <div class="row">
 <%#= render template: "leaves/_calender" %>
 </div>

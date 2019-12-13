@@ -86,7 +86,8 @@ nav.clean .breadcrumb:before {
 .desk-dis-none{display:none !important;}
 .table-responsive{overflow-x: auto !important;}
 .holiday-table, .designation-table, .degree-table, .department-table, .role-table{min-width:500px;}
-.sidenav-main .sidenav{overflow-y: auto !important;}
+.sidenav-main .sidenav{overflow-y: auto !important;height: 100vh !important;}
+.sidenav .ps__rail-y{display:none !important;}
 /*#scroll-vert-hor{width:100% !important;}
 .dataTables_scrollBody{height:auto !important;}
 #scroll-vert-hor tr td:first-child{text-align:left;}

@@ -218,10 +218,10 @@
     <% end %>
 
     <div class="col s12">
-      <div class="col s6">
-        <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' if current_user.admin? %>
-        <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2',  method: :delete, data: {confirm: "Are you sure?"} %>
-        <%= link_to 'Back', users_path, class: 'btn cyan waves-effect waves-light' %>
+      <div class="mobile-center">
+        <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary mb-2' if current_user.admin? %>
+        <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} %>
+        <%= link_to 'Back', users_path, class: 'btn cyan waves-effect waves-light mb-2' %>
       </div>
       <br><br><br> 
     </div>
@@ -235,7 +235,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer profile-footer">
       <a href="#!" class="modal-close btn btn-lg" id="close_modal">Close</a>
       <button class="rotate btn btn-lg default ">Rotate</button>
       <button class="cropbutton btn btn-lg default confirm_btn">Confirm</button>

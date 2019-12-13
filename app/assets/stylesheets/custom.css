@@ -1,0 +1,123 @@
+.profile__avatar {
+  float: left;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+  overflow: hidden;
+}
+.select_width{
+  width: 230px;
+}
+.red_font_clr
+  {
+    color: red;
+  }
+.custom-Card{
+    overflow: visible;
+  }
+  nav.clean {
+  background: none;
+  box-shadow: none;
+}
+nav.clean .breadcrumb {
+  color: black;
+  font-size: 14px;
+}
+nav.clean .breadcrumb:before {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.active_class{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.leave_table{
+  cursor: pointer;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+ /* Profile photo css start */
+  #user_pic_span {
+    cursor: pointer;
+  }
+ /* Profile photo css end */
+
+/*datatable font css start*/
+.dataTables_wrapper, .user_table, #app-calendar, #view-borderless-table {
+  font-size: 16px !important;
+  font-weight: normal !important;
+}
+/*datatable font css end*/
+
+
+.float-right-cls {
+  float: right;
+}
+
+.mr-20
+{
+  margin-right: 20px !important;
+}
+
+.font-22
+{
+  font-size: 22px;
+  color: #232b2b;
+}
+
+.O-visible{
+  overflow: visible;
+}
+
+.custome_style{
+
+  margin-left: 10px;
+}
+
+.desk-dis-none{display:none !important;}
+.table-responsive{overflow-x: auto !important;}
+.holiday-table, .designation-table, .degree-table, .department-table, .role-table{min-width:500px;}
+.sidenav-main .sidenav{overflow-y: auto !important;}
+/*#scroll-vert-hor{width:100% !important;}
+.dataTables_scrollBody{height:auto !important;}
+#scroll-vert-hor tr td:first-child{text-align:left;}
+#main .section-data-tables .dataTables_wrapper .dataTables_length#scroll-vert-hor_length label select, #main .section-data-tables .dataTables_wrapper .dataTables_filter#scroll-vert-hor_filter label select {
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+#main .section-data-tables .dataTables_wrapper .dataTables_length#scroll-vert-hor_length, #main .section-data-tables .dataTables_wrapper .dataTables_filter#scroll-vert-hor_filter {
+    display: block;
+}
+#main .section-data-tables .dataTables_wrapper .dataTables_length#scroll-vert-hor_length label input, #main .section-data-tables .dataTables_wrapper .dataTables_filter#scroll-vert-hor_filter label input {
+    width: auto;
+    height: auto;
+}*/
+
+/*responsive media query*/
+
+@media (max-width: 992px) {
+.sm-dis-none{display:none !important;}
+.sm-dis-block{display:block !important;}
+.sm-menu{position: relative !important;left:0;margin:0 auto;}
+.brand-sidebar .brand-logo{left:18% !important;}
+}
+
+
+@media (max-width: 767px) 
+{
+
+.mobile-center{text-align:center;}
+.profile-footer{height:auto !important;}
+
+}

@@ -42,9 +42,9 @@
                       <%= f.text_field :holiday_date, class: 'datepicker',id:"birthdate", :value => @resource.holiday_date&.strftime("%d-%m-%Y") %>
                     </div>
                   </div>
-                  <div class="input-field col s12">
-                    <%= f.submit 'Submit', class: "btn btn-success" %>
-                    <%= link_to("Back", holidays_path , class: "btn cyan waves-effect waves-light" ) %>
+                  <div class="input-field col s12 mobile-center">
+                    <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
+                    <%= link_to("Back", holidays_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
                   </div>
                 </div>
                <% end %>

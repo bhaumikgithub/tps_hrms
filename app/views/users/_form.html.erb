@@ -31,22 +31,22 @@
               <div class="card-title">
                 <span><b>Basic Details</b></span>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.text_field :first_name,id: "first_name", class: "validate" %><br />
                     <label for="first_name">First Name</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.text_field :last_name,id: "last_name" ,class: "validate"%><br />
                     <label for="last_name">Last Name</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                      <label for="birthdate">Birthday</label>
                     <%= f.text_field :birthday, class: 'datepicker birthdate',id:"birthdate", :value => @user.birthday&.strftime("%d-%m-%Y")  %>
                   </div>
 
-                   <!-- <div class="input-field col s6"> -->
+                   <!-- <div class="input-field col m6 s12"> -->
                     <!-- <label for="profile_picture">profile picture</label> -->
                   <!-- </div> -->
                   <!-- <div class="col m6 s12 file-field input-field">
@@ -59,23 +59,23 @@
                     </div>
                   </div> -->
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                      <label for="birthdate">Employee Code</label>
                     <%= f.text_field :emp_code, class: 'validate',id:"emp_code" %>
                   </div>
 
-                   <div class="input-field col s6">
+                   <div class="input-field col m6 s12">
                     <%= f.select(:gender, ['male', 'female'].map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "gender"} ) %>
                     <label>Gender</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.select(:marital_status, User::MARITAL_STATUS.map { |e| [e.humanize, e]  }, {:class => "marital_status"} ) %>
                     <label>Marterial Status</label>
                   </div>
 
 
-                  <div class="input-field col s6 anniversary_date_div">
+                  <div class="input-field col m6 s12 anniversary_date_div">
                     <label for="anniversary_date">Anniversary Date</label>
                     <%= f.text_field :anniversary_date, class: 'datepicker, anniversary_date',id:"anniversary_date" , :value => @user.anniversary_date&.strftime("%d-%m-%Y") %>
                   </div>
@@ -93,24 +93,24 @@
               <div class="card-title">
                 <span><b>Contact Details</b></span>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.email_field :email,  id: "personal_email", required: true %><br />
                     <label for="personal_email">Personal Email</label>
                   </div>
                   
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.email_field :comp_email,id: "comp_email", required: true %><br />
                     <label for="comp_email">Company Email</label>
                   </div>
 
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.text_field :emergency_contact,id: "emergency_contact" %><br />
                     <label for="emergency_contact">Emergency Contact</label>
                   </div>
 
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.text_field :contact,id: "contact" %><br />
                     <label for="contact">Contact</label>
                   </div>
@@ -132,55 +132,55 @@
               <div class="card-title">
                 <span><b>Employment Details</b></span>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.select(:job_status, User::JOB_STATUS.map { |e| [e.humanize, e]  }, {:class => "some_class"} ) %>
                     <label>Status</label>
                   </div>
                   
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.select(:user_type, User::USER_TYPE.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Employment Type</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <label for="join_date">Join Date</label>
                     <%= f.text_field :join_date, class: 'datepicker join_date',id:"join_date" , :value => @user.join_date&.strftime("%d-%m-%Y")%>
                   </div>
 
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="designation">Designation</label>
                   </div>
 
 
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Mentor</label>
                   </div>
 
-                  <div class="input-field col s6 custom-dropdown">
+                  <div class="input-field col m6 s12 custom-dropdown">
                     <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Department</label>
                   </div>
                  
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.text_field :experience,id: "experience" %><br />
                     <label for="experience">Total Experience</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                      <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="degree">Degree</label>
                   </div>
 
-                   <div class="input-field col s6">
+                   <div class="input-field col m6 s12">
                     <%= f.text_field :leave_bal,id: "leave_bal" %><br />
                     <label for="leave_bal">Leave Balance</label>
                   </div>
 
-                  <div class="input-field col s6">
+                  <div class="input-field col m6 s12">
                     <%= f.select(:role_id, Role.all.order('name').collect{|p| [p.name&.humanize, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="designation">Role</label>
                   </div>
@@ -196,12 +196,12 @@
               <div class="card-title">
                 <span><b>KYC Details</b></span>
                  <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col m6 s12">
                       <%= f.text_field :adhar_no,id: "adhar_no" %><br />
                       <label for="adhar_no">Adhar Number</label>
                     </div>
 
-                    <div class="input-field col s6">
+                    <div class="input-field col m6 s12">
                       <%= f.text_field :pan_no,id: "pan_no" %><br />
                       <label for="pan_no">Pan Number</label>
                     </div>
@@ -211,9 +211,9 @@
           </div>
         </div>
         
-        <div class="input-field col s12">
-          <%= f.submit 'Submit' ,class: "btn btn-success" %>
-          <%= link_to("Back", users_path , class: "btn cyan waves-effect waves-light" ) %>
+        <div class="input-field col s12 mobile-center">
+          <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+          <%= link_to("Back", users_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
         </div>
       </div>
     </div>

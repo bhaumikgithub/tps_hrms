@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   
   def index
-    @users = User.where(job_status: 'Active')
+    @users = User.where(job_status: 'Active').order(first_name: :asc)
     @leaves = Leave.where('leave_date >= ? and leave_date <= ?', Date.today, Date.today + 7.days).order('leave_date ASC')
     @employees_leaves = Leave.joins(:user).where('leave_date >= ? and leave_date <= ? and mentor = ? ', Date.today, Date.today + 14.days, current_user.id.to_s)
     @employees_leaves += current_user.user_leaves.where('leave_date >= ? and leave_date <= ?', Date.today, Date.today + 7.days).order('leave_date ASC')
@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   end
 
   def add_leave
-    Role.where(name: 'user').first.users.each do |user|
+    User.all.each do |user|
       leave_bal = user.leave_bal.present? ? user.leave_bal + 1 : 0
       user.update(leave_bal: leave_bal, leave_added_on: Date.today)
     end

@@ -86,23 +86,9 @@ nav.clean .breadcrumb:before {
 .desk-dis-none{display:none !important;}
 .table-responsive{overflow-x: auto !important;}
 .holiday-table, .designation-table, .degree-table, .department-table, .role-table{min-width:500px;}
-.sidenav-main .sidenav{overflow-y: auto !important;}
-/*#scroll-vert-hor{width:100% !important;}
-.dataTables_scrollBody{height:auto !important;}
-#scroll-vert-hor tr td:first-child{text-align:left;}
-#main .section-data-tables .dataTables_wrapper .dataTables_length#scroll-vert-hor_length label select, #main .section-data-tables .dataTables_wrapper .dataTables_filter#scroll-vert-hor_filter label select {
-    display: inline-block;
-    width: auto;
-    height: auto;
-}
-
-#main .section-data-tables .dataTables_wrapper .dataTables_length#scroll-vert-hor_length, #main .section-data-tables .dataTables_wrapper .dataTables_filter#scroll-vert-hor_filter {
-    display: block;
-}
-#main .section-data-tables .dataTables_wrapper .dataTables_length#scroll-vert-hor_length label input, #main .section-data-tables .dataTables_wrapper .dataTables_filter#scroll-vert-hor_filter label input {
-    width: auto;
-    height: auto;
-}*/
+.sidenav-main .sidenav{overflow-y: auto !important;height: 100vh !important;}
+.sidenav .ps__rail-y{display:none !important;}
+.datatable-responsive{overflow-x: auto;width:100%;}
 
 /*responsive media query*/
 

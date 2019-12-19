@@ -70,15 +70,20 @@ class Leave < ApplicationRecord
     end  
   end
 
+  def current_leave_count
+    count = 0
+    leave_array[0].map {|leave_date| leave_date.strftime("%b") == Date.today.strftime("%b") ? count = count + 1 : ""}
+    return count
+  end
 
   def update_leave_balance
-    leaves = (self.leave_array[0].count)*self.leave_array[1] 
+    leaves = current_leave_count*self.leave_array[1]
     balance = self.user.leave_bal.to_f - leaves
     self.user.update(leave_bal: balance)
   end
 
   def add_leave_balance
-    leaves = (self.leave_array[0].count)*self.leave_array[1]
+    leaves = current_leave_count*self.leave_array[1]
     balance = (self.user.leave_bal.present? ? self.user.leave_bal : 0) + leaves 
     self.user.update(leave_bal: balance)
   end

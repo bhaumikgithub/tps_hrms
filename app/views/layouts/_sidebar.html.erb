@@ -35,6 +35,9 @@
 
           <li class=" <%= active_class(roles_path) %> + bold"><%= link_to(roles_path, class: "waves-effect waves-cyan") do %><i class="material-icons">toll</i><span class="menu-title" data-i18n="">Role</span><% end %>
           </li>
+
+          <li class=" <%= active_class(free_leaves_path) %> + bold"><%= link_to(free_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">toll</i><span class="menu-title" data-i18n="">Free Leave</span><% end %>
+          </li>
         <% else %>
           <li class=" <%= active_class(root_path) %> + bold" ><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>

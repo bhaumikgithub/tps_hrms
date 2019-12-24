@@ -9,7 +9,7 @@ class User < ApplicationRecord
   belongs_to :department
   belongs_to :designation
   has_many :employees, :class_name=>"User", :foreign_key=>"mentor"
-
+  has_many :free_leaves
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 

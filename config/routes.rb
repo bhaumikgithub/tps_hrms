@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       get :get_mentor
     end
   end
+
+  resources :free_leaves
   resources :holidays do
     collection do
       get :holiday_filter

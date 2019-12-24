@@ -46,7 +46,7 @@
          <div class="card">
         <div class="card-content">
           <table class="table table-borderless">
-          <span class="font-22">Upcoming Birthdays</span> 
+          <span class="font-22">Upcoming Birthdays</span><span class="span-wrap">(Within month)</span>
             <% if  User.upcoming_birthday.present? %>
               <% User.upcoming_birthday.each do |user| %>
                 <tr>
@@ -67,7 +67,7 @@
         <div class="card">
         <div class="card-content">
           <table class="table table-borderless">
-            <span class="font-22">Upcoming Anniversary</span> 
+            <span class="font-22">Upcoming Anniversary</span><span class="span-wrap">(Within month)</span>
               <% if  User.upcoming_anniversary.present? %>
                 <% User.upcoming_anniversary.each do |user| %>
                   <tr>
@@ -88,7 +88,7 @@
         <div class="card">
         <div class="card-content">
           <table class="table table-borderless">
-            <span class="font-22">Upcoming Work Anniversary</span> 
+            <span class="font-22">Upcoming Work Anniversary</span><span class="span-wrap">(Within month)</span>
               <% if  User.upcoming_work_anniversary.present? %>
                 <% User.upcoming_work_anniversary.each do |user| %>
                   <tr>

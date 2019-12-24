@@ -59,6 +59,20 @@ class LeavesController < ApplicationController
     render json: mentor
   end
 
+  def leave_report
+    start_month = Date.today.at_beginning_of_month
+    @leave_reports = LeaveReport.all.where(start_month: start_month)
+  end
+
+  def leave_report_filter
+    if  params[:month].present? && params[:year].present?
+      select_date = Date.new(params[:year].to_i, params[:month].to_i)
+      @leave_reports = LeaveReport.where(start_month: select_date)
+    else
+      @leave_reports = []
+    end
+  end
+
   private
 
   def resource_class

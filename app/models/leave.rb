@@ -72,7 +72,13 @@ class Leave < ApplicationRecord
 
   def current_leave_count
     count = 0
-    leave_array[0].map {|leave_date| leave_date.strftime("%b") == Date.today.strftime("%b") ? count = count + 1 : ""}
+    leave_array[0].map {|leave_date| leave_date.strftime("%b") == Date.today.strftime("%b") ? count = count + leave_array[1] : ""}
+    return count
+  end
+
+  def total_leave_count(avail_date)
+    count = 0
+    leave_array[0].map {|leave_date| leave_date.strftime("%b") == avail_date.strftime("%b") ? count = count + leave_array[1] : ""}
     return count
   end
 
@@ -87,6 +93,4 @@ class Leave < ApplicationRecord
     balance = (self.user.leave_bal.present? ? self.user.leave_bal : 0) + leaves 
     self.user.update(leave_bal: balance)
   end
-
-
 end

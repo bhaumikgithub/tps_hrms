@@ -53,6 +53,7 @@ gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem 'activestorage-validator'
 gem 'ckeditor', '~> 4.3'
+gem 'whenever', require: false
 
 
 group :development, :test do

@@ -28,6 +28,8 @@ Rails.application.routes.draw do
       get :leave_filter
       get :get_user_leaves
       get :get_mentor
+      get :leave_report
+      get :leave_report_filter
     end
   end
   resources :holidays do

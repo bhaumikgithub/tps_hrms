@@ -45,7 +45,15 @@ class LeavesController < ApplicationController
 
   def create
     if Leave.exists?(user_id: params[:leave][:user_id], leave_date: params[:leave][:leave_date], end_date: params[:leave][:end_date])
-      redirect_to leaves_path , alert: 'You can not create same entry again'
+      if(resource_params[:leave_type] == "wfh")
+        if Leave.exists?(user_id: params[:leave][:user_id], leave_date: params[:leave][:leave_date], end_date: params[:leave][:end_date], leave_type: "wfh")
+          redirect_to leaves_path , alert: 'You can not create same entry again'
+        else
+          super
+        end
+      else
+        redirect_to leaves_path , alert: 'You can not create same entry again'
+      end
     else
       super
     end

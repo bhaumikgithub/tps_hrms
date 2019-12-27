@@ -19,7 +19,7 @@
         <%= link_to "Create Leave Report", create_leave_report_path, class: 'btn btn-success float-left add_leave' %>
       </div>
     <% end %>
-  <% elsif current_user&.leave_report_added_on&.blank? %>
+  <% elsif current_user&.leave_report_added_on.blank? %>
     <div class="col s4">
       <%= link_to "Create Leave Report", create_leave_report_path, class: 'btn btn-success float-left add_leave' %>
     </div>

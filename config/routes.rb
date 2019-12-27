@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get '/employee_designations' => 'home#employee_designation', :as => 'employee_designation'
   get '/add_leaves' => 'home#add_leave', :as => 'add_leave'
+  get '/create_leave_report' => 'home#create_leave_report', :as => 'create_leave_report'
 
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
   resources :roles
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
       get :leave_filter
       get :get_user_leaves
       get :get_mentor
+      get :leave_report
+      get :leave_report_filter
     end
   end
   resources :holidays do

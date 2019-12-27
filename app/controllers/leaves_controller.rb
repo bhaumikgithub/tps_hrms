@@ -45,7 +45,15 @@ class LeavesController < ApplicationController
 
   def create
     if Leave.exists?(user_id: params[:leave][:user_id], leave_date: params[:leave][:leave_date], end_date: params[:leave][:end_date])
-      redirect_to leaves_path , alert: 'You can not create same entry again'
+      if(resource_params[:leave_type] == "wfh")
+        if Leave.exists?(user_id: params[:leave][:user_id], leave_date: params[:leave][:leave_date], end_date: params[:leave][:end_date], leave_type: "wfh")
+          redirect_to leaves_path , alert: 'You can not create same entry again'
+        else
+          super
+        end
+      else
+        redirect_to leaves_path , alert: 'You can not create same entry again'
+      end
     else
       super
     end
@@ -57,6 +65,20 @@ class LeavesController < ApplicationController
   def get_mentor
     mentor = User.find_by(id: params[:emp_id]).mentor
     render json: mentor
+  end
+
+  def leave_report
+    start_month = Date.today.at_beginning_of_month
+    @leave_reports = LeaveReport.all.where(start_month: start_month)
+  end
+
+  def leave_report_filter
+    if  params[:month].present? && params[:year].present?
+      select_date = Date.new(params[:year].to_i, params[:month].to_i)
+      @leave_reports = LeaveReport.where(start_month: select_date)
+    else
+      @leave_reports = []
+    end
   end
 
   private

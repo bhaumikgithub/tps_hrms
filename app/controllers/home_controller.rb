@@ -23,4 +23,13 @@ class HomeController < ApplicationController
     current_user.save(validate: false)
     redirect_to root_path
   end
+
+  def create_leave_report
+    User.leave_report
+    User.where(role_id: 1).each do |user|
+      user.leave_report_added_on = Date.today.at_beginning_of_month
+      user.save(validate: false)
+    end
+    redirect_to root_path
+  end
 end

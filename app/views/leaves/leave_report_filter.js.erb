@@ -1,0 +1,6 @@
+$('#leave_report_table').dataTable().fnDestroy();
+$('.leave_report_body').html("<%= escape_javascript(render partial: 'leave_report', locals: { leave_reports: @leave_reports }) %>");
+$('#leave_report_table').DataTable({
+  responsive: true
+});
+$('select').formSelect();

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_19_094112) do
+ActiveRecord::Schema.define(version: 2019_12_25_095143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2019_12_19_094112) do
     t.integer "degree_id"
     t.integer "department_id"
     t.integer "designation_id"
+    t.datetime "leave_report_added_on"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

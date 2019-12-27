@@ -76,7 +76,7 @@ class User < ApplicationRecord
     @start_date = Date.today.at_beginning_of_month
     @end_date = Date.today.at_end_of_month
     if Date.today.at_beginning_of_month == Date.today.at_beginning_of_month
-      User.all.each do |user|
+      User.where.not(id: [1,18,56]).each do |user|
         # Return Taken Leave Balance
         @taken_leave = User.taken_leave(user,@start_date,@end_date)
         @free_leave = 1

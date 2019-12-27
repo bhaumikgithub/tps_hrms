@@ -83,6 +83,11 @@ nav.clean .breadcrumb:before {
   margin-left: 10px;
 }
 
+.span-wrap {
+  padding: 2px;
+  border-radius: 2px;
+  display: inline-block;
+}
 .desk-dis-none{display:none !important;}
 .table-responsive{overflow-x: auto !important;}
 .holiday-table, .designation-table, .degree-table, .department-table, .role-table{min-width:500px;}

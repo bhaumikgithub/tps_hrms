@@ -1,0 +1,11 @@
+<% leave_reports.each do |leave_report| %>
+  <tr>
+    <td><%= leave_report&.user&.full_name %></td>
+    <td><%= leave_report&.start_month.try(:strftime,'%d-%m-%Y') %></td>
+    <td><%= leave_report&.end_month.try(:strftime,'%d-%m-%Y') %></td>
+    <td><%= leave_report&.prev_month_leave_bal %></td>
+    <td><%= leave_report&.free_leave %></td>
+    <td><%= leave_report&.taken_leave %></td>
+    <td><%= leave_report&.current_leave_bal %></td>
+  </tr>
+<% end %>

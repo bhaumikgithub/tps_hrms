@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_25_095143) do
+ActiveRecord::Schema.define(version: 2019_12_24_045947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,16 @@ ActiveRecord::Schema.define(version: 2019_12_25_095143) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "free_leaves", force: :cascade do |t|
+    t.bigint "user_id"
+    t.float "extra_leave"
+    t.text "reason"
+    t.date "leave_month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_free_leaves_on_user_id"
   end
 
   create_table "holidays", force: :cascade do |t|
@@ -164,6 +174,7 @@ ActiveRecord::Schema.define(version: 2019_12_25_095143) do
   add_foreign_key "degrees", "users"
   add_foreign_key "departments", "users"
   add_foreign_key "designations", "users"
+  add_foreign_key "free_leaves", "users"
   add_foreign_key "leave_reports", "users"
   add_foreign_key "leaves", "users"
   add_foreign_key "leaves", "users", column: "approved_by_id"

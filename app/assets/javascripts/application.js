@@ -42,4 +42,18 @@
       }
     });
 
+    var cdate = new Date();
+    $('.free_leave_date').datepicker({
+      firstDay: 1,
+      selectMonths: true,
+      defaultDate: cdate,
+      setDefaultDate: true,
+      disableDayFn: function(date) {
+        if (date.getDate() == 1)
+          return false;
+        else
+          return true;
+      }
+    });
+
   });

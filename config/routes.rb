@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       get :leave_report_filter
     end
   end
+
+  resources :free_leaves
   resources :holidays do
     collection do
       get :holiday_filter

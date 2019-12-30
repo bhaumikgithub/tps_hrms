@@ -1,20 +1,30 @@
 <h3 class="center">Welcome <%= current_user.full_name %></h3>
 <% if current_user.admin? %>
-  <% if current_user.leave_added_on.present? %>
-    <% if current_user.leave_added_on.month != Date.today.month  %>
-      <div class="row">
-        <div class="col s12">
-        <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left mr-2 add_leave' %>
+  <div class="row">
+  <!-- <%# if current_user.leave_added_on.present? %>
+    <%# if current_user.leave_added_on.month != Date.today.month  %>
+      <div class="col s4">
+        <%#= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left mr-2 add_leave' %>
       </div>
+    <%# end %>
+  <%# elsif current_user.leave_added_on.blank? %>
+    <div class="col s4">
+      <%#= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left add_leave' %>
     </div>
+  <%# end %> -->
+
+  <% if current_user&.leave_report_added_on.present? %>
+    <% if current_user&.leave_report_added_on&.month != Date.today&.month  %>
+      <div class="col s4">
+        <%= link_to "Create Leave Report", create_leave_report_path, class: 'btn btn-success float-left add_leave' %>
+      </div>
     <% end %>
-  <% elsif current_user.leave_added_on.blank? %>
-    <div class="row">
-        <div class="col s12">
-      <%= link_to "Add this month Leave", add_leave_path, class: 'btn btn-success float-left add_leave' %>
-    </div>
+  <% elsif current_user&.leave_report_added_on.blank? %>
+    <div class="col s4">
+      <%= link_to "Create Leave Report", create_leave_report_path, class: 'btn btn-success float-left add_leave' %>
     </div>
   <% end %>
+  </div>
 <% end %>
 
  

@@ -95,6 +95,19 @@ ActiveRecord::Schema.define(version: 2019_12_24_045947) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leave_reports", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "start_month"
+    t.date "end_month"
+    t.float "prev_month_leave_bal"
+    t.float "free_leave"
+    t.float "taken_leave"
+    t.float "current_leave_bal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_leave_reports_on_user_id"
+  end
+
   create_table "leaves", force: :cascade do |t|
     t.string "leave_type"
     t.bigint "user_id"
@@ -150,6 +163,7 @@ ActiveRecord::Schema.define(version: 2019_12_24_045947) do
     t.integer "degree_id"
     t.integer "department_id"
     t.integer "designation_id"
+    t.datetime "leave_report_added_on"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -161,6 +175,7 @@ ActiveRecord::Schema.define(version: 2019_12_24_045947) do
   add_foreign_key "departments", "users"
   add_foreign_key "designations", "users"
   add_foreign_key "free_leaves", "users"
+  add_foreign_key "leave_reports", "users"
   add_foreign_key "leaves", "users"
   add_foreign_key "leaves", "users", column: "approved_by_id"
   add_foreign_key "users", "companies"

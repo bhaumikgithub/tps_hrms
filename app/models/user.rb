@@ -10,6 +10,7 @@ class User < ApplicationRecord
   belongs_to :designation
   has_many :employees, :class_name=>"User", :foreign_key=>"mentor"
   has_many :free_leaves
+  has_many :leave_reports
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
@@ -69,5 +70,55 @@ class User < ApplicationRecord
 
   def role_name
     self&.role&.name
+  end
+
+  def self.leave_report
+    @start_date = Date.today.at_beginning_of_month
+    @end_date = Date.today.at_end_of_month
+    if Date.today.at_beginning_of_month == Date.today.at_beginning_of_month
+      User.where.not(id: [1,18,56]).each do |user|
+        # Return Taken Leave Balance
+        @taken_leave = User.taken_leave(user,@start_date,@end_date)
+        @free_leave = 1
+        @prev_leave_bal = user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 2.month).try(:current_leave_bal)
+        @prev_month_leave_bal = @prev_leave_bal.nil? || @prev_leave_bal < 0 ? 0 : @prev_leave_bal
+        @current_bal = ( @prev_month_leave_bal.to_f + @free_leave.to_f ) - @taken_leave.to_f
+        # Create User Report
+        User.create_leave_report(user)
+        # Update leave balance if prev month leave balance is less than 0
+        user.update(leave_bal: 0) if @current_bal < 0
+
+        # Add 1 free leave balance
+        user.update(leave_bal: (user.leave_bal.to_f + 1))
+
+        # Update current month leave if taken any leave on this current month
+        current_month_leave = User.current_month_leave(user)
+        user.update(leave_bal: (user.leave_bal.to_f - current_month_leave))
+      end
+    end
+  end
+
+  def self.taken_leave(user,start_date,end_date)
+    user_leaves = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", start_date - 1.month,end_date - 1.month, start_date - 1.month,end_date - 1.month)
+    taken_leave = 0
+    user_leaves.each do |leave|
+      leave = leave.total_leave_count(start_date - 1.month)
+      taken_leave += leave
+    end
+    return taken_leave
+  end
+
+  def self.create_leave_report(user)
+    user.leave_reports.create(start_month: @start_date - 1.month, end_month: @end_date - 1.month, prev_month_leave_bal: @prev_month_leave_bal, free_leave: @free_leave, taken_leave: @taken_leave, current_leave_bal: @current_bal)
+  end
+
+  def self.current_month_leave(user)
+    current_month_leave = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", @start_date,@end_date,@start_date,@end_date)
+    curr_taken_leave = 0
+    current_month_leave.each do |leave|
+      leave = leave.total_leave_count(@start_date)
+      curr_taken_leave += leave
+    end
+    return curr_taken_leave
   end
 end

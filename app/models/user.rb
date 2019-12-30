@@ -9,8 +9,8 @@ class User < ApplicationRecord
   belongs_to :department
   belongs_to :designation
   has_many :employees, :class_name=>"User", :foreign_key=>"mentor"
+  has_many :free_leaves
   has_many :leave_reports
-
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
@@ -79,17 +79,28 @@ class User < ApplicationRecord
       User.where.not(id: [1,18,56]).each do |user|
         # Return Taken Leave Balance
         @taken_leave = User.taken_leave(user,@start_date,@end_date)
-        @free_leave = 1
+        prev_extra_leave = user.free_leaves.find_by_leave_month(@start_date - 1.month)
+        @free_leave = prev_extra_leave.present? ? prev_extra_leave.extra_leave + 1 : 1
+        # @free_leave = 1
         @prev_leave_bal = user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 2.month).try(:current_leave_bal)
         @prev_month_leave_bal = @prev_leave_bal.nil? || @prev_leave_bal < 0 ? 0 : @prev_leave_bal
         @current_bal = ( @prev_month_leave_bal.to_f + @free_leave.to_f ) - @taken_leave.to_f
         # Create User Report
         User.create_leave_report(user)
         # Update leave balance if prev month leave balance is less than 0
-        user.update(leave_bal: 0) if @current_bal < 0
+        @current_bal < 0 ? user.update(leave_bal: 0) : user.update(leave_bal: @current_bal)
 
         # Add 1 free leave balance
-        user.update(leave_bal: (user.leave_bal.to_f + 1))
+        current_extra_leave = user.free_leaves.find_by_leave_month(@start_date)
+        @current_free_leave = current_extra_leave.present? ? current_extra_leave.extra_leave + 1 : 1
+
+        if prev_extra_leave.present?
+          free_total = prev_extra_leave.extra_leave - @taken_leave.to_f
+          if free_total > 0
+            user.update(leave_bal: (user.leave_bal - free_total))
+          end
+        end
+        user.update(leave_bal: (user.leave_bal.to_f + @current_free_leave))
 
         # Update current month leave if taken any leave on this current month
         current_month_leave = User.current_month_leave(user)

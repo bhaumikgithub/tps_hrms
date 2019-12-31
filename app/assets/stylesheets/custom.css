@@ -88,6 +88,14 @@ nav.clean .breadcrumb:before {
   border-radius: 2px;
   display: inline-block;
 }
+.d-flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+.w-100{
+  width: 100%;
+}
+
 .desk-dis-none{display:none !important;}
 .table-responsive{overflow-x: auto !important;}
 .holiday-table, .designation-table, .degree-table, .department-table, .role-table{min-width:500px;}

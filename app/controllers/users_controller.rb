@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
   before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user]
-  before_action :authenticate_user, only:  [:destroy, :show, :update, :edit]
+  before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
     @users = User.all.order('first_name ASC')

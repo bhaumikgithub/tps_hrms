@@ -11,11 +11,14 @@
               <% else %>
                 <%= image_tag("avatar.png", class: 'responsive-img  z-depth-5', id: "crop_image") %>
               <% end %>
-              <%= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}%>
-              <a class="custome_style">
-                <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
-                <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
-              </a>
+
+              <% if current_user.id == @user.id || current_user.admin? %>
+                <%= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}%>
+                <a class="custome_style">
+                  <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
+                  <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
+                </a>
+              <% end %>
             </div>
           </div>
           <div class="col s12 m1">

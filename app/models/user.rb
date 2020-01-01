@@ -48,6 +48,7 @@ class User < ApplicationRecord
   #     self.role.name == user_role
   #   end
   # end
+  
 
   def user_mentor
     User.find_by(id: self.mentor.to_i)

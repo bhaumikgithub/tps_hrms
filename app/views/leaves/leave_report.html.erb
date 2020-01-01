@@ -25,7 +25,7 @@
             </div>
             <div class="col l3 m6 s12">
               <div class="year_warpper">
-                <%= select_year(Date.today, :start_year => @leave_reports&.first&.start_month&.year.present? ? @leave_reports&.first&.start_month&.year : Date.today.year, :end_year => 3.years.from_now.year) %>
+                <%= select_year(Date.today, :start_year => LeaveReport&.first&.start_month&.year.present? ? LeaveReport&.first&.start_month&.year : Date.today.year, :end_year => 3.years.from_now.year) %>
               </div>
             </div>
           </div>

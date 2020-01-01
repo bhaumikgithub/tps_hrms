@@ -43,11 +43,11 @@ class User < ApplicationRecord
     end
   end
 
-  Role.pluck(:name).each do |user_role|
-    define_method "#{user_role}?" do
-      self.role.name == user_role
-    end
-  end
+  # Role.pluck(:name).each do |user_role|
+  #   define_method "#{user_role}?" do
+  #     self.role.name == user_role
+  #   end
+  # end
   
 
   def user_mentor

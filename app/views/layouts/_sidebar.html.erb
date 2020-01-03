@@ -49,6 +49,9 @@
           </li>
           <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
           </li>
+          <li>
+            <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
+          </li>
 
         <% end %>
 

@@ -56,9 +56,9 @@ class User < ApplicationRecord
   def format_experience
     if self.experience.to_s.include? "."
       experience = self.experience.to_s.split(".")
-      total_experience = experience[0] + " years " + experience[1] + " months"
+      total_experience = experience[0] + " Years " + experience[1] + " Months"
     else
-      total_experience = self.experience + " years "
+      total_experience = self.experience + " Years "
     end
   end
 

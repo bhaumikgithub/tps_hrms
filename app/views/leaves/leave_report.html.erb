@@ -32,16 +32,16 @@
           <div id="view-borderless-table1">
             <div class="row">
               <div class="col s12">
-                <table id="leave_report_table" >
+                <table id="leave_report_table" class="mdl-data-table" style="width:100%">
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>start month</th>
-                      <th>end month</th>
-                      <th>pre mpnth leave bal</th>
-                      <th>free leave</th>
-                      <th>taken leave</th>
-                      <th>current bal</th>
+                      <th>From</th>
+                      <th>To</th>
+                      <th>Leave Bal. (Prev. Month)</th>
+                      <th>Free Leaves</th>
+                      <th>Taken Leaves</th>
+                      <th>New Balance</th>
                     </tr>
                   </thead>
                   <tbody class="leave_report_body">
@@ -59,6 +59,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $('#leave_report_table').DataTable({
+    columnDefs: [
+            { width: '22%', targets: 0 },
+            { width: '15%', targets: [1,2] },
+            { width: '12%', targets: [3,4,5,6] }
+        ],
     "dom": 'lf<<"datatable-responsive"t>ip>',
     responsive: true
 });

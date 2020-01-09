@@ -54,11 +54,13 @@
               <div class="col s12 m6 l10">
                 <h5>Contact Details</h5>
               </div>
-              <div class="col s12 m6 l2">
-                <ul class="">
-                  <li><a class="waves-effect waves-light btn modal-trigger" href="#edit_contact_detail_modal">Edit</a></li>
-                </ul>
-              </div>
+              <% if current_user.id == @user.id || current_user.admin? %>
+                <div class="col s12 m6 l2">
+                  <ul class="">
+                    <li><a class="waves-effect waves-light btn modal-trigger" href="#edit_contact_detail_modal">Edit</a></li>
+                  </ul>
+                </div>
+              <% end %>
             </div>
           </div>
         

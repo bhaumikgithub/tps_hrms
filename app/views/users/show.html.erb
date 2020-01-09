@@ -48,7 +48,19 @@
     <div class="col s12 card-content-link">
       <div class="card card-tabs">
         <div class="card-content">
-          <h5>Contact Details</h5><br>
+          <!-- <h5>Contact Details</h5><br> -->
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12 m6 l10">
+                <h5>Contact Details</h5>
+              </div>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><a class="waves-effect waves-light btn modal-trigger" href="#edit_contact_detail_modal">Edit</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         
           <div class="row">  
             <div class="col s12 m3">
@@ -255,6 +267,47 @@
       <button class="cropbutton btn btn-lg default confirm_btn">Confirm</button>
     </div>
   </div>
+
+<div id="edit_contact_detail_modal" class="modal">
+  <div class="modal-content">
+    <h4>Contact Detail</h4>
+    <%= form_for @user, :url => url_for(:controller => 'users', :action => params['id'].present?  ? 'update' : 'create_user') do |f| %>
+      <div class="col s12">
+          <div id="input-fields" class="card card-tabs">
+            <div class="card-content">
+              <div class="card-title">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <%= f.email_field :email,  id: "personal_email", required: true %><br />
+                    <label for="personal_email">Personal Email</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :emergency_contact,id: "emergency_contact" %><br />
+                    <label for="emergency_contact">Emergency Contact</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :contact,id: "contact" %><br />
+                    <label for="contact">Contact</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :address,id: "address" %><br />
+                    <label for="address">Address</label>
+                  </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-field col s12 mobile-center">
+          <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        </div>
+    <% end %>
+  </div>
+</div>
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>
 
@@ -285,5 +338,9 @@
         console.log("complete");
       $('#image_cropping').cropper("destroy");
       });
+  });
+
+   $(document).ready(function(){
+    $('#edit_contact_detail_modal').modal();
   });
 </script>

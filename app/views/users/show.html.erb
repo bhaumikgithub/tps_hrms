@@ -273,6 +273,13 @@
 <div id="edit_contact_detail_modal" class="modal">
   <div class="modal-content">
     <h4>Contact Detail</h4>
+    <% if @user.errors.any? %>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li class="red_font_clr"><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
     <%= form_for @user, :url => url_for(:controller => 'users', :action => params['id'].present?  ? 'update' : 'create_user') do |f| %>
       <div class="col s12">
           <div id="input-fields" class="card card-tabs">
@@ -285,17 +292,17 @@
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.text_field :emergency_contact,id: "emergency_contact" %><br />
+                    <%= f.text_field :emergency_contact,id: "emergency_contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %><br />
                     <label for="emergency_contact">Emergency Contact</label>
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.text_field :contact,id: "contact" %><br />
+                    <%= f.text_field :contact,id: "contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57'  %><br />
                     <label for="contact">Contact</label>
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.text_field :address,id: "address" %><br />
+                    <%= f.text_field :address,id: "address", required: true  %><br />
                     <label for="address">Address</label>
                   </div>
                  </div>
@@ -305,6 +312,7 @@
         </div>
         <div class="input-field col s12 mobile-center">
           <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+          <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
         </div>
     <% end %>
   </div>

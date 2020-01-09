@@ -292,12 +292,12 @@
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.text_field :emergency_contact,id: "emergency_contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %><br />
+                    <%= f.text_field :emergency_contact,id: "emergency_contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', maxlength: "11", minlength: "8" %><br />
                     <label for="emergency_contact">Emergency Contact</label>
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.text_field :contact,id: "contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57'  %><br />
+                    <%= f.text_field :contact,id: "contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', maxlength: "11", minlength: "8"   %><br />
                     <label for="contact">Contact</label>
                   </div>
 

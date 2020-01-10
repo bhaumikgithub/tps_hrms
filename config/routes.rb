@@ -13,12 +13,14 @@ Rails.application.routes.draw do
     member do
       patch :change_profile
       delete :remove_profile
+      post :create_education_detail
     end
     collection do
       post :create_user
       get :birthday_anniversary
       get :user_data
       get :recurring_user_data
+      get :edit_education_detail_modal
     end
   end
   

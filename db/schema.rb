@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_24_045947) do
+ActiveRecord::Schema.define(version: 2020_01_10_045546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,19 @@ ActiveRecord::Schema.define(version: 2019_12_24_045947) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_designations_on_user_id"
+  end
+
+  create_table "educations", force: :cascade do |t|
+    t.string "degree"
+    t.string "college"
+    t.string "university"
+    t.datetime "from"
+    t.datetime "to"
+    t.boolean "is_current", default: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_educations_on_user_id"
   end
 
   create_table "employee_handbooks", force: :cascade do |t|
@@ -174,6 +187,7 @@ ActiveRecord::Schema.define(version: 2019_12_24_045947) do
   add_foreign_key "degrees", "users"
   add_foreign_key "departments", "users"
   add_foreign_key "designations", "users"
+  add_foreign_key "educations", "users"
   add_foreign_key "free_leaves", "users"
   add_foreign_key "leave_reports", "users"
   add_foreign_key "leaves", "users"

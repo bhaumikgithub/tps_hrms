@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get :user_data
       get :recurring_user_data
       get :edit_education_detail_modal
+      post :update_education
     end
   end
   

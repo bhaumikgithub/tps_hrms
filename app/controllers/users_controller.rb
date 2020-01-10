@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
   before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail]
@@ -44,6 +44,14 @@ class UsersController < ApplicationController
       puts @user.errors.inspect
       redirect_to user_path(@user)
     end
+  end
+
+  def edit_education_detail_modal
+    @education = Education.find(params[:education_id])
+  end
+
+  def update_education
+    redirect_to user_path(current_user.id)
   end
 
   def update

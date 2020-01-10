@@ -61,4 +61,33 @@
       }
     });
 
+    $('.from_education_date').datepicker({
+      firstDay: 1,
+      selectMonths: true,
+      defaultDate: cdate,
+      setDefaultDate: true,
+      disableDayFn: function(date) {
+        if (date.getDate() == 1)
+          return false;
+        else
+          return true;
+      }
+    });
+
+    $('.to_education_date').datepicker({
+      firstDay: 1,
+      onOpen: function(){
+        var startDate = new Date($("#start_education_date").val());
+        var instance = M.Datepicker.getInstance($('.to_education_date'));
+        instance.options.minDate = new Date(startDate);
+      },
+      disableDayFn: function(date) {
+        if (date.getDate() == 1)
+          return false;
+        else
+          return true;
+      }
+    });
+
+
   });

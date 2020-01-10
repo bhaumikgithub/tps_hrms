@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -17,6 +17,10 @@ class UsersController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+
+  def show
+    @educations = @user.educations
   end
 
   def create_user
@@ -32,6 +36,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_education_detail
+    @education = Education.new(education_params)
+    if @education.save
+      redirect_to user_path(@user)
+    else
+      puts @user.errors.inspect
+      redirect_to user_path(@user)
+    end
+  end
 
   def update
     if @user.update(user_params)
@@ -99,6 +112,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :email, :comp_email, :emergency_contact, :contact, :birthday, :marital_status, :anniversary_date, :join_date, :job_status, :address, :degree_id, :experience, :designation_id, :mentor, :department_id, :adhar_no, :pan_no, :user_type, :profile_picture, :leave_bal,:leave_added_on, :emp_code, :gender, :role_id)
+  end
+
+  def education_params
+    params.require(:education).permit(:degree, :college, :university, :from, :to, :is_current, :user_id)
   end
 
   def user_password

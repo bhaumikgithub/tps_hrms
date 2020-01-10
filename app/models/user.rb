@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :employees, :class_name=>"User", :foreign_key=>"mentor"
   has_many :free_leaves
   has_many :leave_reports
+  has_many :educations
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 

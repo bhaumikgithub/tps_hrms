@@ -1,0 +1,51 @@
+<div id="edit_education_detail_modal" class="modal">
+  <div class="modal-content">
+    <h4>Education Detail</h4>
+    <%= form_for :education, :url => url_for(:controller => 'users', :action => 'update_education') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col s12">
+                  <%= f.text_field :degree,  id: "degree_name", required: true %><br />
+                  <label for="degree_name">Degree</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.text_field :college,  id: "college_name", required: true %><br />
+                  <label for="college_name">College</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.text_field :university,  id: "university_name", required: true %><br />
+                  <label for="university_name">University</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %><br />
+                  <label for="from">From</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %><br />
+                  <label for="to">To</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%#= f.check_box :is_current, id:"is_current_checkbox" %>
+                  <%= f.check_box :is_current, {:id => "is_current_checkbox", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <label for="to">Current</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
+    <% end %>
+  </div>
+</div>

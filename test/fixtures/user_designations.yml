@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  desingnation: one
+  department: one
+  mentor: MyString
+  start_date: 2020-01-10 16:41:46
+  end_date: 2020-01-10 16:41:46
+  user: one
+  is_current: false
+
+two:
+  desingnation: two
+  department: two
+  mentor: MyString
+  start_date: 2020-01-10 16:41:46
+  end_date: 2020-01-10 16:41:46
+  user: two
+  is_current: false

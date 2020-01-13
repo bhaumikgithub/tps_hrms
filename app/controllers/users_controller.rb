@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_education_detail_modal, :update_education]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def show
     @educations = @user.educations
+    @user_designations = @user.user_designations
   end
 
   def create_user
@@ -41,7 +42,18 @@ class UsersController < ApplicationController
     if @education.save
       redirect_to user_path(@user)
     else
-      puts @user.errors.inspect
+      puts @education.errors.inspect
+      redirect_to user_path(@user)
+    end
+  end
+
+  def create_user_designation
+    @user_designation = UserDesignation.new(user_designation_params)
+    binding.pry
+    if @user_designation.save
+      redirect_to user_path(@user)
+    else
+      puts @user_designation.errors.inspect
       redirect_to user_path(@user)
     end
   end
@@ -124,6 +136,10 @@ class UsersController < ApplicationController
 
   def education_params
     params.require(:education).permit(:degree, :college, :university, :from, :to, :is_current, :user_id)
+  end
+
+  def user_designation_params
+    params.require(:user_designation).permit(:designation_id, :department_id, :mentor, :start_date, :end_date, :is_current, :user_id)
   end
 
   def user_password

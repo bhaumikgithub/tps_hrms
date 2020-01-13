@@ -49,7 +49,6 @@ class UsersController < ApplicationController
 
   def create_user_designation
     @user_designation = UserDesignation.new(user_designation_params)
-    binding.pry
     if @user_designation.save
       redirect_to user_path(@user)
     else

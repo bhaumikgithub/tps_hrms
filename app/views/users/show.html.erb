@@ -231,45 +231,18 @@
           <% end %>
           <br>
           
-        <% @user_designations.each do |user_des| %>
-          <% if current_user.admin? %>
-            <%= link_to delete_designation_users_path(id: @user.id, user_des_id: user_des.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
-              <i class="material-icons">delete</i>
-            <% end %>
-          <% end %>
-
-          <div class="row">  
-            <div class="col s12 m3">
-              <span><b>Designation:</b></span>
-            </div>
-            <div class="col s12 m3">
-              <span><%= user_des.designation.name %></span>
-            </div>
-          </div>
-          <br>
-          <div class="row">  
-            <div class="col s12 m3">
-              <span><b>Department:</b></span>
-            </div>
-            <div class="col s12 m3">
-              <span><%= user_des.department.name %></span>
-            </div>
-          </div>
-          <br>
-          <div class="row">  
-            <div class="col s12 m3">
-              <span><b>Mentor</b></span>
-            </div>
-            <div class="col s12 m3">
-              <span><%= User.find(user_des.mentor).full_name %></span>
-            </div>
-          </div>
-          <br>
-          <div class="row">  
-            <div class="col s12 m3">
-              <span><b>Time Periods</b></span>
-            </div>
-            <div class="col s12 m3">
+        <% @user_designations.order(id: :desc).each do |user_des| %>
+          <div class="row">
+           <div class="col s12 l12">
+              <span><b><%= "#{user_des.designation.name} of #{user_des.department.name} Department."  %></b></span>
+              <% if current_user.admin? %>
+                <%= link_to delete_designation_users_path(id: @user.id, user_des_id: user_des.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              <% end %>
+              <br/>
+              <span>Mentor is <b><%= "#{User.find(user_des.mentor).full_name}"  %></b></span>
+              <br/>
               <% if user_des.is_current %>
                 <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
               <% else %>
@@ -277,8 +250,7 @@
               <% end %>
             </div>
           </div>
-          <br>
-          <br>
+          <br/>
         <% end %>
         </div>
       </div>
@@ -301,9 +273,10 @@
           <% end %>
           <br>
           
-        <% @educations.each do |education| %>
+        <% @educations.order(from: :desc).each do |education| %>
           <div class="row">  
             <div class="col s12 l12">
+              <span><b><%= "#{education.degree} | #{education.college}"  %></b></span>
               <% if current_user.admin? %>
                 <!-- <%#= link_to edit_education_detail_modal_users_path(id: @user.id, education_id: education.id), :remote => true do %>
                   <i class="material-icons">edit</i>
@@ -314,8 +287,6 @@
                 <% end %>
               <% end %>
               <br/>
-
-              <span><b><%= "#{education.degree} | #{education.college}"  %></b></span><br/>
 
               <% if education.is_current == true %>
                 <span><%= "#{education&.from.try(:strftime, "%b %Y")} - Current" %></span><br/>

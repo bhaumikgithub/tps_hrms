@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education, :delete_education, :delete_designation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :delete_education, :delete_designation]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+
+  def show
+    @educations = @user.educations
+    @user_designations = @user.user_designations
   end
 
   def create_user
@@ -32,6 +37,43 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_education_detail
+    @education = Education.new(education_params)
+    if @education.save
+      redirect_to user_path(@user)
+    else
+      puts @education.errors.inspect
+      redirect_to user_path(@user)
+    end
+  end
+
+  def create_user_designation
+    @user_designation = UserDesignation.new(user_designation_params)
+    if @user_designation.save
+      redirect_to user_path(@user)
+    else
+      puts @user_designation.errors.inspect
+      redirect_to user_path(@user)
+    end
+  end
+
+  def edit_education_detail_modal
+    @education = Education.find(params[:education_id])
+  end
+
+  def delete_education
+    Education.find(params[:education_id]).destroy!
+    redirect_to user_path(@user)
+  end
+
+  def delete_designation
+    UserDesignation.find(params[:user_des_id]).destroy!
+    redirect_to user_path(@user)
+  end
+
+  def update_education
+    redirect_to user_path(current_user.id)
+  end
 
   def update
     if @user.update(user_params)
@@ -99,6 +141,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :email, :comp_email, :emergency_contact, :contact, :birthday, :marital_status, :anniversary_date, :join_date, :job_status, :address, :degree_id, :experience, :designation_id, :mentor, :department_id, :adhar_no, :pan_no, :user_type, :profile_picture, :leave_bal,:leave_added_on, :emp_code, :gender, :role_id)
+  end
+
+  def education_params
+    params.require(:education).permit(:degree_id, :college, :university, :from, :to, :is_current, :user_id)
+  end
+
+  def user_designation_params
+    params.require(:user_designation).permit(:designation_id, :department_id, :mentor, :start_date, :end_date, :is_current, :user_id)
   end
 
   def user_password

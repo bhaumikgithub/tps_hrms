@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  degree: MyString
+  collage: MyString
+  university: MyString
+  from: 2020-01-10 10:25:46
+  to: 2020-01-10 10:25:46
+  user: one
+
+two:
+  degree: MyString
+  collage: MyString
+  university: MyString
+  from: 2020-01-10 10:25:46
+  to: 2020-01-10 10:25:46
+  user: two

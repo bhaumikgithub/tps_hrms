@@ -148,32 +148,32 @@
                   </div>
 
 
-                  <div class="input-field col m6 s12">
-                    <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <!-- <div class="input-field col m6 s12">
+                    <%#= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="designation">Designation</label>
-                  </div>
+                  </div> -->
 
 
 
-                  <div class="input-field col m6 s12">
-                    <%= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <!-- <div class="input-field col m6 s12">
+                    <%#= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Mentor</label>
-                  </div>
+                  </div> -->
 
-                  <div class="input-field col m6 s12 custom-dropdown">
-                    <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <!-- <div class="input-field col m6 s12 custom-dropdown">
+                    <%#= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label>Department</label>
-                  </div>
+                  </div> -->
                  
                   <div class="input-field col m6 s12">
                     <%= f.text_field :experience,id: "experience" %><br />
                     <label for="experience">Past Experience</label>
                   </div>
 
-                  <div class="input-field col m6 s12">
-                     <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <!-- <div class="input-field col m6 s12">
+                     <%#= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="degree">Degree</label>
-                  </div>
+                  </div> -->
 
                    <div class="input-field col m6 s12">
                     <%= f.text_field :leave_bal,id: "leave_bal" %><br />

@@ -209,12 +209,104 @@
             </div>
           </div>
           <br>
-          
-
-
         </div>
       </div>
     </div>
+  <% if current_user.admin? %>
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h5>Designation & Promotion</h5>
+            </div>
+            <% if current_user.admin? %>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to("#add_user_designation_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+          <br>
+          
+        <% @user_designations.order(id: :desc).each do |user_des| %>
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <span><b><%= "#{user_des.designation.name} of #{user_des.department.name} Department."  %></b></span>
+              <br/>
+              <span>Mentor is <b><%= "#{User.find(user_des.mentor).full_name}"  %></b></span>
+              <br/>
+              <% if user_des.is_current %>
+                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
+              <% else %>
+                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - #{user_des&.end_date.try(:strftime, "%d %b %Y")}" %></span>
+              <% end %>
+            </div>
+            <div class="col s12 m6 l2">
+              <% if current_user.admin? %>
+                <%= link_to delete_designation_users_path(id: @user.id, user_des_id: user_des.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <br/>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.admin?  %>
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h5>Education Details</h5>
+            </div>
+            <% if current_user.admin? %>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to("#add_education_detail_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+          <br>
+          
+        <% @educations.order(from: :desc).each do |education| %>
+          <div class="row">  
+            <div class="col s12 m6 l10">
+              <span><b><%= "#{education.degree&.name} | #{education.college}"  %></b></span>
+              <br/>
+
+              <% if education.is_current == true %>
+                <span><%= "#{education&.from.try(:strftime, "%b %Y")} - Current" %></span><br/>
+              <% else %>
+                <span><%= "#{education&.from.try(:strftime, "%b %Y")} - #{education&.to.try(:strftime, "%b %Y")}" %></span><br/>
+              <% end %>
+              <span><b><%= "Studied #{education.degree&.name} from the #{education.university}."  %></b></span><br/>
+            </div>
+            <div class="col s12 m6 l2">
+              <% if current_user.admin? %>
+                <!-- <%#= link_to edit_education_detail_modal_users_path(id: @user.id, education_id: education.id), :remote => true do %>
+                  <i class="material-icons">edit</i>
+                <%# end %> -->
+
+                <%= link_to delete_education_users_path(id: @user.id, education_id: education.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <br>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
     <% if current_user.admin? %>
       <div class="col s12 card-content-link">
@@ -282,41 +374,150 @@
     <% end %>
     <%= form_for @user, :url => url_for(:controller => 'users', :action => params['id'].present?  ? 'update' : 'create_user') do |f| %>
       <div class="col s12">
-          <div id="input-fields" class="card card-tabs">
-            <div class="card-content">
-              <div class="card-title">
-                <div class="row">
-                  <div class="input-field col s12">
-                    <%= f.email_field :email,  id: "personal_email", required: true %><br />
-                    <label for="personal_email">Personal Email</label>
-                  </div>
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col s12">
+                  <%= f.email_field :email,  id: "personal_email", required: true %><br />
+                  <label for="personal_email">Personal Email</label>
+                </div>
 
-                  <div class="input-field col s12">
-                    <%= f.text_field :emergency_contact,id: "emergency_contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', maxlength: "11", minlength: "8" %><br />
-                    <label for="emergency_contact">Emergency Contact</label>
-                  </div>
+                <div class="input-field col s12">
+                  <%= f.text_field :emergency_contact,id: "emergency_contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', maxlength: "11", minlength: "8" %><br />
+                  <label for="emergency_contact">Emergency Contact</label>
+                </div>
 
-                  <div class="input-field col s12">
-                    <%= f.text_field :contact,id: "contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', maxlength: "11", minlength: "8"   %><br />
-                    <label for="contact">Contact</label>
-                  </div>
+                <div class="input-field col s12">
+                  <%= f.text_field :contact,id: "contact", required: true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', maxlength: "11", minlength: "8"   %><br />
+                  <label for="contact">Contact</label>
+                </div>
 
-                  <div class="input-field col s12">
-                    <%= f.text_field :address,id: "address", required: true  %><br />
-                    <label for="address">Address</label>
-                  </div>
-                 </div>
+                <div class="input-field col s12">
+                  <%= f.text_field :address,id: "address", required: true  %><br />
+                  <label for="address">Address</label>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="add_education_detail_modal" class="modal">
+  <div class="modal-content">
+    <h4>Education Detail</h4>
+    <%= form_for :education, :url => url_for(:controller => 'users', :action => 'create_education_detail') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col s12">
+                   <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label for="degree">Degree</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.text_field :college,  id: "college_name", required: true %><br />
+                  <label for="college_name">College</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.text_field :university,  id: "university_name", required: true %><br />
+                  <label for="university_name">University</label>
+                </div>
+
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <div class="input-field col m6 s12">
+                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %><br />
+                  <label for="from">From</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %><br />
+                  <label for="to">To</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%#= f.check_box :is_current, id:"is_current_checkbox" %>
+                  <%= f.check_box :is_current, {:id => "is_current_checkbox", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <label for="to">Current</label>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="input-field col s12 mobile-center">
-          <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
-          <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
-        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
     <% end %>
   </div>
 </div>
+
+<div id="add_user_designation_modal" class="modal">
+  <div class="modal-content">
+    <h4>Education Detail</h4>
+    <%= form_for :user_designation, :url => url_for(:controller => 'users', :action => 'create_user_designation') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col m6 s12">
+                  <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label for="designation">Designation</label>
+                </div>
+
+                <div class="input-field col m6 s12 custom-dropdown">
+                  <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label>Department</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label>Mentor</label>
+                </div>
+
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %>
+                  <%= f.text_field :start_date, class: 'datepicker leave_date',id:"start_date" %><br /><br />
+                  <label for="from">Start Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %>
+                  <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date" %><br />
+                  <label for="to">End Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.check_box :is_current, {:id => "is_current", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <label for="to">Current</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="education_modal"></div>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>
@@ -352,5 +553,31 @@
 
    $(document).ready(function(){
     $('#edit_contact_detail_modal').modal();
+    $('#add_education_detail_modal').modal();
+    $('#add_user_designation_modal').modal();
+
+    $('#is_current_checkbox').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#end_education_date" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#end_education_date" ).prop('disabled', false);
+        cb.val(false);
+      }
+    });
+
+    $('#is_current').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#end_date" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#end_date" ).prop('disabled', false);
+        cb.val(false);
+      }
+    });
   });
 </script>

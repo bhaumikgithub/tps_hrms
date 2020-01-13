@@ -1,0 +1,9 @@
+var $modal = $('#education_modal').modal();
+// $('.modal').modal();
+$modal.html('<%= escape_javascript(render partial: "edit_education_detail_modal",locals: {education: @education} ) %>');
+
+$('.modal').modal();
+$('#edit_education_detail_modal').modal('open');
+$('.trigger-modal').modal();
+// $('#edit_education_detail_modal').on('click', function() {
+// });

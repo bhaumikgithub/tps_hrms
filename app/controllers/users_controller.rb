@@ -144,7 +144,7 @@ class UsersController < ApplicationController
   end
 
   def education_params
-    params.require(:education).permit(:degree, :college, :university, :from, :to, :is_current, :user_id)
+    params.require(:education).permit(:degree_id, :college, :university, :from, :to, :is_current, :user_id)
   end
 
   def user_designation_params

@@ -212,51 +212,6 @@
         </div>
       </div>
     </div>
-  <% if current_user.admin? %>
-    <div class="col s12 card-content-link">
-      <div class="card card-tabs">
-        <div class="card-content">
-          <div class="row">
-            <div class="col s12 m6 l10">
-              <h5>Designation & Promotion</h5>
-            </div>
-            <% if current_user.admin? %>
-              <div class="col s12 m6 l2">
-                <ul class="">
-                  <li><%= link_to("#add_user_designation_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
-                </ul>
-              </div>
-            <% end %>
-          </div>
-          <br>
-          
-        <% @user_designations.order(id: :desc).each do |user_des| %>
-          <div class="row">
-            <div class="col s12 m6 l10">
-              <span><b><%= "#{user_des.designation.name} of #{user_des.department.name} Department."  %></b></span>
-              <br/>
-              <span>Mentor is <b><%= "#{User.find(user_des.mentor).full_name}"  %></b></span>
-              <br/>
-              <% if user_des.is_current %>
-                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
-              <% else %>
-                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - #{user_des&.end_date.try(:strftime, "%d %b %Y")}" %></span>
-              <% end %>
-            </div>
-            <div class="col s12 m6 l2">
-              <% if current_user.admin? %>
-                <%= link_to delete_designation_users_path(id: @user.id, user_des_id: user_des.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
-                  <i class="material-icons">delete</i>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <br/>
-        <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
 
   <% if current_user.admin?  %>
     <div class="col s12 card-content-link">
@@ -302,6 +257,52 @@
             </div>
           </div>
           <br>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if current_user.admin? %>
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h5>Designation & Promotion</h5>
+            </div>
+            <% if current_user.admin? %>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to("#add_user_designation_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+          <br>
+          
+        <% @user_designations.order(id: :desc).each do |user_des| %>
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <span><b><%= "#{user_des.designation.name} of #{user_des.department.name} Department."  %></b></span>
+              <br/>
+              <span>Mentor is <b><%= "#{User.find(user_des.mentor).full_name}"  %></b></span>
+              <br/>
+              <% if user_des.is_current %>
+                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
+              <% else %>
+                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - #{user_des&.end_date.try(:strftime, "%d %b %Y")}" %></span>
+              <% end %>
+            </div>
+            <div class="col s12 m6 l2">
+              <% if current_user.admin? %>
+                <%= link_to delete_designation_users_path(id: @user.id, user_des_id: user_des.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <br/>
         <% end %>
         </div>
       </div>
@@ -437,7 +438,7 @@
                 <%= f.hidden_field :user_id, :value => @user.id %>
                 <div class="input-field col m6 s12">
                   <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %><br />
-                  <label for="from">From</label>
+                  <label for="from">S</label>
                 </div>
 
                 <div class="input-field col m6 s12">

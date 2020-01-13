@@ -220,6 +220,69 @@
       <div class="card card-tabs">
         <div class="card-content">
           <div class="col s12 m6 l10">
+            <h5>Designation & Promotion</h5>
+          </div>
+          <% if current_user.admin? %>
+            <div class="col s12 m6 l2">
+              <ul class="">
+                <li><%= link_to("#add_user_designation_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+              </ul>
+            </div>
+          <% end %>
+          <br>
+          
+        <% @user_designations.each do |user_des| %>
+
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Designation:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= user_des.designation.name %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Department:</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= user_des.department.name %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Mentor</b></span>
+            </div>
+            <div class="col s12 m3">
+              <span><%= User.find(user_des.mentor).full_name %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m3">
+              <span><b>Time Periods</b></span>
+            </div>
+            <div class="col s12 m3">
+              <% if user_des.is_current %>
+                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
+              <% else %>
+                <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - #{user_des&.end_date.try(:strftime, "%d %b %Y")}" %></span>
+              <% end %>
+            </div>
+          </div>
+          <br>
+          <br>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="col s12 m6 l10">
             <h5>Education Details</h5>
           </div>
           <% if current_user.id == @user.id && !current_user.admin? %>
@@ -410,6 +473,60 @@
   </div>
 </div>
 
+<div id="add_user_designation_modal" class="modal">
+  <div class="modal-content">
+    <h4>Education Detail</h4>
+    <%= form_for :user_designation, :url => url_for(:controller => 'users', :action => 'create_user_designation') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col m6 s12">
+                  <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label for="designation">Designation</label>
+                </div>
+
+                <div class="input-field col m6 s12 custom-dropdown">
+                  <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label>Department</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label>Mentor</label>
+                </div>
+
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %>
+                  <%= f.text_field :start_date, class: 'datepicker leave_date',id:"start_date" %><br /><br />
+                  <label for="from">Start Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %>
+                  <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date" %><br />
+                  <label for="to">End Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.check_box :is_current, {:id => "is_current", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <label for="to">Current</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div id="education_modal"></div>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
@@ -447,6 +564,7 @@
    $(document).ready(function(){
     $('#edit_contact_detail_modal').modal();
     $('#add_education_detail_modal').modal();
+    $('#add_user_designation_modal').modal();
 
     $('#is_current_checkbox').change(function() {
       cb = $(this);
@@ -456,6 +574,18 @@
       }
       else{
         $( "#end_education_date" ).prop('disabled', false);
+        cb.val(false);
+      }
+    });
+
+    $('#is_current').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#end_date" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#end_date" ).prop('disabled', false);
         cb.val(false);
       }
     });

@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_education_detail_modal, :update_education]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education, :delete_education, :delete_designation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal]
+  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :delete_education, :delete_designation]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -60,6 +60,16 @@ class UsersController < ApplicationController
 
   def edit_education_detail_modal
     @education = Education.find(params[:education_id])
+  end
+
+  def delete_education
+    Education.find(params[:education_id]).destroy!
+    redirect_to user_path(@user)
+  end
+
+  def delete_designation
+    UserDesignation.find(params[:user_des_id]).destroy!
+    redirect_to user_path(@user)
   end
 
   def update_education

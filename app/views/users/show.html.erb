@@ -209,13 +209,10 @@
             </div>
           </div>
           <br>
-          
-
-
         </div>
       </div>
     </div>
-  <% if @user_designations.present? || current_user.admin? %>
+  <% if current_user.admin? %>
     <div class="col s12 card-content-link">
       <div class="card card-tabs">
         <div class="card-content">
@@ -261,7 +258,7 @@
     </div>
   <% end %>
 
-  <% if @educations.present? || current_user.admin?  %>
+  <% if current_user.admin?  %>
     <div class="col s12 card-content-link">
       <div class="card card-tabs">
         <div class="card-content">
@@ -282,7 +279,7 @@
         <% @educations.order(from: :desc).each do |education| %>
           <div class="row">  
             <div class="col s12 m6 l10">
-              <span><b><%= "#{education.degree} | #{education.college}"  %></b></span>
+              <span><b><%= "#{education.degree&.name} | #{education.college}"  %></b></span>
               <br/>
 
               <% if education.is_current == true %>
@@ -290,7 +287,7 @@
               <% else %>
                 <span><%= "#{education&.from.try(:strftime, "%b %Y")} - #{education&.to.try(:strftime, "%b %Y")}" %></span><br/>
               <% end %>
-              <span><b><%= "Studied #{education.degree} from the #{education.university}."  %></b></span><br/>
+              <span><b><%= "Studied #{education.degree&.name} from the #{education.university}."  %></b></span><br/>
             </div>
             <div class="col s12 m6 l2">
               <% if current_user.admin? %>
@@ -423,8 +420,8 @@
             <div class="card-title">
               <div class="row">
                 <div class="input-field col s12">
-                  <%= f.text_field :degree,  id: "degree_name", required: true %><br />
-                  <label for="degree_name">Degree</label>
+                   <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label for="degree">Degree</label>
                 </div>
 
                 <div class="input-field col s12">

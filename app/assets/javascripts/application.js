@@ -61,10 +61,15 @@
       }
     });
 
+    function startOfMonth(date)
+    {
+      return new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+
     $('.from_education_date').datepicker({
       firstDay: 1,
       selectMonths: true,
-      defaultDate: cdate,
+      defaultDate: startOfMonth(cdate),
       setDefaultDate: true,
       disableDayFn: function(date) {
         if (date.getDate() == 1)

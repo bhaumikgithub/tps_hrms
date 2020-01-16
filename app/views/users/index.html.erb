@@ -51,10 +51,10 @@
                         <!-- <td><%#= user.comp_email %></td> -->
                         <td><%= user.contact %></td>
                         <td data-sort="<%=user.join_date&.to_date.try(:strftime,"%Y%m%d%H%M%s") %>"><%= user.join_date&.to_date.try(:strftime,'%d-%m-%Y') %></td>
-                        <td><%= user&.designation&.name %></td>
-                        <td><%= user&.department&.name %></td>
+                        <td><%= user&.user_designations&.last&.designation&.name %></td>
+                        <td><%= user&.user_designations&.last&.department&.name %></td>
                         <td><%= user&.user_type&.humanize %></td>
-                        <td><%= user.user_mentor&.full_name %></td>
+                        <td><%= user.user_current_mentor&.full_name %></td>
                       </tr>
                     <% end %>
                   </tbody>

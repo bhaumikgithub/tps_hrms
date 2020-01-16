@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   belongs_to :company, optional: true
   has_one_attached :profile_picture
-  belongs_to :degree
-  belongs_to :department
-  belongs_to :designation
+  # belongs_to :degree
+  # belongs_to :department
+  # belongs_to :designation
   has_many :employees, :class_name=>"User", :foreign_key=>"mentor"
   has_many :free_leaves
   has_many :leave_reports
@@ -54,6 +54,10 @@ class User < ApplicationRecord
 
   def user_mentor
     User.find_by(id: self.mentor.to_i)
+  end
+
+  def user_current_mentor
+    User.find_by(id: self.user_designations&.last&.mentor&.to_i)
   end
 
   def format_experience

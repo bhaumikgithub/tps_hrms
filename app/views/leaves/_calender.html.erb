@@ -97,6 +97,7 @@
       editable: false,
       eventLimit: true,
       events: '/leaves/get_events',
+      showNonCurrentDates: false,
       viewRender : function (view, element) {
         $('#calendar').fullCalendar( 'removeEvents');
         var date = $("#calendar").fullCalendar('getDate');

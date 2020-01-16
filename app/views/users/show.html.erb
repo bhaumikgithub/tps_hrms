@@ -307,6 +307,42 @@
         </div>
       </div>
     </div>
+
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h5>Upload Document</h5>
+            </div>
+            <% if current_user.admin? %>
+              <div class="col s12 m6 l2">
+                <ul class="">
+                  <li><%= link_to("#add_user_document_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+          <br>
+          <% @user.documents.order(id: :desc).each do |doc| %>
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <%= link_to doc.doc_name, rails_blob_path(doc.document, only_path: true) %> <br />
+            </div>
+
+            <div class="col s12 m6 l2">
+              <% if current_user.admin? %>
+                <%= link_to document_path(id: doc.id, user_id: @user.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <br/>
+        <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
 
     <% if current_user.admin? %>
@@ -438,7 +474,7 @@
                 <%= f.hidden_field :user_id, :value => @user.id %>
                 <div class="input-field col m6 s12">
                   <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %><br />
-                  <label for="from">S</label>
+                  <label for="from">From</label>
                 </div>
 
                 <div class="input-field col m6 s12">
@@ -518,6 +554,39 @@
   </div>
 </div>
 
+<div id="add_user_document_modal" class="modal">
+  <div class="modal-content">
+    <h4>Upload Document</h4>
+    <%= form_for :document, :url => url_for(:controller => 'documents', :action => 'create') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <div class="input-field col s12">
+                  <%= f.text_field :name,  id: "document_name", required: true %><br />
+                  <label for="document_name">Name</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.file_field :document,  id: "attach_document", required: true, accept: ".doc, .docx, .pdf, .jpg, .png, .jpeg, .xlsx, .odt" %><br />
+                  <!-- <label for="attach_document">Attach Document</label> -->
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div id="education_modal"></div>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
@@ -556,6 +625,7 @@
     $('#edit_contact_detail_modal').modal();
     $('#add_education_detail_modal').modal();
     $('#add_user_designation_modal').modal();
+    $('#add_user_document_modal').modal();
 
     $('#is_current_checkbox').change(function() {
       cb = $(this);

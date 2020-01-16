@@ -25,9 +25,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s3">
+            <!-- <div class="col l3 m6 s12">
               <div class="select_width">
-                <%= select_tag "leave_type", options_for_select([ "Future", "Past" ], "Future"), class: "form-control leave_type_seletbox" %>
+                <%#= select_tag "leave_type", options_for_select([ "Future", "Past" ], "Future"), class: "form-control leave_type_seletbox" %>
+              </div>
+            </div> -->
+            <div class="col l3 m6 s12">
+              <div class="year_warpper", id="year_warpper">
+                <%= select_year(Date.today, :start_year => Date.today.year - 1, :end_year => 1.years.from_now.year) %>
               </div>
             </div>
           </div>
@@ -64,6 +69,16 @@ $('.leave_type_seletbox').on('change', function(){
     url: "/holidays/holiday_filter",
     type: "GET",
     data: { leave_type: leave_type },
+    dataType: "script"
+  });
+})
+
+$('#year_warpper').find('#date_year').on('change', function(){
+  var year = $(this).val();
+  $.ajax({
+    url: "/holidays/holiday_filter",
+    type: "GET",
+    data: { year: year },
     dataType: "script"
   });
 })

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :leave_reports
   has_many :educations
   has_many :user_designations
+  has_many :documents
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 

@@ -18,7 +18,7 @@ class LeavesController < ApplicationController
     end
     holidays = Holiday.all
     holidays.each do |holiday|
-      events << {:id => holiday.id, :title => "#{holiday.holiday_name}", :start => "#{holiday.holiday_date&.to_date}",:end => "#{holiday.try(:holiday_date).try(:to_date)+1}", :color => '#ff69b4' }
+      events << {:id => holiday.id, :title => "#{holiday.holiday_name}", :start => "#{holiday.holiday_date&.to_date}",:end => "#{holiday.try(:holiday_date).try(:to_date)+1}", :color => '#a9a9a9' }
     end
     render :json => events.to_json
   end
@@ -63,7 +63,7 @@ class LeavesController < ApplicationController
   end
 
   def get_mentor
-    mentor = User.find_by(id: params[:emp_id]).mentor
+    mentor = User.find_by(id: params[:emp_id])&.user_designations&.last&.mentor
     render json: mentor
   end
 

@@ -196,7 +196,7 @@
               <span><b>TPS Experience</b></span>
             </div>
             <div class="col s12 m3">
-              <span><%= @user.join_date.present? ? distance_of_time_in_words(Date.today, @user.join_date.to_date)&.titlecase  : "-" %></span>
+              <span><%= @user.join_date.present? ? Date.today == @user.join_date ? "O day" : distance_of_time_in_words(Date.today, @user.join_date.to_date)&.titlecase  : "-" %></span>
             </div>
           </div>
           <br>

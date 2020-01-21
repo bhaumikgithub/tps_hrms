@@ -129,32 +129,12 @@
                 </table>
               </div>
             </div>
-            <% end %>
-            <% if current_user.team_leader? %>
-              <div class="card">
-              <div class="card-content">
-                <span class="font-22">Upcoming Leaves</span> 
-                <table class="table table-borderless">
-                  <% if  @leaves.present? %>
-                    <% @employees_leaves.each do |leave| %>
-                      <tr>
-                        <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td>
-                        <td><span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span></td>
-                        <td><%= leave.user.first_name.humanize %></td>
-                      </tr>
-                    <% end %>
-                  <% else %>
-                    <tr>
-                      <td>No record found</td>
-                    </tr>
-                  <% end %>
-                </table>
-              </div>
-            </div>
-            <% end %>
+          <% end %>
+            
         </div>
   </div>
 <% else %>
+
   <div class="row d-flex">
     <div class="col l6 s12 d-flex">
         <div class="card w-100">
@@ -233,6 +213,32 @@
         </div>
       </div> 
   </div>
+  <div class="row d-flex">
+  <div class="col l6 s12">
+   <% if current_user.team_leader? %>
+              <div class="card">
+                <div class="card-content">
+                  <span class="font-22">Upcoming Leaves</span> 
+                  <table class="table table-borderless">
+                    <% if  @leaves.present? %>
+                      <% @employees_leaves.each do |leave| %>
+                        <tr>
+                          <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td>
+                          <td><span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span></td>
+                          <td><%= leave.user.first_name.humanize %></td>
+                        </tr>
+                      <% end %>
+                    <% else %>
+                      <tr>
+                        <td>No record found</td>
+                      </tr>
+                    <% end %>
+                  </table>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
 <% end %> 
 </div>
 

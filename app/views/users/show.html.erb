@@ -327,7 +327,7 @@
           <% @user.documents.order(id: :desc).each do |doc| %>
           <div class="row">
             <div class="col s12 m6 l10">
-              <%= link_to doc.doc_name, rails_blob_path(doc.document, only_path: true) %> <br />
+              <%= link_to doc.doc_name, rails_blob_path(doc.document, only_path: true),  target:"_blank"  %> <br />
             </div>
 
             <div class="col s12 m6 l2">

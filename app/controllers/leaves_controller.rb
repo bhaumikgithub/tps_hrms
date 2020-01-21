@@ -18,7 +18,7 @@ class LeavesController < ApplicationController
     end
     holidays = Holiday.all
     holidays.each do |holiday|
-      events << {:id => holiday.id, :title => "#{holiday.holiday_name}", :start => "#{holiday.holiday_date&.to_date}",:end => "#{holiday.try(:holiday_date).try(:to_date)+1}", :color => '#a9a9a9' }
+      events << {:id => holiday.id, :title => "#{holiday.holiday_name}", :start => "#{holiday.holiday_date&.to_date}",:end => "#{holiday.try(:holiday_date).try(:to_date)+1}", :color => '#F0F0F0' }
     end
     render :json => events.to_json
   end

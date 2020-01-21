@@ -20,7 +20,7 @@ class User < ApplicationRecord
   MARITAL_STATUS =  ["Married", "Single"].freeze
   DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Consultant",  "Director", "Employee", "Trainee",]
-  JOB_STATUS = ["Active", "Inactive"]
+  JOB_STATUS = ["Active", "Resigned"]
 
 
   # scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
@@ -83,7 +83,7 @@ class User < ApplicationRecord
     @start_date = Date.today.at_beginning_of_month
     @end_date = Date.today.at_end_of_month
     if Date.today.at_beginning_of_month == Date.today.at_beginning_of_month
-      User.where.not(id: [1,18,56]).each do |user|
+      User.where.not(user_type: "Director").where(job_status: 'Active').each do |user|
         # Return Taken Leave Balance
         @taken_leave = User.taken_leave(user,@start_date,@end_date)
         prev_extra_leave = user.free_leaves.find_by_leave_month(@start_date - 1.month)

@@ -24,6 +24,13 @@
               </div>
             </div>
           </div>
+           <div class="row">
+            <div class="col l3 m6 s12">
+              <div class="select_width">
+                <%= select_tag "job_status", options_for_select([ "Active", "Resigned" ], "Active"), class: "form-control job_status_seletbox" %>
+              </div>
+            </div>
+          </div>
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12">
@@ -43,20 +50,8 @@
                       <th></th> -->
                     </tr>
                   </thead>
-                  <tbody>
-                    <% @users.each do |user| %>
-                      <tr>
-                        <!-- <td><%#=  image_tag(user&.profile_picture.variant(resize: "50x50"), class: 'responsive-img z-depth-5') if user&.profile_picture&.attached? %></td> -->
-                        <td><%= link_to user.full_name, user_path(user) %></td>
-                        <!-- <td><%#= user.comp_email %></td> -->
-                        <td><%= user.contact %></td>
-                        <td data-sort="<%=user.join_date&.to_date.try(:strftime,"%Y%m%d%H%M%s") %>"><%= user.join_date&.to_date.try(:strftime,'%d-%m-%Y') %></td>
-                        <td><%= user&.user_designations&.last&.designation&.name %></td>
-                        <td><%= user&.user_designations&.last&.department&.name %></td>
-                        <td><%= user&.user_type&.humanize %></td>
-                        <td><%= user.user_current_mentor&.full_name %></td>
-                      </tr>
-                    <% end %>
+                  <tbody class="user_body">
+                    <%= render partial: 'user_data', locals: { users: @users } %>
                   </tbody>
                 </table>
               </div>
@@ -73,6 +68,16 @@ $('#user_table').DataTable({
   "dom": 'lf<<"datatable-responsive"t>ip>',
   responsive: true
 });
+
+$('.job_status_seletbox').on('change', function(){
+  var job_status = $(this).val();
+  $.ajax({
+    url: "/users/job_status_filter",
+    type: "GET",
+    data: { job_status: job_status },
+    dataType: "script"
+  });
+})
 </script>
 <style type="text/css">
   .card

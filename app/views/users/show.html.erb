@@ -520,7 +520,7 @@
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <%= f.select(:mentor, User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <%= f.select(:mentor, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                   <label>Mentor</label>
                 </div>
 

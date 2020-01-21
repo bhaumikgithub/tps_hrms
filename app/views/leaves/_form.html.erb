@@ -46,7 +46,7 @@
                   </div>
 
                   <div class="input-field col m6 s12 custom-dropdown">
-                    <%= f.select(:approved_by_id, User.all.order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "mentor"} ) %>
+                    <%= f.select(:approved_by_id, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "mentor"} ) %>
                     <label>Approved By</label>
                   </div>
 

@@ -24,13 +24,15 @@
               </div>
             </div>
           </div>
-           <div class="row">
-            <div class="col l3 m6 s12">
-              <div class="select_width">
-                <%= select_tag "job_status", options_for_select([ "Active", "Resigned" ], "Active"), class: "form-control job_status_seletbox" %>
+          <% if current_user.admin? %>
+            <div class="row">
+              <div class="col l3 m6 s12">
+                <div class="select_width">
+                  <%= select_tag "job_status", options_for_select([ "Active", "Resigned" ], "Active"), class: "form-control job_status_seletbox" %>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12">

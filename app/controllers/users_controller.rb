@@ -50,6 +50,9 @@ class UsersController < ApplicationController
   def create_user_designation
     @user_designation = UserDesignation.new(user_designation_params)
     if @user_designation.save
+      if user_designation_params[:is_current].present?
+        @user.update(mentor: user_designation_params[:mentor]) if user_designation_params[:mentor].present?
+      end
       redirect_to user_path(@user)
     else
       puts @user_designation.errors.inspect

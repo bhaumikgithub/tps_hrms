@@ -48,6 +48,9 @@
                       <th>Dept</th>
                       <th>Type</th>
                       <th>Mentor</th>
+                      <% if current_user.admin? %>
+                        <th></th>
+                      <% end %>
                       <!-- <th></th>
                       <th></th> -->
                     </tr>

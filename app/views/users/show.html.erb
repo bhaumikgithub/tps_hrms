@@ -36,7 +36,7 @@
           </div>
           <div class="col s12 m6">
             <h5><%= @user.full_name %></h5>
-            <p><%= @user&.user_designations&.last&.designation&.name %></p>
+            <p><%= @user&.user_current_designation&.designation&.name %></p>
             <%= @user.job_status %>
             <p> Wish me on: <b> <%= @user.birthday&.strftime('%d %b') %> </b></p><br>
           </div>

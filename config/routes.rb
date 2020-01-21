@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       delete :remove_profile
       post :create_education_detail
       post :create_user_designation
+      get :activation
     end
     collection do
       post :create_user

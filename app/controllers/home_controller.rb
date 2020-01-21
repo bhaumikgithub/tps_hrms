@@ -3,7 +3,8 @@ class HomeController < ApplicationController
   def index
     @users = User.where.not(user_type: "Director").where(job_status: 'Active').order(first_name: :asc)
     @leaves = Leave.where('leave_date >= ? and leave_date <= ?', Date.today, Date.today + 7.days).order('leave_date ASC')
-    @employees_leaves = Leave.joins(:user).where('leave_date >= ? and leave_date <= ? and mentor = ? ', Date.today, Date.today + 14.days, current_user.id.to_s)
+    # @employees_leaves = Leave.joins(:user).where('leave_date >= ? and leave_date <= ? and mentor = ? ', Date.today, Date.today + 14.days, current_user.id.to_s)
+    @employees_leaves = Leave.joins(user: :user_designations).where('leave_date >= ? and leave_date <= ? and user_designations.mentor = ? and is_current = true', Date.today, Date.today + 14.days, current_user.id.to_s)
     @employees_leaves += current_user.user_leaves.where('leave_date >= ? and leave_date <= ?', Date.today, Date.today + 7.days).order('leave_date ASC')
   end
 

@@ -63,7 +63,7 @@ class LeavesController < ApplicationController
   end
 
   def get_mentor
-    mentor = User.find_by(id: params[:emp_id])&.user_designations&.last&.mentor
+    mentor = User.find_by(id: params[:emp_id])&.user_current_designation&.mentor
     render json: mentor
   end
 

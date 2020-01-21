@@ -57,7 +57,11 @@ class User < ApplicationRecord
   end
 
   def user_current_mentor
-    User.find_by(id: self.user_designations&.last&.mentor&.to_i)
+    User.find_by(id: self.user_current_designation&.mentor&.to_i)
+  end
+
+  def user_current_designation
+    self.user_designations.find_by_is_current(true)
   end
 
   def format_experience

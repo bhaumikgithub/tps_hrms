@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education, :delete_education, :delete_designation]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education, :delete_education, :delete_designation, :activation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :delete_education, :delete_designation]
+  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :delete_education, :delete_designation]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -148,6 +148,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def activation
+    @user.update(job_status: params[:job_status]) if params[:job_status].present?
+    redirect_to users_path
+  end
   private
 
   def user_params

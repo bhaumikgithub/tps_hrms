@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
-    @users = User.all.order('first_name ASC')
+    @users = User.all.where(job_status: 'Active').order('first_name ASC')
   end
 
   def new
@@ -112,7 +112,7 @@ class UsersController < ApplicationController
   end
 
   def user_data
-    users = User.all
+    users = User.all.where(job_status: 'Active')
     events = []
     users.each do |user|
       user_birthday = user.birthday.present? ? Date.new(Date.today.year, user.birthday.try(:month), user.birthday.try(:day)) : user.birthday
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   end
 
   def recurring_user_data
-    users = User.all
+    users = User.all.where(job_status: 'Active')
     events = []
     users.each do |user|
       user_birthday = user.birthday.present? ? Date.new(Date.today.year, user.birthday.try(:month), user.birthday.try(:day)) : user.birthday
@@ -135,6 +135,14 @@ class UsersController < ApplicationController
       end
     end
     render :json => events.to_json
+  end
+
+  def job_status_filter
+    if params[:job_status].present?
+      @users = User.all.where(job_status: params[:job_status]).order('first_name ASC')
+    else
+      @users = User.all.where(job_status: 'Active').order('first_name ASC')
+    end
   end
 
   private

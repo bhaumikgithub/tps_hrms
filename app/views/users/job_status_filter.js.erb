@@ -1,0 +1,10 @@
+$('#user_table').dataTable().fnDestroy();
+$('.dataTables_filter').html('');
+$('.dataTables_length').html('');
+$('#user_table_info').html('');
+$('#user_table_paginate').html('');
+$('.user_body').html("<%= escape_javascript(render partial: 'user_data', locals: {users: @users}) %>");
+$('#user_table').DataTable({
+  responsive: true
+});
+$('select').formSelect();

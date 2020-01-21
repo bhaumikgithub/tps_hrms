@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       delete :delete_education
       delete :delete_designation
       post :update_education
+      get :job_status_filter
     end
   end
   

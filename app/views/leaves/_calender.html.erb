@@ -99,11 +99,11 @@
       events: '/leaves/get_events',
       showNonCurrentDates: false,
       eventRender: function(event, eventElement) {
-        if (event.color == "#a9a9a9") {
+        if (event.color == "#F0F0F0") {
           eventElement.css("color", "#000000");
           $('.fc-bg .fc-widget-content[data-date]').filter(function () {
             if ($(this).data('date') == event["start"]["_i"]) {
-              $(this).css("background-color", "#a9a9a9");
+              $(this).css("background-color", "#F0F0F0");
               console.log($(this).data('date'));
             }
           })
@@ -145,6 +145,6 @@
 
 </script>
 <style type="text/css">
-  .fc-sun { background: #a9a9a9; }
-  .fc-sat { background: #a9a9a9; }
+  .fc-sun { background: #F0F0F0; }
+  .fc-sat { background: #F0F0F0; }
 </style>

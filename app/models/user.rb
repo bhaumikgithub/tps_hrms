@@ -20,7 +20,7 @@ class User < ApplicationRecord
   MARITAL_STATUS =  ["Married", "Single"].freeze
   DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
   USER_TYPE = ["Consultant",  "Director", "Employee", "Trainee",]
-  JOB_STATUS = ["Active", "Resigned"]
+  JOB_STATUS = ["Active", "Inactive"]
 
 
   # scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }

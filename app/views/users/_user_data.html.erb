@@ -11,7 +11,7 @@
     <td><%= user.user_current_mentor&.full_name %></td>
     <% if current_user.admin? %>
       <td><%= link_to 'Edit', edit_user_path(user) %> |
-        <%= link_to user.job_status == 'Active' ? 'Inactive' : 'Active', activation_user_path(id: user, job_status: user.job_status == 'Active' ? 'Resigned' : 'Active'), data: {confirm: "Are you sure?"} %></td>
+        <%= link_to user.job_status == 'Active' ? 'Inactive' : 'Active', activation_user_path(id: user, job_status: user.job_status == 'Active' ? 'Inactive' : 'Active'), data: {confirm: "Are you sure?"} %></td>
     <% end %>
   </tr>
 <% end %>

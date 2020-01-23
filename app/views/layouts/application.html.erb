@@ -10,6 +10,7 @@
      <%= stylesheet_link_tag "https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" %> 
     <%= javascript_include_tag 'application' %>
      <%= stylesheet_link_tag "https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js" %> 
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
   </head>
 
   <% if user_signed_in? %>
@@ -23,6 +24,62 @@
               <%= yield %> 
             </div>
           </div>
+        </div>
+      </div>
+      <div id="wish_modal" class="modal">
+        <div class="modal-content">
+          <% @count_total = 0 %>
+          <% if User.where(job_status: 'Active').upcoming_birthday.present? %>
+            <% User.where(job_status: 'Active').upcoming_birthday.each do |user| %>
+              <% if user.birthday&.strftime('%d %b') == Date.today.strftime('%d %b') %>
+                  <% @count_total += 1 %>
+                  <div class="row">
+                    <div class="col s12 m6 l1">
+                      <i class="material-icons">cake</i>
+                    </div>
+                    <div class="col s12 m6 l11">
+                      <span> A Very Happy Birthday To <b><%= user.full_name.titleize %></b>.</span>
+                    </div>
+                  </div>
+                  <hr>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if User.where(job_status: 'Active').upcoming_anniversary.present? %>
+            <% User.where(job_status: 'Active').upcoming_anniversary.each do |user| %>
+              <% if user.anniversary_date&.strftime('%d %b') == Date.today.strftime('%d %b') %>
+                  <% @count_total += 1 %>
+                  <div class="row">
+                    <div class="col s12 m6 l1">
+                      <i class="material-icons">wc</i>
+                    </div>
+                    <div class="col s12 m6 l11">
+                      <span> Happy Anniversary To <b><%= user.full_name.titleize %></b>.</span>
+                    </div>
+                  </div>
+                  <hr>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if User.where(job_status: 'Active').upcoming_work_anniversary.present? %>
+            <% User.where(job_status: 'Active').upcoming_work_anniversary.each do |user| %>
+              <% if user.join_date&.strftime('%d %b') == Date.today.strftime('%d %b') %>
+                  <% @count_total += 1 %>
+                  <div class="row">
+                    <div class="col s12 m6 l1">
+                      <i class="material-icons">work</i>
+                    </div>
+                    <div class="col s12 m6 l11">
+                      <span>Congrates <b><%= user.full_name.titleize %></b> for completing <b><%= years_between_dates(user.join_date.to_date,Date.today) if user.join_date.present? %> years</b> at Techplus Softwares Pvt Ltd.</span>
+                    </div>
+                  </div>
+                  <hr>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
       </div>
   <% else %>
@@ -40,6 +97,25 @@
       }
     }
     window.onload = flashMessage;
+    var date = new Date();
+    date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+    date.setHours(0,0,0,0);
+
+    $(document).ready(function(){
+      setTimeout(function(){
+        if(!Cookies.get('modalShown')) {
+          var count = "<%= @count_total %>"
+          if (count > 0) {
+            const elem = document.getElementById('wish_modal');
+            const instance = M.Modal.init(elem, {dismissible: false});
+            instance.open();
+          }
+          Cookies.set('modalShown', true, { expires: date });
+        } else {
+        }
+      },2000);
+    });
+    // Cookies.remove('modalShown');
   </script>
   </body>
 </html>

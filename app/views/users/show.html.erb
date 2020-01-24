@@ -246,9 +246,9 @@
             </div>
             <div class="col s12 m6 l2">
               <% if current_user.admin? %>
-                <!-- <%#= link_to edit_education_detail_modal_users_path(id: @user.id, education_id: education.id), :remote => true do %>
+                <%= link_to edit_education_detail_modal_users_path(id: @user.id, education_id: education.id), :remote => true do %>
                   <i class="material-icons">edit</i>
-                <%# end %> -->
+                <% end %>
 
                 <%= link_to delete_education_users_path(id: @user.id, education_id: education.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
                   <i class="material-icons">delete</i>

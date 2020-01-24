@@ -8,33 +8,34 @@
             <div class="card-title">
               <div class="row">
                 <div class="input-field col s12">
-                  <%= f.text_field :degree,  id: "degree_name", required: true %><br />
-                  <label for="degree_name">Degree</label>
+                  <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label for="degree">Degree</label>
                 </div>
 
                 <div class="input-field col s12">
-                  <%= f.text_field :college,  id: "college_name", required: true %><br />
-                  <label for="college_name">College</label>
+                  <%= f.text_field :college,  id: "", required: true %><br />
+                  <label class="active">College</label>
                 </div>
 
                 <div class="input-field col s12">
                   <%= f.text_field :university,  id: "university_name", required: true %><br />
-                  <label for="university_name">University</label>
+                  <label for="university_name" class="active">University</label>
                 </div>
-
+                <%= f.hidden_field :user_id, :value => @education.user_id %>
+                <%= hidden_field_tag :education_id, @education.id %>
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %><br />
+                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date", :value => @education&.from&.strftime("%d-%m-%Y") %><br />
                   <label for="from">From</label>
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %><br />
-                  <label for="to">To</label>
+                  <%= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date", :value => @education&.to&.strftime("%d-%m-%Y") %><br />
+                  <label for="to"  class="<%= @education&.to.present? ? 'active' : ''%>">To</label>
                 </div>
 
                 <div class="input-field col m6 s12">
                   <%#= f.check_box :is_current, id:"is_current_checkbox" %>
-                  <%= f.check_box :is_current, {:id => "is_current_checkbox", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <%= f.check_box :is_current, {:id => "is_current_checkbox", :style => "opacity: initial;pointer-events: auto;"}%>
                   <label for="to">Current</label>
                 </div>
               </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_072622) do
+ActiveRecord::Schema.define(version: 2020_01_27_110934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,16 @@ ActiveRecord::Schema.define(version: 2020_01_27_072622) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_links", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "link"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_event_links_on_user_id"
   end
 
   create_table "free_leaves", force: :cascade do |t|
@@ -230,6 +240,7 @@ ActiveRecord::Schema.define(version: 2020_01_27_072622) do
   add_foreign_key "documents", "users"
   add_foreign_key "educations", "degrees"
   add_foreign_key "educations", "users"
+  add_foreign_key "event_links", "users"
   add_foreign_key "free_leaves", "users"
   add_foreign_key "leave_reports", "users"
   add_foreign_key "leaves", "users"

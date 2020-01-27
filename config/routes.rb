@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   end
   resources :degrees
   resources :departments
+  resources :event_links
   resources :designations
   resources :employee_handbooks
   get '/calender' => 'leaves#index', :as => 'calender'

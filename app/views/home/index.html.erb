@@ -27,7 +27,36 @@
   </div>
 <% end %>
 
-<% if current_user.admin? %> 
+<% if current_user.admin? %>
+  <% if @arrange_sessions.present? %>
+    <div class="row d-flex">
+      <div class="col l12 s12">
+        <div class="card w-100">
+          <div class="card-content">
+            <span class="font-22">Upcoming Sessions/Events</span>
+              <br>
+              <br>
+              <% @arrange_sessions.each do |arrange_session| %>
+                <div class="row">
+                  <div class="col l8 s12">
+                    <b>Topic: <%= arrange_session&.topic %></b><br/>
+                    Description: <%= arrange_session&.description %> <br/>
+                    Speaker: <%= arrange_session&.speaker %><br/>
+                    Applicable to: <%= arrange_session&.applicants %><br/>
+                  </div>
+
+                  <div class="col l4 s12">
+                    <b><%= arrange_session&.date&.strftime("%b %d, %Y %A") %></b> | <b><%= arrange_session&.timing&.strftime("%I:%M %p") %></b><br/>
+                    @<%= arrange_session&.place %>
+                  </div>
+                </div>
+                <br>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %> 
   <div class="row">
     <div class="col l3 s12">
         <div class="card">
@@ -136,7 +165,35 @@
         </div>
   </div>
 <% else %>
+  <% if @arrange_sessions.present? %>
+    <div class="row d-flex">
+      <div class="col l12 s12">
+        <div class="card w-100">
+          <div class="card-content">
+            <span class="font-22">Upcoming Sessions/Events</span>
+              <br>
+              <br>
+              <% @arrange_sessions.each do |arrange_session| %>
+                <div class="row">
+                  <div class="col l8 s12">
+                    <b>Topic: <%= arrange_session&.topic %></b><br/>
+                    Description: <%= arrange_session&.description %> <br/>
+                    Speaker: <%= arrange_session&.speaker %><br/>
+                    Applicable to: <%= arrange_session&.applicants %><br/>
+                  </div>
 
+                  <div class="col l4 s12">
+                    <b><%= arrange_session&.date&.strftime("%b %d, %Y %A") %></b> | <b><%= arrange_session&.timing&.strftime("%I:%M %p") %></b><br/>
+                    @<%= arrange_session&.place %>
+                  </div>
+                </div>
+                <br>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %> 
   <div class="row d-flex">
     <div class="col l6 s12 d-flex">
         <div class="card w-100">
@@ -171,7 +228,7 @@
       </div>
     </div>
   </div>
-    <div class="row d-flex">
+  <div class="row d-flex">
      <div class="col l6 s12 d-flex">
           <div class="card w-100">
           <div class="card-content">
@@ -216,31 +273,31 @@
       </div> 
   </div>
   <div class="row d-flex">
-  <div class="col l6 s12">
-   <% if current_user.team_leader? %>
-              <div class="card">
-                <div class="card-content">
-                  <span class="font-22">Upcoming Leaves</span> 
-                  <table class="table table-borderless">
-                    <% if  @leaves.present? %>
-                      <% @employees_leaves.each do |leave| %>
-                        <tr>
-                          <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td>
-                          <td><span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span></td>
-                          <td><%= leave.user.first_name.humanize %></td>
-                        </tr>
-                      <% end %>
-                    <% else %>
-                      <tr>
-                        <td>No record found</td>
-                      </tr>
-                    <% end %>
-                  </table>
-                </div>
-              </div>
-            <% end %>
+    <div class="col l6 s12">
+      <% if current_user.team_leader? %>
+        <div class="card">
+          <div class="card-content">
+            <span class="font-22">Upcoming Leaves</span> 
+            <table class="table table-borderless">
+              <% if  @leaves.present? %>
+                <% @employees_leaves.each do |leave| %>
+                  <tr>
+                    <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td>
+                    <td><span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span></td>
+                    <td><%= leave.user.first_name.humanize %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td>No record found</td>
+                </tr>
+              <% end %>
+            </table>
           </div>
         </div>
+      <% end %>
+    </div>
+  </div>
 <% end %> 
 </div>
 

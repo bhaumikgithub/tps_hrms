@@ -1,7 +1,7 @@
 class EventManagementsController < ApplicationController
   before_action :fetch_session, only: %i[edit_session update_session delete_session]
   def index
-  	@arrange_sessions = ArrangeSession.all
+  	@arrange_sessions = ArrangeSession.all.order(date: :desc)
   end
 
   def add_session
@@ -46,7 +46,7 @@ class EventManagementsController < ApplicationController
   private
 
   def arrange_session_params
-    params.require(:arrange_session).permit(:title, :subject, :date, :timing, :username, :user_id)
+    params.require(:arrange_session).permit(:topic, :description, :date, :timing, :speaker, :user_id, :place, :applicants)
   end
 
   def fetch_session

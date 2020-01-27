@@ -33,6 +33,11 @@
 
        yearRange: [2011 ,currentYear],
     });
+    $('.arrange_date').datepicker({
+       yearRange: [2011 ,currentYear],
+    });
+
+    $('.arrange_time').timepicker();
     $('.leave_date').datepicker();
     $('.leave_end_date').datepicker({
       onOpen: function(){

@@ -10,6 +10,17 @@ Rails.application.routes.draw do
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
   resources :roles
   resources :documents
+  resources :event_managements do
+    member do
+      get :edit_session
+      patch :update_session
+      delete :delete_session
+    end
+    collection do
+      get :add_session
+      post :create_session
+    end
+  end
   resources :users do
     member do
       patch :change_profile

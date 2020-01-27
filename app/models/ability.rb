@@ -13,11 +13,19 @@ class Ability
         can :manage, Designation
         can :manage, Degree
         can :manage, Department
+        can :manage, EventLink
+    elsif @user.is_event_manager?
+        can :read, Leave
+        can :read, User
+        can :read, Holiday
+        can :read, EmployeeHandbook
+        can :manage, EventLink
     else
         can :read, Leave
         can :read, User
         can :read, Holiday
         can :read, EmployeeHandbook
+        can :read, EventLink
     end
     # Define abilities for the passed in user here. For example:
     #

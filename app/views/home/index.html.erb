@@ -94,7 +94,24 @@
         </div>
       </div>
     </div>
-  <% end %>  
+  <% end %>
+  <div class="row">
+    <div class="col l12 s12">
+      <div class="card w-100">
+        <div class="card-content">
+          <span class="font-22">Event Links</span><br/><br/>
+          <% @event_links.each do |event_link| %>
+            <div class="row">
+              <div class="col s12 l12">
+                <b><%= event_link&.title %></b> - 
+                <%= link_to event_link&.link, event_link&.link %>
+              </div>
+            </div><br/>
+          <% end %> 
+        </div>
+      </div>
+    </div>
+  </div> 
   <div class="row">
     <div class="col l3 s12">
         <div class="card">
@@ -240,7 +257,24 @@
         </div>
       </div>
     </div>
-  <% end %> 
+  <% end %>
+  <div class="row">
+    <div class="col l12 s12">
+      <div class="card w-100">
+        <div class="card-content">
+          <span class="font-22">Event Links</span><br/><br/>
+          <% @event_links.each do |event_link| %>
+            <div class="row">
+              <div class="col s12 l12">
+                <b><%= event_link&.title %></b> - 
+                <%= link_to event_link&.link, event_link&.link %>
+              </div>
+            </div><br/>
+          <% end %> 
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row d-flex">
     <div class="col l6 s12 d-flex">
         <div class="card w-100">

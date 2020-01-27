@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
   before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :delete_education, :delete_designation]
+  before_action :find_designation_user, only: [:update_education]
+  before_action :find_designation, only: [:update_education]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -75,7 +77,11 @@ class UsersController < ApplicationController
   end
 
   def update_education
-    redirect_to user_path(current_user.id)
+    if @education.update(education_params)
+      redirect_to user_path(@user)
+    else
+      redirect_to user_path(@user), alert: 'Something went wrong!'
+    end
   end
 
   def update
@@ -172,6 +178,14 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by(id: params[:id]) || current_user
+  end
+
+  def find_designation_user
+    @user = User.find_by(id: education_params[:user_id]) || current_user
+  end
+
+  def find_designation
+    @education = Education.find_by(id: params[:education_id])
   end
 
   def authenticate_user

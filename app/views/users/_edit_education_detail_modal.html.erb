@@ -24,12 +24,12 @@
                 <%= f.hidden_field :user_id, :value => @education.user_id %>
                 <%= hidden_field_tag :education_id, @education.id %>
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date", :value => @education&.from&.strftime("%d-%m-%Y") %><br />
+                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date", :value => @education&.from&.strftime("%b %d, %Y") %><br />
                   <label for="from">From</label>
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date", :value => @education&.to&.strftime("%d-%m-%Y") %><br />
+                  <%= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date", :value => @education&.to&.strftime("%b %d, %Y") %><br />
                   <label for="to"  class="<%= @education&.to.present? ? 'active' : ''%>">To</label>
                 </div>
 

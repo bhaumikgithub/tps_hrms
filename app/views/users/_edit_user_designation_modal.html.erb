@@ -1,0 +1,54 @@
+<div id="edit_user_designation_modal" class="modal">
+  <div class="modal-content">
+    <h4>Designation Detail</h4>
+    <%= form_for :user_designation, :url => url_for(:controller => 'users', :action => 'update_user_designation') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col m6 s12">
+                  <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label for="designation">Designation</label>
+                </div>
+
+                <div class="input-field col m6 s12 custom-dropdown">
+                  <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label>Department</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.select(:mentor, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <label>Mentor</label>
+                </div>
+                <%= f.hidden_field :user_id, :value => @user_designation&.user_id %>
+                <%= hidden_field_tag :user_designation_id, @user_designation.id %>
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %>
+                  <%= f.text_field :start_date, class: 'datepicker leave_date',id:"start_date", :value => @user_designation&.start_date&.strftime("%b %d, %Y") %><br /><br />
+                  <label for="from" class="active">Start Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %>
+                  <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date_modal", :value => @user_designation&.end_date&.strftime("%b %d, %Y") %><br />
+                  <label for="to" class="active">End Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.check_box :is_current, {:id => "is_current", :style => "opacity: initial;pointer-events: auto;"} %>
+                  <label for="to">Current</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancle</a>
+      </div>
+    <% end %>
+  </div>
+</div>

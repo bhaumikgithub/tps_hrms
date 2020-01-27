@@ -296,6 +296,9 @@
             </div>
             <div class="col s12 m6 l2">
               <% if current_user.admin? %>
+                <%= link_to edit_user_designation_modal_users_path(id: @user.id, user_designation_id: user_des.id), :remote => true do %>
+                  <i class="material-icons">edit</i>
+                <% end %>
                 <%= link_to delete_designation_users_path(id: @user.id, user_des_id: user_des.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
                   <i class="material-icons">delete</i>
                 <% end %>
@@ -588,6 +591,7 @@
 </div>
 
 <div id="education_modal"></div>
+<div id="user_designation_modal"></div>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>

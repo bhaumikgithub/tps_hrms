@@ -35,9 +35,11 @@ Rails.application.routes.draw do
       get :user_data
       get :recurring_user_data
       get :edit_education_detail_modal
+      get :edit_user_designation_modal
       delete :delete_education
       delete :delete_designation
       post :update_education
+      post :update_user_designation
       get :job_status_filter
     end
   end

@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :update_education, :delete_education, :delete_designation, :activation]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :delete_education, :delete_designation]
-  before_action :find_designation_user, only: [:update_education]
-  before_action :find_designation, only: [:update_education]
+  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation]
+  before_action :find_education_user, only: [:update_education]
+  before_action :find_education, only: [:update_education]
+  before_action :find_designation_user, only: [:update_user_designation]
+  before_action :find_designation, only: [:update_user_designation]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
   def index
@@ -78,6 +80,18 @@ class UsersController < ApplicationController
 
   def update_education
     if @education.update(education_params)
+      redirect_to user_path(@user)
+    else
+      redirect_to user_path(@user), alert: 'Something went wrong!'
+    end
+  end
+
+  def edit_user_designation_modal
+    @user_designation = UserDesignation.find(params[:user_designation_id])
+  end
+
+  def update_user_designation
+    if @user_designation.update(user_designation_params)
       redirect_to user_path(@user)
     else
       redirect_to user_path(@user), alert: 'Something went wrong!'
@@ -180,12 +194,20 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id]) || current_user
   end
 
-  def find_designation_user
+  def find_education_user
     @user = User.find_by(id: education_params[:user_id]) || current_user
   end
 
-  def find_designation
+  def find_education
     @education = Education.find_by(id: params[:education_id])
+  end
+
+  def find_designation_user
+    @user = User.find_by(id: user_designation_params[:user_id]) || current_user
+  end
+
+  def find_designation
+    @user_designation = UserDesignation.find_by(id: params[:user_designation_id])
   end
 
   def authenticate_user

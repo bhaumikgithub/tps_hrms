@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_045438) do
+ActiveRecord::Schema.define(version: 2020_01_23_102205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(version: 2020_01_16_045438) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "arrange_sessions", force: :cascade do |t|
+    t.string "title"
+    t.string "subject"
+    t.datetime "date"
+    t.time "timing"
+    t.string "username"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_arrange_sessions_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -201,6 +213,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_045438) do
     t.integer "department_id"
     t.integer "designation_id"
     t.datetime "leave_report_added_on"
+    t.boolean "is_event_manager", default: false
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -208,6 +221,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_045438) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "arrange_sessions", "users"
   add_foreign_key "degrees", "users"
   add_foreign_key "departments", "users"
   add_foreign_key "designations", "users"

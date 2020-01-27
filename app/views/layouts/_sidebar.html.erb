@@ -56,9 +56,10 @@
           </li>
            <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
           </li>
-          <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><% end %>
-          </li>
-
+          <% if current_user.is_event_manager? %>
+            <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><% end %>
+            </li>
+          <% end %>
         <% end %>
 
         

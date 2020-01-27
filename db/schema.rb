@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_102205) do
+ActiveRecord::Schema.define(version: 2020_01_27_072622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,14 +37,16 @@ ActiveRecord::Schema.define(version: 2020_01_23_102205) do
   end
 
   create_table "arrange_sessions", force: :cascade do |t|
-    t.string "title"
-    t.string "subject"
+    t.string "topic"
+    t.string "description"
     t.datetime "date"
     t.time "timing"
-    t.string "username"
+    t.string "speaker"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "place"
+    t.string "applicants"
     t.index ["user_id"], name: "index_arrange_sessions_on_user_id"
   end
 

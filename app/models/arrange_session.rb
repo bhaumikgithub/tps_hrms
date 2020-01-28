@@ -1,4 +1,4 @@
 class ArrangeSession < ApplicationRecord
   belongs_to :user
-  validates_presence_of :title, :subject, :date, :timing, :username
+  validates_presence_of :topic, :description, :date, :timing, :speaker, :place, :applicants
 end

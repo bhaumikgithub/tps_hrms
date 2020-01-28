@@ -132,8 +132,90 @@
         </div>
   </div>
   <div class="col l9 s12">
-      <div class="row">
-        <div class="col l6 s12">
+    <div class="row d-flex upcoming-card">
+      <div class="col l6 s12 d-flex">
+        <div class="card w-100">
+          <div class="card-content">
+            <span class="font-22">Upcoming Birthdays</span><span class="span-wrap">(Within month)</span>
+            <ul class="collection mb-0">
+              <% if  User.where(job_status: 'Active').upcoming_birthday.present? %>
+                <% User.where(job_status: 'Active').upcoming_birthday.each do |user| %>
+                  <li class="collection-item avatar">
+                    <% if user.profile_picture&.attached? %>
+                      <%= image_tag(user.profile_picture, class: "circle")%>
+                    <% else %>
+                      <%= image_tag("avatar.png", class: 'circle') %>
+                    <% end %>
+                    <p class="font-weight-600"><%= user.full_name %></p>
+                    <p class="medium-small"><%= user.birthday == Date.today ? 'Today' : user.birthday&.strftime('%d, %B %Y') %></p>
+                    <i class="material-icons">redeem</i>
+                  </li>
+                <% end %>
+              <% else %>
+                <li>
+                  <p>No record found</p>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col l6 s12">
+        <div class="card w-100">
+          <div class="card-content">
+            <span class="font-22">Upcoming Anniversary</span><span class="span-wrap">(Within month)</span>
+            <ul class="collection mb-0">
+             <% if  User.where(job_status: 'Active').upcoming_anniversary.present? %>
+                <% User.where(job_status: 'Active').upcoming_anniversary.each do |user| %>
+                  <li class="collection-item avatar">
+                    <% if user.profile_picture&.attached? %>
+                      <%= image_tag(user.profile_picture, class: "circle")%>
+                    <% else %>
+                      <%= image_tag("avatar.png", class: 'circle') %>
+                    <% end %>
+                    <p class="font-weight-600"><%= user.full_name %><%= years_between_dates(user.anniversary_date.to_date,Date.today) if user.anniversary_date.present? %></p>
+                    <p class="medium-small"><%= user.anniversary_date == Date.today ? 'Today' : user.anniversary_date&.strftime('%d, %B %Y') %></p>
+                    <i class="material-icons">favorite</i>
+                  </li>
+                <% end %>
+              <% else %>
+                <li>
+                  <p>No record found</p>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col l6 s12">
+        <div class="card w-100">
+          <div class="card-content">
+            <span class="font-22">Upcoming Work Anniversary</span><span class="span-wrap">(Within month)</span>
+            <ul class="collection mb-0">
+             <% if  User.where(job_status: 'Active').upcoming_work_anniversary.present? %>
+                <% User.where(job_status: 'Active').upcoming_work_anniversary.each do |user| %>
+                  <li class="collection-item avatar">
+                    <% if user.profile_picture&.attached? %>
+                      <%= image_tag(user.profile_picture, class: "circle")%>
+                    <% else %>
+                      <%= image_tag("avatar.png", class: 'circle') %>
+                    <% end %>
+                    <p class="font-weight-600"><%= user.full_name.titleize %><%= years_between_dates(user.join_date.to_date,Date.today) if user.join_date.present? %></p>
+                    <p class="medium-small"><%= user.join_date&.strftime('%d, %B %Y') %></p>
+                    <i class="material-icons">insert_invitation</i>
+                  </li>
+                <% end %>
+              <% else %>
+                <li>
+                  <p>No record found</p>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div> 
+
+       <!--  <div class="col l6 s12">
            <div class="card">
           <div class="card-content">
             <table class="table table-borderless">
@@ -153,8 +235,8 @@
           </table>
           </div>
         </div>
-      </div>
-       <div class="col l6 s12">
+      </div> -->
+       <!-- <div class="col l6 s12">
           <div class="card">
           <div class="card-content">
             <table class="table table-borderless">
@@ -175,8 +257,8 @@
             </table>
           </div>
         </div>
-      </div>
-      <div class="col l6 s12">
+      </div> -->
+      <!-- <div class="col l6 s12">
         <div class="card">
           <div class="card-content">
             <table class="table table-borderless">
@@ -197,7 +279,7 @@
             </table>
           </div>
         </div>
-      </div>
+      </div> -->
         <div class="col l6 s12">
           <% if current_user.admin? %>
            <div class="card">

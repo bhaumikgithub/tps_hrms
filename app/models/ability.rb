@@ -27,7 +27,6 @@ class Ability
         can :read, Holiday
         can :read, EmployeeHandbook
         can :read, EventLink
-        can :read, Contact
     end
     # Define abilities for the passed in user here. For example:
     #

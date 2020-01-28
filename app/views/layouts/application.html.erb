@@ -109,8 +109,8 @@
             const elem = document.getElementById('wish_modal');
             const instance = M.Modal.init(elem, {dismissible: false});
             instance.open();
+            Cookies.set('modalShown', true, { expires: date });
           }
-          Cookies.set('modalShown', true, { expires: date });
         } else {
         }
       },2000);

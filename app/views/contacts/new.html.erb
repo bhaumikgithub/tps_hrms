@@ -15,11 +15,11 @@
               <%= form_with(url: "/contacts", method: "post") do %>
                 <div class="row">
                   <div class="input-field col s12">
-                    <%= text_field_tag :title %><br />
+                    <%= text_field_tag :title, nil, :required => true %><br />
                     <label for="title">Title</label>
                   </div>
                   <div class="input-field col s12">
-                    <%= text_field_tag :comment%><br />
+                    <%= text_field_tag :comment, nil, :required => true%><br />
                     <label for="comment">Comment</label>
                   </div>
                   <div class="input-field col s12">

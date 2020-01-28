@@ -58,7 +58,7 @@
             <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
           </li>
            <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
-           
+
           </li>
           <% if current_user.is_event_manager? %>
             <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><% end %>
@@ -67,6 +67,7 @@
           <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_links_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Event Link</span><% end %>
           </li>
         <% end %>
+        <li class=" <%= active_class(new_contact_path) %> + bold"><%= link_to(new_contact_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Suggestion</span><% end %>
 
         
       </ul>

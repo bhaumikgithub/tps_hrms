@@ -1,0 +1,10 @@
+.upcoming-card .collection .collection-item.avatar{min-height: auto;}
+.upcoming-card .collection{border:0;background-color:transparent;}
+.upcoming-card .collection .collection-item{border-bottom:0px;}
+.upcoming-card .collection .collection-item.avatar .material-icons{
+  position: absolute;
+    top: 16px;
+    right: 16px;
+    float: right;
+    color: #ff9100;
+}

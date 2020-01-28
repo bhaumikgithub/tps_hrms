@@ -11,6 +11,7 @@
  *= require_self
  *= require fullcalendar
  *= require custom
+ *= require developer
  */
 .session_evenet .collapsible-body{padding:1rem;}
 .session_evenet li{position: relative;}

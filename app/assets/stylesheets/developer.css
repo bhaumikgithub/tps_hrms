@@ -8,3 +8,20 @@
     float: right;
     color: #ff9100;
 }
+.fc-sun { background: #F0F0F0; }
+.fc-sat { background: #F0F0F0; }
+#workfromhome {
+opacity: initial; 
+position: relative;
+pointer-events: auto;
+}
+.wfh_label{
+position: relative;
+bottom: 2px;
+font-size: 14px;
+}
+.wfh_wrap{
+float: right;
+margin-right: 15px;
+margin-bottom: 5px;
+}

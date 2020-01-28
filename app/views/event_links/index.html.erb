@@ -31,7 +31,8 @@
 	              	<div class="row">
 	              		<div class="col s12 l10">
 	              			<b><%= event_link&.title %></b><br/>
-	              			<%= link_to event_link&.link, event_link&.link %>
+                      <%= event_link&.description %><br/>
+	              			<%= link_to event_link&.link, event_link&.link, target: "_blank" %>
 	              		</div>
 	              		<% if current_user.is_event_manager? || current_user.admin?  %>
 		              		<div class="col s12 l2">

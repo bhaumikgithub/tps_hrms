@@ -1,4 +1,4 @@
 class EventLink < ApplicationRecord
   belongs_to :user
-  validates_presence_of :title, :description, :link
+  validates_presence_of :title, :link
 end

@@ -26,7 +26,64 @@
   <% end %>
   </div>
 <% end %>
-
+<% if @arrange_sessions.present? %>
+  <div class="row d-flex">
+    <div class="col l12 s12">
+      <div class=" w-100">
+        <div class="card-content">
+          <span class="font-22">Upcoming Sessions/Events</span>
+          <br>
+          <div class="row">
+            <div class="col s12">
+              <ul class="collapsible collapsible-accordion session_evenet" data-collapsible="accordion">
+                <% @arrange_sessions.each do |arrange_session| %>
+                  <li>
+                    <div class="collapsible-header"><b>Topic: <%= arrange_session&.topic %></b></div>
+                    <div class="collapsible-body">
+                      <div class="row">
+                        <div class="col l8 s12">
+                          Description: <%= arrange_session&.description %> <br/>
+                          Speaker: <%= arrange_session&.speaker %><br/>
+                          Applicable to: <%= arrange_session&.applicants %><br/>
+                        </div>
+                        <div class="col l4 s12">
+                          <div class="sm-mt-10">
+                            <b><%= arrange_session&.date&.strftime("%b %d, %Y %A") %></b> | <b><%= arrange_session&.timing&.strftime("%I:%M %p") %></b><br/>
+                            @<%= arrange_session&.place %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>   
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if @event_links.present? %>
+  <div class="row">
+    <div class="col l12 s12">
+      <div class="card w-100">
+        <div class="card-content">
+          <span class="font-22">Event Links</span><br/><br/>
+          <% @event_links.each do |event_link| %>
+            <div class="row">
+              <div class="col s12 l12">
+                <b><%= event_link&.title %></b> - 
+                <%= link_to event_link&.link, event_link&.link, target: "_blank" %><br/>
+                <%= event_link&.description %><br/>
+              </div>
+            </div><br/>
+          <% end %> 
+        </div>
+      </div>
+    </div>
+  </div> 
+<% end %>
 <% if current_user.admin? %>
   <%# if @arrange_sessions.present? %>
    <!--  <div class="row d-flex">
@@ -57,64 +114,6 @@
       </div>
     </div> -->
   <%# end %>
-  <% if @arrange_sessions.present? %>
-    <div class="row d-flex">
-      <div class="col l12 s12">
-        <div class=" w-100">
-          <div class="card-content">
-            <span class="font-22">Upcoming Sessions/Events</span>
-            <br>
-            <div class="row">
-              <div class="col s12">
-                <ul class="collapsible collapsible-accordion session_evenet" data-collapsible="accordion">
-                  <% @arrange_sessions.each do |arrange_session| %>
-                    <li>
-                      <div class="collapsible-header"><b>Topic: <%= arrange_session&.topic %></b></div>
-                      <div class="collapsible-body">
-                        <div class="row">
-                          <div class="col l8 s12">
-                            Description: <%= arrange_session&.description %> <br/>
-                            Speaker: <%= arrange_session&.speaker %><br/>
-                            Applicable to: <%= arrange_session&.applicants %><br/>
-                          </div>
-                          <div class="col l4 s12">
-                            <div class="sm-mt-10">
-                              <b><%= arrange_session&.date&.strftime("%b %d, %Y %A") %></b> | <b><%= arrange_session&.timing&.strftime("%I:%M %p") %></b><br/>
-                              @<%= arrange_session&.place %>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>   
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <% if @event_links.present? %>
-    <div class="row">
-      <div class="col l12 s12">
-        <div class="card w-100">
-          <div class="card-content">
-            <span class="font-22">Event Links</span><br/><br/>
-            <% @event_links.each do |event_link| %>
-              <div class="row">
-                <div class="col s12 l12">
-                  <b><%= event_link&.title %></b> - 
-                  <%= link_to event_link&.link, event_link&.link, target: "_blank" %><br/>
-                  <%= event_link&.description %><br/>
-                </div>
-              </div><br/>
-            <% end %> 
-          </div>
-        </div>
-      </div>
-    </div> 
-  <% end %>
   <div class="row">
     <div class="col l3 s12">
         <div class="card">
@@ -305,64 +304,6 @@
         </div>
   </div>
 <% else %>
-  <% if @arrange_sessions.present? %>
-    <div class="row d-flex">
-      <div class="col l12 s12">
-        <div class=" w-100">
-          <div class="card-content">
-            <span class="font-22">Upcoming Sessions/Events</span>
-            <br>
-            <div class="row">
-              <div class="col s12">
-                <ul class="collapsible collapsible-accordion session_evenet" data-collapsible="accordion">
-                  <% @arrange_sessions.each do |arrange_session| %>
-                    <li>
-                      <div class="collapsible-header"><b>Topic: <%= arrange_session&.topic %></b></div>
-                      <div class="collapsible-body">
-                        <div class="row">
-                          <div class="col l8 s12">
-                            Description: <%= arrange_session&.description %> <br/>
-                            Speaker: <%= arrange_session&.speaker %><br/>
-                            Applicable to: <%= arrange_session&.applicants %><br/>
-                          </div>
-                          <div class="col l4 s12">
-                            <div class="sm-mt-10">
-                              <b><%= arrange_session&.date&.strftime("%b %d, %Y %A") %></b> | <b><%= arrange_session&.timing&.strftime("%I:%M %p") %></b><br/>
-                              @<%= arrange_session&.place %>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>   
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <% if @event_links.present? %>
-    <div class="row">
-      <div class="col l12 s12">
-        <div class="card w-100">
-          <div class="card-content">
-            <span class="font-22">Event Links</span><br/><br/>
-            <% @event_links.each do |event_link| %>
-              <div class="row">
-                <div class="col s12 l12">
-                  <b><%= event_link&.title %></b> - 
-                  <%= link_to event_link&.link, event_link&.link, target: "_blank" %><br/>
-                  <%= event_link&.description %><br/>
-                </div>
-              </div><br/>
-            <% end %> 
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
   <div class="row d-flex">
     <div class="col l6 s12 d-flex">
         <div class="card w-100">

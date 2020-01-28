@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Add Suggestions</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_with(url: "/contacts", method: "post") do %>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <%= text_field_tag :title %><br />
+                    <label for="title">Title</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= text_field_tag :comment%><br />
+                    <label for="comment">Comment</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= submit_tag 'Submit', class: "btn cyan waves-effect waves-light" %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

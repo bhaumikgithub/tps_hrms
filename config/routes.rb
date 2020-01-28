@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  resources :contacts, only: [:new, :create]
+
   mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
   get '/employee_designations' => 'home#employee_designation', :as => 'employee_designation'

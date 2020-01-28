@@ -18,7 +18,7 @@
               <% if @user&.profile_picture&.attached? %>
                 <%=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5', id: "crop_image") %>
               <% else %>
-                <%= image_tag("avatar.png", class: 'responsive-img  z-depth-5', id: "crop_image") %>
+                <%= image_tag("avatar.png", class: 'responsive-img profile-img', id: "crop_image") %>
               <% end %>
 
               <% if current_user.id == @user.id || current_user.admin? %>

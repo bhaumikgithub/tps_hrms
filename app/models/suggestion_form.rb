@@ -10,7 +10,7 @@ class SuggestionForm < MailForm::Base
   def headers
     {
       :subject => "Suggestions for HRMS",
-      :to => "nency.tps@gmail.com,  info@techplussoftware.com, hr@techplussoftware.com",
+      :to => "parulk.tps@gmail.com, nency.tps@gmail.com,  info@techplussoftware.com, hr@techplussoftware.com",
       :from => %(<#{email}>)
     }
   end

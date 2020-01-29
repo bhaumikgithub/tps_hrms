@@ -6,11 +6,11 @@ class LeavesController < ApplicationController
   def get_events
     if params[:user_id].present?
       user = User.find_by(id: params[:user_id].to_i)
-      leaves = user.user_leaves
+      leaves = user.user_leaves.where.not(leave_type: "wfh")
     elsif params[:is_wfh] == 'true'
-      leaves = Leave.where(leave_type: "wfh")
-    else
       leaves = Leave.all
+    else
+      leaves = Leave.all.where.not(leave_type: "wfh")
     end
     events = []
     leaves.each do |leave|

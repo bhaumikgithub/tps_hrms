@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
       c.deliver
       redirect_to root_path, notice: "Thank you for suggestions" 
     else
-      redirect_to root_path, alert: "Something want wrong!"
+      redirect_to root_path, alert: "Something went wrong! Please verify your email."
     end
   end
 end

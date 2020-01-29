@@ -4,7 +4,7 @@ class Leave < ApplicationRecord
 
   # enum leave_type: [:full, :first_half, :second_half, :not_informed, :wfh]
   LEAVE_STATUS = ["approved", "pending"]
-  LEAVE_TYPES =  {"full day" => '#0000FF', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
+  LEAVE_TYPES =  {"full day" => '#3a8bc5', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
 
   before_save     :update_color
   after_create    :update_leave_balance

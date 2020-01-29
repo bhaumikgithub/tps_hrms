@@ -8,8 +8,9 @@
     float: right;
     color: #ff9100;
 }
-.fc-sun { background: #F0F0F0; }
-.fc-sat { background: #F0F0F0; }
+.fc-sun { background: #fff8f8; }
+.fc-sat { background: #fff8f8; }
+.fc-disabled-day { background: #fff8f8 !important; opacity: 1 !important; }
 #workfromhome {
 opacity: initial; 
 position: relative;

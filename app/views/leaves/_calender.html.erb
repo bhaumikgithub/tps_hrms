@@ -105,11 +105,13 @@
       events: '/leaves/get_events',
       showNonCurrentDates: false,
       eventRender: function(event, eventElement) {
-        if (event.color == "#F0F0F0") {
-          eventElement.css("color", "#000000");
+        if (event.color == "#fff8f8") {
+          eventElement.css("color", "#9e2e2e");
+          eventElement.css("font-size", "15px");
+          eventElement.css("background-color", "#ffe8e8");
           $('.fc-bg .fc-widget-content[data-date]').filter(function () {
             if ($(this).data('date') == event["start"]["_i"]) {
-              $(this).css("background-color", "#F0F0F0");
+              $(this).css("background-color", "#fff8f8");
               console.log($(this).data('date'));
             }
           })

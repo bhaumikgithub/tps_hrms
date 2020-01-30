@@ -29,13 +29,10 @@
 <% if @arrange_sessions.present? %>
   <div class="row d-flex">
     <div class="col l12 s12">
-      <div class=" w-100">
+      <div class="card w-100">
         <div class="card-content">
           <span class="font-22">Upcoming Sessions/Events</span>
-          <br>
-          <div class="row">
-            <div class="col s12">
-              <ul class="collapsible collapsible-accordion session_evenet" data-collapsible="accordion">
+          <ul class="collapsible collapsible-accordion session_evenet" data-collapsible="accordion">
                 <% @arrange_sessions.each do |arrange_session| %>
                   <li>
                     <div class="collapsible-header"><b>Topic: <%= arrange_session&.topic %></b></div>
@@ -57,8 +54,7 @@
                   </li>
                 <% end %>
               </ul>
-            </div>
-          </div>   
+             
         </div>
       </div>
     </div>
@@ -69,26 +65,24 @@
     <div class="col l12 s12">
       <div class="card w-100">
         <div class="card-content">
-          <span class="font-22">Event Links</span><br/><br/>
+          <span class="font-22">Event Links</span><br/>
           <% @event_links.each do |event_link| %>
             <div class="row">
               <div class="col s12 l12">
                 <b><%= event_link&.title %></b> - 
                 <%= link_to event_link&.link, event_link&.link, target: "_blank" %><br/>
-                <%= event_link&.description %><br/>
+                <%= event_link&.description %>
               </div>
-            </div><br/>
+            </div>
           <% end %> 
         </div>
       </div>
     </div>
   </div> 
 <% end %>
-
-<% if current_user.admin? %>
-  <br>
   <div class="row">
-    <div class="col l3 s12">
+<% if current_user.admin? %>
+   <div class="col l3 s12">
         <div class="card">
           <div class="card-content">
             <span class="font-22">Leave Balance</span><span class="span-wrap">(Upto end of current month)</span>
@@ -104,7 +98,7 @@
         </div>
     </div>
 <% end %> 
-    <div class= '<%= current_user.admin? ? "col l9 s12" : "col s12"  %>' >
+  <div class= '<%= current_user.admin? ? "col l9 s12" : "col s12"  %>' >
       <div class="row d-flex upcoming-card">
         <% unless current_user.admin? %>
           <div class="col l6 s12 d-flex">
@@ -201,6 +195,33 @@
             </div>
           </div>
         </div> 
+      </div>
+        <div class="row">  
+    <div class="col l6 s12">  
+      <% if current_user.team_leader? %>  
+        <div class="card">  
+          <div class="card-content">  
+            <span class="font-22">Upcoming Leaves</span>  
+            <table class="table table-borderless">  
+              <% if  @leaves.present? %>  
+                <% @employees_leaves.each do |leave| %> 
+                  <tr>  
+                    <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span> </td> 
+                    <td><span class="black-text text-darken-2"><%= leave.leave_type.humanize  %></span></td>  
+                    <td><%= leave.user.first_name.humanize %></td>  
+                  </tr> 
+                <% end %> 
+              <% else %>  
+                <tr>  
+                  <td>No record found</td>  
+                </tr> 
+              <% end %> 
+            </table>  
+          </div>  
+        </div>  
+      <% end %> 
+    </div>  
+  </div>
 
          <!--  <div class="col l6 s12">
              <div class="card">

@@ -13,7 +13,7 @@
           <div class="col s12">
             <br>
           </div>
-          <div class="col s12 m3">
+   <!--        <div class="col s12 m3">
             <div class="img_wrapper">
               <% if @user&.profile_picture&.attached? %>
                 <%=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5', id: "crop_image") %>
@@ -28,6 +28,28 @@
                   <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
                 </a>
               <% end %>
+              <br>
+              <br>
+            </div>
+          </div> -->
+          <div class="col s12 m3">
+            <div class="img_wrapper">
+              <div class="profile-back">
+                <% if @user&.profile_picture&.attached? %>
+                  <%=  image_tag(@user&.profile_picture, class: 'responsive-img ', id: "crop_image") %>
+                <% else %>
+                  <%= image_tag("avatar.png", class: 'responsive-img profile-img', id: "crop_image") %>
+                <% end %>
+                </div> 
+                <% if current_user.id == @user.id || current_user.admin? %>
+               
+                  <a class="profile_chnage_link">
+                    <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
+                    <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
+                  </a>
+                     <%= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}, class: 'profile_chnage_link'%>
+                <% end %>
+
               <br>
               <br>
             </div>
@@ -115,9 +137,13 @@
     <div class="col s12 card-content-link">
       <div class="card card-tabs">
         <div class="card-content">
+              <div class="card-title">
+                  <div class="row">
+              <div class="col s12 m6 l10">
           <h5>Employment Details</h5>
-          <br>
-          
+        </div>
+      </div>
+        </div>
           <div class="row">  
             <div class="col s12 m3">
               <span><b>Employee Code:</b></span>
@@ -219,17 +245,23 @@
         <div class="card-content">
           <div class="row">
             <div class="col s12 m6 l10">
+                  <div class="card-title">
+                <div class="row">
+              <div class="col s12 m6 l10">
               <h5>Education Details</h5>
             </div>
+          </div>
+            </div>
+          </div>
             <% if current_user.admin? %>
               <div class="col s12 m6 l2">
-                <ul class="">
+                <ul class="profile-ui">
                   <li><%= link_to("#add_education_detail_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
                 </ul>
               </div>
             <% end %>
           </div>
-          <br>
+    
           
         <% @educations.order(from: :desc).each do |education| %>
           <div class="row">  
@@ -269,17 +301,23 @@
         <div class="card-content">
           <div class="row">
             <div class="col s12 m6 l10">
+              <div class="card-title">
+                <div class="row">
+              <div class="col s12 m6 l10">
               <h5>Designation & Promotion</h5>
+            </div>
+          </div>
+        </div>
             </div>
             <% if current_user.admin? %>
               <div class="col s12 m6 l2">
-                <ul class="">
+                <ul class="profile-ui">
                   <li><%= link_to("#add_user_designation_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
                 </ul>
               </div>
             <% end %>
           </div>
-          <br>
+         
           
         <% @user_designations.order(id: :desc).each do |user_des| %>
           <div class="row">
@@ -320,13 +358,13 @@
             </div>
             <% if current_user.admin? %>
               <div class="col s12 m6 l2">
-                <ul class="">
+                <ul class="profile-ui">
                   <li><%= link_to("#add_user_document_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
                 </ul>
               </div>
             <% end %>
           </div>
-          <br>
+        
           <% @user.documents.order(id: :desc).each do |doc| %>
           <div class="row">
             <div class="col s12 m6 l10">
@@ -341,7 +379,7 @@
               <% end %>
             </div>
           </div>
-          <br/>
+      
         <% end %>
         </div>
       </div>
@@ -353,7 +391,7 @@
         <div class="card card-tabs">
           <div class="card-content">
             <h5>KYC Details</h5>
-            <br>
+           
             <div class="row">  
               <div class="col s12 m3">
                 <span><b>Adhar Number:</b></span>
@@ -383,7 +421,7 @@
         <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} if current_user.admin?%>
         <%= link_to 'Back', users_path, class: 'btn cyan waves-effect waves-light mb-2' %>
       </div>
-      <br><br><br> 
+    
     </div>
 
   <div id="image_cropping" class="modal modal-fixed-footer">

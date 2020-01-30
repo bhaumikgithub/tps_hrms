@@ -8,7 +8,7 @@
             <div class="card-title">
               <div class="row">
                 <div class="input-field col s12">
-                  <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class", :required => true} ) %>
                     <label for="degree">Degree</label>
                 </div>
 
@@ -24,7 +24,7 @@
                 <%= f.hidden_field :user_id, :value => @education.user_id %>
                 <%= hidden_field_tag :education_id, @education.id %>
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date", :value => @education&.from&.strftime("%b %d, %Y") %><br />
+                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date", :value => @education&.from&.strftime("%b %d, %Y"), required: true %><br />
                   <label for="from">From</label>
                 </div>
 

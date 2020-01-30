@@ -284,9 +284,9 @@
         <% @user_designations.order(id: :desc).each do |user_des| %>
           <div class="row">
             <div class="col s12 m6 l10">
-              <span><b><%= "#{user_des.designation.name} of #{user_des.department.name} Department."  %></b></span>
+              <span><b><%= "#{user_des&.designation&.name} of #{user_des&.department&.name} Department."  %></b></span>
               <br/>
-              <span>Mentor is <b><%= "#{User.find(user_des.mentor).full_name}"  %></b></span>
+              <span>Mentor is <b><%= "#{User.find_by_id(user_des&.mentor)&.full_name}"  %></b></span>
               <br/>
               <% if user_des.is_current %>
                 <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
@@ -460,7 +460,7 @@
             <div class="card-title">
               <div class="row">
                 <div class="input-field col s12">
-                   <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                   <%= f.select(:degree_id, Degree.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class", :required => true} ) %>
                   <label for="degree">Degree</label>
                 </div>
 
@@ -476,7 +476,7 @@
 
                 <%= f.hidden_field :user_id, :value => @user.id %>
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %><br />
+                  <%= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date", required: true %><br />
                   <label for="from">From</label>
                 </div>
 
@@ -505,7 +505,7 @@
 
 <div id="add_user_designation_modal" class="modal">
   <div class="modal-content">
-    <h4>Education Detail</h4>
+    <h4>Designation Detail</h4>
     <%= form_for :user_designation, :url => url_for(:controller => 'users', :action => 'create_user_designation') do |f| %>
       <div class="col s12">
         <div id="input-fields" class="card card-tabs">
@@ -513,24 +513,24 @@
             <div class="card-title">
               <div class="row">
                 <div class="input-field col m6 s12">
-                  <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <%= f.select(:designation_id, Designation.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class", required: true } ) %>
                   <label for="designation">Designation</label>
                 </div>
 
                 <div class="input-field col m6 s12 custom-dropdown">
-                  <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <%= f.select(:department_id, Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class", required: true } ) %>
                   <label>Department</label>
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <%= f.select(:mentor, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                  <%= f.select(:mentor, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, {:class => "some_class", required: true } ) %>
                   <label>Mentor</label>
                 </div>
 
                 <%= f.hidden_field :user_id, :value => @user.id %>
                 <div class="input-field col m6 s12">
                   <%#= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %>
-                  <%= f.text_field :start_date, class: 'datepicker leave_date',id:"start_date" %><br /><br />
+                  <%= f.text_field :start_date, class: 'datepicker leave_date',id:"start_date", required: true %><br /><br />
                   <label for="from">Start Date</label>
                 </div>
 

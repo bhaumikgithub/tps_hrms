@@ -12,19 +12,18 @@
       <div class="card-content">
         <div class="card-title">
           <div class="row">
-            <div class="col s12 m6 l10">
-              <h3 class="card-title"><b>Free Leaves<b></h3>
+            <div class="col s12">
+                <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Free Leaves</span>
+                <span><%= link_to 'Add Leave', new_free_leave_path, class: "btn cyan waves-effect waves-lightc " %></span>
             </div>
-            <div class="col s12 m6 l2">
-              <ul class="">
-                <li><%= link_to 'Add Leave', new_free_leave_path, class: "btn cyan waves-effect waves-lightc " %></li>
-              </ul>
-            </div>
+           
           </div>
         </div>
         <div id="view-borderless-table leave_data_wrap">
           <div class="row">
             <div class="col s12">
+              <div class="table-responsive">
               <table id='leave_table'>
                 <thead>
                   <tr>
@@ -47,6 +46,7 @@
                   <% end %>
                 </tbody>
               </table>
+            </div>
             </div>
           </div>
         </div>

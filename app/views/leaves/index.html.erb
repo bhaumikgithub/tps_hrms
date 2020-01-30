@@ -13,23 +13,22 @@
         <div class="card-content">
           <div class="card-title">
             <div class="row">
-              <div class="col s12 m6 l10">
-                <h3 class="card-title"><b>Leaves<b></h3>
+                <div class="col s12">
+                 <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Leaves</span>
+                <span> <%= link_to 'Add Leave', new_leave_path, class: "btn cyan waves-effect waves-lightc " %></span>
+               </div>
               </div>
-              <div class="col s12 m6 l2">
-                <ul class="">
-                  <li><%= link_to 'Add Leave', new_leave_path, class: "btn cyan waves-effect waves-lightc " %></li>
-                </ul>
-              </div>
+           
             </div>
           </div>
-          <div class="row">
+          <div class="row leave-select">
             <div class="col l3 m6 s12">
               <div class="select_width">
                 <%= select_tag "leave_type", options_for_select([ "Future", "Past" ], "Future"), class: "form-control leave_type_seletbox" %>
               </div>
             </div>
-            <div class="col l3 m6 s12">
+            <div class="col l3 m6 s12 leave-select">
               <div class="month_warpper">
                 <%= select_month(14, field_name: 'month', prompt: 'Choose month' ) %>
               </div>

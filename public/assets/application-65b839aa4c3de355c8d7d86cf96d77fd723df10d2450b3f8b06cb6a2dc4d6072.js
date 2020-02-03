@@ -14638,6 +14638,10 @@ $(document).ready(function () {
   App.cable = ActionCable.createConsumer();
 
 }).call(this);
+(function() {
+
+
+}).call(this);
 $(document).on("hidden.bs.modal","#image_cropping",function(){
   $("#upload").val('');
 });
@@ -14719,6 +14723,18 @@ NOTE:
 PLACE HERE YOUR OWN JS CODES AND IF NEEDED.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR CUSTOM SCRIPT IT'S BETTER LIKE THIS. */
 ;
+(function() {
+
+
+}).call(this);
+(function() {
+
+
+}).call(this);
+(function() {
+
+
+}).call(this);
 (function() {
 
 
@@ -47318,7 +47334,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
        yearRange: [2011 ,currentYear],
     });
-    $('.leave_date').datepicker();
+    $('.arrange_date').datepicker({
+       yearRange: [2011 ,currentYear],
+    });
+
+    $('.arrange_time').timepicker();
+    $('.leave_date, .datepicker').datepicker();
     $('.leave_end_date').datepicker({
       onOpen: function(){
         var startDate = new Date($("#start_date").val());

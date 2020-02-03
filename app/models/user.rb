@@ -121,7 +121,7 @@ class User < ApplicationRecord
   end
 
   def self.taken_leave(user,start_date,end_date)
-    user_leaves = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", start_date - 1.month,end_date - 1.month, start_date - 1.month,end_date - 1.month)
+    user_leaves = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", start_date - 1.month,(end_date - 1.month).at_end_of_month, start_date - 1.month,(end_date - 1.month).at_end_of_month)
     taken_leave = 0
     user_leaves.each do |leave|
       leave = leave.total_leave_count(start_date - 1.month)
@@ -131,7 +131,7 @@ class User < ApplicationRecord
   end
 
   def self.create_leave_report(user)
-    user.leave_reports.create(start_month: @start_date - 1.month, end_month: @end_date - 1.month, prev_month_leave_bal: @prev_month_leave_bal, free_leave: @free_leave, taken_leave: @taken_leave, current_leave_bal: @current_bal)
+    user.leave_reports.create(start_month: @start_date - 1.month, end_month: (@end_date - 1.month).at_end_of_month, prev_month_leave_bal: @prev_month_leave_bal, free_leave: @free_leave, taken_leave: @taken_leave, current_leave_bal: @current_bal)
   end
 
   def self.current_month_leave(user)

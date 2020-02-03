@@ -1,16 +1,16 @@
 class LeavesController < ApplicationController
   load_and_authorize_resource
-  skip_authorize_resource :only => [:index, :get_events]
+  skip_authorize_resource :only => [:index, :get_events, :request_leave, :get_mentor, :create, :leave_filter, :leave_preview, :cancelled_leave, :approved_leave]
   include InheritAction
   
   def get_events
     if params[:user_id].present?
       user = User.find_by(id: params[:user_id].to_i)
-      leaves = user.user_leaves.where.not(leave_type: "wfh")
+      leaves = user.user_leaves.where.not(leave_type: "wfh").where(status: "approved")
     elsif params[:is_wfh] == 'true'
-      leaves = Leave.all
+      leaves = Leave.all.where(status: "approved")
     else
-      leaves = Leave.all.where.not(leave_type: "wfh")
+      leaves = Leave.all.where.not(leave_type: "wfh").where(status: "approved")
     end
     events = []
     leaves.each do |leave|
@@ -27,7 +27,11 @@ class LeavesController < ApplicationController
 
  def index
     @users = User.all.includes(:user_leaves)
-    @resources = Leave.where("leave_date >= ? OR end_date >= ?", Date.today, Date.today ).order('created_at DESC')
+    if current_user.admin?
+      @resources = Leave.where("leave_date >= ? OR end_date >= ?", Date.today, Date.today ).order('created_at DESC')
+    else
+      @resources = Leave.joins(user: :user_designations).where('(leaves.leave_date >= ? OR leaves.end_date >= ?) and user_designations.mentor = ? and is_current = true', Date.today, Date.today, current_user.id.to_s).order('created_at DESC')
+    end
     @user_leaves = {}
     User.all.each do |user|
       leave = user.user_month_leave(params[:month].to_i, params[:year].to_i)
@@ -35,13 +39,35 @@ class LeavesController < ApplicationController
     end
   end
 
+  def request_leave
+    @resource = Leave.new
+  end
+
   def leave_filter
     if params[:leave_type] == "Past"
-      @resources = Leave.where("leave_date < (?)", Date.today).order('created_at DESC')
+      if current_user.admin?
+        @resources = Leave.where("leave_date < (?)", Date.today).order('created_at DESC')
+      else
+        @resources = Leave.joins(user: :user_designations).where('leaves.leave_date < ? and user_designations.mentor = ? and is_current = true', Date.today, current_user.id.to_s).order('created_at DESC')
+      end
     elsif params[:month].present?
-      @resources = Leave.where('extract(month from leave_date) = (?) AND extract(year from leave_date) = (?) OR extract(month from end_date) = (?) AND extract(year from end_date) = (?) ' , params[:month], Date.today.year, params[:month], Date.today.year)
+      if current_user.admin?
+        @resources = Leave.where('extract(month from leave_date) = (?) AND extract(year from leave_date) = (?) OR extract(month from end_date) = (?) AND extract(year from end_date) = (?) ' , params[:month], Date.today.year, params[:month], Date.today.year)
+      else
+        @resources = Leave.joins(user: :user_designations).where('(extract(month from leaves.leave_date) = (?) AND extract(year from  leaves.leave_date) = (?) OR extract(month from  leaves.end_date) = (?) AND extract(year from  leaves.end_date) = (?)) and user_designations.mentor = ? and is_current = true' , params[:month], Date.today.year, params[:month], Date.today.year, current_user.id.to_s)
+      end
+    elsif params[:leave_status].present?
+      if current_user.admin?
+        @resources = Leave.where("status IN (?)", params[:leave_status]).order('created_at DESC')
+      else
+        @resources = Leave.joins(user: :user_designations).where("leaves.status IN (?)", params[:leave_status]).where('user_designations.mentor = ? and is_current = true',current_user.id.to_s).order('created_at DESC')
+      end
     else
-      @resources = Leave.where("leave_date >= ? OR end_date >= ?", Date.today, Date.today ).order('created_at DESC')
+      if current_user.admin?
+        @resources = Leave.where("leave_date >= ? OR end_date >= ?", Date.today, Date.today ).order('created_at DESC')
+      else
+        @resources = Leave.joins(user: :user_designations).where('(leaves.leave_date >= ? OR leaves.end_date >= ?) and user_designations.mentor = ? and is_current = true', Date.today, Date.today, current_user.id.to_s).order('created_at DESC')
+      end
     end
   end
 
@@ -83,6 +109,30 @@ class LeavesController < ApplicationController
     end
   end
 
+  def leave_preview
+    @leave = Leave.find(params[:id])
+  end
+
+  def cancelled_leave
+    @leave = Leave.find(params[:leave_id])
+    if  @leave.approved_by_id == current_user.id ||  @leave.approved_by_id == current_user.id
+      @leave.update(cancelled_reason: params[:cancelled_reason], cancelled_date: Date.today, status: "cancelled")
+      redirect_to leaves_path
+    else
+      redirect_to leaves_path, alert: 'You are not authorized!'
+    end
+  end
+
+  def approved_leave
+    @leave = Leave.find(params[:id])
+    if  @leave.approved_by_id == current_user.id ||  @leave.approved_by_id == current_user.id
+      @leave.update(approved_date: Date.today, status: "approved")
+      redirect_to leaves_path
+    else
+      redirect_to leaves_path, alert: 'You are not authorized!'
+    end
+  end
+
   private
 
   def resource_class
@@ -94,6 +144,6 @@ class LeavesController < ApplicationController
   end
 
   def resource_params
-    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id, :end_date, :status)
+    params.require(:leave).permit(:leave_type,:leave_date, :approved_by_id, :user_id, :end_date, :status, :leave_reason, :duration_of_leave, :request_leave, :phone_availability, :emergency_contact, :availability_in_ahmd, :request_date, :approved_date, :cancelled_reason)
   end
 end

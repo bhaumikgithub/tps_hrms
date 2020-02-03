@@ -25,11 +25,11 @@ class User < ApplicationRecord
 
   # scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
 
-  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.month, Date.today.day ).order('birthday DESC')}
+  scope :upcoming_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?',Date.today.month, Date.today.day ).order('birthday ASC')}
 
-  scope :upcoming_anniversary, -> { where( 'EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?',Date.today.month, Date.today.day )}
+  scope :upcoming_anniversary, -> { where( 'EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?',Date.today.month, Date.today.day ).order('anniversary_date ASC')}
 
-  scope :upcoming_work_anniversary, -> { where( 'EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) >= ?',Date.today.month, Date.today.day )}
+  scope :upcoming_work_anniversary, -> { where( 'EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) >= ?',Date.today.month, Date.today.day ).order('join_date ASC')}
 
 
   # has_many :leaves

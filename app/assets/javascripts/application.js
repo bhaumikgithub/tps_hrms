@@ -38,7 +38,7 @@
     });
 
     $('.arrange_time').timepicker();
-    $('.leave_date').datepicker();
+    $('.leave_date, .datepicker').datepicker();
     $('.leave_end_date').datepicker({
       onOpen: function(){
         var startDate = new Date($("#start_date").val());

@@ -60,26 +60,7 @@
     </div>
   </div>
 <% end %>
-<% if @event_links.present? %>
-  <div class="row">
-    <div class="col l12 s12">
-      <div class="card w-100">
-        <div class="card-content">
-          <span class="font-22">Event Links</span><br/>
-          <% @event_links.each do |event_link| %>
-            <div class="row">
-              <div class="col s12 l12">
-                <b><%= event_link&.title %></b> - 
-                <%= link_to event_link&.link, event_link&.link, target: "_blank" %><br/>
-                <%= event_link&.description %>
-              </div>
-            </div>
-          <% end %> 
-        </div>
-      </div>
-    </div>
-  </div> 
-<% end %>
+
   <div class="row">
 <% if current_user.admin? %>
    <div class="col l3 s12">
@@ -126,7 +107,7 @@
                         <%= image_tag("avatar.png", class: 'circle') %>
                       <% end %>
                       <p class="font-weight-600"><%= user.full_name %></p>
-                      <p class="medium-small"><%= user.birthday == Date.today ? 'Today' : user.birthday&.strftime('%d, %B %Y') %></p>
+                      <p class="medium-small"><%= user.birthday == Date.today ? 'Today' : user.birthday&.strftime('%d, %B') %></p>
                       <i class="material-icons">redeem</i>
                     </li>
                   <% end %>
@@ -139,7 +120,36 @@
             </div>
           </div>
         </div>
-        <div class="col l6 s12">
+       
+        <div class="col l6 s12 d-flex">
+          <div class="card w-100">
+            <div class="card-content">
+              <span class="font-22">Upcoming Work Anniversary</span><span class="span-wrap">(Within month)</span>
+              <ul class="collection mb-0">
+               <% if  User.where(job_status: 'Active').upcoming_work_anniversary.present? %>
+                  <% User.where(job_status: 'Active').upcoming_work_anniversary.each do |user| %>
+                    <li class="collection-item avatar">
+                      <% if user.profile_picture&.attached? %>
+                        <%= image_tag(user.profile_picture, class: "circle")%>
+                      <% else %>
+                        <%= image_tag("avatar.png", class: 'circle') %>
+                      <% end %>
+                      <p class="font-weight-600"><%= user.full_name.titleize %></p>
+                      <p class="medium-small"><%= user.join_date&.strftime('%d, %B') %></p>
+                      <p><%= years_between_dates(user.join_date.to_date,Date.today) if user.join_date.present? %> years</p>
+                      <i class="material-icons">insert_invitation</i>
+                    </li>
+                  <% end %>
+                <% else %>
+                  <li>
+                    <p>No record found</p>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div> 
+         <div class="col l6 s12 d-flex">
           <div class="card w-100">
             <div class="card-content">
               <span class="font-22">Upcoming Anniversary</span><span class="span-wrap">(Within month)</span>
@@ -167,38 +177,9 @@
             </div>
           </div>
         </div>
-        <div class="col l6 s12">
-          <div class="card w-100">
-            <div class="card-content">
-              <span class="font-22">Upcoming Work Anniversary</span><span class="span-wrap">(Within month)</span>
-              <ul class="collection mb-0">
-               <% if  User.where(job_status: 'Active').upcoming_work_anniversary.present? %>
-                  <% User.where(job_status: 'Active').upcoming_work_anniversary.each do |user| %>
-                    <li class="collection-item avatar">
-                      <% if user.profile_picture&.attached? %>
-                        <%= image_tag(user.profile_picture, class: "circle")%>
-                      <% else %>
-                        <%= image_tag("avatar.png", class: 'circle') %>
-                      <% end %>
-                      <p class="font-weight-600"><%= user.full_name.titleize %></p>
-                      <p class="medium-small"><%= user.join_date&.strftime('%d, %B %Y') %></p>
-                      <p><%= years_between_dates(user.join_date.to_date,Date.today) if user.join_date.present? %> years</p>
-                      <i class="material-icons">insert_invitation</i>
-                    </li>
-                  <% end %>
-                <% else %>
-                  <li>
-                    <p>No record found</p>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div> 
-      </div>
-        <div class="row">  
-    <div class="col l6 s12">  
-      <% if current_user.team_leader? %>  
+     
+      <div class="col l6 s12"> 
+       <% if current_user.team_leader? %>   
         <div class="card">  
           <div class="card-content">  
             <span class="font-22">Upcoming Leaves</span>  
@@ -219,8 +200,30 @@
             </table>  
           </div>  
         </div>  
-      <% end %> 
-    </div>  
+          <% end %> 
+           <% if current_user.admin? %>
+            <div class="card">
+              <div class="card-content">
+                <table class="table table-borderless">
+                  <span class="font-22">Upcoming Leaves</span> 
+                    <% if  @leaves.present? %>
+                      <% @leaves.each do |leave| %>
+                        <tr>
+                          <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span></td>  <td>  <span class="black-text text-darken-2"><%= leave.leave_type.titleize  %></span> </td> <td> <%= leave.user.first_name.humanize %> </td>
+                        </tr>
+                      <% end %>
+                    <% else %>
+                      <tr>
+                        <td>No record found</td>
+                      </tr>
+                    <% end %>
+                </table>
+              </div>
+            </div>
+            <% end %>
+     </div>  
+          <div class="col l6 s12">
+        </div>
   </div>
 
          <!--  <div class="col l6 s12">
@@ -288,28 +291,26 @@
             </div>
           </div>
         </div> -->
-        <div class="col l6 s12">
-          <% if current_user.admin? %>
-           <div class="card">
-              <div class="card-content">
-                <table class="table table-borderless">
-                  <span class="font-22">Upcoming Leaves</span> 
-                    <% if  @leaves.present? %>
-                      <% @leaves.each do |leave| %>
-                        <tr>
-                          <td><span class="red-text text-darken-2"><%= leave.leave_date == Date.today ? 'Today' : leave.shorten_leave %></span></td>  <td>  <span class="black-text text-darken-2"><%= leave.leave_type.titleize  %></span> </td> <td> <%= leave.user.first_name.humanize %> </td>
-                        </tr>
-                      <% end %>
-                    <% else %>
-                      <tr>
-                        <td>No record found</td>
-                      </tr>
-                    <% end %>
-                </table>
+  <% if @event_links.present? %>
+  <div class="row">
+    <div class="col l12 s12">
+      <div class="card w-100">
+        <div class="card-content">
+          <span class="font-22">Event Links</span><br/>
+          <% @event_links.each do |event_link| %>
+            <div class="row">
+              <div class="col s12 l12">
+               <b><%= event_link&.category %></b>-
+                <%= event_link.event_date&.strftime("%d %b %y") %>-
+                <%= link_to event_link&.title, event_link&.link, target: "_blank" %>
               </div>
             </div>
-          <% end %>
+          <% end %> 
         </div>
+      </div>
+    </div>
+  </div> 
+<% end %>
       </div>
     </div>
 </div>

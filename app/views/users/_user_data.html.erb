@@ -5,6 +5,7 @@
     <!-- <td><%#= user.comp_email %></td> -->
     <td><%= user.contact %></td>
     <td data-sort="<%=user.join_date&.to_date.try(:strftime,"%Y%m%d%H%M%s") %>"><%= user.join_date&.to_date.try(:strftime,'%d-%m-%Y') %></td>
+    <td data-sort="<%=user.last_sign_in_at&.to_date.try(:strftime,"%Y%m%d%H%M%s") %>"><%=  user.last_sign_in_at&.to_date.try(:strftime,'%d-%m-%Y') if current_user.admin? %></td>
     <td><%= user&.user_current_designation&.designation&.name %></td>
     <td><%= user&.user_current_designation&.department&.name %></td>
     <td><%= user&.user_type&.humanize %></td>

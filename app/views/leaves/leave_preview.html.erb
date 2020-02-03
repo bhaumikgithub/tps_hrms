@@ -1,0 +1,79 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Leave Preview", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+	<div class="col s12">
+	  <div id="borderless-table" class="card card-tabs">
+	    <div class="card-content">
+	      <div class="card-title">
+	        <div class="row">
+	          <div class="col s12 m6 l10">
+	            <h3 class="card-title"><b>Leave Preview<b></h3>
+	          </div>
+	        </div>
+	      </div>
+	      <div id="view-input-fields">
+	        <div class="row">
+	          <div class="col s12">
+	          	<div class="input-field col m4 s12">
+	            	Leave Type: <b><%= @leave.leave_type %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Employee Name: <b><%= @leave&.user&.full_name %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Status: <b><%= @leave&.status %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Leave Date: <b><%= @leave&.leave_date.try(:strftime,"%d-%m-%Y") %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		End Date: <b><%= @leave&.end_date.try(:strftime,"%d-%m-%Y") %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Duration of Leave: <b><%= (@leave.leave_array[0].count)*@leave.leave_array[1] %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Leave Reason: <b><%= @leave&.leave_reason %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Requested Date: <b><%= @leave&.request_date.try(:strftime,"%d-%m-%Y") %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Emergency Contact: <b><%= @leave&.emergency_contact %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Availability on Phone: <b><%= @leave&.phone_availability? ? "Yes" : "No" %></b>
+	          	</div>
+	          	<div class="input-field col m4 s12">
+	          		Availability on Ahmedabad: <b><%= @leave&.availability_in_ahmd? ? "Yes" : "No" %></b>
+	          	</div>
+	          </div>
+	        </div>
+	        <div class="row">
+	        	<div class="col s12">
+	        		<%= form_tag('/leaves/cancelled_leave', method: :post) do %>
+	        			<div class="row">
+                  <div class="input-field col s12">
+                    <%= text_field_tag :cancelled_reason, nil, :required => true%><br />
+                    <label for="cancelled_reason">Cancelled Reason</label>
+                  </div>
+                  <%= hidden_field_tag :leave_id, @leave.id %>
+                  <div class="input-field col s12">
+                  	<%= link_to "Approved", approved_leave_leave_path(@leave.id), class: "btn cyan waves-effect waves-light" %>
+                    <%= submit_tag 'Cancelled Leave', class: "btn cyan waves-effect waves-light" %>
+                  </div>
+                </div>
+		        	<% end %>
+	        	</div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

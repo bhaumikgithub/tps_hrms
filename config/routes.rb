@@ -47,6 +47,10 @@ Rails.application.routes.draw do
   end
   
   resources :leaves do
+    member do
+      get :leave_preview
+      get :approved_leave
+    end
     collection do
       get :get_events
       get :user_events
@@ -55,6 +59,8 @@ Rails.application.routes.draw do
       get :get_mentor
       get :leave_report
       get :leave_report_filter
+      get :request_leave
+      post :cancelled_leave
     end
   end
 

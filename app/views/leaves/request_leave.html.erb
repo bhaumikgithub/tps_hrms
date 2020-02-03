@@ -1,0 +1,131 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Leaves", leaves_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<% if @resource.errors.any? %>
+<ul>
+  <% @resource.errors.full_messages.each do |msg| %>
+    <li class="red_font_clr"><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs O-visible">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Leave Request</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_for @resource, class: 'row' do |f| %>
+                <div class="row">
+                  <div class="input-field col m12 s12">
+                    <%= f.select(:leave_type, Leave::LEAVE_TYPES.keys.map { |e| [e.humanize, e]  }, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <label>Type</label>
+                  </div>
+
+                   <!-- <div class="input-field col m6 s12">
+                    <%#= f.select(:status, Leave::LEAVE_STATUS.map { |e| [e.humanize, e]  }, {:include_blank => false}, {:class => "some_class"} ) %>
+                    <label>Status</label>
+                  </div> -->
+                  <% @mentor_id = User.find_by(id: current_user.id)&.user_current_designation&.mentor %>
+                  <% @approved_id = @mentor_id.present? ? @mentor_id : User.find_by_email("bhaumikgadani@gmail.com")&.id %>
+                  <%= f.hidden_field :status, :value => "pending" %>
+                  <%= f.hidden_field :request_date, :value => Date.today %>
+                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                  <%= f.hidden_field :approved_by_id, :value => @approved_id %>
+
+                  <div class="input-field col m6 s12">
+                    <%= text_field_tag :employee, current_user&.full_name, :readonly => true  %><br />
+                    <label>Employee</label>                  
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <%= text_field_tag :Mentor, User.find_by_id(@approved_id)&.full_name, :readonly => true  %><br />
+                    <label>Mentor</label>                  
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <div id="view-date-picker">
+                      <label for="start_date">Start date</label>
+                      <%= f.text_field :leave_date, class: 'datepicker leave_date',id:"start_date", :value => @resource.leave_date&.strftime("%d-%m-%Y") %>
+                    </div>                      
+                  </div>
+
+
+                  <div class="input-field col m6 s12">
+                    <div id="view-date-picker">
+                      <label for="end_date">End date</label>
+                      <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date", :value => @resource.end_date&.strftime("%d-%m-%Y") %>
+                    </div>                      
+                  </div>
+
+                  <div class="input-field col m12 s12">
+                    <%= f.text_field :leave_reason,id: "leave_reason", required: true  %><br />
+                    <label>Leave Reason</label>
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <%= f.number_field :duration_of_leave,id: "duration_of_leave", required: true  %><br />
+                    <label>Duration of leave</label>
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <%= f.text_field :emergency_contact,id: "emergency_contact", required: true  %><br />
+                    <label>Emergency Contact</label>
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <%= f.check_box :phone_availability, {:id => "phone_availability", :style => "opacity: initial;pointer-events: auto;"} %>
+                  <label>Availability on Phone</label>
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <%= f.check_box :availability_in_ahmd, {:id => "availability_in_ahmd", :style => "opacity: initial;pointer-events: auto;"} %>
+                  <label>Availability in Ahmedabad</label>
+                  </div>
+
+                  <div class="input-field col s12 mobile-center">
+                    <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
+                    <%= link_to("Back", leaves_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<script type="text/javascript">
+    $("#start_date").change(function(){
+      $('#end_date').val($("#start_date").val())
+    });
+    $('.employee').on('change', function (e) {
+      var valueSelected = this.value;
+      $.ajax({
+        url:  "/leaves/get_mentor",
+        dataType: "json",
+        data: {
+           emp_id:valueSelected
+        },
+        success: function(data) { 
+          $('.mentor').val(data)
+          $('select').formSelect()
+        }
+      });
+    });
+</script> -->

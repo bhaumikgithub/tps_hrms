@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_110934) do
+ActiveRecord::Schema.define(version: 2020_01_31_121019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +164,15 @@ ActiveRecord::Schema.define(version: 2020_01_27_110934) do
     t.date "end_date"
     t.string "color"
     t.string "status"
+    t.text "leave_reason"
+    t.text "cancelled_reason"
+    t.integer "duration_of_leave"
+    t.datetime "request_date"
+    t.datetime "approved_date"
+    t.boolean "phone_availability", default: false
+    t.string "emergency_contact"
+    t.boolean "availability_in_ahmd", default: false
+    t.datetime "cancelled_date"
     t.index ["approved_by_id"], name: "index_leaves_on_approved_by_id"
     t.index ["user_id"], name: "index_leaves_on_user_id"
   end

@@ -1,6 +1,6 @@
 class LeavesController < ApplicationController
   load_and_authorize_resource
-  skip_authorize_resource :only => [:index, :get_events, :request_leave, :get_mentor, :create, :leave_filter, :leave_preview, :cancelled_leave, :approved_leave]
+  skip_authorize_resource :only => [:index, :get_events, :request_leave, :get_mentor, :create, :leave_filter, :leave_preview, :cancelled_leave, :approved_leave, :my_leaves]
   include InheritAction
   
   def get_events
@@ -127,10 +127,16 @@ class LeavesController < ApplicationController
     @leave = Leave.find(params[:id])
     if  @leave.approved_by_id == current_user.id ||  @leave.approved_by_id == current_user.id
       @leave.update(approved_date: Date.today, status: "approved")
+      leaves = @leave.current_leave_count
+      balance = @leave.user.leave_bal.to_f - leaves
+      @leave.user.update(leave_bal: balance)
       redirect_to leaves_path
     else
       redirect_to leaves_path, alert: 'You are not authorized!'
     end
+  end
+
+  def my_leaves
   end
 
   private

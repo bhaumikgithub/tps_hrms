@@ -13,6 +13,8 @@
           </li>
            <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
+          <li class=" <%= active_class(my_leaves_leaves_path) %> + bold"><%= link_to(my_leaves_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">My Leaves</span><% end %>
+          </li>
           <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
           </li>
           <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
@@ -52,6 +54,8 @@
           </li>
            <li class=" <%= active_class(calender_path) %> + bold"><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
+          <li class=" <%= active_class(my_leaves_leaves_path) %> + bold"><%= link_to(my_leaves_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">My Leaves</span><% end %>
+          </li>
           <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
           </li>
           <li>
@@ -66,7 +70,7 @@
           <% end %>
           <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_links_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Event Link</span><% end %>
           </li>
-         <li class=" <%= active_class(request_leave_leaves_path) %> + bold"><%= link_to(request_leave_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event_note</i><span class="menu-title" data-i18n="">Leave Request</span><% end %>
+         <!-- <li class=" <%#= active_class(request_leave_leaves_path) %> + bold"><%#= link_to(request_leave_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event_note</i><span class="menu-title" data-i18n="">Leave Request</span><%# end %> -->
         <% end %>
         <li class=" <%= active_class(new_contact_path) %> + bold"><%= link_to(new_contact_path, class: "waves-effect waves-cyan") do %><i class="material-icons">mail</i><span class="menu-title" data-i18n="">Suggestion</span><% end %>
 

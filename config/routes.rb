@@ -61,6 +61,7 @@ Rails.application.routes.draw do
       get :leave_report_filter
       get :request_leave
       post :cancelled_leave
+      get :my_leaves
     end
   end
 

@@ -7,8 +7,8 @@ class Leave < ApplicationRecord
   LEAVE_TYPES =  {"full day" => '#3a8bc5', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
 
   before_save     :update_color
-  after_create    :update_leave_balance
-  before_destroy  :add_leave_balance
+  # after_create    :update_leave_balance
+  # before_destroy  :add_leave_balance
 
   validates_presence_of :leave_date, :end_date
 
@@ -84,17 +84,17 @@ class Leave < ApplicationRecord
     return count
   end
 
-  def update_leave_balance
-    # leaves = current_leave_count*self.leave_array[1]
-    leaves = current_leave_count
-    balance = self.user.leave_bal.to_f - leaves
-    self.user.update(leave_bal: balance)
-  end
+  # def update_leave_balance
+  #   # leaves = current_leave_count*self.leave_array[1]
+  #   leaves = current_leave_count
+  #   balance = self.user.leave_bal.to_f - leaves
+  #   self.user.update(leave_bal: balance)
+  # end
 
-  def add_leave_balance
-    # leaves = current_leave_count*self.leave_array[1]
-    leaves = current_leave_count
-    balance = (self.user.leave_bal.present? ? self.user.leave_bal : 0) + leaves 
-    self.user.update(leave_bal: balance)
-  end
+  # def add_leave_balance
+  #   # leaves = current_leave_count*self.leave_array[1]
+  #   leaves = current_leave_count
+  #   balance = (self.user.leave_bal.present? ? self.user.leave_bal : 0) + leaves 
+  #   self.user.update(leave_bal: balance)
+  # end
 end

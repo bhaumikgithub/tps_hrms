@@ -87,7 +87,7 @@
               <div class="card-content">
                 <span class="font-22">Leave Balance</span><span class="span-wrap">(Upto end of current month)</span>
                 <ul class="collection mb-0">
-                 <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal > 0 ? current_user.leave_bal : 0 : '0'%></td></tr>
+                 <tr><td>Current Leave Balance: </td> <td><%= current_user.leave_bal.present? ? current_user.leave_bal >= 0 ? current_user.leave_bal : "0 (#{current_user.leave_bal})"  : '0'%></td></tr>
                 </ul>
               </div>
             </div>

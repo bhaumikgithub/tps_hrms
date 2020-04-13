@@ -46,6 +46,21 @@ class User < ApplicationRecord
     end
   end
 
+  def self.check_day(date)
+    date = date.to_date
+    if date.strftime('%d %m') == Date.today.strftime('%d %m')
+      return 'Today'
+    elsif date.strftime('%d %m') == (Date.today + 1.day).strftime('%d %m')
+      return 'Tomorrow'
+    else
+      if date.year > 2007
+        return date.strftime("#{date.day.ordinalize} %B %Y")
+      else
+        return date.strftime("#{date.day.ordinalize} %B ")
+      end
+    end
+  end
+
   Role.pluck(:name).each do |user_role|
     define_method "#{user_role}?" do
       self.role.name == user_role

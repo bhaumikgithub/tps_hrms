@@ -1,0 +1,96 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Projects", projects_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<% if @resource.errors.any? %>
+<ul>
+  <% @resource.errors.full_messages.each do |msg| %>
+    <li class="red_font_clr"><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs O-visible">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title"><%=  @resource.new_record? ?  'Create Project' : 'Edit Project'%></h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_for @resource, class: 'row' do |f| %>
+                <div class="col s12">
+
+                  <div class="input-field col m6 s12">
+                    <%= f.text_field :name,id: "name", class: "validate" %><br />
+                    <label for="name">Name</label>
+                  </div>
+
+                  <div class="input-field col m6 s12">
+                    <%= f.text_field :description,id: "description", class: "validate" %><br />
+                    <label for="description">Description</label>
+                  </div>
+
+                  <div class="input-field col m6 ">
+                     <%= f.select(:department_id,  Department.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label>Department</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                     <%= f.select(:status, Project::STATUS.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label>Status</label>
+                  </div>
+
+                  
+                  <div class="input-field col m6">
+                    <div id="view-date-picker">
+                      <label for="birthdate">Start Date</label>
+                      <%= f.text_field :start_date, class: 'datepicker',id:"birthdate", :value => @resource.start_date&.strftime("%d-%m-%Y") %>
+                    </div>
+                  </div>
+                  <div class="input-field col m6">
+                    <div id="view-date-picker">
+                      <label for="birthdate">End Date</label>
+                      <%= f.text_field :end_date, class: 'datepicker',id:"birthdate", :value => @resource.end_date&.strftime("%d-%m-%Y") %>
+                    </div>
+                  </div>
+                  <div class="input-field col m6 s12">
+                    <%= f.text_field :client_name,id: "client_name", class: "validate" %><br />
+                    <label for="client_name">Client Name</label>
+                  </div>
+                  <div class="input-field col m6 s12">
+                    <%= f.select(:user_ids,  User.all.order('first_name').collect{|p| [p.full_name, p.id]}, {:include_blank => "Select"}, multiple: true) %>
+                    <label>User</label>
+                   
+
+                  <div class="input-field col s12 mobile-center">
+                    <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
+                    <%= link_to("Back", projects_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker({
+      format: 'dd/mm/yyyy'
+    });
+  });
+</script>

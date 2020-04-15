@@ -1,0 +1,69 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Project", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12">
+                 <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Projects</span>
+                 <% if current_user.admin? || current_user.manager? %>
+                   <%= link_to 'ADD', new_project_path, class: "btn cyan waves-effect waves-lightc " %>
+                  <% end %>
+                  </div>
+              </div>
+            
+            </div>
+          </div>
+
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12 table-responsive">
+                <table class="project-table">
+                  <thead>
+                    <tr>
+                      <th data-field="id">Name</th>
+                      <th data-field="id">Description</th>
+                      <th>Department</th>
+                      <th>Project Manager</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Status</th>
+                      <th width="10%" ></th>
+                      <th width="10%" ></th>
+                    </tr>
+                  </thead>
+                  <tbody class="project_body">
+                    <% @resources.each do |project| %>
+                      <tr>
+                        <td><%= project.name %></td>
+                        <td><%= project.description %></td>
+                        <td><%= project.start_date&.strftime('%d-%b-%Y') %></td>
+                        <td><%= project.end_date&.strftime('%d-%b-%Y') %></td>
+                        <td><%= project.department.name %></td>
+                        <td><%= project.client_name %></td>
+
+                          <td><%= link_to 'Edit', edit_project_path(project.id) %></td>
+                          <td><%= link_to 'Delete', project_path(project.id), method: :delete , data: {confirm: "Are you sure?"} %></td>
+                          <td><%= link_to 'Add report', new_user_report_path(project_member_id: project.id) %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+

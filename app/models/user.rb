@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :educations
   has_many :user_designations
   has_many :documents
+  has_many :project_members
+  has_many :projects, through: :project_members
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 

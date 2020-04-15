@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_035125) do
+ActiveRecord::Schema.define(version: 2020_04_15_120320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,8 +166,40 @@ ActiveRecord::Schema.define(version: 2020_02_03_035125) do
     t.date "end_date"
     t.string "color"
     t.string "status"
+    t.text "leave_reason"
+    t.text "cancelled_reason"
+    t.integer "duration_of_leave"
+    t.datetime "request_date"
+    t.datetime "approved_date"
+    t.boolean "phone_availability", default: false
+    t.string "emergency_contact"
+    t.boolean "availability_in_ahmd", default: false
+    t.datetime "cancelled_date"
     t.index ["approved_by_id"], name: "index_leaves_on_approved_by_id"
     t.index ["user_id"], name: "index_leaves_on_user_id"
+  end
+
+  create_table "project_members", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_members_on_project_id"
+    t.index ["user_id"], name: "index_project_members_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "department_id"
+    t.string "manager"
+    t.string "client_name"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_projects_on_department_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -189,6 +221,18 @@ ActiveRecord::Schema.define(version: 2020_02_03_035125) do
     t.index ["department_id"], name: "index_user_designations_on_department_id"
     t.index ["designation_id"], name: "index_user_designations_on_designation_id"
     t.index ["user_id"], name: "index_user_designations_on_user_id"
+  end
+
+  create_table "user_reports", force: :cascade do |t|
+    t.time "start_time"
+    t.time "end_time"
+    t.date "date"
+    t.text "detail"
+    t.string "total_hours"
+    t.bigint "project_member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_member_id"], name: "index_user_reports_on_project_member_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -252,9 +296,13 @@ ActiveRecord::Schema.define(version: 2020_02_03_035125) do
   add_foreign_key "leave_reports", "users"
   add_foreign_key "leaves", "users"
   add_foreign_key "leaves", "users", column: "approved_by_id"
+  add_foreign_key "project_members", "projects"
+  add_foreign_key "project_members", "users"
+  add_foreign_key "projects", "departments"
   add_foreign_key "user_designations", "departments"
   add_foreign_key "user_designations", "designations"
   add_foreign_key "user_designations", "users"
+  add_foreign_key "user_reports", "project_members"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "roles"
 end

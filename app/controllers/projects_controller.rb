@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
 
   include InheritAction
-  
 
   private
 

@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
     <div class="col s12">
       <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
-      <%= link_to("Holiday", user_reports_path , class: "breadcrumb") %>
+      <%= link_to("Report", '#' , class: "breadcrumb") %>
       <%= link_to("New", '#' , class: "breadcrumb active") %>
     </div>
   </div>
@@ -56,10 +56,14 @@
                     <label for="total_hours">Total Hours</label>
                   </div>
 
-                  <div class="input-field col m6">
-                    <%= f.text_area :detail,id: "detail", class: "validate" %><br />
-                    <label for="detail">Update</label>
+                  <div class="input-field col s12">
+                    <%= f.text_area :detail,id: "detail", class: "materialize-textarea" %><br />
+                  <label for="detail">Update</label>
                   </div>
+
+                  <!-- <div class="input-field col m6">
+                    <label for="detail">Update</label>
+                  </div> -->
 
 
                   <div class="input-field col m6 s12">

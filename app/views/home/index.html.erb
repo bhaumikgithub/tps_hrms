@@ -129,7 +129,6 @@
                <% if  User.where(job_status: 'Active').upcoming_work_anniversary.present? %>
                   <% User.where(job_status: 'Active').upcoming_work_anniversary.each do |user| %>
                     <% next_users = User.where(job_status: 'Active').where( '(EXTRACT(month FROM join_date) >= ? AND EXTRACT(day FROM join_date) > ?)', user.join_date.month, user.join_date.day).where.not(role_id: 1).order("extract(month from join_date) ASC").order("extract(day from join_date) ASC").group_by(&:join_date).first[1].pluck(:email) %>
-                    <%= next_users.inspect %>
                     
                     <li class="collection-item avatar <%= 'next-user' if next_users.include? user.email %>" >
                       <% if user.profile_picture&.attached? %>

@@ -127,8 +127,9 @@
               <span class="font-22">Upcoming Work Anniversary</span><span class="span-wrap">(Within month)</span>
               <ul class="collection mb-0">
                <% if  User.where(job_status: 'Active').upcoming_work_anniversary.present? %>
+                  <% u = User.where(job_status: 'Active').upcoming_work_anniversary.first %>
+                  <% next_users = User.where(job_status: 'Active').where( '(EXTRACT(month FROM join_date) >= ? AND EXTRACT(day FROM join_date) > ?)', u.join_date.month, u.join_date.day).where.not(role_id: 1).order("extract(month from join_date) ASC").order("extract(day from join_date) ASC").group_by(&:join_date).first[1].pluck(:email) %>
                   <% User.where(job_status: 'Active').upcoming_work_anniversary.each do |user| %>
-                    <% next_users = User.where(job_status: 'Active').where( '(EXTRACT(month FROM join_date) >= ? AND EXTRACT(day FROM join_date) > ?)', user.join_date.month, user.join_date.day).where.not(role_id: 1).order("extract(month from join_date) ASC").order("extract(day from join_date) ASC").group_by(&:join_date).first[1].pluck(:email) %>
                     
                     <li class="collection-item avatar <%= 'next-user' if next_users.include? user.email %>" >
                       <% if user.profile_picture&.attached? %>

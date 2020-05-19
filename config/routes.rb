@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       post :create_education_detail
       post :create_user_designation
       get :activation
+      get :generate_designation_pdf
     end
     collection do
       post :create_user

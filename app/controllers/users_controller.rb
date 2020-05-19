@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation]
+  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation, :generate_designation_pdf]
   before_action :find_education_user, only: [:update_education]
   before_action :find_education, only: [:update_education]
   before_action :find_designation_user, only: [:update_user_designation]
@@ -171,6 +171,24 @@ class UsersController < ApplicationController
   def activation
     @user.update(job_status: params[:job_status]) if params[:job_status].present?
     redirect_to users_path
+  end
+
+  def generate_designation_pdf
+    @user_designation = UserDesignation.find(params[:designation_id])
+    @start_date = @user_designation.start_date
+    @user_prev_des = @user.user_designations.where("start_date < ?", @start_date).order(start_date: :desc).first
+    respond_to do |format|
+      format.html
+      format.pdf do
+          render pdf: "Designation_PDF",
+          page_size: 'A4',
+          template: "users/generate_designation_pdf.html.erb",
+          layout: "pdf.html",
+          lowquality: true,
+          zoom: 1,
+          dpi: 75
+      end
+    end
   end
   private
 

@@ -1,0 +1,58 @@
+.logo_size{
+ width: 300px;
+ margin-bottom:90px;
+}
+
+.width_size {
+	width: 200px;
+}
+.text-right{
+	text-align: right;
+}
+.text-center{
+	text-align: center;
+}
+.stamp-border img{
+     margin-top:20px;
+	border:1px solid #ccc;
+}
+.dis-block{
+	display: block;
+}
+.mb-10{
+	margin-bottom: 10px;
+}
+.mb-20{
+	margin-bottom: 20px;
+}
+.mb-30{
+	margin-bottom: 30px;
+}
+.mb-40{
+	margin-bottom:40px;
+}
+.mb-50{
+	margin-bottom:50px;
+}
+.mb-60{
+	margin-bottom:60px;
+}
+.mb-90{
+	margin-bottom:90px;
+}
+.divFooter {
+    position: fixed;
+    bottom: 0;
+  }
+.fs-18{
+	font-size:18px;
+}
+.fs-20{
+	font-size:20px;
+}
+.fs-22{
+	font-size:22px;
+}
+.text-justify{
+	text-align: justify;
+}

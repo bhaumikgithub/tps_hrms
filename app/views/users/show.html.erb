@@ -328,8 +328,17 @@
               <br/>
               <% if user_des.is_current %>
                 <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - Current" %></span>
+                <% date_diff = user_des&.start_date.present? ? TimeDifference.between(user_des&.start_date, Date.today).in_general : "" %>
+                <% if date_diff.present? %>
+                  <span class="date-diff-border"><%= date_diff.present? ? date_diff[:years] == 1 ? "#{date_diff[:years]} Year" : date_diff[:years] > 1 ? "#{date_diff[:years]} Years" : "0 Year" : "" %> <%= date_diff.present? ? date_diff[:months] == 1 ? "#{date_diff[:months]} Month" : date_diff[:months] > 1 ? "#{date_diff[:months]} Months" : "0 Month" : "" %></span>
+                <% end %>
               <% else %>
                 <span><%= "#{user_des&.start_date.try(:strftime, "%d %b %Y")} - #{user_des&.end_date.try(:strftime, "%d %b %Y")}" %></span>
+                <% date_diff = user_des&.start_date.present? && user_des&.end_date.present? ? TimeDifference.between(user_des&.start_date, user_des&.end_date).in_general : "" %>
+                <% if date_diff.present? %>
+                  <span  class="date-diff-border"><%= date_diff.present? ? date_diff[:years] == 1 ? "#{date_diff[:years]} Year" : date_diff[:years] > 1 ? "#{date_diff[:years]} Years" : "0 Year" : "" %>
+                  <%= date_diff.present? ? date_diff[:months] == 1 ? "#{date_diff[:months]} Month" : date_diff[:months] > 1 ? "#{date_diff[:months]} Months" : "0 Month" : "" %></span>
+                <% end %>
               <% end %>
             </div>
             <div class="col s12 m6 l2">

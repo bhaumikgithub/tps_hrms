@@ -27,11 +27,11 @@ class User < ApplicationRecord
 
   # scope :today_birthday, -> { where( 'EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?',Date.today.month, Date.today.day ) }
 
-  scope :upcoming_birthday, -> { where( '(EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?) OR (EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) <= ?)',Date.today.month, (Date.today-4).day, (Date.today + 1.month).month, (Date.today-4).day ).order("extract(month from birthday) ASC").order("extract(day from birthday) ASC")}
+  scope :upcoming_birthday, -> { where( '(EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) >= ?) OR (EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) <= ?)',Date.today.month, (Date.today-4).day, (Date.today + 1.month).month, (Date.today).day ).order("extract(month from birthday) ASC").order("extract(day from birthday) ASC")}
 
-  scope :upcoming_anniversary, -> { where( '(EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?) OR (EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) <= ?)',Date.today.month, (Date.today-4).day, (Date.today + 1.month).month, (Date.today-4).day ).order("extract(month from anniversary_date) ASC").order("extract(day from anniversary_date) ASC")}
+  scope :upcoming_anniversary, -> { where( '(EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) >= ?) OR (EXTRACT(month FROM anniversary_date) = ? AND EXTRACT(day FROM anniversary_date) <= ?)',Date.today.month, (Date.today-4).day, (Date.today + 1.month).month, (Date.today).day ).order("extract(month from anniversary_date) ASC").order("extract(day from anniversary_date) ASC")}
 
-  scope :upcoming_work_anniversary, -> { where( '(EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) >= ?) OR (EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) <= ?)',Date.today.month, (Date.today-2).day, (Date.today + 1.month).month, (Date.today-2).day ).order("extract(month from join_date) ASC").order("extract(day from join_date) ASC")}
+  scope :upcoming_work_anniversary, -> { where( '(EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) >= ?) OR (EXTRACT(month FROM join_date) = ? AND EXTRACT(day FROM join_date) <= ?)',Date.today.month, (Date.today-4).day, (Date.today + 1.month).month, (Date.today).day ).order("extract(month from join_date) ASC").order("extract(day from join_date) ASC")}
 
 
   # has_many :leaves

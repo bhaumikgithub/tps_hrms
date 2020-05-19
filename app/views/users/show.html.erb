@@ -323,7 +323,7 @@
           <div class="row">
             <div class="col s12 m6 l10">
               <span><b><%= "#{user_des&.designation&.name} of #{user_des&.department&.name} Department."  %></b></span>
-              <%= link_to "Download", generate_designation_pdf_user_path(id: user_des.user_id, designation_id: user_des.id, format: :pdf), target: "_blank" %>
+              <%= link_to "Download Certificate", generate_designation_pdf_user_path(id: user_des.user_id, designation_id: user_des.id, format: :pdf), target: "_blank" %>
               <br/>
               <span>Mentor is <b><%= "#{User.find_by_id(user_des&.mentor)&.full_name}"  %></b></span>
               <br/>

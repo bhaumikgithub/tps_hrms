@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    c = SuggestionForm.new(:name => current_user.full_name, :email => current_user.email,comments: params[:comment], title: params[:title])
+    c = SuggestionForm.new(:name => current_user.full_name, :email => current_user.email,comments: params[:comment], title: params[:title], file: params[:file])
     if c.valid?
       c.deliver
       redirect_to root_path, notice: "Thanks for your suggestions." 

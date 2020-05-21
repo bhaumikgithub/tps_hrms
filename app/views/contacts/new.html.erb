@@ -12,7 +12,7 @@
         <div id="view-input-fields">
           <div class="row">
             <div class="col s12">
-              <%= form_tag('/contacts', method: :post) do %>
+              <%= form_tag('/contacts', method: :post, multipart: true) do %>
                 <div class="row">
                   <div class="input-field col s12">
                     <%= text_field_tag :title, nil, :required => true %><br />
@@ -21,6 +21,10 @@
                   <div class="input-field col s12">
                     <%= text_field_tag :comment, nil, :required => true%><br />
                     <label for="comment">Comment</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <!-- <label for="comment">Attachment</label> -->
+                    <%= file_field_tag :file %><br />
                   </div>
                   <div class="input-field col s12">
                     <%= submit_tag 'Submit', class: "btn cyan waves-effect waves-light" %>

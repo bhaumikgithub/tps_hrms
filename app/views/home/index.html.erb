@@ -106,7 +106,7 @@
                       <% else %>
                         <%= image_tag("avatar.png", class: 'circle') %>
                       <% end %>
-                      <p class="font-weight-600"><%= user.full_name %></p>
+                      <p class="font-weight-600"><%= link_to user.full_name, user_path(user), target: 'blank' %></p>
                       <p class="medium-small"><%= User.check_day(user.birthday)%></p>
                       <i class="material-icons">redeem</i>
                     </li>
@@ -134,7 +134,7 @@
                       <% else %>
                         <%= image_tag("avatar.png", class: 'circle') %>
                       <% end %>
-                      <p class="font-weight-600"><%= user.full_name.titleize %></p>
+                      <p class="font-weight-600"><%= link_to user.full_name.titleize, user_path(user), target: 'blank' %></p>
                       <p class="medium-small"><%= User.check_day(user.join_date) %></p>
                       <p><%= years_between_dates(user.join_date.to_date,Date.today) if user.join_date.present? %> years</p>
                       <i class="material-icons">insert_invitation</i>
@@ -162,7 +162,7 @@
                       <% else %>
                         <%= image_tag("avatar.png", class: 'circle') %>
                       <% end %>
-                      <p class="font-weight-600"><%= user.full_name %></p>
+                      <p class="font-weight-600"><%= link_to user.full_name, user_path(user), target: 'blank' %></p>
                       <p class="medium-small"><%= User.check_day(user.anniversary_date) %></p>
                       <p><%#= years_between_dates(user.anniversary_date.to_date,Date.today) if user.anniversary_date.present? %> </p>
                       <i class="material-icons">favorite</i>

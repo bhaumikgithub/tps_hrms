@@ -5,9 +5,9 @@
 </div>
 <h1 class="mb-90"><b>Promotion - Change of Designation</b></h1>
 
-<span class="mb-20 dis-block fs-22"><b>Dear <%= @user.first_name %>,</b></span>
+<span class="mb-20 dis-block fs-20"><b>Dear <%= @user.first_name %>,</b></span>
 
-<span class="mb-50 dis-block fs-22 text-justify">
+<span class="mb-50 dis-block fs-20 text-justify">
 	Congratulations! Based on your continuous performance over the years and our assessment of your readiness to take up higher responsibilities, we are happy to promote you
 <%= @user_prev_des.present? ? "from " : "" %>
 <b><%= @user_prev_des.present? ? "#{@user_prev_des.designation.name}" : "" %></b>
@@ -25,22 +25,22 @@
 
 </span> 
 
-<span class="mb-90 dis-block fs-22 text-justify">We take this opportunity to thank your family for supporting you to deliver your best contribution.</span>
+<span class="mb-90 dis-block fs-20 text-justify">We take this opportunity to thank your family for supporting you to deliver your best contribution.</span>
 
-<span class="mb-10 dis-block fs-22">Thanks,</span>
+<span class="mb-10 dis-block fs-20">Thanks,</span>
 <!-- <img src="/images/sign_stamp.png" style="width: 200px;"> -->
 <div class="mb-60">
 <%= wicked_pdf_image_tag('/images/sign_stamp.png', class: "width_size") %>
 </div>
-<div class="mb-30 fs-22">
+<div class="mb-30 fs-20">
 Bhaumik Gadani & Hemali Gadani<br/>
 Director  
 </div>
 
-<div class="mb-30 fs-22">Date: <%= @user_designation.end_date.present? &&  !@user_designation.is_current? ? @user_designation&.end_date.try(:strftime, "#{@user_designation&.end_date.day.ordinalize} %B %Y") :
+<div class="mb-30 fs-20">Date: <%= @user_designation.end_date.present? &&  !@user_designation.is_current? ? @user_designation&.end_date.try(:strftime, "#{@user_designation&.end_date.day.ordinalize} %B %Y") :
     @user_designation&.start_date.try(:strftime, "#{@user_designation&.start_date.day.ordinalize} %B %Y") %> </div>
 
-<div class="divFooter text-center fs-22">
+<div class="divFooter text-center fs-20">
 <h3>Techplus Software Private Limited</h3>
 2nd Floor, Tulsi-shyam complex, Near Azad Society, L Colony, Ambawadi, Ahmedabad - 
  380015, Gujarat, India Email : <a href="mailto:info@techplussoftware.com">info@techplussoftware.com</a> | Mobile : +91-9426413898 | Website : www.techplussoftware.com

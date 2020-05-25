@@ -12,7 +12,16 @@
 <%= @user_prev_des.present? ? "from " : "" %>
 <b><%= @user_prev_des.present? ? "#{@user_prev_des.designation.name}" : "" %></b>
 <%= @user_prev_des.present? ? "to " : "" %>
-<b><%= @user_designation.present? ? "#{@user_designation.designation.name}" : "" %></b> with effective from the <b><%= @user_designation&.start_date.try(:strftime, "#{@user_designation&.start_date.day.ordinalize} %B %Y") %></b><br>
+<b><%= @user_designation.present? ? "#{@user_designation.designation.name}" : "" %></b> with effective from the <b><%= @user_designation&.start_date.try(:strftime, "#{@user_designation&.start_date.day.ordinalize} %B %Y") %></b>
+<% if @user_designation.end_date.present? &&  !@user_designation.is_current? %>
+  <% date_diff = @user_designation&.start_date.present? && @user_designation&.end_date.present? ? TimeDifference.between(@user_designation&.start_date, @user_designation&.end_date).in_general : "" %>
+  to <b><%= @user_designation&.end_date.try(:strftime, "#{@user_designation&.end_date.day.ordinalize} %B %Y") %></b>
+  <% if date_diff.present? %>
+      (Approx <%= date_diff.present? ? date_diff[:years] == 1 ? "#{date_diff[:years]} Year" : date_diff[:years] > 1 ? "#{date_diff[:years]} Years" : "0 Year" : "" %>
+      <%= date_diff.present? ? date_diff[:months] == 1 ? "#{date_diff[:months]} Month" : date_diff[:months] > 1 ? "#{date_diff[:months]} Months" : "0 Month" : "" %>)
+  <% end %>
+<% end %>
+<br>
 
 </span> 
 
@@ -28,7 +37,8 @@ Bhaumik Gadani & Hemali Gadani<br/>
 Director  
 </div>
 
-<div class="mb-30 fs-22">Date: <%= @user_designation&.start_date.try(:strftime, "#{@user_designation&.start_date.day.ordinalize} %B %Y") %> </div>
+<div class="mb-30 fs-22">Date: <%= @user_designation.end_date.present? &&  !@user_designation.is_current? ? @user_designation&.end_date.try(:strftime, "#{@user_designation&.end_date.day.ordinalize} %B %Y") :
+    @user_designation&.start_date.try(:strftime, "#{@user_designation&.start_date.day.ordinalize} %B %Y") %> </div>
 
 <div class="divFooter text-center fs-22">
 <h3>Techplus Software Private Limited</h3>

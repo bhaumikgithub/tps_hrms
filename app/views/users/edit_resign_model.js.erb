@@ -1,0 +1,15 @@
+debugger;
+var $modal = $('#user_resign_modal').modal();
+
+$modal.html('<%= escape_javascript(render partial: "edit_resign_model",locals: {user: @user} ) %>');
+
+$('.modal').modal();
+$('#edit_resign_model').modal('open');
+$('.leave_date').datepicker();
+$('.leave_end_date').datepicker({
+  onOpen: function(){
+    var startDate = new Date($("#start_date").val());
+    var instance = M.Datepicker.getInstance($('.leave_end_date'));
+    instance.options.minDate = new Date(startDate);
+  }
+});

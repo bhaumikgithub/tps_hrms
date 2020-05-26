@@ -101,6 +101,21 @@ margin-bottom: 5px;
   border: 1px solid #9e9e9e;
 }
 
+
+.text_center {
+  text-align: center !important;
+}
+
+.resign_alert {
+  text-align: center;
+  background: #d43030;
+  color: white;
+  padding:2px;
+}
+.resign_alert a{
+  color: white;
+  text-decoration: underline;
+}
 /*responsive*/
 
 @media (max-width: 1500px) {

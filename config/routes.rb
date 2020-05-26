@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       post :create_user_designation
       get :activation
       get :generate_designation_pdf
+      get :withdraw_resignation 
     end
     collection do
       post :create_user
@@ -41,10 +42,12 @@ Rails.application.routes.draw do
       get :recurring_user_data
       get :edit_education_detail_modal
       get :edit_user_designation_modal
+      get :edit_resign_model
       delete :delete_education
       delete :delete_designation
       post :update_education
       post :update_user_designation
+      patch :update_resign_user
       get :job_status_filter
     end
   end

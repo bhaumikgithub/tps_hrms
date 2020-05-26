@@ -1,0 +1,32 @@
+<div id="edit_resign_model" class="modal">
+  <div class="modal-content">
+    <h4>Resign Detail</h4>
+    <%= form_for :user, :url => url_for(:controller => 'users', :action => 'update_resign_user'), method: :patch do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col s12">
+                  <%= f.text_field :resign_date, class: 'datepicker leave_date',id:"start_date", :value => @user&.resign_date&.strftime("%b %d, %Y"), required: true %><br /><br />
+                  <label for="from" class="active">Date</label>
+                </div>
+                <div class="input-field col s12">
+                  <%= f.text_field :resign_reason,  id: "reason", required: true %><br />
+                  <label for="reason" class="active">Reason</label>
+                </div>
+                <%= f.hidden_field :job_status, :value => "Inactive" %>
+                <%= f.hidden_field :user_id, :value => @user.id %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <%= link_to "Cancel", user_path(@user), class: "btn cyan waves-effect waves-light mb-2" %>
+        <!-- <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancel</a> -->
+      </div>
+    <% end %>
+  </div>
+</div>

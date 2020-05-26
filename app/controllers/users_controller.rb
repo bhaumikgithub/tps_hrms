@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation, :generate_designation_pdf]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
-  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation, :generate_designation_pdf]
+  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation]
   before_action :find_education_user, only: [:update_education]
   before_action :find_education, only: [:update_education]
   before_action :find_designation_user, only: [:update_user_designation]
@@ -96,6 +96,27 @@ class UsersController < ApplicationController
     else
       redirect_to user_path(@user), alert: 'Something went wrong!'
     end
+  end
+
+  def edit_resign_model
+  end
+
+  def update_resign_user
+    @user = User.find(params[:user][:user_id])
+    if @user.update(user_params)
+      @user_des = @user.user_designations.order(:id).last
+      if @user_des.present? && @user_des.is_current?
+        @user_des.update(is_current: false, end_date: @user.resign_date)
+      end
+      redirect_to user_path(@user)
+    else
+      redirect_to user_path(@user), alert: 'Something went wrong!'
+    end
+  end
+
+  def withdraw_resignation
+    @user.update(job_status: "Active")
+    redirect_to user_path(@user)
   end
 
   def update
@@ -193,7 +214,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :email, :comp_email, :emergency_contact, :contact, :birthday, :marital_status, :anniversary_date, :join_date, :job_status, :address, :degree_id, :experience, :designation_id, :mentor, :department_id, :adhar_no, :pan_no, :user_type, :profile_picture, :leave_bal,:leave_added_on, :emp_code, :gender, :role_id, :is_event_manager)
+    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :email, :comp_email, :emergency_contact, :contact, :birthday, :marital_status, :anniversary_date, :join_date, :job_status, :address, :degree_id, :experience, :designation_id, :mentor, :department_id, :adhar_no, :pan_no, :user_type, :profile_picture, :leave_bal,:leave_added_on, :emp_code, :gender, :role_id, :is_event_manager, :resign_date, :resign_reason)
   end
 
   def education_params

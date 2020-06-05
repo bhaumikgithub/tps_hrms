@@ -51,6 +51,8 @@
         <% else %>
           <li class=" <%= active_class(root_path) %> + bold" ><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>
+          <li class=" <%= active_class(user_path(current_user)) %> + bold" ><%= link_to(user_path(current_user), class: "waves-effect waves-cyan") do %><i class="material-icons">account_circle</i><span class="menu-title" data-i18n="">My Profile</span><% end %>
+          </li>
            <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
           </li>
            <li class=" <%= active_class(calender_path) %> + bold"><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>

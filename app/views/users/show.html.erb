@@ -95,7 +95,7 @@
         
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Email:</b></span>
+              <span><b>Email </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.email %></span>
@@ -104,7 +104,7 @@
           <br>
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Official Email:</b></span>
+              <span><b>Official Email </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.comp_email %></span>
@@ -113,7 +113,7 @@
           <br>
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Mobile:</b></span>
+              <span><b>Mobile </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.contact %></span>
@@ -122,7 +122,7 @@
           <br>
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Emergency Mobile:</b></span>
+              <span><b>Emergency Mobile </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.emergency_contact %></span>
@@ -153,7 +153,7 @@
         </div>
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Employee Code:</b></span>
+              <span><b>Employee Code </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.emp_code%></span>
@@ -163,7 +163,7 @@
 
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Gender:</b></span>
+              <span><b>Gender </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.gender.capitalize %></span>
@@ -172,7 +172,7 @@
           <br>
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Join Date:</b></span>
+              <span><b>Join Date </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.join_date&.to_date&.strftime('%d-%m-%Y') %></span>
@@ -190,7 +190,7 @@
           <br> -->
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Status:</b></span>
+              <span><b>Status </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.job_status %></span>
@@ -199,7 +199,7 @@
           <br>
           <div class="row">  
             <div class="col s12 m3">
-              <span><b>Type:</b></span>
+              <span><b>Type </b></span>
             </div>
             <div class="col s12 m3">
               <span><%= @user.user_type %></span>
@@ -217,7 +217,7 @@
           <br> -->
           <!-- <div class="row">  
             <div class="col s12 m3">
-              <span><b>Department:</b></span>
+              <span><b>Department </b></span>
             </div>
             <div class="col s12 m3">
               <span><%#= @user.department&.name %></span>
@@ -404,8 +404,38 @@
       </div>
     </div>
   <% end %>
+  <% if current_user.id == params[:id].to_i %>
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <h3>Documents</h3>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Document name</th>
+                <th scope="col">Link to download</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.documents.order(id: :desc).each_with_index do |doc, i| %>
+                <tr>
+                  <th scope="row"><%= i+1 %></th>
+                  <td><%=  doc.name  %></td>
+                  <td><%= link_to doc.doc_name, rails_blob_path(doc.document, only_path: true),  target:"_blank"  %></td>
+                </tr>
+              <% end %>
 
-    <% if current_user.admin? %>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+  <% end %>
+    <% if current_user.admin? || current_user.id == params[:id].to_i %>
       <div class="col s12 card-content-link">
         <div class="card card-tabs">
           <div class="card-content">
@@ -413,7 +443,7 @@
            
             <div class="row">  
               <div class="col s12 m3">
-                <span><b>Adhar Number:</b></span>
+                <span><b>Adhar Number </b></span>
               </div>
               <div class="col s12 m3">
                 <span><%= @user.adhar_no %></span>
@@ -422,7 +452,7 @@
             <br>
             <div class="row">  
               <div class="col s12 m3">
-                <span><b>Pan Number:</b></span>
+                <span><b>Pan Number </b></span>
               </div>
               <div class="col s12 m3">
                 <span><%= @user.pan_no %></span>
@@ -432,6 +462,8 @@
           </div>
         </div>
       </div>
+    <% end %>
+    <% if current_user.admin? %>
       <% if @user.job_status == "Inactive" %>
         <div class="col s12 card-content-link">
           <div class="card card-tabs">
@@ -440,7 +472,7 @@
              
               <div class="row">  
                 <div class="col s12 m3">
-                  <span><b>Resigned On:</b></span>
+                  <span><b>Resigned On </b></span>
                 </div>
                 <div class="col s12 m3">
                   <span><%= @user&.resign_date&.to_date&.strftime('%d-%m-%Y') %></span>
@@ -449,7 +481,7 @@
               <br>
               <div class="row">  
                 <div class="col s12 m3">
-                  <span><b>Reason:</b></span>
+                  <span><b>Reason </b></span>
                 </div>
                 <div class="col s12 m3">
                   <span><%= @user.resign_reason %></span>

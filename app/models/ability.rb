@@ -14,6 +14,7 @@ class Ability
         can :manage, Degree
         can :manage, Department
         can :manage, EventLink
+        can :manage, CredentialType
         # can :manage, Contact
     elsif @user.is_event_manager?
         can :read, Leave

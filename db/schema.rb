@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_065432) do
+ActiveRecord::Schema.define(version: 2020_06_09_113343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,22 @@ ActiveRecord::Schema.define(version: 2020_05_26_065432) do
     t.string "subdomain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "credential_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.string "project_name"
+    t.text "notes"
+    t.string "last_updated_by"
+    t.bigint "credential_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["credential_type_id"], name: "index_credentials_on_credential_type_id"
   end
 
   create_table "degrees", force: :cascade do |t|
@@ -166,15 +182,6 @@ ActiveRecord::Schema.define(version: 2020_05_26_065432) do
     t.date "end_date"
     t.string "color"
     t.string "status"
-    t.text "leave_reason"
-    t.text "cancelled_reason"
-    t.integer "duration_of_leave"
-    t.datetime "request_date"
-    t.datetime "approved_date"
-    t.boolean "phone_availability", default: false
-    t.string "emergency_contact"
-    t.boolean "availability_in_ahmd", default: false
-    t.datetime "cancelled_date"
     t.index ["approved_by_id"], name: "index_leaves_on_approved_by_id"
     t.index ["user_id"], name: "index_leaves_on_user_id"
   end
@@ -287,6 +294,7 @@ ActiveRecord::Schema.define(version: 2020_05_26_065432) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "arrange_sessions", "users"
+  add_foreign_key "credentials", "credential_types"
   add_foreign_key "degrees", "users"
   add_foreign_key "departments", "users"
   add_foreign_key "designations", "users"

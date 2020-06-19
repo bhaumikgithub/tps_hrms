@@ -28,7 +28,7 @@
               	<% @resources.each do |event_link| %>
 	              	<div class="row">
 	              		<div class="col s12 l10">
-	              			<b><%= event_link&.category %></b>-
+	              			<b><%= event_link&.event_category&.name %></b>-
                       <%= event_link.event_date&.strftime("%d %B %y") %>-
                       <%= link_to event_link&.title, event_link&.link, target: "_blank" %><br>
                       <%= event_link&.description %><br/>

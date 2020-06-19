@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_091527) do
+ActiveRecord::Schema.define(version: 2020_06_19_110640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,12 @@ ActiveRecord::Schema.define(version: 2020_06_19_091527) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "event_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "event_links", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -141,8 +147,9 @@ ActiveRecord::Schema.define(version: 2020_06_19_091527) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "category"
     t.date "event_date"
+    t.bigint "event_category_id"
+    t.index ["event_category_id"], name: "index_event_links_on_event_category_id"
     t.index ["user_id"], name: "index_event_links_on_user_id"
   end
 
@@ -325,6 +332,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_091527) do
   add_foreign_key "documents", "users"
   add_foreign_key "educations", "degrees"
   add_foreign_key "educations", "users"
+  add_foreign_key "event_links", "event_categories"
   add_foreign_key "event_links", "users"
   add_foreign_key "free_leaves", "users"
   add_foreign_key "leave_reports", "users"

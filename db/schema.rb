@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_123923) do
+ActiveRecord::Schema.define(version: 2020_06_19_091527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_123923) do
     t.string "email"
     t.string "password"
     t.string "username"
+    t.string "link"
     t.index ["credential_type_id"], name: "index_credentials_on_credential_type_id"
   end
 

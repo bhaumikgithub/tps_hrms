@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_113343) do
+ActiveRecord::Schema.define(version: 2020_06_11_123923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(version: 2020_06_09_113343) do
     t.bigint "credential_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "password"
+    t.string "username"
     t.index ["credential_type_id"], name: "index_credentials_on_credential_type_id"
   end
 
@@ -290,6 +293,26 @@ ActiveRecord::Schema.define(version: 2020_06_09_113343) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.string "name"
+    t.string "services"
+    t.string "contact_person"
+    t.string "mobile"
+    t.string "email"
+    t.string "gst"
+    t.string "pan"
+    t.string "tan"
+    t.text "address"
+    t.string "city"
+    t.string "state"
+    t.string "register_date"
+    t.string "date"
+    t.text "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

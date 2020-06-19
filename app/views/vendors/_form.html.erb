@@ -1,0 +1,86 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Vendors", vendors_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<% if @resource.errors.any? %>
+<ul>
+  <% @resource.errors.full_messages.each do |msg| %>
+    <li class="red_font_clr"><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Add Vendor</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_for @resource, class: 'row' do |f| %>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <%= f.text_field :name %><br />
+                    <label for="name">Name</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :name %><br />
+                    <label for="name">Name</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <%= f.text_field :email %><br />
+                    <label for="email">Email</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :gst %><br />
+                    <label for="gst">GST</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :pan %><br />
+                    <label for="pan">PAN</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :tan %><br />
+                    <label for="tan">TAN</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_area :address, class: "materialize-textarea" %><br />
+                    <label for="address">Address</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :state %><br />
+                    <label for="state">State</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :city %><br />
+                    <label for="city">City</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_area :description, class: "materialize-textarea" %><br />
+                    <label for="description">Description</label>
+                  </div>
+                  <div class="input-field col s12 mobile-center">
+                    <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
+                    <%= link_to("Back", vendors_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

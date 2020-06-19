@@ -31,7 +31,7 @@
               <%= form_for @resource, class: 'row' do |f| %>
                 <div class="row">
                   <div class="input-field col s12">
-                    <%= f.select(:category, EventLink::CATEGORY.map { |e| [e.humanize, e]  }, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:event_category_id,  EventCategory.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="category">Category</label>
                   </div>
                   <div class="input-field col s12">

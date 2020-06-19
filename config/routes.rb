@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   resources :event_links
   resources :designations
   resources :credential_types
+  resources :event_categories
   resources :credentials
   resources :vendors
   resources :bills

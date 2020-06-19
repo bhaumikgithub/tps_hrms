@@ -31,17 +31,25 @@
               <%= form_for @resource, class: 'row' do |f| %>
                 <div class="row">
                   <div class="input-field col s12">
-                    <%= f.text_field :name %><br />
-                    <label for="name">Name</label>
+                    <%= f.text_field :name, required: true %><br />
+                    <label for="name">Name *</label>
                   </div>
                   <div class="input-field col s12">
-                    <%= f.text_field :name %><br />
-                    <label for="name">Name</label>
+                    <%= f.text_field :services, required: true %><br />
+                    <label for="services">Supplies/Service *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :contact_person, required: true %><br />
+                    <label for="contact_person">Contact Person *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :mobile, required: true %><br />
+                    <label for="mobile">Mobile *</label>
                   </div>
 
                   <div class="input-field col s12">
-                    <%= f.text_field :email %><br />
-                    <label for="email">Email</label>
+                    <%= f.text_field :email, required: true %><br />
+                    <label for="email">Email *</label>
                   </div>
                   <div class="input-field col s12">
                     <%= f.text_field :gst %><br />
@@ -60,16 +68,24 @@
                     <label for="address">Address</label>
                   </div>
                   <div class="input-field col s12">
-                    <%= f.text_field :state %><br />
-                    <label for="state">State</label>
+                    <%= f.text_field :state, required: true %><br />
+                    <label for="state">State *</label>
                   </div>
                   <div class="input-field col s12">
-                    <%= f.text_field :city %><br />
-                    <label for="city">City</label>
+                    <%= f.text_field :city, required: true %><br />
+                    <label for="city">City *</label>
                   </div>
                   <div class="input-field col s12">
                     <%= f.text_area :description, class: "materialize-textarea" %><br />
                     <label for="description">Description</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :register_date, class: 'datepicker leave_date',id:"start_date", :value => @resource&.register_date&.strftime("%b %d, %Y") %><br /><br />
+                    <label for="from" class="active">Register Date</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.select(:status, Vendor.statuses.keys, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label for="status">Status</label>
                   </div>
                   <div class="input-field col s12 mobile-center">
                     <%= f.submit 'Submit', class: "btn btn-success mb-2" %>

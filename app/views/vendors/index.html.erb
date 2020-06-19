@@ -1,0 +1,61 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Vendors", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Vendors</span>
+                <span><%= link_to 'ADD', new_vendor_path, class: "btn cyan waves-effect waves-lightc " %></span>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12 table-responsive">
+                <table class="designation-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Supplies/Service</th>
+                      <th>Contact Person</th>
+                      <th>Mobile</th>
+                      <th>Email</th>
+                      <th>GST</th>
+                      <th>Status</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |vendor| %>
+                      <tr>
+                        <td><%= vendor.name %></td>
+                        <td><%= vendor.services %></td>
+                        <td><%= vendor.contact_person %></td>
+                        <td><%= vendor.mobile %></td>
+                        <td><%= vendor.email %></td>
+                        <td><%= vendor.gst %></td>
+                        <td><%= vendor.status %></td>
+                        <td><%= link_to 'Edit', edit_vendor_path(vendor.id) %></td>
+                        <td><%= link_to 'Delete', vendor_path(vendor.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

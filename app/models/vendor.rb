@@ -4,5 +4,5 @@ class Vendor < ApplicationRecord
     Inactive: 1
   }
 
-  validates_presence_of :name, :services, :contact_person, :mobile, :email, :state, :city 
+  validates_presence_of :name, :services, :contact_person, :mobile, :state, :city 
 end

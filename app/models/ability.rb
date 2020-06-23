@@ -18,6 +18,7 @@ class Ability
         can :manage, Credential
         can :manage, EventCategory
         can :manage, Vendor
+        can :manage, Bill
         # can :manage, Contact
     elsif @user.is_event_manager?
         can :read, Leave

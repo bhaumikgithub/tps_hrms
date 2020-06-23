@@ -1,0 +1,148 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Vendors", vendors_path , class: "breadcrumb") %>
+      <%= link_to("View Details", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<div class="col s12 card-content-link">
+  <div class="card card-tabs">
+    <div class="card-content">
+      <div class="card-title">
+        <div class="row">
+          <div class="col s12 m6 l10">
+            <h5>Vendor Details</h5>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Name </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.name %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Supplies/Service </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.services %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Contact Person </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.contact_person %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Mobile </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.mobile %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Email </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= link_to @resource&.email %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>GST</b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.gst %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>PAN </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.pan %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>TAN </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.tan %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Address </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.address %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>State </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.state %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>City </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.city %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Register Date </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.register_date&.strftime('%d %B %Y') %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Status </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.status %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if current_user.admin? %>
+	<div class="col s12">
+	  <div class="mobile-center">
+	    <%= link_to 'Edit', edit_vendor_path(@resource), class: 'btn btn-primary mb-2' if current_user.admin? %>
+	    <%= link_to 'Delete', vendor_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} %>
+	    <%= link_to 'Back', vendors_path, class: 'btn cyan waves-effect waves-light mb-2' %>
+	  </div>
+	</div>
+<% end %>

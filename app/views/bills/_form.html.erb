@@ -1,0 +1,116 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Bills", bills_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<% if @resource.errors.any? %>
+<ul>
+  <% @resource.errors.full_messages.each do |msg| %>
+    <li class="red_font_clr"><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Add Bill</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_for @resource, class: 'row' do |f| %>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <%= f.text_field :number, required: true %><br />
+                    <label for="number">Number *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :bill_date, class: 'datepicker leave_date',id:"start_date", :value => @resource&.bill_date&.strftime("%b %d, %Y"), required: true %><br /><br />
+                    <label for="from" class="active">Date *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :discription, required: true %><br />
+                    <label for="number">Discription *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :amount, required: true %><br />
+                    <label for="number">Amount *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.select(:vendor_id,  Vendor.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class", required: true }) %>
+                    <label for="vendor_id">Purchase From *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.select(:status, Bill.statuses.keys, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label for="status">Status</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :paid_amount, required: true %><br />
+                    <label for="paid_amount">Paid Amount *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :paid_from, required: true %><br />
+                    <label for="paid_from">Paid From *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_field :paid_via, required: true %><br />
+                    <label for="paid_via">Paid Via *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.text_area :paid_notes, class: "materialize-textarea", required: true %><br />
+                    <label for="paid_notes">Paid Notes</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <div class="input-field col s1">
+                      <label for="gst_bill">GST Bill</label>
+                    </div>
+                    <div class="input-field col s11">
+                      <p>
+                        <label>
+                          <%= f.radio_button :gst_bill, true, :class => 'with-gap', data: {behavior: "clickable"} %>
+                          <span>Yes</span>
+                        </label>
+                      </p>
+                      <p>
+                        <label>
+                          <%= f.radio_button :gst_bill, false, :class => 'with-gap', data: {behavior: "clickable"} %>
+                          <span>No</span>
+                        </label>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="input-field col s12" id="gst_uploaded">
+                    <%= f.text_field :gst_uploaded, class: 'datepicker leave_date',id:"start_date", :value => @resource&.gst_uploaded&.strftime("%b %d, %Y") %><br /><br />
+                    <label for="from" class="active">GST Uploaded *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <div class="input-field col s2">
+                      File Upload *
+                    </div>
+                    <div class="input-field col s10">
+                      <%= f.file_field :files, multiple: true, accept: 'image/jpg, image/x-png, image/jpeg, .pdf, .doc', required: true %>
+                    </div>
+                  </div>
+                  <div class="input-field col s12 mobile-center">
+                    <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
+                    <%= link_to("Back", bills_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

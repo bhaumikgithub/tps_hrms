@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_121049) do
+ActiveRecord::Schema.define(version: 2020_06_22_064113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,24 @@ ActiveRecord::Schema.define(version: 2020_06_19_121049) do
     t.string "place"
     t.string "applicants"
     t.index ["user_id"], name: "index_arrange_sessions_on_user_id"
+  end
+
+  create_table "bills", force: :cascade do |t|
+    t.string "number"
+    t.datetime "bill_date"
+    t.string "discription"
+    t.decimal "amount"
+    t.integer "status"
+    t.decimal "paid_amount"
+    t.string "paid_from"
+    t.string "paid_via"
+    t.text "paid_notes"
+    t.boolean "gst_bill"
+    t.datetime "gst_uploaded"
+    t.bigint "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vendor_id"], name: "index_bills_on_vendor_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -324,6 +342,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_121049) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "arrange_sessions", "users"
+  add_foreign_key "bills", "vendors"
   add_foreign_key "credentials", "credential_types"
   add_foreign_key "degrees", "users"
   add_foreign_key "departments", "users"

@@ -1,0 +1,61 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Bills", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Bills</span>
+                <span><%= link_to 'ADD', new_bill_path, class: "btn cyan waves-effect waves-lightc " %></span>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12 table-responsive">
+                <table class="designation-table">
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Date</th>
+                      <th>Amount</th>
+                      <th>Paid Amount</th>
+                      <th>Purchase From</th>
+                      <th>Status</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |bill| %>
+                      <tr>
+                        <td><%= bill.number %></td>
+                        <td><%= bill.bill_date&.strftime("%b %d, %Y") %></td>
+                        <td><%= bill.amount %></td>
+                        <td><%= bill.paid_amount %></td>
+                        <td><%= bill&.vendor&.name %></td>
+                        <td><%= bill.status %></td>
+                        <td><%= link_to 'Show', bill_path(bill.id) %></td>
+                        <td><%= link_to 'Edit', edit_bill_path(bill.id) %></td>
+                        <td><%= link_to 'Delete', bill_path(bill.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

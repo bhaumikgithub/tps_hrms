@@ -1,0 +1,156 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Bills", bills_path , class: "breadcrumb") %>
+      <%= link_to("View Details", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<div class="col s12 card-content-link">
+  <div class="card card-tabs">
+    <div class="card-content">
+      <div class="card-title">
+        <div class="row">
+          <div class="col s12 m6 l10">
+            <h5>Bill Details</h5>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Number </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.number %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Bill Date </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.bill_date&.strftime('%d %B %Y') %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Discription </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.discription %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Amount </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.amount %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Purchase From </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= link_to @resource&.vendor&.name, vendor_path(@resource&.vendor) %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Status</b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.status %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Paid Amount </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.paid_amount %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Paid From </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.paid_from %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Paid Via </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.paid_via %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Paid Notes </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.paid_notes %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>GST Bill </b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.gst_bill ? "Yes" : "No" %></span>
+        </div>
+      </div>
+      <br>
+      <% if @resource&.gst_bill %>
+        <div class="row">  
+          <div class="col s12 m3">
+            <span><b>GST Uploaded </b></span>
+          </div>
+          <div class="col s12 m9">
+            <span><%= @resource&.gst_uploaded&.strftime('%d %B %Y') %></span>
+          </div>
+        </div>
+        <br>
+      <% end %>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>File Upload </b></span>
+        </div>
+        <div class="col s12 m9">
+          <% if @resource.files.attached? %>
+            <% @resource.files.each do |file| %>
+              <%= link_to(file.filename.to_s, url_for(file), target: "_blank") %><br>
+            <% end %>
+          <% else %>
+            <span>Files are not uploaded!</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if current_user.admin? %>
+	<div class="col s12">
+	  <div class="mobile-center">
+	    <%= link_to 'Edit', edit_bill_path(@resource), class: 'btn btn-primary mb-2' if current_user.admin? %>
+	    <%= link_to 'Delete', bill_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} %>
+	    <%= link_to 'Back', bills_path, class: 'btn cyan waves-effect waves-light mb-2' %>
+	  </div>
+	</div>
+<% end %>

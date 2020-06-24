@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   resources :credentials
   resources :vendors
   resources :bills
+  resources :asset_types
   resources :employee_handbooks
   get '/calender' => 'leaves#index', :as => 'calender'
   

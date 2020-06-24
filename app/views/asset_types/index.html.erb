@@ -1,0 +1,49 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Asset Types", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Credential Types</span>
+                <span><%= link_to 'ADD', new_asset_type_path, class: "btn cyan waves-effect waves-lightc " %></span>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12 table-responsive">
+                <table class="designation-table">
+                  <thead>
+                    <tr>
+                      <th data-field="id">Name</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |asset| %>
+                      <tr>
+                        <td><%= asset.name %></td>
+                        <td><%= link_to 'Edit', edit_asset_type_path(asset.id) %></td>
+                        <td><%= link_to 'Delete', asset_type_path(asset.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

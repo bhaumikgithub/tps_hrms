@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_070638) do
+ActiveRecord::Schema.define(version: 2020_06_26_114213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,10 +50,38 @@ ActiveRecord::Schema.define(version: 2020_06_24_070638) do
     t.index ["user_id"], name: "index_arrange_sessions_on_user_id"
   end
 
+  create_table "asset_histories", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "asset_id"
+    t.datetime "from_date"
+    t.datetime "to_date"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["asset_id"], name: "index_asset_histories_on_asset_id"
+    t.index ["user_id"], name: "index_asset_histories_on_user_id"
+  end
+
   create_table "asset_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "assets", force: :cascade do |t|
+    t.string "name"
+    t.string "bought_type"
+    t.string "code"
+    t.string "price"
+    t.text "specification"
+    t.string "current_status"
+    t.string "notes"
+    t.bigint "asset_type_id"
+    t.bigint "bill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["asset_type_id"], name: "index_assets_on_asset_type_id"
+    t.index ["bill_id"], name: "index_assets_on_bill_id"
   end
 
   create_table "bills", force: :cascade do |t|
@@ -348,6 +376,10 @@ ActiveRecord::Schema.define(version: 2020_06_24_070638) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "arrange_sessions", "users"
+  add_foreign_key "asset_histories", "assets"
+  add_foreign_key "asset_histories", "users"
+  add_foreign_key "assets", "asset_types"
+  add_foreign_key "assets", "bills"
   add_foreign_key "bills", "vendors"
   add_foreign_key "credentials", "credential_types"
   add_foreign_key "degrees", "users"

@@ -1,0 +1,2 @@
+class AssetHistoriesController < ApplicationController
+end

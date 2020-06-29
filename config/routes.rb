@@ -80,6 +80,8 @@ Rails.application.routes.draw do
   resources :vendors
   resources :bills
   resources :asset_types
+  resources :assets, :path => "/admin/assets"
+  resources :asset_histories
   resources :employee_handbooks
   get '/calender' => 'leaves#index', :as => 'calender'
   

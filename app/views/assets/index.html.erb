@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
     <div class="col s12">
       <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
-      <%= link_to("Asset Types", '#' , class: "breadcrumb") %>
+      <%= link_to("Assets", '#' , class: "breadcrumb") %>
     </div>
   </div>
 </nav>
@@ -14,8 +14,8 @@
             <div class="row">
               <div class="col s12">
                 <div class="card-title d-flex">
-                <span class="font-26 flex-grow-1">Asset Types</span>
-                <span><%= link_to 'ADD', new_asset_type_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span class="font-26 flex-grow-1">Assets</span>
+                <span><%= link_to 'ADD', new_asset_path, class: "btn cyan waves-effect waves-lightc " %></span>
               </div>
             </div>
           </div>
@@ -34,8 +34,8 @@
                     <% @resources.each do |asset| %>
                       <tr>
                         <td><%= asset.name %></td>
-                        <td><%= link_to 'Edit', edit_asset_type_path(asset.id) %></td>
-                        <td><%= link_to 'Delete', asset_type_path(asset.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_asset_path(asset.id) %></td>
+                        <td><%= link_to 'Delete', asset_path(asset.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                       </tr>
                     <% end %>
                   </tbody>

@@ -20,6 +20,7 @@ class Ability
         can :manage, Vendor
         can :manage, Bill
         can :manage, AssetType
+        can :manage, Asset
         # can :manage, Contact
     elsif @user.is_event_manager?
         can :read, Leave

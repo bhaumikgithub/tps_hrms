@@ -25,6 +25,7 @@
                 <table class="designation-table">
                   <thead>
                     <tr>
+                      <th>Description</th>
                       <th>Number</th>
                       <th>Date</th>
                       <th>Amount</th>
@@ -32,22 +33,19 @@
                       <th>Purchase From</th>
                       <th>Status</th>
                       <th></th>
-                      <th></th>
-                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     <% @resources.each do |bill| %>
                       <tr>
+                        <td><%= bill.description %></td>
                         <td><%= bill.number %></td>
                         <td><%= bill.bill_date&.strftime("%b %d, %Y") %></td>
                         <td><%= bill.amount %></td>
                         <td><%= bill.paid_amount %></td>
                         <td><%= bill&.vendor&.name %></td>
                         <td><%= bill.status %></td>
-                        <td><%= link_to 'Show', bill_path(bill.id) %></td>
-                        <td><%= link_to 'Edit', edit_bill_path(bill.id) %></td>
-                        <td><%= link_to 'Delete', bill_path(bill.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Show', bill_path(bill.id) %></td> 
                       </tr>
                     <% end %>
                   </tbody>

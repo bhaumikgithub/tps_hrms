@@ -4,4 +4,8 @@ class Asset < ApplicationRecord
 
   enum bought_types: [:brand_new, :old, :refurbish]
   enum status: [:latest, :idle, :assigned, :damaged, :sold, :ewaste, :scrapped]
+
+  scope :available_asset, -> { where("juice > 0") }
+  
+
 end

@@ -7,21 +7,7 @@ class Ability
     @user = user || User.new
     if @user.team_leader? || @user.admin?
         can [:read, :manage], Leave
-        can :manage, User
-        can :manage, Holiday
-        can :manage, EmployeeHandbook
-        can :manage, Designation
-        can :manage, Degree
-        can :manage, Department
-        can :manage, EventLink
-        can :manage, CredentialType
-        can :manage, Credential
-        can :manage, EventCategory
-        can :manage, Vendor
-        can :manage, Bill
-        can :manage, AssetType
-        can :manage, Asset
-        # can :manage, Contact
+        can :manage, [ User, Holiday ,EmployeeHandbook ,Designation ,Degree ,Department ,EventLink ,CredentialType ,Credential ,EventCategory ,Vendor ,Bill ,AssetType ,Asset ,AssetHistory]
     elsif @user.is_event_manager?
         can :read, Leave
         can :read, User
@@ -34,6 +20,7 @@ class Ability
         can :read, Holiday
         can :read, EmployeeHandbook
         can :read, EventLink
+        can :manage, AssetHistory
     end
     # Define abilities for the passed in user here. For example:
     #

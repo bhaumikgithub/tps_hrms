@@ -1,6 +1,7 @@
 class Bill < ApplicationRecord
   belongs_to :vendor
   has_many_attached :files
+  has_many :assets
   enum status: {
     Paid: 0,
     Unpaid: 1,

@@ -28,6 +28,7 @@
                       <th data-field="id">Name</th>
                       <th>Assigned From</th>
                       <th>Assigned to</th>
+                      <th>Assigned User</th>
                       <th></th>
                       <th></th>
                     </tr>
@@ -38,6 +39,7 @@
                         <td><%= as.asset.name %></td>
                         <td><%= as.from_date.to_date %></td>
                         <td><%= as.to_date.to_date %></td>
+                        <td><%= as&.user&.full_name %></td>
                         <td><%= link_to 'Edit', edit_asset_history_path(as.id) %></td>
                         <td><%= link_to 'Delete', asset_history_path(as.id), method: :delete, data: {confirm: "Are you sure?"} if current_user.admin? %></td>
                       </tr>

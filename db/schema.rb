@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_114213) do
+ActiveRecord::Schema.define(version: 2020_07_09_104629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_114213) do
     t.bigint "bill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "warranty"
     t.index ["asset_type_id"], name: "index_assets_on_asset_type_id"
     t.index ["bill_id"], name: "index_assets_on_bill_id"
   end

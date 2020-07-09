@@ -25,9 +25,9 @@
                 <table class="designation-table">
                   <thead>
                     <tr>
-                      <th>Description</th>
                       <th>Number</th>
                       <th>Date</th>
+                      <th>For (Assets list)</th>
                       <th>Amount</th>
                       <th>Paid Amount</th>
                       <th>Purchase From</th>
@@ -38,9 +38,9 @@
                   <tbody>
                     <% @resources.each do |bill| %>
                       <tr>
-                        <td><%= bill.discription %></td>
                         <td><%= bill.number %></td>
                         <td><%= bill.bill_date&.strftime("%b %d, %Y") %></td>
+                        <td><%= bill.assets.map(&:name).join(', ') %></td>
                         <td><%= bill.amount %></td>
                         <td><%= bill.paid_amount %></td>
                         <td><%= bill&.vendor&.name %></td>

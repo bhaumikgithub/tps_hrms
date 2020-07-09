@@ -4,8 +4,12 @@ class AssetHistoriesController < ApplicationController
 
   def filter_date
     if params[:asset_id].present?
-      a = AssetHistory.where(asset_id: params[:asset_id]).where('from_date >= ? OR to_date >= ?', Date.today,  Date.today)
-      dates = a.pluck(:from_date, :to_date)
+      if params[:asset_history_id].present?
+        asset_histories = AssetHistory.where.not(id: params[:asset_history_id]).where(asset_id: params[:asset_id]).where('from_date >= ? OR to_date >= ?', Date.today,  Date.today)
+      else
+        asset_histories = AssetHistory.where(asset_id: params[:asset_id]).where('from_date >= ? OR to_date >= ?', Date.today,  Date.today)
+      end
+      dates = asset_histories.pluck(:from_date, :to_date)
       range = []
       dates.each do |d|
         range.push (d[0].to_date..d[1].to_date).to_a

@@ -51,7 +51,8 @@
                     <%= link_to("Back", asset_histories_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
                   </div>
                 </div>
-               <% end %>
+              <% end %>
+              <%= hidden_field_tag "asset_history_id", @asset_history.id %>
             </div>
           </div>
         </div>
@@ -66,6 +67,7 @@
 
     var cdate = new Date();
     var selected_option = $('.assets_type').val()
+    var asset_history_id = $('#asset_history_id').val()
     if(selected_option.length > 0)
     {
       array = [];
@@ -73,7 +75,8 @@
         url:  "/asset_histories/filter_date",
         dataType: "json",
         data: {
-           asset_id:selected_option
+           asset_id:selected_option,
+           asset_history_id: asset_history_id
         },
         success: function(data) { 
           for (i = 0; i < data.length; i++) {

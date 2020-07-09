@@ -39,24 +39,7 @@
 
 
     // $('.asset_to_date').datepicker();
-    var cdate = new Date();
-    $('.demo_test').datepicker({
-      firstDay: 3,
-      selectMonths: true,
-      defaultDate: cdate,
-      setDefaultDate: true,
-      onOpen: function(){
-        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), 1);
-        var instance = M.Datepicker.getInstance($('.demo_test'));
-        instance.options.minDate = new Date(minDate);
-      },
-      disableDayFn: function(date) {
-        if (date.getDate() == 1)
-          return false;
-        else
-          return true;
-      }
-    });
+
 
     $('.arrange_time').timepicker();
     $('.leave_date, .datepicker').datepicker();

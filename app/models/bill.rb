@@ -1,4 +1,5 @@
 class Bill < ApplicationRecord
+  has_many :assets
   belongs_to :vendor
   has_many_attached :files
   enum status: {

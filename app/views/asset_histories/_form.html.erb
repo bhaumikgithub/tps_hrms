@@ -32,7 +32,7 @@
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <div class="row">
                   <div class="input-field col s12">
-                    <%= f.select(:asset_id,  Asset.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <%= f.select(:asset_id,  Asset.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class assets_type"} ) %>
                     <label for="asset_id">Asset list</label>
                   </div>
 
@@ -59,3 +59,82 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var array = [];
+
+    var cdate = new Date();
+    var selected_option = $('.assets_type').val()
+    if(selected_option.length > 0)
+    {
+      array = [];
+      $.ajax({
+        url:  "/asset_histories/filter_date",
+        dataType: "json",
+        data: {
+           asset_id:selected_option
+        },
+        success: function(data) { 
+          for (i = 0; i < data.length; i++) {
+            array.push(new Date(data[i]).toDateString())
+          }
+        }
+      });
+    }
+
+    $('.assets_type').on('change', function (e) {
+      array = [];
+      var valueSelected = this.value;
+      console.log(valueSelected)
+      $.ajax({
+        url:  "/asset_histories/filter_date",
+        dataType: "json",
+        data: {
+           asset_id:valueSelected
+        },
+        success: function(data) { 
+          console.log(data)
+          for (i = 0; i < data.length; i++) {
+            array.push(new Date(data[i]).toDateString())
+          }
+          console.log(array)
+        }
+      });
+    });
+
+    $('.demo_test').datepicker({
+      firstDay: 1,
+      selectMonths: true,
+      defaultDate: cdate,
+      onOpen: function(){
+        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), cdate.getDate());
+        var instance = M.Datepicker.getInstance($('.demo_test'));
+        instance.options.minDate = new Date(minDate);
+      },
+      disableDayFn: function(date) {
+        if (array.length > 0 && array.includes(date.toDateString()))
+          return true;
+        else
+          return false;
+      }
+    });
+
+    $('.asset_to_date').datepicker({
+      firstDay: 1,
+      selectMonths: true,
+      defaultDate: cdate,
+      onOpen: function(){
+        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), cdate.getDate());
+        var instance = M.Datepicker.getInstance($('.asset_to_date'));
+        instance.options.minDate = new Date(minDate);
+      },
+      disableDayFn: function(date) {
+        if (array.length > 0 && array.includes(date.toDateString()))
+          return true;
+        else
+          return false;
+      }
+    });
+  });
+</script>

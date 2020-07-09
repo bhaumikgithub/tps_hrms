@@ -38,7 +38,7 @@
                   <tbody>
                     <% @resources.each do |bill| %>
                       <tr>
-                        <td><%= bill.description %></td>
+                        <td><%= bill.discription %></td>
                         <td><%= bill.number %></td>
                         <td><%= bill.bill_date&.strftime("%b %d, %Y") %></td>
                         <td><%= bill.amount %></td>

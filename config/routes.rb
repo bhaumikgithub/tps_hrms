@@ -81,7 +81,11 @@ Rails.application.routes.draw do
   resources :bills
   resources :asset_types
   resources :assets, :path => "/admin/assets"
-  resources :asset_histories
+  resources :asset_histories do
+    collection do
+      get :filter_date
+    end
+  end
   resources :employee_handbooks
   get '/calender' => 'leaves#index', :as => 'calender'
   

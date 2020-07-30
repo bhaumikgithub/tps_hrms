@@ -97,9 +97,15 @@
                     <div class="input-field col s2">
                       File Upload *
                     </div>
-                    <div class="input-field col s10">
-                      <%= f.file_field :files, multiple: true, accept: 'image/jpg, image/x-png, image/jpeg, .pdf, .doc', required: true %>
-                    </div>
+                    <% if @resource.present? && @resource.files.attached? %>
+                      <div class="input-field col s10">
+                        <%= f.file_field :files, multiple: true, accept: 'image/jpg, image/x-png, image/jpeg, .pdf, .doc' %>
+                      </div>
+                    <% else %>
+                      <div class="input-field col s10">
+                        <%= f.file_field :files, multiple: true, accept: 'image/jpg, image/x-png, image/jpeg, .pdf, .doc', required: true %>
+                      </div>
+                    <% end %>
                   </div>
                   <div class="input-field col s12 mobile-center">
                     <%= f.submit 'Submit', class: "btn btn-success mb-2" %>

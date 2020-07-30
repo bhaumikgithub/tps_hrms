@@ -29,11 +29,11 @@
           <div class="row">
             <div class="col s12">
               <%= form_for @resource, class: 'row' do |f| %>
-                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :asset_id, value: params[:asset_id] %>
                 <div class="row">
                   <div class="input-field col s12">
-                    <%= f.select(:asset_id,  Asset.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class assets_type"} ) %>
-                    <label for="asset_id">Asset list</label>
+                    <%= f.select(:user_id, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "employee"} ) %>
+                    <label for="asset_id">User</label>
                   </div>
 
                   <div class="input-field col m6 s12">
@@ -46,10 +46,16 @@
                     <%= f.text_field :to_date, class: 'datepicker asset_to_date',id:"to_date", :value => @asset_history.to_date&.strftime("%d-%m-%Y") %>
                   </div>
 
+                  <div class="input-field col m6 s12">
+                    <%= f.check_box :till_today, {:id => "is_current", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                    <label for="to">Till Today</label>
+                  </div>
+
                   <div class="input-field col s12 mobile-center">
                     <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
-                    <%= link_to("Back", asset_histories_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                    <%= link_to("Back", asset_path(params[:asset_id]) , class: "btn cyan waves-effect waves-light mb-2" ) %>
                   </div>
+                </div>
                 </div>
               <% end %>
               <%= hidden_field_tag "asset_history_id", @asset_history.id %>
@@ -66,7 +72,7 @@
     var array = [];
 
     var cdate = new Date();
-    var selected_option = $('.assets_type').val()
+    var selected_option = "<%= params[:asset_id] %>"
     var asset_history_id = $('#asset_history_id').val()
     if(selected_option.length > 0)
     {
@@ -86,35 +92,35 @@
       });
     }
 
-    $('.assets_type').on('change', function (e) {
-      array = [];
-      var valueSelected = this.value;
-      console.log(valueSelected)
-      $.ajax({
-        url:  "/asset_histories/filter_date",
-        dataType: "json",
-        data: {
-           asset_id:valueSelected
-        },
-        success: function(data) { 
-          console.log(data)
-          for (i = 0; i < data.length; i++) {
-            array.push(new Date(data[i]).toDateString())
-          }
-          console.log(array)
-        }
-      });
-    });
+    // $('.assets_type').on('change', function (e) {
+    //   array = [];
+    //   var valueSelected = this.value;
+    //   console.log(valueSelected)
+    //   $.ajax({
+    //     url:  "/asset_histories/filter_date",
+    //     dataType: "json",
+    //     data: {
+    //        asset_id:valueSelected
+    //     },
+    //     success: function(data) { 
+    //       console.log(data)
+    //       for (i = 0; i < data.length; i++) {
+    //         array.push(new Date(data[i]).toDateString())
+    //       }
+    //       console.log(array)
+    //     }
+    //   });
+    // });
 
     $('.demo_test').datepicker({
       firstDay: 1,
       selectMonths: true,
       defaultDate: cdate,
-      onOpen: function(){
-        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), cdate.getDate());
-        var instance = M.Datepicker.getInstance($('.demo_test'));
-        instance.options.minDate = new Date(minDate);
-      },
+      // onOpen: function(){
+      //   var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), cdate.getDate());
+      //   var instance = M.Datepicker.getInstance($('.demo_test'));
+      //   instance.options.minDate = new Date(minDate);
+      // },
       disableDayFn: function(date) {
         if (array.length > 0 && array.includes(date.toDateString()))
           return true;
@@ -128,7 +134,7 @@
       selectMonths: true,
       defaultDate: cdate,
       onOpen: function(){
-        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), cdate.getDate());
+        var minDate = new Date($('.demo_test').val());
         var instance = M.Datepicker.getInstance($('.asset_to_date'));
         instance.options.minDate = new Date(minDate);
       },
@@ -137,6 +143,18 @@
           return true;
         else
           return false;
+      }
+    });
+
+    $('#is_current').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#end_date" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#end_date" ).prop('disabled', false);
+        cb.val(false);
       }
     });
   });

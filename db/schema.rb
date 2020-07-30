@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_104629) do
+ActiveRecord::Schema.define(version: 2020_07_29_125506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_104629) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "till_today", default: false
     t.index ["asset_id"], name: "index_asset_histories_on_asset_id"
     t.index ["user_id"], name: "index_asset_histories_on_user_id"
   end

@@ -25,22 +25,32 @@
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12 table-responsive">
-              	<% @resources.each do |event_link| %>
-	              	<div class="row">
-	              		<div class="col s12 l10">
-	              			<b><%= event_link&.event_category&.name %></b>-
-                      <%= event_link.event_date&.strftime("%d %B %y") %>-
-                      <%= link_to event_link&.title, event_link&.link, target: "_blank" %><br>
-                      <%= event_link&.description %><br/>
-	              		</div>
-	              		<% if current_user.is_event_manager? || current_user.admin?  %>
-		              		<div class="col s12 l2">
-		              			<%= link_to 'Edit', edit_event_link_path(event_link.id) %> | 
-		              			<%= link_to 'Delete', event_link_path(event_link.id), method: :delete, data: {confirm: "Are you sure?"}  %>
-		              		</div>
-		              	<% end %>
-	              	</div><br/>
-              	<% end %>
+                <table id="event_link_table">
+                  <thead>
+                    <tr>
+                      <th data-field="id">Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  	<% @resources.each do |event_link| %>
+                      <tr>
+    	              		<td>
+    	              			<b><%= event_link&.event_category&.name %></b>-
+                          <%= event_link.event_date&.strftime("%d %B %y") %>-
+                          <%= link_to event_link&.title, event_link&.link, target: "_blank" %><br>
+                          <%= event_link&.description %><br/>
+    	              		</td>
+    	              		<% if current_user.is_event_manager? || current_user.admin?  %>
+    		              		<td>
+    		              			<%= link_to 'Edit', edit_event_link_path(event_link.id) %> | 
+    		              			<%= link_to 'Delete', event_link_path(event_link.id), method: :delete, data: {confirm: "Are you sure?"}  %>
+    		              		</td>
+    		              	<% end %>
+                  	<% end %>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -48,3 +58,13 @@
       </div>
     </div>
 </div>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  
+  $('#event_link_table').DataTable({
+    "dom": 'lf<<"datatable-responsive"t>ip>',
+    responsive: true
+  });
+
+</script>

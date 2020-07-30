@@ -5,7 +5,7 @@ class HolidaysController < ApplicationController
    def index
     start_date = Date.new(Date.today.year.to_i, 1, 1)
     end_date =  Date.new(Date.today.year.to_i.to_i, 12, 31)
-    @resources = Holiday.where("holiday_date BETWEEN ? AND ?", start_date,  end_date).order('holiday_date ASC').page(params[:page]).per(10)
+    @resources = Holiday.where("holiday_date BETWEEN ? AND ?", start_date,  end_date).order('holiday_date ASC')
     # @resources = resource_class.all.where("holiday_date >= ?", Date.today).order('holiday_date ASC').page(params[:page]).per(10)
     respond_to do |format|
       format.html

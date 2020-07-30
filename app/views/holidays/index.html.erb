@@ -38,7 +38,7 @@
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12 table-responsive">
-                <table class="holiday-table">
+                <table id="holiday_table">
                   <thead>
                     <tr>
                       <th width="40%" data-field="id">Festival</th>
@@ -61,6 +61,12 @@
 </div>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+
+$('#holiday_table').DataTable({
+  "dom": 'lf<<"datatable-responsive"t>ip>',
+  responsive: true
+});
+
 $('.leave_type_seletbox').on('change', function(){
   var leave_type = $(this).val();
   console.log(leave_type);

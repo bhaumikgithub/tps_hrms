@@ -38,7 +38,10 @@
                     <%= f.select :bought_type, Asset.bought_types.keys.to_a.map { |e| e.humanize  } %>
                     <label for="bought_type">Bought Type</label>
                   </div>
-
+                  <div class="input-field col s12">
+                    <%= f.text_field :code, required: true %><br />
+                    <label for="name">Code *</label>
+                  </div>
                   <div class="input-field col s12">
                     <%= f.select(:asset_type_id,  AssetType.all.order('name').collect{|p| [p.name, p.id]}, {:include_blank => "Select"}, {:class => "some_class"} ) %>
                     <label for="asset_type_id">Asset Type</label>

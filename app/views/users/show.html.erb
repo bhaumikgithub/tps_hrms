@@ -494,6 +494,39 @@
       <% end %>
     <% end %>
 
+  <div class="col s12 card-content-link">
+    <div class="card card-tabs">
+      <div class="card-content">
+        <h5>Asset History</h5>
+       
+        <div id="view-borderless-table">
+          <div class="row">
+            <div class="col s12 table-responsive">
+              <table id="asset_history_table">
+                <thead>
+                  <tr>
+                    <th data-field="id">Asset Name</th>
+                    <th>Assigned From</th>
+                    <th>Assigned to</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @user.asset_histories.order(:from_date).each do |as| %>
+                    <tr>
+                      <td><%= as.asset.name %></td>
+                      <td><%= as&.from_date&.to_date %></td>
+                      <td><%= as&.to_date&.to_date.present? ? as&.to_date&.to_date : 'Till today' %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="col s12">
       <div class="mobile-center">
         <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary mb-2' if current_user.admin? %>
@@ -728,8 +761,14 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
+  $('#asset_history_table').DataTable({
+    "dom": 'lf<<"datatable-responsive"t>ip>',
+    responsive: true
+  });
+
   $(document).on('click','.cropbutton',function(){
     var canvas = $("#prof_pic_img").cropper('getCroppedCanvas');
     var dataURL = canvas.toDataURL("image/jpeg");

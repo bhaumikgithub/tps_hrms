@@ -32,7 +32,7 @@
                 <%= f.hidden_field :asset_id, value: params[:asset_id] %>
                 <div class="row">
                   <div class="input-field col s12">
-                    <%= f.select(:user_id, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => false}, {:class => "employee"} ) %>
+                    <%= f.select(:user_id, User.all.where(job_status: 'Active').order('first_name').collect{|p| [p.first_name, p.id]}, {:include_blank => "TPS"}, {:class => "employee"} ) %>
                     <label for="asset_id">User</label>
                   </div>
 

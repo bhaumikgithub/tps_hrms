@@ -26,13 +26,12 @@
                   <thead>
                     <tr>
                       <th data-field="id">Name</th>
-                      <th>Asset Bought</th>
                       <th>Code</th>
                       <th>Type</th>
                       <th>Price</th>
                       <th>Bill Number</th>
-                      <th>Currently Assign To</th>
-                      <th>Current Status</th>
+                      <th>Assign To</th>
+                      <th>Status</th>
                       <th></th>
                       <th></th>
                     </tr>
@@ -41,11 +40,10 @@
                     <% @resources.each do |asset| %>
                       <tr>
                         <td><%= link_to asset.name, asset_path(asset), target: "_blank"  %></td>
-                        <td><%= asset.bought_type %></td>
                         <td><%= asset.code %></td>
                         <td><%= asset&.asset_type&.name %></td>
                         <td><%= asset.price %></td>
-                        <td><%= asset&.bill&.number %></td>
+                        <td><%= asset&.bill&.number.present? ? (link_to asset&.bill&.number, bill_path(asset&.bill_id), target: "_blank") : "" %></td>
                         <td><%= asset&.current_assigned_device %></td>
                         <td><%= asset.current_status %></td>
                         <td><%= link_to 'Edit', edit_asset_path(asset.id) %></td>
@@ -66,7 +64,14 @@
   
   $('#asset_table').DataTable({
     "dom": 'lf<<"datatable-responsive"t>ip>',
-    responsive: true
+    responsive: true,
+    "pageLength": 100,
+    columnDefs: [
+      {
+        targets: 3,
+        className: 'dt-body-right'
+      }
+    ]
   });
 
 </script>

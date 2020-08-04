@@ -63,7 +63,11 @@
   
   $('#bill_table').DataTable({
     "dom": 'lf<<"datatable-responsive"t>ip>',
-    responsive: true
+    responsive: true,
+    "pageLength": 100,
+    "columnDefs": [
+      { "width": "15%", "targets": 1 }
+    ]
   });
 
 </script>

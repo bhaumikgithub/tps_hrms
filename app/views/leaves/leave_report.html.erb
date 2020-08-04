@@ -65,7 +65,8 @@ $('#leave_report_table').DataTable({
             { width: '12%', targets: [3,4,5,6] }
         ],
     "dom": 'lf<<"datatable-responsive"t>ip>',
-    responsive: true
+    responsive: true,
+    "pageLength": 100
 });
 
 $('.month_warpper').find('#date_month').on('change', function(){

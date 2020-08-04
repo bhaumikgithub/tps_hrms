@@ -144,7 +144,9 @@
         <div class="col s12 m9">
           <% if @resource.files.attached? %>
             <% @resource.files.each do |file| %>
-              <%= link_to(file.filename.to_s, url_for(file), target: "_blank") %><br>
+              <%= link_to(file.filename.to_s, url_for(file), target: "_blank") %>
+              <%= link_to purge_file_bill_path(id: @resource.id, attachment_id: file.id), class: "waves-effect waves-cyan", method: :delete, data: {confirm: "Are you sure?"} do %><i class="material-icons">delete</i><% end %>
+              <br>
             <% end %>
           <% else %>
             <span>Files are not uploaded!</span>

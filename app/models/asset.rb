@@ -12,9 +12,17 @@ class Asset < ApplicationRecord
   	till_today_asset = self.asset_histories.till_today_asset
   	active_asset = self.asset_histories.activeAtDate(Date.today)
   	if till_today_asset.present?
-  		till_today_asset&.last&.user&.full_name
+      if till_today_asset&.last&.user_id.present?
+  		  till_today_asset&.last&.user&.full_name
+      else
+        "TPS"
+      end
   	elsif active_asset.present?
-  		active_asset&.last&.user&.full_name
+      if active_asset&.last&.user_id.present?
+  		  active_asset&.last&.user&.full_name
+      else
+        "TPS"
+      end
   	else
   		'Not assigned'
   	end

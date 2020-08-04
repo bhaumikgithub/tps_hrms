@@ -1,5 +1,5 @@
 class AssetHistory < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :asset
 
   # scope :activeDate, -> { where("? BETWEEN from_date AND to_date", Time.now.to_date)}

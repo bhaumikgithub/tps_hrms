@@ -78,7 +78,11 @@ Rails.application.routes.draw do
   resources :event_categories
   resources :credentials
   resources :vendors
-  resources :bills
+  resources :bills do
+    member do
+      delete :purge_file
+    end
+  end
   resources :asset_types
   resources :assets, :path => "/admin/assets"
   resources :asset_histories do

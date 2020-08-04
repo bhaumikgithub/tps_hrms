@@ -7,7 +7,8 @@
     </div>
   </div>
 </nav>
-<div class="col s12 card-content-link">
+<% @bill_resource = @resource&.bill_id.present? ? @resource&.bill : "" %>
+<div class="col s12 card-content-link <%= @bill_resource.present? ? 'width_50' : '' %>">
   <div class="card card-tabs">
     <div class="card-content">
       <div class="card-title">
@@ -74,7 +75,7 @@
       <br>
       <div class="row">
         <div class="col s12 m3">
-          <span><b>Warranty/Guarantee</b></span>
+          <span><b>Warranty / Guarantee</b></span>
         </div>
         <div class="col s12 m9">
           <span><%= @resource&.warranty %></span>
@@ -86,7 +87,7 @@
           <span><b>Bill Number</b></span>
         </div>
         <div class="col s12 m9">
-          <span><%= @resource&.bill&.number %></span>
+          <span><%= @resource&.bill&.number.present? ? (link_to @resource&.bill&.number, bill_path(@resource&.bill_id), target: "_blank") : "" %></span>
         </div>
       </div>
       <br>
@@ -119,6 +120,132 @@
     </div>
   </div>
 </div>
+<% if @bill_resource.present? %>
+  <div class="col s12 card-content-link width_50">
+    <div class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h5>Bill Detail</h5>
+            </div>
+          </div>
+        </div>
+      
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Number </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.number %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Bill Date </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.bill_date&.strftime('%d %B %Y') %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Discription </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.discription %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Amount </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.amount %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Purchase From </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= link_to @bill_resource&.vendor&.name, vendor_path(@bill_resource&.vendor) %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Status</b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.status %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Paid Amount </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.paid_amount %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Paid From </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.paid_from %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Paid Via </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.paid_via %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>Paid Notes </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.paid_notes %></span>
+          </div>
+        </div>
+        <br>
+        <div class="row">  
+          <div class="col s12 m4">
+            <span><b>GST Bill </b></span>
+          </div>
+          <div class="col s12 m8">
+            <span><%= @bill_resource&.gst_bill ? "Yes" : "No" %></span>
+          </div>
+        </div>
+        <br>
+        <% if @bill_resource&.gst_bill %>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>GST Uploaded </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.gst_uploaded&.strftime('%d %B %Y') %></span>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <% if current_user.admin? %>
   <div class="col s12">
@@ -164,7 +291,7 @@
                     <td><%= as.asset.name %></td>
                     <td><%= as&.from_date&.to_date %></td>
                     <td><%= as&.to_date&.to_date.present? ? as&.to_date&.to_date : 'Till today' %></td>
-                    <td><%= as&.user&.full_name %></td>
+                    <td><%= as&.user_id.present? ? as&.user&.full_name : "TPS" %></td>
                     <td><%= link_to 'Edit', edit_asset_history_path(id: as.id, asset_id: as.asset_id) if (current_user.id == as.user_id || current_user.admin?) %></td>
                     <td><%= link_to 'Delete', asset_history_path(as.id), method: :delete, data: {confirm: "Are you sure?"} if current_user.admin? %></td>
                   </tr>
@@ -183,7 +310,8 @@
   
   $('#asset_history_table').DataTable({
     "dom": 'lf<<"datatable-responsive"t>ip>',
-    responsive: true
+    responsive: true,
+    "pageLength": 100
   });
 
 </script>

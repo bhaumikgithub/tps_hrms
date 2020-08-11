@@ -1,0 +1,25 @@
+<h1><%= @role&.name %></h1>
+
+<br>
+<table>
+	<body>
+		<!-- <tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr> -->
+		<% @permissions.each do |subject_class| %>
+			<tr>
+				<td><%= subject_class %></td>
+				<% Permission.where(subject_class: subject_class).each do |per| %>
+					<td><%= "#{per.action}, #{per.id}" %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</body>
+</table>
+

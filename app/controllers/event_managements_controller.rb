@@ -45,6 +45,10 @@ class EventManagementsController < ApplicationController
 
   private
 
+  def self.permission
+    return "ArrangeSession"
+  end
+
   def arrange_session_params
     params.require(:arrange_session).permit(:topic, :description, :date, :timing, :speaker, :user_id, :place, :applicants)
   end

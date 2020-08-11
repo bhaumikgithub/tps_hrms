@@ -20,6 +20,11 @@ class RolesController < ApplicationController
 		end
   end
 
+  def add_permission
+    @role = Role.find(params[:id])
+    @permissions = Permission.pluck(:subject_class).uniq
+  end
+
   private
 
   def resource_params

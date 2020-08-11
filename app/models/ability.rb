@@ -5,22 +5,31 @@ class Ability
 
   def initialize(user)
     @user = user || User.new
-    if @user.team_leader? || @user.admin?
-        can [:read, :manage], Leave
-        can :manage, [ User, Holiday ,EmployeeHandbook ,Designation ,Degree ,Department ,EventLink ,CredentialType ,Credential ,EventCategory ,Vendor ,Bill ,AssetType ,Asset ,AssetHistory]
-    elsif @user.is_event_manager?
-        can :read, Leave
-        can :read, User
-        can :read, Holiday
-        can :read, EmployeeHandbook
-        can :manage, EventLink
-    else
-        can :read, Leave
-        can :read, User
-        can :read, Holiday
-        can :read, EmployeeHandbook
-        can :read, EventLink
-        can :manage, AssetHistory
+    # if @user.team_leader? || @user.admin?
+    #     can [:read, :manage], Leave
+    #     can :manage, [ User, Holiday ,EmployeeHandbook ,Designation ,Degree ,Department ,EventLink ,CredentialType ,Credential ,EventCategory ,Vendor ,Bill ,AssetType ,Asset ,AssetHistory]
+    # elsif @user.is_event_manager?
+    #     can :read, Leave
+    #     can :read, User
+    #     can :read, Holiday
+    #     can :read, EmployeeHandbook
+    #     can :manage, EventLink
+    # else
+    #     can :read, Leave
+    #     can :read, User
+    #     can :read, Holiday
+    #     can :read, EmployeeHandbook
+    #     can :read, EventLink
+    #     can :manage, AssetHistory
+    # end
+
+    @user.role.permissions.each do |permission|
+      if permission.subject_class == "all"
+        can permission.action.to_sym, permission.subject_class.to_sym
+      else
+        can permission.action.to_sym, permission.subject_class.safe_constantize
+        # can permission.action.to_sym, permission.subject_class.singularize.to_sym.downcase
+      end
     end
     # Define abilities for the passed in user here. For example:
     #

@@ -7,4 +7,13 @@ module ApplicationHelper
     ((date_to - date_from).fdiv(365)).round
   end
 
+  def is_checked(role_id, permission_id)
+    rp = RolePermission.where(role_id: role_id, permission_id: permission_id)
+    if rp.present?
+      true
+    else
+      false
+    end
+  end
+
 end

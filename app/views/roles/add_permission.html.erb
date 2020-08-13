@@ -1,25 +1,127 @@
-<h1><%= @role&.name %></h1>
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Role", roles_path , class: "breadcrumb") %>
+      <%= link_to("Role Permission", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Role Permission</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <div class="row">
+                <div class="input-field col m12 s12 custom-dropdown">
+                  <%= select_tag :role_id, options_from_collection_for_select(Role.all.order('name'), 'id', 'name', @role.id ) %>
+                </div>
+                <div class="input-field col m12 s12">
+                  <table>
+                    <body>
+                      <tr>
+                        <th>Name</th>
+                        <th>All</th>
+                        <th>Index</th>
+                        <th>Show</th>
+                        <th>Create</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                      </tr>
+                      <% @permissions.each do |subject_class| %>
+                        <tr>
+                          <td><%= subject_class == "ArrangeSession" ? "EventManagement" : subject_class %>
+                          </td>
+                          <% @per = Permission.where(subject_class: subject_class) %>
+                          <% if @manage = @per.find_by_action("manage") %>
+                            <td>
+                              <%= check_box_tag "permission_id", "#{@manage.id}", is_checked(params[:id], @manage.id), {:style => "opacity: initial;pointer-events: auto;"} %>
+                            </td>
+                          <% else %>
+                            <td></td>
+                          <% end %>
+                          <% if @index = @per.find_by_action("index") %>
+                            <td>
+                              <%= check_box_tag "permission_id", "#{@index.id}", is_checked(params[:id], @index.id), {:style => "opacity: initial;pointer-events: auto;"} %>
+                            </td>
+                          <% else %>
+                            <td></td>
+                          <% end %>
+                          <% if @show = @per.find_by_action("show") %>
+                            <td>
+                              <%= check_box_tag "permission_id", "#{@show.id}", is_checked(params[:id], @show.id), {:style => "opacity: initial;pointer-events: auto;"} %>
+                            </td>
+                          <% else %>
+                            <td></td>
+                          <% end %>
+                          <% if @create = @per.find_by_action("create") %>
+                            <td>
+                              <%= check_box_tag "permission_id", "#{@create.id}", is_checked(params[:id], @create.id), {:style => "opacity: initial;pointer-events: auto;"} %>
+                            </td>
+                          <% else %>
+                            <td></td>
+                          <% end %>
+                          <% if @update = @per.find_by_action("update") %>
+                            <td>
+                              <%= check_box_tag "permission_id", "#{@update.id}", is_checked(params[:id], @update.id), {:style => "opacity: initial;pointer-events: auto;"} %>
+                            </td>
+                          <% else %>
+                            <td></td>
+                          <% end %>
+                          <% if @destroy = @per.find_by_action("destroy") %>
+                            <td>
+                              <%= check_box_tag "permission_id", "#{@destroy.id}", is_checked(params[:id], @destroy.id), {:style => "opacity: initial;pointer-events: auto;"} %>
+                            </td>
+                          <% else %>
+                            <td></td>
+                          <% end %>
+                        </tr>
+                      <% end %>
+                    </body>
+                  </table>
+                </div>
 
-<br>
-<table>
-	<body>
-		<!-- <tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr> -->
-		<% @permissions.each do |subject_class| %>
-			<tr>
-				<td><%= subject_class %></td>
-				<% Permission.where(subject_class: subject_class).each do |per| %>
-					<td><%= "#{per.action}, #{per.id}" %></td>
-				<% end %>
-			</tr>
-		<% end %>
-	</body>
-</table>
+                <div class="input-field col s12 mobile-center">
+                  <%= link_to("Back", roles_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                </div>
+              </div>
+						</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var e = document.getElementById("role_id");
+    var strRole = e.options[e.selectedIndex].value;
+    $('select').on('change', function() {
+      console.log( this.value );
+      window.location.href = window.location.origin+"/roles/"+this.value+"/add_permission"
+    });
 
+    $('input[type=checkbox]').on('change', function() {
+      $.ajax({
+        url:  "/roles/"+strRole+"/create_permission",
+        type: "POST",
+        dataType: "json",
+        data: {
+           permission_id: this.value,
+           has_permission: this.checked
+        },
+        success: function(data) {
+        }
+      });
+    });
+  });
+</script>

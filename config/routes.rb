@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :roles do
     member do
      get :add_permission
+     post :create_permission
     end
   end
   resources :documents

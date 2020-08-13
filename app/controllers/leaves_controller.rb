@@ -1,6 +1,6 @@
 class LeavesController < ApplicationController
   load_and_authorize_resource
-  skip_authorize_resource :only => [:index, :get_events]
+  skip_authorize_resource :only => [:get_events]
   include InheritAction
   
   def get_events

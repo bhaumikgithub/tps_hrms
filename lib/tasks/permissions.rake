@@ -53,10 +53,10 @@ def eval_cancan_action(action)
     name = 'Manage'
     cancan_action = "destroy"
     action_desc = I18n.t :destroy
-  else
-    name = action.to_s
-    cancan_action = action.to_s
-    action_desc = "Other: " < cancan_action
+  # else
+  #   name = action.to_s
+  #   cancan_action = action.to_s
+  #   action_desc = "Other: " < cancan_action
   end
   return name, cancan_action
 end
@@ -66,10 +66,12 @@ def write_permission(model, cancan_action, name)
   permission = Permission.where("subject_class = ? and action = ?", model, cancan_action)
   permission=permission[0]
   unless permission
-    permission = Permission.new
-    permission.name = name
-    permission.subject_class = model
-    permission.action = cancan_action
-    permission.save
+    if cancan_action.present?
+      permission = Permission.new
+      permission.name = name
+      permission.subject_class = model
+      permission.action = cancan_action
+      permission.save
+    end
   end
 end

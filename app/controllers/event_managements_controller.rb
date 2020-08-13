@@ -1,4 +1,5 @@
 class EventManagementsController < ApplicationController
+  load_and_authorize_resource :class => "ArrangeSession"
   before_action :fetch_session, only: %i[edit_session update_session delete_session]
   def index
   	@arrange_sessions = ArrangeSession.all.order(date: :desc)

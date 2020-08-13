@@ -29,7 +29,9 @@
                   <thead>
                     <tr>
                       <th data-field="id">Name</th>
-                      <th></th>
+                      <% if current_user.is_event_manager? || current_user.admin?  %>
+                        <th></th>
+                      <% end %>
                     </tr>
                   </thead>
                   <tbody>

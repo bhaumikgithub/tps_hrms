@@ -3,13 +3,15 @@ task(:permissions => :environment) do
   #load all the controllers
   controllers = Dir.new("#{Rails.root}/app/controllers").entries
   controllers.each do |entry|
-    if entry =~ /_controller/
-      #check if the controller is valid
-      arr << entry.camelize.gsub('.rb', '').constantize
-    elsif entry =~ /^[a-z]*$/ #namescoped controllers
-      Dir.new("#{Rails.root}/app/controllers/#{entry}").entries.each do |x|
-        if x =~ /_controller/
-          arr << "#{entry.titleize}::#{x.camelize.gsub('.rb', '')}".constantize
+    unless entry == "roles_controller.rb"
+      if entry =~ /_controller/
+        #check if the controller is valid
+        arr << entry.camelize.gsub('.rb', '').constantize
+      elsif entry =~ /^[a-z]*$/ #namescoped controllers
+        Dir.new("#{Rails.root}/app/controllers/#{entry}").entries.each do |x|
+          if x =~ /_controller/
+            arr << "#{entry.titleize}::#{x.camelize.gsub('.rb', '')}".constantize
+          end
         end
       end
     end

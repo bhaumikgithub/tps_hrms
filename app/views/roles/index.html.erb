@@ -28,7 +28,7 @@
                     <tr>
                       <th data-field="id">Name</th>
                       <th></th>
-                      <th></th>
+                      <!-- <th></th> -->
                       <th></th>
                     </tr>
                   </thead>
@@ -37,7 +37,7 @@
                       <tr>
                         <td><%= role.name.to_s&.humanize %></td>
                         <td><%= link_to 'Manage Permission', add_permission_role_path(role.id) %></td>
-                        <td><%= link_to 'Edit', edit_role_path(role.id) %></td>
+                        <!-- <td><%#= link_to 'Edit', edit_role_path(role.id) %></td> -->
                         <td><%= link_to 'Delete', role_path(role.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                       </tr>
                     <% end %>

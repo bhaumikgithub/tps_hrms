@@ -15,8 +15,8 @@
               <div class="col s12">
                  <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Holidays</span>
-                 <% if current_user.admin? %>
-                   <%= link_to 'ADD', new_holiday_path, class: "btn cyan waves-effect waves-lightc " %>
+                  <% if (can? :manage, Holiday) || (can? :create, Holiday) %>
+                    <%= link_to 'ADD', new_holiday_path, class: "btn cyan waves-effect waves-lightc " %>
                   <% end %>
                   </div>
               </div>

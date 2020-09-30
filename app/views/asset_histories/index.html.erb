@@ -15,7 +15,7 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Asset History</span>
-                <span><%= link_to 'ADD', new_asset_history_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'ADD', new_asset_history_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, AssetHistory) || (can? :create, AssetHistory)  %></span>
               </div>
             </div>
           </div>
@@ -40,8 +40,8 @@
                         <td><%= as&.from_date&.to_date %></td>
                         <td><%= as&.to_date&.to_date %></td>
                         <td><%= as&.user&.full_name %></td>
-                        <td><%= link_to 'Edit', edit_asset_history_path(as.id) if (current_user.id == as.user_id || current_user.admin?) %></td>
-                        <td><%= link_to 'Delete', asset_history_path(as.id), method: :delete, data: {confirm: "Are you sure?"} if current_user.admin? %></td>
+                        <td><%= link_to 'Edit', edit_asset_history_path(as.id) if (can? :manage, AssetHistory) || (can? :update, AssetHistory) %></td>
+                        <td><%= link_to 'Delete', asset_history_path(as.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, AssetHistory) || (can? :destroy, AssetHistory) %></td>
                       </tr>
                     <% end %>
                   </tbody>

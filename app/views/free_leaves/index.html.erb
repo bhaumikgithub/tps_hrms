@@ -15,7 +15,7 @@
             <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Free Leaves</span>
-                <span><%= link_to 'Add Leave', new_free_leave_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'Add Leave', new_free_leave_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, FreeLeave) || (can? :create, FreeLeave) %></span>
             </div>
            
           </div>
@@ -41,7 +41,7 @@
                   		<td><%= free_leave&.extra_leave %></td>
                   		<td><%= free_leave&.leave_month.try(:strftime, "%b %Y") %></td>
                   		<td><%= free_leave&.reason %></td>
-                  		<td><%= link_to 'Delete', free_leave_path(free_leave.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                  		<td><%= link_to 'Delete', free_leave_path(free_leave.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, FreeLeave) || (can? :destroy, FreeLeave) %></td>
                   	</tr>
                   <% end %>
                 </tbody>

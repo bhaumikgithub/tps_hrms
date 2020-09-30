@@ -251,7 +251,7 @@ class UsersController < ApplicationController
   end
 
   def authenticate_user
-    if @user.id == current_user.id || current_user.role.name == 'admin'
+    if @user.id == current_user.id || current_user.role.name == 'admin' || (can? :manage, User)
     else
       redirect_to root_path
     end

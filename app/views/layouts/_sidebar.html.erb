@@ -8,82 +8,109 @@
          <h1 class="logo-wrapper">
           <%= link_to root_path , class: "brand-logo darken-1 " do %>TPS HRMS<% end %></h1>
         </div>
-        <% if current_user.admin? %>
+        <%# if current_user.admin? %>
           <li class=" <%= active_class(root_path) %> + bold"><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
           </li>
-           <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
-          </li>
-          <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
-          </li>
-          <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
-          </li>
-           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
-          </li>
-          <li class=" <%= active_class(projects_path) %> + bold"><%= link_to(projects_path, class: "waves-effect waves-cyan") do %><i class="material-icons">work</i><span class="menu-title" data-i18n="">Projects</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(bills_path) %> + bold"><%= link_to(bills_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Bills</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(credentials_path) %> + bold"><%= link_to(credentials_path, class: "waves-effect waves-cyan") do %><i class="material-icons">vpn_key</i><span class="menu-title" data-i18n="">Credentials</span><% end %>
-          </li>
-         
-          <!-- <li class=" <%#= active_class(employee_designation_path) %> + bold"><%#= link_to(employee_designation_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation</span><%# end %>
-          </li> -->
-         <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(assets_path) %> + bold"><%= link_to(assets_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Assets</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(designations_path) %> + bold"><%= link_to(designations_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation Management</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(degrees_path) %> + bold"><%= link_to(degrees_path, class: "waves-effect waves-cyan") do %><i class="material-icons">school</i><span class="menu-title" data-i18n="">Degree</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(departments_path) %> + bold"><%= link_to(departments_path, class: "waves-effect waves-cyan") do %><i class="material-icons">business</i><span class="menu-title" data-i18n="">Department</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(roles_path) %> + bold"><%= link_to(roles_path, class: "waves-effect waves-cyan") do %><i class="material-icons">toll</i><span class="menu-title" data-i18n="">Role</span><% end %>
-          </li>
-
-          <li class=" <%= active_class(free_leaves_path) %> + bold"><%= link_to(free_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Free Leave</span><% end %>
-
-          <li class=" <%= active_class(leave_report_leaves_path) %> + bold"><%= link_to(leave_report_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">list_alt</i><span class="menu-title" data-i18n="">Leave Report</span><% end %>
-          </li>
-          <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><% end %>
-          </li>
-          <li class=" <%= active_class(event_categories_path) %> + bold"><%= link_to(event_categories_path, class: "waves-effect waves-cyan") do %><i class="material-icons">grain</i><span class="menu-title" data-i18n="">Event Category</span><% end %>
-          </li>
-          <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_links_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Event Link</span><% end %>
-          </li>
-
-        <% else %>
-          <li class=" <%= active_class(root_path) %> + bold" ><%= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><% end %>
-          </li>
+        <% if (can? :show, User) || (can? :manage, User) %>
           <li class=" <%= active_class(user_path(current_user)) %> + bold" ><%= link_to(user_path(current_user), class: "waves-effect waves-cyan") do %><i class="material-icons">account_circle</i><span class="menu-title" data-i18n="">My Profile</span><% end %>
           </li>
-           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
+        <% end %>
+        <% if (can? :index, Leave) || (can? :manage, Leave) %>
+           <li class=" <%= active_class(leaves_path) %> + bold"><%= link_to(leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
           </li>
-           <li class=" <%= active_class(calender_path) %> + bold"><%= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><% end %>
+        <% end %>
+          <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
           </li>
+        <% if (can? :index, Holiday) || (can? :manage, Holiday) %>
           <li class=" <%= active_class(holidays_path) %> + bold"><%= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><% end %>
           </li>
-          <li>
-            <li class=" <%= active_class(birthday_anniversary_users_path) %> + bold"><%= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><% end %>
-          </li>
-           <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
-
-          </li>
-          <% if current_user.is_event_manager? %>
-            <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><% end %>
-            </li>
-          <% end %>
-          <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_links_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Event Link</span><% end %>
-          </li>
-
         <% end %>
+        <% if (can? :index, User) || (can? :manage, User) %>
+           <li class=" <%= active_class(users_path) %> + bold"><%= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Project) || (can? :manage, Project) %>
+          <li class=" <%= active_class(projects_path) %> + bold"><%= link_to(projects_path, class: "waves-effect waves-cyan") do %><i class="material-icons">work</i><span class="menu-title" data-i18n="">Projects</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Bill) || (can? :manage, Bill) %>
+          <li class=" <%= active_class(bills_path) %> + bold"><%= link_to(bills_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Bills</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Credential) || (can? :manage, Credential) %>
+          <li class=" <%= active_class(credentials_path) %> + bold"><%= link_to(credentials_path, class: "waves-effect waves-cyan") do %><i class="material-icons">vpn_key</i><span class="menu-title" data-i18n="">Credentials</span><% end %>
+          </li>
+        <% end %>
+          <!-- <li class=" <%#= active_class(employee_designation_path) %> + bold"><%#= link_to(employee_designation_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation</span><%# end %>
+          </li> -->
+        <% if (can? :index, EmployeeHandbook) || (can? :manage, EmployeeHandbook) %>
+          <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Asset) || (can? :manage, Asset) %>
+          <li class=" <%= active_class(assets_path) %> + bold"><%= link_to(assets_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Assets</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Designation) || (can? :manage, Designation) %>
+          <li class=" <%= active_class(designations_path) %> + bold"><%= link_to(designations_path, class: "waves-effect waves-cyan") do %><i class="material-icons">description</i><span class="menu-title" data-i18n="">Designation Management</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Degree) || (can? :manage, Degree) %>
+          <li class=" <%= active_class(degrees_path) %> + bold"><%= link_to(degrees_path, class: "waves-effect waves-cyan") do %><i class="material-icons">school</i><span class="menu-title" data-i18n="">Degree</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, Department) || (can? :manage, Department) %>
+          <li class=" <%= active_class(departments_path) %> + bold"><%= link_to(departments_path, class: "waves-effect waves-cyan") do %><i class="material-icons">business</i><span class="menu-title" data-i18n="">Department</span><% end %>
+          </li>
+        <% end %>
+        <% if current_user.admin? %>
+          <li class=" <%= active_class(roles_path) %> + bold"><%= link_to(roles_path, class: "waves-effect waves-cyan") do %><i class="material-icons">toll</i><span class="menu-title" data-i18n="">Role</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, FreeLeave) || (can? :manage, FreeLeave) %>
+          <li class=" <%= active_class(free_leaves_path) %> + bold"><%= link_to(free_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Free Leave</span><% end %>
+        <% end %>
+        <% if current_user.admin? %>
+          <li class=" <%= active_class(leave_report_leaves_path) %> + bold"><%= link_to(leave_report_leaves_path, class: "waves-effect waves-cyan") do %><i class="material-icons">list_alt</i><span class="menu-title" data-i18n="">Leave Report</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, ArrangeSession) || (can? :manage, ArrangeSession) %>
+          <li class=" <%= active_class(event_managements_path) %> + bold"><%= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, EventCategory) || (can? :manage, EventCategory) %>
+          <li class=" <%= active_class(event_categories_path) %> + bold"><%= link_to(event_categories_path, class: "waves-effect waves-cyan") do %><i class="material-icons">grain</i><span class="menu-title" data-i18n="">Event Category</span><% end %>
+          </li>
+        <% end %>
+        <% if (can? :index, EventLink) || (can? :manage, EventLink) %>
+          <li class=" <%= active_class(event_links_path) %> + bold"><%= link_to(event_links_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Event Link</span><% end %>
+          </li>
+        <% end %>
+        <%# else %>
+<!--           <li class=" <%#= active_class(root_path) %> + bold" ><%#= link_to(root_path, class: "waves-effect waves-cyan") do %><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span><%# end %>
+          </li>
+          <li class=" <%#= active_class(user_path(current_user)) %> + bold" ><%#= link_to(user_path(current_user), class: "waves-effect waves-cyan") do %><i class="material-icons">account_circle</i><span class="menu-title" data-i18n="">My Profile</span><%# end %>
+          </li>
+           <li class=" <%#= active_class(users_path) %> + bold"><%#= link_to(users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">group</i><span class="menu-title" data-i18n="">Users</span><%# end %>
+          </li>
+           <li class=" <%#= active_class(calender_path) %> + bold"><%#= link_to(calender_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Leaves</span><%# end %>
+          </li>
+          <li class=" <%#= active_class(holidays_path) %> + bold"><%#= link_to(holidays_path, class: "waves-effect waves-cyan") do %><i class="material-icons">date_range</i><span class="menu-title" data-i18n="">Holidays</span><%# end %>
+          </li>
+          <li>
+            <li class=" <%#= active_class(birthday_anniversary_users_path) %> + bold"><%#= link_to(birthday_anniversary_users_path, class: "waves-effect waves-cyan") do %><i class="material-icons">cake</i><span class="menu-title" data-i18n="">Birthday/Anniversary</span><%# end %>
+          </li>
+           <li class=" <%#= active_class(employee_handbooks_path) %> + bold"><%#= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><%# end %>
+
+          </li>
+          <%# if current_user.is_event_manager? %>
+            <li class=" <%#= active_class(event_managements_path) %> + bold"><%#= link_to(event_managements_path, class: "waves-effect waves-cyan") do %><i class="material-icons">event</i><span class="menu-title" data-i18n="">Event Management</span><%# end %>
+            </li>
+          <%# end %>
+          <li class=" <%#= active_class(event_managements_path) %> + bold"><%#= link_to(event_links_path, class: "waves-effect waves-cyan") do %><i class="material-icons">link</i><span class="menu-title" data-i18n="">Event Link</span><%# end %>
+          </li>
+ -->
+        <%# end %>
         <li class=" <%= active_class(new_contact_path) %> + bold"><%= link_to(new_contact_path, class: "waves-effect waves-cyan") do %><i class="material-icons">mail</i><span class="menu-title" data-i18n="">Suggestion</span><% end %>
 
         

@@ -15,7 +15,7 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Event Category</span>
-                <span><%= link_to 'ADD', new_event_category_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'ADD', new_event_category_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, EventCategory) || (can? :create, EventCategory) %></span>
               </div>
             </div>
           </div>
@@ -34,8 +34,8 @@
                     <% @resources.each do |credential| %>
                       <tr>
                         <td><%= credential.name %></td>
-                        <td><%= link_to 'Edit', edit_event_category_path(credential.id) %></td>
-                        <td><%= link_to 'Delete', event_category_path(credential.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_event_category_path(credential.id) if (can? :manage, EventCategory) || (can? :update, EventCategory) %></td>
+                        <td><%= link_to 'Delete', event_category_path(credential.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, EventCategory) || (can? :destroy, EventCategory) %></td>
                       </tr>
                     <% end %>
                   </tbody>

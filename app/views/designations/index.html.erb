@@ -15,7 +15,7 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Designations</span>
-                <span><%= link_to 'ADD', new_designation_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'ADD', new_designation_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, Designation) || (can? :create, Designation) %></span>
               </div>
             </div>
           </div>
@@ -34,8 +34,8 @@
                     <% @resources.each do |designation| %>
                       <tr>
                         <td><%= designation.name %></td>
-                        <td><%= link_to 'Edit', edit_designation_path(designation.id) %></td>
-                        <td><%= link_to 'Delete', designation_path(designation.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_designation_path(designation.id) if (can? :manage, Designation) || (can? :update, Designation) %></td>
+                        <td><%= link_to 'Delete', designation_path(designation.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, Designation) || (can? :destroy, Designation) %></td>
                       </tr>
                     <% end %>
                   </tbody>

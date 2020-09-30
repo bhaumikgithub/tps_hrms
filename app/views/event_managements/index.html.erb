@@ -15,9 +15,7 @@
              <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Event Management</span>
-              <% if current_user.is_event_manager? || current_user.admin? %>
-               <%= link_to 'ADD', add_session_event_managements_path, class: "btn cyan waves-effect waves-lightc " %>
-             <% end %>
+               <%= link_to 'ADD', add_session_event_managements_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, ArrangeSession) %>
             </div>
           </div>
           <div id="view-borderless-table">
@@ -31,7 +29,7 @@
                       <th>Date</th>
                       <th>Time</th>
                       <th>Speaker</th>
-                      <% if current_user.admin? || current_user.is_event_manager? %>
+                      <% if (can? :manage, ArrangeSession) %>
                         <th></th>
                         <th></th>
                       <% end %>
@@ -45,7 +43,7 @@
                         <td><%= arrange_session&.date.try(:strftime, "%d-%m-%Y") %></td>
                         <td><%= arrange_session&.timing.try(:strftime, "%I:%M %p") %></td>
                         <td><%= arrange_session&.speaker %></td>
-                        <% if current_user.admin? || current_user.is_event_manager? %>
+                        <% if (can? :manage, ArrangeSession) %>
                           <td><%= link_to 'Edit', edit_session_event_management_path(arrange_session.id) %></td>
                           <td><%= link_to 'Delete', delete_session_event_management_path(arrange_session.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
                         <% end %>

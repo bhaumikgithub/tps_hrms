@@ -15,7 +15,7 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Credential Types</span>
-                <span><%= link_to 'ADD', new_credential_type_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'ADD', new_credential_type_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, CredentialType) || (can? :create, CredentialType) %></span>
               </div>
             </div>
           </div>
@@ -34,8 +34,8 @@
                     <% @resources.each do |credential| %>
                       <tr>
                         <td><%= credential.name %></td>
-                        <td><%= link_to 'Edit', edit_credential_type_path(credential.id) %></td>
-                        <td><%= link_to 'Delete', credential_type_path(credential.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_credential_type_path(credential.id) if (can? :manage, CredentialType) || (can? :update, CredentialType) %></td>
+                        <td><%= link_to 'Delete', credential_type_path(credential.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, CredentialType) || (can? :destroy, CredentialType)  %></td>
                       </tr>
                     <% end %>
                   </tbody>

@@ -120,191 +120,188 @@
     </div>
   </div>
 </div>
-<% if @bill_resource.present? %>
-  <div class="col s12 card-content-link width_50">
-    <div class="card card-tabs">
-      <div class="card-content">
-        <div class="card-title">
-          <div class="row">
-            <div class="col s12 m6 l10">
-              <h5>Bill Detail</h5>
+<% if (can? :manage, Bill) || (can? :show, Bill) %>
+  <% if @bill_resource.present? %>
+    <div class="col s12 card-content-link width_50">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12 m6 l10">
+                <h5>Bill Detail</h5>
+              </div>
             </div>
           </div>
-        </div>
-      
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Number </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.number %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Bill Date </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.bill_date&.strftime('%d %B %Y') %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Discription </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.discription %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Amount </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.amount %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Purchase From </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= link_to @bill_resource&.vendor&.name, vendor_path(@bill_resource&.vendor) %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Status</b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.status %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Paid Amount </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.paid_amount %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Paid From </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.paid_from %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Paid Via </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.paid_via %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>Paid Notes </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.paid_notes %></span>
-          </div>
-        </div>
-        <br>
-        <div class="row">  
-          <div class="col s12 m4">
-            <span><b>GST Bill </b></span>
-          </div>
-          <div class="col s12 m8">
-            <span><%= @bill_resource&.gst_bill ? "Yes" : "No" %></span>
-          </div>
-        </div>
-        <br>
-        <% if @bill_resource&.gst_bill %>
+        
           <div class="row">  
             <div class="col s12 m4">
-              <span><b>GST Uploaded </b></span>
+              <span><b>Number </b></span>
             </div>
             <div class="col s12 m8">
-              <span><%= @bill_resource&.gst_uploaded&.strftime('%d %B %Y') %></span>
+              <span><%= @bill_resource&.number %></span>
             </div>
           </div>
           <br>
-        <% end %>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Bill Date </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.bill_date&.strftime('%d %B %Y') %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Discription </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.discription %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Amount </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.amount %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Purchase From </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= link_to @bill_resource&.vendor&.name, vendor_path(@bill_resource&.vendor) %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Status</b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.status %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Paid Amount </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.paid_amount %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Paid From </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.paid_from %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Paid Via </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.paid_via %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>Paid Notes </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.paid_notes %></span>
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col s12 m4">
+              <span><b>GST Bill </b></span>
+            </div>
+            <div class="col s12 m8">
+              <span><%= @bill_resource&.gst_bill ? "Yes" : "No" %></span>
+            </div>
+          </div>
+          <br>
+          <% if @bill_resource&.gst_bill %>
+            <div class="row">  
+              <div class="col s12 m4">
+                <span><b>GST Uploaded </b></span>
+              </div>
+              <div class="col s12 m8">
+                <span><%= @bill_resource&.gst_uploaded&.strftime('%d %B %Y') %></span>
+              </div>
+            </div>
+            <br>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
-
-<% if current_user.admin? %>
-  <div class="col s12">
-    <div class="mobile-center">
-      <%= link_to 'Edit', edit_asset_path(@resource), class: 'btn btn-primary mb-2' if current_user.admin? %>
-      <%= link_to 'Delete', asset_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} %>
-      <%= link_to 'Back', assets_path, class: 'btn cyan waves-effect waves-light mb-2' %>
-    </div>
-  </div>
-<% end %>
-
 <div class="col s12">
-  <div id="borderless-table" class="card card-tabs">
-    <div class="card-content">
-      <div class="card-title">
-        <div class="row">
-          <div class="col s12">
-            <div class="card-title d-flex">
-            <span class="font-26 flex-grow-1">Asset History</span>
-            <% if current_user.admin? %>
-              <span><%= link_to 'ADD', new_asset_history_path(asset_id: "#{@resource.id}"), class: "btn cyan waves-effect waves-lightc " %></span>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <div id="view-borderless-table">
-        <div class="row">
-          <div class="col s12 table-responsive">
-            <table id="asset_history_table">
-              <thead>
-                <tr>
-                  <th data-field="id">Name</th>
-                  <th>Assigned From</th>
-                  <th>Assigned to</th>
-                  <th>Assigned User</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @resource.asset_histories.order(:from_date).each do |as| %>
-                  <tr>
-                    <td><%= as.asset.name %></td>
-                    <td><%= as&.from_date&.to_date %></td>
-                    <td><%= as&.to_date&.to_date.present? ? as&.to_date&.to_date : 'Till today' %></td>
-                    <td><%= as&.user_id.present? ? as&.user&.full_name : "TPS" %></td>
-                    <td><%= link_to 'Edit', edit_asset_history_path(id: as.id, asset_id: as.asset_id) if (current_user.id == as.user_id || current_user.admin?) %></td>
-                    <td><%= link_to 'Delete', asset_history_path(as.id), method: :delete, data: {confirm: "Are you sure?"} if current_user.admin? %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="mobile-center">
+    <%= link_to 'Edit', edit_asset_path(@resource), class: 'btn btn-primary mb-2' if (can? :manage, Asset) || (can? :update, Asset) %>
+    <%= link_to 'Delete', asset_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, Asset) || (can? :destroy, Asset) %>
+    <%= link_to 'Back', assets_path, class: 'btn cyan waves-effect waves-light mb-2' %>
   </div>
 </div>
-
+<% if (can? :manage, AssetHistory) || (can? :index, AssetHistory) %>
+  <div class="col s12">
+    <div id="borderless-table" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12">
+              <div class="card-title d-flex">
+              <span class="font-26 flex-grow-1">Asset History</span>
+                <span><%= link_to 'ADD', new_asset_history_path(asset_id: "#{@resource.id}"), class: "btn cyan waves-effect waves-lightc " if (can? :manage, AssetHistory) || (can? :create, AssetHistory) %></span>
+            </div>
+          </div>
+        </div>
+        <div id="view-borderless-table">
+          <div class="row">
+            <div class="col s12 table-responsive">
+              <table id="asset_history_table">
+                <thead>
+                  <tr>
+                    <th data-field="id">Name</th>
+                    <th>Assigned From</th>
+                    <th>Assigned to</th>
+                    <th>Assigned User</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @resource.asset_histories.order(:from_date).each do |as| %>
+                    <tr>
+                      <td><%= as.asset.name %></td>
+                      <td><%= as&.from_date&.to_date %></td>
+                      <td><%= as&.to_date&.to_date.present? ? as&.to_date&.to_date : 'Till today' %></td>
+                      <td><%= as&.user_id.present? ? as&.user&.full_name : "TPS" %></td>
+                      <td><%= link_to 'Edit', edit_asset_history_path(id: as.id, asset_id: as.asset_id) if (can? :manage, AssetHistory) || (can? :update, AssetHistory) %></td>
+                      <td><%= link_to 'Delete', asset_history_path(as.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, AssetHistory) || (can? :destroy, AssetHistory) %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
   

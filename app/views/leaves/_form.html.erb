@@ -85,6 +85,13 @@
     });
     $('.employee').on('change', function (e) {
       var valueSelected = this.value;
+      setMentor(valueSelected);
+    });
+    $(document).ready(function() {
+      var valueSelected = $('.employee').val();
+      setMentor(valueSelected);
+    });
+    function setMentor(valueSelected){
       $.ajax({
         url:  "/leaves/get_mentor",
         dataType: "json",
@@ -96,5 +103,5 @@
           $('select').formSelect()
         }
       });
-    });
+    }
 </script>

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="col s12 m6 l2 text-right">
-             <%= link_to 'ADD', new_employee_handbook_path, class: "btn cyan waves-effect waves-lightc " if current_user.admin? %>
+             <%= link_to 'ADD', new_employee_handbook_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, EmployeeHandbook) || (can? :create, EmployeeHandbook) %>
             </div>
           </div>
         </div>
@@ -25,8 +25,8 @@
         <div id="borderless-table" class="card card-tabs">
           <div class="card-content">
             <div class="card-title">
-              <span class="float-right-cls"><%= link_to "Delete", employee_handbook_path(resource), method: :delete, data: {confirm: "Are you sure?"}   if current_user.admin? %></span>
-              <span class="float-right-cls"><%= link_to "Edit", edit_employee_handbook_path(resource), class: 'mr-20'  if current_user.admin? %></span><br>
+              <span class="float-right-cls"><%= link_to "Delete", employee_handbook_path(resource), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, EmployeeHandbook) || (can? :destroy, EmployeeHandbook) %></span>
+              <span class="float-right-cls"><%= link_to "Edit", edit_employee_handbook_path(resource), class: 'mr-20'  if (can? :manage, EmployeeHandbook) || (can? :update, EmployeeHandbook) %></span><br>
               <b><%= resource.section %></b>
               <%= resource.content.html_safe %>
             </div>

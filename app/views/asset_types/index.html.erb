@@ -15,7 +15,7 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Asset Types</span>
-                <span><%= link_to 'ADD', new_asset_type_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'ADD', new_asset_type_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, AssetType) || (can? :create, AssetType) %></span>
               </div>
             </div>
           </div>
@@ -34,8 +34,8 @@
                     <% @resources.each do |asset| %>
                       <tr>
                         <td><%= asset.name %></td>
-                        <td><%= link_to 'Edit', edit_asset_type_path(asset.id) %></td>
-                        <td><%= link_to 'Delete', asset_type_path(asset.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_asset_type_path(asset.id) if (can? :manage, AssetType) || (can? :update, AssetType) %></td>
+                        <td><%= link_to 'Delete', asset_type_path(asset.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, AssetType) || (can? :destroy, AssetType) %></td>
                       </tr>
                     <% end %>
                   </tbody>

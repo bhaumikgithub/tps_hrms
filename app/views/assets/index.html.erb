@@ -15,8 +15,8 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Assets</span>
-                <span style="margin-right: 5px;"><%= link_to 'Asset Types', asset_types_path, class: "btn btn-success waves-effect waves-lightc", target: "_blank" %></span>
-                <span><%= link_to 'ADD', new_asset_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span style="margin-right: 5px;"><%= link_to 'Asset Types', asset_types_path, class: "btn btn-success waves-effect waves-lightc", target: "_blank" if (can? :manage, AssetType) || (can? :index, AssetType) %></span>
+                <span><%= link_to 'ADD', new_asset_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, Asset) || (can? :create, Asset) %></span>
               </div>
             </div>
           </div>
@@ -40,15 +40,15 @@
                   <tbody>
                     <% @resources.each do |asset| %>
                       <tr>
-                        <td><%= link_to asset.name, asset_path(asset), target: "_blank"  %></td>
+                        <td><%= link_to asset.name, asset_path(asset), target: "_blank" %></td>
                         <td><%= asset.code %></td>
                         <td><%= asset&.asset_type&.name %></td>
                         <td><%= asset.price %></td>
                         <td><%= asset&.bill&.number.present? ? (link_to asset&.bill&.number, bill_path(asset&.bill_id), target: "_blank") : "" %></td>
                         <td><%= asset&.current_assigned_device %></td>
                         <td><%= asset.current_status %></td>
-                        <td><%= link_to 'Edit', edit_asset_path(asset.id) %></td>
-                        <td><%= link_to 'Delete', asset_path(asset.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_asset_path(asset.id) if (can? :manage, Asset) || (can? :update, Asset) %></td>
+                        <td><%= link_to 'Delete', asset_path(asset.id), method: :delete, data: {confirm: "Are you sure?"}  if (can? :manage, Asset) || (can? :destroy, Asset) %></td>
                       </tr>
                     <% end %>
                   </tbody>

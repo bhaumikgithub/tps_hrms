@@ -7,6 +7,9 @@
     <td><%= (leave.leave_array[0].count)*leave.leave_array[1] %></td>
     <td><%= leave.status %></td>
     <td><%= (leave.status == 'pending') ?  '-' : leave.approved_by&.first_name %></td>
-    <td><%= link_to 'Delete', leave_path(leave.id), method: :delete, data: {confirm: "Are you sure?"}   %></td>
+    <% if (can? :manage, Leave) || (can? :destroy, Leave) %>
+      <td><%= link_to 'Delete', leave_path(leave.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+    <% end 
+    %>
   </tr>
 <% end %>

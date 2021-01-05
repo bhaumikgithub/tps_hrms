@@ -137,12 +137,10 @@
     </div>
   </div>
 </div>
-<% if current_user.admin? %>
-	<div class="col s12">
-	  <div class="mobile-center">
-	    <%= link_to 'Edit', edit_vendor_path(@resource), class: 'btn btn-primary mb-2' if current_user.admin? %>
-	    <%= link_to 'Delete', vendor_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} %>
-	    <%= link_to 'Back', vendors_path, class: 'btn cyan waves-effect waves-light mb-2' %>
-	  </div>
-	</div>
-<% end %>
+<div class="col s12">
+  <div class="mobile-center">
+    <%= link_to 'Edit', edit_vendor_path(@resource), class: 'btn btn-primary mb-2' if (can? :manage, Vendor) || (can? :update, Vendor) %>
+    <%= link_to 'Delete', vendor_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, Vendor) || (can? :destroy, Vendor) %>
+    <%= link_to 'Back', vendors_path, class: 'btn cyan waves-effect waves-light mb-2' %>
+  </div>
+</div>

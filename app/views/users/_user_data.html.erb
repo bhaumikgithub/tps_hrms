@@ -12,9 +12,10 @@
     <td><%= user&.user_current_designation&.department&.name %></td>
     <td><%= user&.user_type&.humanize %></td>
     <td><%= user.user_current_mentor&.full_name %></td>
-    <% if current_user.admin? %>
-      <td><%= link_to 'Edit', edit_user_path(user) %> |
-        <%= link_to user.job_status == 'Active' ? 'Inactive' : 'Active', activation_user_path(id: user, job_status: user.job_status == 'Active' ? 'Inactive' : 'Active'), data: {confirm: "Are you sure?"} %></td>
+    <% if (can? :manage, User) %>
+      <td><%= link_to 'Edit', edit_user_path(user) if (can? :manage, User) %> 
+        <%= '|' if (can? :manage, User) && current_user.admin? %>
+        <%= link_to user.job_status == 'Active' ? 'Inactive' : 'Active', activation_user_path(id: user, job_status: user.job_status == 'Active' ? 'Inactive' : 'Active'), data: {confirm: "Are you sure?"} if current_user.admin? %></td>
     <% end %>
   </tr>
 <% end %>

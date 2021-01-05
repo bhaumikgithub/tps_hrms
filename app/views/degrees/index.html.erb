@@ -14,7 +14,7 @@
              <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Degree</span>
-                <span><%= link_to 'ADD', new_degree_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <span><%= link_to 'ADD', new_degree_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, Degree) || (can? :create, Degree) %></span>
               </div>
             </div>
           </div>
@@ -33,8 +33,8 @@
                     <% @resources.each do |degree| %>
                       <tr>
                         <td><%= degree.name %></td>
-                        <td><%= link_to 'Edit', edit_degree_path(degree.id) %></td>
-                        <td><%= link_to 'Delete', degree_path(degree.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_degree_path(degree.id) if (can? :manage, Degree) || (can? :update, Degree) %></td>
+                        <td><%= link_to 'Delete', degree_path(degree.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, Degree) || (can? :destroy, Degree) %></td>
                       </tr>
                     <% end %>
                   </tbody>

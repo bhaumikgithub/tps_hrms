@@ -22,19 +22,19 @@
           </div>
    <!--        <div class="col s12 m3">
             <div class="img_wrapper">
-              <% if @user&.profile_picture&.attached? %>
-                <%=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5', id: "crop_image") %>
-              <% else %>
-                <%= image_tag("avatar.png", class: 'responsive-img profile-img', id: "crop_image") %>
-              <% end %>
+              <%# if @user&.profile_picture&.attached? %>
+                <%#=  image_tag(@user&.profile_picture, class: 'responsive-img  z-depth-5', id: "crop_image") %>
+              <%# else %>
+                <%#= image_tag("avatar.png", class: 'responsive-img profile-img', id: "crop_image") %>
+              <%# end %>
 
-              <% if current_user.id == @user.id || current_user.admin? %>
-                <%= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}%>
+              <%# if current_user.id == @user.id || current_user.admin? %>
+                <%#= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}%>
                 <a class="custome_style">
                   <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
-                  <span id="user_pic_span"><%= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
+                  <span id="user_pic_span"><%#= @user.profile_picture.attached? ? "Change photo" : "Add photo" %></span>
                 </a>
-              <% end %>
+              <%# end %>
               <br>
               <br>
             </div>
@@ -56,7 +56,6 @@
                   </a>
                      <%= link_to "Remove", remove_profile_user_path(@user), :method => :delete, :class => "mat-raised-button", id: "remove_profile", style: "#{@user.profile_picture.attached? ? '' : 'display: none'}", data: {confirm: "Are you sure?"}, class: 'profile_chnage_link'%>
                 <% end %>
-
               <br>
               <br>
             </div>
@@ -367,7 +366,7 @@
       </div>
     </div>
   </div>
-  <% if current_user.admin? %>
+  <% if (can? :manage, Document) || (can? :show, Document) %>
     <div class="col s12 card-content-link">
       <div class="card card-tabs">
         <div class="card-content">
@@ -375,7 +374,7 @@
             <div class="col s12 m6 l10">
               <h5>Upload Document</h5>
             </div>
-            <% if current_user.admin? %>
+            <% if (can? :manage, Document) || (can? :create, Document) %>
               <div class="col s12 m6 l2">
                 <ul class="profile-ui">
                   <li><%= link_to("#add_user_document_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
@@ -389,14 +388,13 @@
             <div class="col s12 m6 l10">
               <%= link_to doc.doc_name, rails_blob_path(doc.document, only_path: true),  target:"_blank"  %> <br />
             </div>
-
-            <div class="col s12 m6 l2">
-              <% if current_user.admin? %>
+            <% if (can? :manage, Document) || (can? :destroy, Document) %>
+              <div class="col s12 m6 l2">
                 <%= link_to document_path(id: doc.id, user_id: @user.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
                   <i class="material-icons">delete</i>
-                <% end %>
               <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
       
         <% end %>
@@ -493,7 +491,7 @@
         </div>
       <% end %>
     <% end %>
-
+<% if (can? :manage, AssetHistory) || (can? :index, AssetHistory) %>
   <div class="col s12 card-content-link">
     <div class="card card-tabs">
       <div class="card-content">
@@ -526,11 +524,11 @@
       </div>
     </div>
   </div>
-
+<% end %>
     <div class="col s12">
       <div class="mobile-center">
-        <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary mb-2' if current_user.admin? %>
-        <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} if current_user.admin?%>
+        <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary mb-2' if (can? :manage, User) %>
+        <%= link_to 'Delete', user_path(@user), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, User) %>
         <%= link_to 'Back', users_path, class: 'btn cyan waves-effect waves-light mb-2' %>
         <% if current_user.admin? %>
           <%= link_to("#resign_popup_modal", class: "btn waves-effect waves-light deep-orange accent-2 mb-2 modal-trigger") do %>Resign<% end %>

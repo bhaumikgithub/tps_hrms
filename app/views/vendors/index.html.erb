@@ -15,7 +15,9 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Vendors</span>
-                <span><%= link_to 'ADD', new_vendor_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <% if (can? :manage, Vendor) || (can? :create, Vendor) %>
+                  <span><%= link_to 'ADD', new_vendor_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <% end %>
               </div>
             </div>
           </div>
@@ -46,8 +48,8 @@
                         <td><%= vendor.email %></td>
                         <td><%= vendor.gst %></td>
                         <td><%= vendor.status %></td>
-                        <td><%= link_to 'Edit', edit_vendor_path(vendor.id) %></td>
-                        <td><%= link_to 'Delete', vendor_path(vendor.id), method: :delete, data: {confirm: "Are you sure?"}  %></td>
+                        <td><%= link_to 'Edit', edit_vendor_path(vendor.id) if (can? :manage, Vendor) || (can? :update, Vendor) %></td>
+                        <td><%= link_to 'Delete', vendor_path(vendor.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, Vendor) || (can? :destroy, Vendor) %></td>
                       </tr>
                     <% end %>
                   </tbody>

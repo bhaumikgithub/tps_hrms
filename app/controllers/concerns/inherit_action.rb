@@ -22,10 +22,6 @@ module InheritAction
     @resource = resource_class.new
   end
 
-  def pre_creation_user
-    @resource = resource_class.new(resource_params)
-  end
-
   def create
     @resource = resource_class.new(resource_params)
     if @resource.save

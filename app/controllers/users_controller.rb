@@ -1,7 +1,8 @@
+
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :show, :update, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile]
   before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation]
@@ -250,7 +251,7 @@ class UsersController < ApplicationController
   end
 
   def authenticate_user
-    if @user.id == current_user.id || current_user.role.name == 'admin'
+    if @user.id == current_user.id || current_user.role.name == 'admin' || (can? :manage, User)
     else
       redirect_to root_path
     end

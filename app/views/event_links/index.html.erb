@@ -15,7 +15,7 @@
                <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Event Link</span>
-                 <% if current_user.is_event_manager? || current_user.admin? %>
+                 <% if (can? :manage, EventLink) || (can? :create, EventLink) %>
                   <%= link_to 'ADD', new_event_link_path, class: "btn cyan waves-effect waves-lightc " %>
                 <% end %>
               </div>
@@ -29,7 +29,9 @@
                   <thead>
                     <tr>
                       <th data-field="id">Name</th>
-                      <th></th>
+                      <% if (can? :manage, EventLink) || (can? :update, EventLink) || (can? :destroy, EventLink)  %>
+                        <th></th>
+                      <% end %>
                     </tr>
                   </thead>
                   <tbody>
@@ -41,12 +43,11 @@
                           <%= link_to event_link&.title, event_link&.link, target: "_blank" %><br>
                           <%= event_link&.description %><br/>
     	              		</td>
-    	              		<% if current_user.is_event_manager? || current_user.admin?  %>
-    		              		<td>
-    		              			<%= link_to 'Edit', edit_event_link_path(event_link.id) %> | 
-    		              			<%= link_to 'Delete', event_link_path(event_link.id), method: :delete, data: {confirm: "Are you sure?"}  %>
-    		              		</td>
-    		              	<% end %>
+  		              		<td>
+  		              			<%= link_to 'Edit', edit_event_link_path(event_link.id) if (can? :manage, EventLink) || (can? :update, EventLink) %> 
+                          <%= " | " if (can? :manage, EventLink) || ((can? :update, EventLink) && (can? :destroy, EventLink)) %> 
+  		              			<%= link_to 'Delete', event_link_path(event_link.id), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, EventLink) || (can? :destroy, EventLink) %>
+  		              		</td>
                   	<% end %>
                     </tr>
                   </tbody>

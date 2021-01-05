@@ -15,7 +15,7 @@
               <div class="col s12">
                  <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Projects</span>
-                 <% if current_user.admin? || current_user.manager? %>
+                  <% if (can? :manage, Project) || (can? :create, Project) %>
                    <%= link_to 'ADD', new_project_path, class: "btn cyan waves-effect waves-lightc " %>
                   <% end %>
                   </div>
@@ -57,9 +57,9 @@
 
                         <td><%= project.client_name %></td>
 
-                          <td><%= link_to 'Edit', edit_project_path(project.id) %></td>
-                          <td><%= link_to 'Delete', project_path(project.id), method: :delete , data: {confirm: "Are you sure?"} %></td>
-                          <td><%= link_to 'Add report', new_user_report_path(project_member_id: project.id) %></td>
+                        <td><%= link_to 'Edit', edit_project_path(project.id) if (can? :manage, Project) || (can? :update, Project) %></td>
+                        <td><%= link_to 'Delete', project_path(project.id), method: :delete , data: {confirm: "Are you sure?"} if (can? :manage, Project) || (can? :destroy, Project) %></td>
+                        <td><%= link_to 'Add report', new_user_report_path(project_member_id: project.id) if current_user.admin? %></td>
                       </tr>
                     <% end %>
                   </tbody>

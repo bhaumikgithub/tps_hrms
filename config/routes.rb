@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  
- 
+
   resources :contacts, only: [:new, :create]
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -10,7 +9,12 @@ Rails.application.routes.draw do
   get '/create_leave_report' => 'home#create_leave_report', :as => 'create_leave_report'
 
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
-  resources :roles
+  resources :roles do
+    member do
+     get :add_permission
+     post :create_permission
+    end
+  end
   resources :documents
   resources :projects
   resources :user_reports

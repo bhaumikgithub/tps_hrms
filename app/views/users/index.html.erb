@@ -15,7 +15,7 @@
               <div class="col s12">
                 <div class="card-title d-flex">
                 <span class="font-26 flex-grow-1">Users</span>
-                 <% if current_user.admin? %>
+                 <% if (can? :create, User) || (can? :manage, User) %>
                    <%= link_to 'ADD', new_user_path, class: "btn cyan waves-effect waves-lightc " %>
                   <% end %>
                 </div>
@@ -48,7 +48,7 @@
                       <th>Dept</th>
                       <th>Type</th>
                       <th>Mentor</th>
-                      <% if current_user.admin? %>
+                      <% if (can? :manage, User) %>
                         <th></th>
                       <% end %>
                       <!-- <th></th>

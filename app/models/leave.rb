@@ -6,7 +6,7 @@ class Leave < ApplicationRecord
   LEAVE_STATUS = ["approved", "pending"]
   LEAVE_TYPES =  {"full day" => '#3a8bc5', "first half" => '#000000', "second half" => '#000000', "not informed" => '#FF0000', 'wfh' => '#008000'}.freeze
 
-  before_save     :update_color
+  before_save     :update_color, :update_leaves_date
   after_create    :update_leave_balance
   before_destroy  :add_leave_balance
 
@@ -17,6 +17,26 @@ class Leave < ApplicationRecord
   def update_color
     self.color = Leave::LEAVE_TYPES[self.leave_type.downcase]
     true
+  end
+
+  def update_leaves_date
+    if (self.leave_date.to_date..self.end_date.to_date).count >= 10 && self.leave_type != "wfh"
+       if self.leave_date.to_date.monday?
+        self.leave_date = self.leave_date.to_date - 2.days
+      elsif self.leave_date.to_date.sunday?
+        self.leave_date = self.leave_date.to_date - 1.days
+      else
+        self.leave_date
+      end
+
+      if self.end_date.to_date.friday?
+        self.end_date = self.end_date.to_date + 2.days
+      elsif self.end_date.to_date.saturday?
+        self.end_date = self.end_date.to_date + 1.days
+      else
+        self.end_date
+      end
+    end
   end
 
 

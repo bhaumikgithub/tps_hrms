@@ -92,8 +92,11 @@ class User < ApplicationRecord
   end
 
   def user_month_leave month, year
-    half_leave = self.user_leaves.where("leave_type IN (?)", ["first half","second half"]).where( '(EXTRACT(month FROM leave_date) = ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) = ? AND EXTRACT(year FROM end_date) = ?) ',month, year, month, year ).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
-    sum = self.user_leaves.where.not("leave_type IN (?)", ["first half","second half", "wfh"]).where( '(EXTRACT(month FROM leave_date) = ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) = ? AND EXTRACT(year FROM end_date) = ?) ',month, year, month, year ).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
+    half_leave = self.user_leaves.where("leave_type IN (?)", ["first half","second half"]).where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", month, year, month, year).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
+    # sum = self.user_leaves.where.not("leave_type IN (?)", ["first half","second half", "wfh"]).where( '(EXTRACT(month FROM leave_date) = ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) = ? AND EXTRACT(year FROM end_date) = ?) ',month, year, month, year ).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
+
+    sum = self.user_leaves.where.not("leave_type IN (?)", ["first half","second half", "wfh"]).where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", month, year, month, year).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
+
     (half_leave.flatten.compact.count/2.to_f) + sum.flatten.compact.count
   end
 

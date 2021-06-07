@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   def show
     @educations = @user.educations
     @user_designations = @user.user_designations
+    @user_type_history = @user.audits.reverse
   end
 
   def create_user

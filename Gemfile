@@ -89,3 +89,4 @@ gem 'cancancan'
 gem 'time_difference'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem "audited", "~> 4.9"

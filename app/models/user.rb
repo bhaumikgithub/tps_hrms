@@ -145,7 +145,8 @@ class User < ApplicationRecord
   end
 
   def self.taken_leave(user,start_date,end_date)
-    user_leaves = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", start_date - 1.month,(end_date - 1.month).at_end_of_month, start_date - 1.month,(end_date - 1.month).at_end_of_month)
+
+    user_leaves = current_month_leave = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", (start_date - 1.month).month,(start_date - 1.month).year, (start_date - 1.month).month,(start_date - 1.month).year)
     taken_leave = 0
     user_leaves.each do |leave|
       leave = leave.total_leave_count(start_date - 1.month)
@@ -159,7 +160,8 @@ class User < ApplicationRecord
   end
 
   def self.current_month_leave(user)
-    current_month_leave = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", @start_date,@end_date,@start_date,@end_date)
+    # current_month_leave = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", @start_date,@end_date,@start_date,@end_date)
+    current_month_leave = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", @start_date.month,@start_date.year, @start_date.month,@start_date.year)
     curr_taken_leave = 0
     current_month_leave.each do |leave|
       leave = leave.total_leave_count(@start_date)

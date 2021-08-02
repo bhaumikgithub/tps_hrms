@@ -94,7 +94,11 @@ Rails.application.routes.draw do
       get :filter_date
     end
   end
-  resources :employee_handbooks
+  resources :employee_handbooks do
+    collection do
+      patch :sort
+    end
+  end
   get '/calender' => 'leaves#index', :as => 'calender'
   
 end

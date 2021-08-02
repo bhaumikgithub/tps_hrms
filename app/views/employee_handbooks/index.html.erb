@@ -19,8 +19,9 @@
   </div>
 </div>
 
+<div id="employee_handbooks" class="list-group" data-url="<%= sort_employee_handbooks_path %>">
 <% @resources.each do |resource| %>
-  <div class="row">
+  <div class="row" id="<%= dom_id(resource) %>">
     <div class="col s12">
         <div id="borderless-table" class="card card-tabs">
           <div class="card-content">
@@ -35,6 +36,7 @@
     </div>
   </div>
 <% end %>
+</div>
 <!-- <h5>Employee Handbook</h5>
 <ol>
 
@@ -329,3 +331,19 @@ ul ul ul{
 </style>
 
  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+  document.addEventListener("turbolinks:load", function() {
+    $("#employee_handbooks").sortable({
+      update: function(e, ui) {
+
+        $.ajax({
+          url: '/employee_handbooks/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    });
+  });  
+</script>

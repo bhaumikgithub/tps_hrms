@@ -1,4 +1,6 @@
 //= require jquery
+//= require jquery-ui/widget
+//= require jquery-ui/widgets/sortable
 //= require jquery_ujs
 //= jquery.dataTables.min
 //= require activestorage
@@ -10,8 +12,10 @@
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
+//= require turbolinks
 //= require cropping
   $(document).ready(function(){
+    // $("#employee_handbooks").sortable();
     if($('#user_marital_status').val() == 'Married')
       $('.anniversary_date_div').show()
     else

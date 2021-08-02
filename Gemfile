@@ -90,3 +90,5 @@ gem 'time_difference'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem "audited", "~> 4.9"
+gem 'jquery-ui-rails'
+gem 'acts_as_list'

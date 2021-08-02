@@ -13,10 +13,11 @@ class EmployeeHandbooksController < ApplicationController
   end
 
   def sort
-    params[:employee_handbook].each_with_index do |id, index|
-      EmployeeHandbook.where(id: id).update_all(position: index + 1)
+    if current_user.admin?
+      params[:employee_handbook].each_with_index do |id, index|
+        EmployeeHandbook.where(id: id).update_all(position: index + 1)
+      end
     end
-
     head :ok
   end
 end

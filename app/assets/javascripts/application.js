@@ -12,7 +12,7 @@
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
-//= require turbolinks
+//= require jquery.turbolinks
 //= require cropping
   $(document).ready(function(){
     // $("#employee_handbooks").sortable();

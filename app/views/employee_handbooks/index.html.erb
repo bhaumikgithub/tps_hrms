@@ -21,6 +21,7 @@
 
 <div id="employee_handbooks" class="list-group" data-url="<%= sort_employee_handbooks_path %>">
 <% @resources.each do |resource| %>
+  <a name="<%= resource&.section&.to_s&.parameterize %>"></a>
   <div class="row" id="<%= dom_id(resource) %>">
     <div class="col s12">
         <div id="borderless-table" class="card card-tabs">

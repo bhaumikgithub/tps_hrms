@@ -92,3 +92,4 @@ gem 'wkhtmltopdf-binary'
 gem "audited", "~> 4.9"
 gem 'jquery-ui-rails'
 gem 'acts_as_list'
+gem 'jquery-turbolinks'

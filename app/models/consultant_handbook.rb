@@ -1,0 +1,2 @@
+class ConsultantHandbook < ApplicationRecord
+end

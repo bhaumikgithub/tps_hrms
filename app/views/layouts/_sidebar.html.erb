@@ -47,6 +47,10 @@
           <li class=" <%= active_class(employee_handbooks_path) %> + bold"><%= link_to(employee_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Employee Handbook</span><% end %>
           </li>
         <% end %>
+        <% if (can? :index, ConsultantHandbook) || (can? :manage, ConsultantHandbook) %>
+          <li class=" <%= active_class(consultant_handbooks_path) %> + bold"><%= link_to(consultant_handbooks_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Consultant Handbook</span><% end %>
+          </li>
+        <% end %>
         <% if (can? :index, Asset) || (can? :manage, Asset) %>
           <li class=" <%= active_class(assets_path) %> + bold"><%= link_to(assets_path, class: "waves-effect waves-cyan") do %><i class="material-icons">library_books</i><span class="menu-title" data-i18n="">Assets</span><% end %>
           </li>

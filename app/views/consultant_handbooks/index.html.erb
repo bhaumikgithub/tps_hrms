@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col s12">
+    <div id="borderless-table" class="card card-tabs">
+      <div class="card-content">
+        <div class="">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <div class="">
+                 <p class="font-26">Consultant Handbook</p>
+                </div>
+            </div>
+            <div class="col s12 m6 l2 text-right">
+             <%= link_to 'ADD', new_consultant_handbook_path, class: "btn cyan waves-effect waves-lightc " if (can? :manage, ConsultantHandbook) || (can? :create, ConsultantHandbook) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="consultant_handbooks" class="list-group" data-url="<%= sort_consultant_handbooks_path %>">
+<% @resources.each do |resource| %>
+  <a name="<%= resource&.section&.to_s&.parameterize %>"></a>
+  <div class="row" id="<%= dom_id(resource) %>">
+    <div class="col s12">
+        <div id="borderless-table" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <span class="float-right-cls"><%= link_to "Delete", consultant_handbook_path(resource), method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, EmployeeHandbook) || (can? :destroy, EmployeeHandbook) %></span>
+              <span class="float-right-cls"><%= link_to "Edit", edit_consultant_handbook_path(resource), class: 'mr-20'  if (can? :manage, EmployeeHandbook) || (can? :update, EmployeeHandbook) %></span><br>
+              <b><%= resource.section %></b>
+              <%= resource.content.html_safe %>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+<% end %>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+  document.addEventListener("turbolinks:load", function() {
+    $("#consultant_handbooks").sortable({
+      update: function(e, ui) {
+
+        $.ajax({
+          url: '/consultant_handbooks/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    });
+  });  
+</script>

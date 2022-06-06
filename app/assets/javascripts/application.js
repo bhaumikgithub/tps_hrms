@@ -2,6 +2,7 @@
 //= require jquery-ui/widget
 //= require jquery-ui/widgets/sortable
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= jquery.dataTables.min
 //= require activestorage
 //= plugins
@@ -12,7 +13,6 @@
 //= require moment 
 //= require fullcalendar
 //= require app-calendar
-//= require jquery.turbolinks
 //= require cropping
   $(document).ready(function(){
     $("#employee_handbooks").sortable({

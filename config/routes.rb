@@ -99,6 +99,12 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
+
+  resources :consultant_handbooks do
+    collection do
+      patch :sort
+    end
+  end
   get '/calender' => 'leaves#index', :as => 'calender'
   
 end

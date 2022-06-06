@@ -15,7 +15,26 @@
 //= require jquery.turbolinks
 //= require cropping
   $(document).ready(function(){
-    // $("#employee_handbooks").sortable();
+    $("#employee_handbooks").sortable({
+      update: function(e, ui) {
+
+        $.ajax({
+          url: '/employee_handbooks/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    });
+    $("#consultant_handbooks").sortable({
+      update: function(e, ui) {
+
+        $.ajax({
+          url: '/consultant_handbooks/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    });
     if($('#user_marital_status').val() == 'Married')
       $('.anniversary_date_div').show()
     else

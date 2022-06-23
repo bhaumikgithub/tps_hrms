@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :documents
   has_many :project_members
   has_many :projects, through: :project_members
+  has_many :checklist_item_users,dependent: :destroy
+  has_many :checklist_items, through: :checklist_item_users
   has_many :asset_histories
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }

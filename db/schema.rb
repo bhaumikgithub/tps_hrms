@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_041141) do
+ActiveRecord::Schema.define(version: 2022_06_22_064013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,30 @@ ActiveRecord::Schema.define(version: 2022_06_06_041141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["vendor_id"], name: "index_bills_on_vendor_id"
+  end
+
+  create_table "checklist_item_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "checklist_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checklist_item_id"], name: "index_checklist_item_users_on_checklist_item_id"
+    t.index ["user_id"], name: "index_checklist_item_users_on_user_id"
+  end
+
+  create_table "checklist_items", force: :cascade do |t|
+    t.string "name"
+    t.bigint "checklist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checklist_id"], name: "index_checklist_items_on_checklist_id"
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.string "category"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "companies", force: :cascade do |t|
@@ -431,6 +455,9 @@ ActiveRecord::Schema.define(version: 2022_06_06_041141) do
   add_foreign_key "assets", "asset_types"
   add_foreign_key "assets", "bills"
   add_foreign_key "bills", "vendors"
+  add_foreign_key "checklist_item_users", "checklist_items"
+  add_foreign_key "checklist_item_users", "users"
+  add_foreign_key "checklist_items", "checklists"
   add_foreign_key "credentials", "credential_types"
   add_foreign_key "degrees", "users"
   add_foreign_key "departments", "users"

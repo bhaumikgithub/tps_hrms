@@ -1,0 +1,56 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Checklists", checklists_path , class: "breadcrumb") %>
+      <%= link_to("View Details", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<div class="col s12 card-content-link">
+  <div class="card card-tabs">
+    <div class="card-content">
+      <div class="card-title">
+        <div class="row">
+          <div class="col s12 m6 l10">
+            <h5>Checklists Details</h5>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Category Name</b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.category %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Status</b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.status %></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">  
+        <div class="col s12 m3">
+          <span><b>Checklists</b></span>
+        </div>
+        <div class="col s12 m9">
+          <span><%= @resource&.checklist_items&.pluck(:name).join(", ") %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col s12">
+  <div class="mobile-center">
+    <%= link_to 'Edit', edit_checklist_path(@resource), class: 'btn btn-primary mb-2' if (can? :manage, Checklist) || (can? :update, Checklist) %>
+    <%= link_to 'Delete', checklist_path(@resource), class: 'btn waves-effect waves-light red accent-2 mb-2',  method: :delete, data: {confirm: "Are you sure?"} if (can? :manage, Checklist) || (can? :destroy, Checklist) %>
+    <%= link_to 'Back', checklist_path, class: 'btn cyan waves-effect waves-light mb-2' %>
+  </div>
+</div>

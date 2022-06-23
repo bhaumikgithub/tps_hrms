@@ -1,0 +1,67 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Checklists", checklists_path , class: "breadcrumb") %>
+      <%= link_to("New", '#' , class: "breadcrumb active") %>
+    </div>
+  </div>
+</nav>
+<% if @resource.errors.any? %>
+<ul>
+  <% @resource.errors.full_messages.each do |msg| %>
+    <li class="red_font_clr"><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div id="input-fields" class="card card-tabs">
+      <div class="card-content">
+        <div class="card-title">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <h4 class="card-title">Add Checklist</h4>
+            </div>
+          </div>
+        </div>
+        <div id="view-input-fields">
+          <div class="row">
+            <div class="col s12">
+              <%= form_for @resource, class: 'row' do |f| %>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <%= f.text_field :category, required: true %><br />
+                    <label for="category">Category *</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <%= f.select(:status, Checklist.statuses.keys, {:include_blank => "Select"}, {:class => "some_class"} ) %>
+                    <label for="status">Status</label>
+                  </div>
+                  <fieldset id="ChecklistItems">
+                    <legend>Checklist Items</legend>
+                    <%= f.fields_for :checklist_items do |checklist_item| %>
+                      <%= render 'checklist_item_fields', f: checklist_item %>
+                    <% end %>
+                    <div class="link input-field col s12">
+                      <%= link_to_add_association 'add', f, :checklist_items, class: 'btn green mb-2' %>
+                    </div>
+                  </fieldset>
+                  <div class="input-field col s12 mobile-center">
+                    <%= f.submit 'Submit', class: "btn btn-success mb-2" %>
+                    <%= link_to("Back", checklists_path , class: "btn cyan waves-effect waves-light mb-2" ) %>
+                  </div>
+                </div>
+               <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+/*  .green .add_fields {
+    color: #ffffff;
+  }*/
+</style>

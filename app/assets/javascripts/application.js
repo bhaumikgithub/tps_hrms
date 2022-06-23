@@ -14,6 +14,7 @@
 //= require fullcalendar
 //= require app-calendar
 //= require cropping
+//= require cocoon
   $(document).ready(function(){
     $("#employee_handbooks").sortable({
       update: function(e, ui) {

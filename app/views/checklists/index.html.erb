@@ -1,0 +1,53 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Checklists", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Checklist</span>
+                <% if (can? :manage, Checklist) || (can? :create, Checklist) %>
+                  <span><%= link_to 'ADD', new_checklist_path, class: "btn cyan waves-effect waves-lightc " %></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12 table-responsive">
+                <table id="checklist_table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Checklists</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |checklist| %>
+                      <tr>
+                        <td><%= checklist.category %></td>
+                        <td><%= checklist&.checklist_items&.pluck(:name).join(', ') %></td>
+                        <td><%= checklist.status %></td>
+                        <td><%= link_to 'Show', checklist_path(checklist.id) if (can? :manage, Checklist) || (can? :show, Checklist) %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

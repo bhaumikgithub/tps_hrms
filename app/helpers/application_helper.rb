@@ -16,4 +16,13 @@ module ApplicationHelper
     end
   end
 
+  def is_selected(user_id, checklist_item_id)
+    ciu = ChecklistItemUser.where(user_id: user_id, checklist_item_id: checklist_item_id)
+    if ciu.present?
+      true
+    else
+      false
+    end
+  end
+
 end

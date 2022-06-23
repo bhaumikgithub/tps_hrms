@@ -556,6 +556,41 @@
       </div>
     </div>
   <% end %>
+  <% if current_user.id == @user.id || current_user.admin? %>
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <div class="card-title">
+                <div class="row">
+                  <div class="col s12 m6 l10">
+                    <h5>Profile Completeness</h5>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <% @checklists.each do |checklist| %>
+              <div class="row" id="checklist_module">
+                <div class="col s12 m6 l10">
+                  <div class="col s12 m6 l10" id=<%= "checklist_#{checklist.category.to_s.parameterize(separator: '_')}" %>>
+                    <h6><%= checklist&.category.to_s.titlecase %> (<span id="count-checked-checkboxes">0</span><%= "/#{checklist.checklist_items_count}" %>)</h6>
+                    <% checklist.checklist_items.each do |checklist_item| %>
+                      <label>
+                        <%= check_box_tag 'checklist_item_id', "#{checklist_item.id}", is_selected(@user.id, checklist_item.id), disabled: true %>
+                        <span><%= "#{checklist_item.name.to_s}".titlecase %></span><br>
+                      </label>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <br/>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <div class="col s12 card-content-link">
     <div class="col s12">
       <div class="mobile-center">
@@ -828,7 +863,7 @@
       });
   });
 
-   $(document).ready(function(){
+  $(document).ready(function(){
     $('#edit_contact_detail_modal').modal();
     $('#add_education_detail_modal').modal();
     $('#add_user_designation_modal').modal();
@@ -858,5 +893,39 @@
         cb.val(false);
       }
     });
+
+    $('input[type=checkbox]').on('change', function() {
+      $.ajax({
+        url:  "/users/<%= @user.id %>/create_user_checklist_item",
+        type: "POST",
+        dataType: "json",
+        data: {
+           checklist_item_id: this.value,
+           has_checked: this.checked
+        },
+        success: function(data) {
+        }
+      });
+    });
+
+    var $checkboxes = $('#checklist_module input[type="checkbox"]');
+    if(<%= current_user.admin? %>){
+      $checkboxes.removeAttr('disabled');
+    }
+
+    $checkboxes.each(function( index ) {
+      checkbox_checked_count($(this));
+    });
+    $checkboxes.change(function(){
+      checkbox_checked_count($(this));
+    });
+
+    function checkbox_checked_count(currentobj){
+      var $current_div_id = currentobj.closest('div').attr('id')
+      var $current_checkboxes = $('#'+ $current_div_id +' input[type="checkbox"]');
+      var countCheckedCheckboxes = $current_checkboxes.filter(':checked').length;
+      currentobj.closest('div').find('#count-checked-checkboxes').text(countCheckedCheckboxes) 
+    }
+
   });
 </script>

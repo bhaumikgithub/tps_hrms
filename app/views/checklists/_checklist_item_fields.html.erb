@@ -1,0 +1,11 @@
+<div class="nested-fields">
+  <div class="input-field col s10 field inputs">
+    <%= f.text_field :name, required: true %><br />
+    <label for="name">Name *</label>
+  </div>
+  <div class="input-field col s2 field inputs">
+    <%= link_to_remove_association 'remove', f, class: 'btn waves-effect waves-light red accent-2 mb-2' %>
+  </div>
+  <%#= link_to_remove_association('remove this', f,
+  { wrapper_class: 'my-wrapper-class' })  %>
+</div>

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       get :activation
       get :generate_designation_pdf
       get :withdraw_resignation 
+      post :create_user_checklist_item
     end
     collection do
       post :create_user
@@ -105,6 +106,8 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
+
+  resources :checklists
   get '/calender' => 'leaves#index', :as => 'calender'
   
 end

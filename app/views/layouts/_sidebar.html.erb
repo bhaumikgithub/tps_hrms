@@ -37,6 +37,10 @@
           <li class=" <%= active_class(bills_path) %> + bold"><%= link_to(bills_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Bills</span><% end %>
           </li>
         <% end %>
+        <% if (can? :index, Checklist) || (can? :manage, Checklist) %>
+          <li class=" <%= active_class(checklists_path) %> + bold"><%= link_to(checklists_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Checklist</span><% end %>
+          </li>
+        <% end %>
         <% if (can? :index, Credential) || (can? :manage, Credential) %>
           <li class=" <%= active_class(credentials_path) %> + bold"><%= link_to(credentials_path, class: "waves-effect waves-cyan") do %><i class="material-icons">vpn_key</i><span class="menu-title" data-i18n="">Credentials</span><% end %>
           </li>

@@ -37,7 +37,7 @@
                     <% @resources.each do |checklist| %>
                       <tr>
                         <td><%= checklist.category %></td>
-                        <td><%= checklist&.checklist_items&.pluck(:name).join(', ') %></td>
+                        <td><%= checklist&.checklist_items&.pluck(:name).join("<br>").html_safe %></td>
                         <td><%= checklist.status %></td>
                         <td><%= link_to 'Show', checklist_path(checklist.id) if (can? :manage, Checklist) || (can? :show, Checklist) %></td>
                       </tr>

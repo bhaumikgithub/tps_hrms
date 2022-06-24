@@ -544,7 +544,7 @@
                 <div class="col s12 m6 l10">
                   <% if audit.audited_changes.present? %>
                     <% audit.audited_changes.each do |key, value| %>
-                      <p><%= "#{audit.user.full_name} changed #{key.gsub("_"," ").capitalize} from " %><b><%= "#{value[0]}" %></b> to <b><%= "#{value[1].blank? ? "NULL" : value[1]}" %></b></p> 
+                      <p><%= "#{audit.user.full_name} changed #{key.gsub("_"," ").capitalize} from " %><b><%= "#{value[0]}" %></b> to <b><%= "#{value[1].blank? ? "NULL" : value[1]}" %></b><%= " on #{ audit&.created_at&.try(:strftime, "%d %b %Y")}" %></p>
                     <% end %>
                   <% end %>
                 </div>
@@ -565,22 +565,25 @@
               <div class="card-title">
                 <div class="row">
                   <div class="col s12 m6 l10">
-                    <h5>Profile Completeness</h5>
+                    <h5>Checklists</h5>
                   </div>
                 </div>
               </div>
             </div> 
             <% @checklists.each do |checklist| %>
               <div class="row" id="checklist_module">
-                <div class="col s12 m6 l10">
-                  <div class="col s12 m6 l10" id=<%= "checklist_#{checklist.category.to_s.parameterize(separator: '_')}" %>>
-                    <h6><%= checklist&.category.to_s.titlecase %> (<span id="count-checked-checkboxes">0</span><%= "/#{checklist.checklist_items_count}" %>)</h6>
-                    <% checklist.checklist_items.each do |checklist_item| %>
-                      <label>
-                        <%= check_box_tag 'checklist_item_id', "#{checklist_item.id}", is_selected(@user.id, checklist_item.id), disabled: true %>
-                        <span><%= "#{checklist_item.name.to_s}".titlecase %></span><br>
-                      </label>
-                    <% end %>
+                <div class="col s12 m6 l12">
+                  <div class="col s12 m6 l12" id=<%= "checklist_#{checklist.category.to_s.parameterize(separator: '_')}" %>>
+                    <h6 class="col s12 m6 l8"><%= checklist&.category.to_s.titlecase %> (<span id="count-checked-checkboxes">0</span>/<span id="total_checklist_items"><%= "#{checklist.checklist_items_count}" %></span>) </h6>
+                    <span class="col s12 m6 l4 text_right"><a href="javascript:void(0)" id="completed_list" class="completed_list" hidden>Show list</a><a href="javascript:void(0)" id="hide_list" class="hide_list" hidden>Hide list</a></span><br>
+                    <span id="checklist_items_detail" class="col s12 m6 l10">
+                      <% checklist.checklist_items.each do |checklist_item| %>
+                        <label>
+                          <%= check_box_tag 'checklist_item_id', "#{checklist_item.id}", is_selected(@user.id, checklist_item.id), disabled: true %>
+                          <span><%= "#{checklist_item.name.to_s}".titlecase %></span><br>
+                        </label>
+                      <% end %>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -920,12 +923,38 @@
       checkbox_checked_count($(this));
     });
 
+    $('.completed_list').on("click",function(){
+      $(this).closest('div').find('#checklist_items_detail').attr("hidden",false);
+      $(this).closest('div').find('#completed_list').attr("hidden",true);
+      $(this).closest('div').find('#hide_list').attr("hidden",false);
+    })
+
+    $('.hide_list').on("click",function(){
+      $(this).closest('div').find('#checklist_items_detail').attr("hidden",true);
+      $(this).closest('div').find('#completed_list').attr("hidden",false);
+      $(this).closest('div').find('#hide_list').attr("hidden",true);
+    })
+
     function checkbox_checked_count(currentobj){
       var $current_div_id = currentobj.closest('div').attr('id')
       var $current_checkboxes = $('#'+ $current_div_id +' input[type="checkbox"]');
       var countCheckedCheckboxes = $current_checkboxes.filter(':checked').length;
-      currentobj.closest('div').find('#count-checked-checkboxes').text(countCheckedCheckboxes) 
+      currentobj.closest('div').find('#count-checked-checkboxes').text(countCheckedCheckboxes)
+      var totalChecklistItem = currentobj.closest('div').find('#total_checklist_items').text()
+      if (countCheckedCheckboxes == totalChecklistItem){
+        currentobj.closest('div').find('#completed_list').attr("hidden",false);
+        currentobj.closest('div').find('#checklist_items_detail').attr("hidden",true);
+      }else{
+        currentobj.closest('div').find('#completed_list').attr("hidden",true);
+        currentobj.closest('div').find('#checklist_items_detail').attr("hidden",false);
+        currentobj.closest('div').find('#hide_list').attr("hidden",true);
+      }
     }
 
   });
 </script>
+<style type="text/css">
+  .text_right{
+    text-align: right;
+  }
+</style>

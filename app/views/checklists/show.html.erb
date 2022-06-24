@@ -41,7 +41,7 @@
           <span><b>Checklists</b></span>
         </div>
         <div class="col s12 m9">
-          <span><%= @resource&.checklist_items&.pluck(:name).join(", ") %></span>
+          <span><%= @resource&.checklist_items&.pluck(:name).join("<br>").html_safe %></span>
         </div>
       </div>
     </div>

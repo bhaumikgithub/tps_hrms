@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation]
   
-  skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile, :create_user_checklist_item]
+  skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile, :create_user_checklist_item, :delete_user_checklist_item]
   before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation]
   before_action :find_education_user, only: [:update_education]
   before_action :find_education, only: [:update_education]
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @educations = @user.educations
     @user_designations = @user.user_designations
     @user_type_history = @user.audits.reverse
-    @checklists = Checklist.joins(:checklist_items).where(status: 'Active').select("checklists.*, count(checklist_items) as checklist_items_count").group('checklists.id')
+    @checklists = Checklist.joins(:checklist_items, users: :checklist_users).where(checklist_users: {user_id: @user.id}).where(status: 'Active').group('checklists.id')
 
   end
 
@@ -231,6 +231,15 @@ class UsersController < ApplicationController
       end
       render json: "Checklist item deleted"
     end
+  end
+
+
+  def delete_user_checklist_item
+    @checklist_user = ChecklistUser.find_by(checklist_id: params[:checklist_id], user_id: params[:id] )
+    if @checklist_user.present?
+        @checklist_user.destroy
+    end
+    render json: "Checklist deleted"
   end
   private
 

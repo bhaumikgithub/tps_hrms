@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get :generate_designation_pdf
       get :withdraw_resignation 
       post :create_user_checklist_item
+      delete :delete_user_checklist_item
     end
     collection do
       post :create_user

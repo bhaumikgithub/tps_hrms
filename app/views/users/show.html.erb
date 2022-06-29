@@ -571,11 +571,14 @@
               </div>
             </div> 
             <% @checklists.each do |checklist| %>
-              <div class="row" id="checklist_module">
+              <div class="row" id="checklist_module" data-myval=<%= "#{checklist.id.to_s}" %>>
                 <div class="col s12 m6 l12">
                   <div class="col s12 m6 l12" id=<%= "checklist_#{checklist.category.to_s.parameterize(separator: '_')}" %>>
-                    <h6 class="col s12 m6 l8"><%= checklist&.category.to_s.titlecase %> (<span id="count-checked-checkboxes">0</span>/<span id="total_checklist_items"><%= "#{checklist.checklist_items_count}" %></span>) </h6>
-                    <span class="col s12 m6 l4 text_right"><a href="javascript:void(0)" id="completed_list" class="completed_list" hidden>Show list</a><a href="javascript:void(0)" id="hide_list" class="hide_list" hidden>Hide list</a></span><br>
+                    <h6 class="col s12 m6 l8"><%= checklist&.category.to_s.titlecase %> (<span id="count-checked-checkboxes">0</span>/<span id="total_checklist_items"><%= "#{checklist.checklist_items.count}" %></span>) </h6>
+                    <span class="col s12 m6 l4 text_right">
+                      <a href="javascript:void(0)" id="completed_list" class="completed_list" hidden><i class="material-icons">keyboard_arrow_down</i></a>
+                      <a href="javascript:void(0)" id="hide_list" class="hide_list" hidden><i class="material-icons">keyboard_arrow_up</i></a>
+                      <a href="javascript:void(0)" id="remove_list" class="remove_list"><i class="material-icons">delete</i></a></span><br>
                     <span id="checklist_items_detail" class="col s12 m6 l10">
                       <% checklist.checklist_items.each do |checklist_item| %>
                         <label>
@@ -910,6 +913,22 @@
         }
       });
     });
+
+    $('.remove_list').on("click",function(){
+      var current_checklist = $(this).closest("#checklist_module")
+      var checklist_id = $(this).closest("#checklist_module").data('myval');
+      current_checklist.remove();
+      $.ajax({
+        url:  "/users/<%= @user.id %>/delete_user_checklist_item",
+        type: "DELETE",
+        dataType: "json",
+        data: {
+           checklist_id: checklist_id
+        },
+        success: function(data) {
+        }
+      });
+    })
 
     var $checkboxes = $('#checklist_module input[type="checkbox"]');
     if(<%= current_user.admin? %>){

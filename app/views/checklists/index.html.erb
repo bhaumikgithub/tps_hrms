@@ -21,10 +21,11 @@
               </div>
             </div>
           </div>
+
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12 table-responsive">
-                <table id="checklist_table">
+                <table id="checklists" class="list-group" data-url="<%= sort_checklists_path %>">
                   <thead>
                     <tr>
                       <th>Category</th>
@@ -35,7 +36,7 @@
                   </thead>
                   <tbody>
                     <% @resources.each do |checklist| %>
-                      <tr>
+                      <tr id="<%= dom_id(checklist) %>">
                         <td><%= checklist.category %></td>
                         <td><%= checklist&.checklist_items&.pluck(:name).map{|e| content_tag(:li, e) }.inject(:+).html_safe %></td>
                         <td><%= checklist.status %></td>
@@ -51,3 +52,31 @@
       </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+  $(function() {
+    $("#checklists tbody").sortable({
+      cursor: "move",
+      placeholder: "sortable-placeholder",
+      helper: function(e, tr)
+      {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+        $helper.children().each(function(index)
+        {
+        // Set helper cell sizes to match the original sizes
+        $(this).width($originals.eq(index).width());
+        });
+        return $helper;
+      },
+      update: function(e, ui) {
+        $.ajax({
+          url: '/checklists/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    }).disableSelection();
+  });
+</script>

@@ -36,6 +36,7 @@
         });
       }
     });
+
     if($('#user_marital_status').val() == 'Married')
       $('.anniversary_date_div').show()
     else

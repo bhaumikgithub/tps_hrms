@@ -108,7 +108,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :checklists
+  resources :checklists do
+    collection do
+      patch :sort
+    end
+  end
   get '/calender' => 'leaves#index', :as => 'calender'
   
 end

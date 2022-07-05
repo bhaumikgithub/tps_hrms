@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @educations = @user.educations
     @user_designations = @user.user_designations
     @user_type_history = @user.audits.reverse
-    @checklists = Checklist.joins(:checklist_items, users: :checklist_users).where(checklist_users: {user_id: @user.id}).where(status: 'Active').group('checklists.id')
+    @checklists = Checklist.joins(:checklist_items, users: :checklist_users).where(checklist_users: {user_id: @user.id}).where(status: 'Active').group('checklists.id').order('position ASC')
 
   end
 

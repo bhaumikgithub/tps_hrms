@@ -245,63 +245,6 @@
       </div>
     </div>
 
-  <% if true  %>
-    <div class="col s12 card-content-link">
-      <div class="card card-tabs">
-        <div class="card-content">
-          <div class="row">
-            <div class="col s12 m6 l10">
-                  <div class="card-title">
-                <div class="row">
-              <div class="col s12 m6 l10">
-              <h5>Education Details</h5>
-            </div>
-          </div>
-            </div>
-          </div>
-            <% if current_user.admin? %>
-              <div class="col s12 m6 l2">
-                <ul class="profile-ui">
-                  <li><%= link_to("#add_education_detail_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
-                </ul>
-              </div>
-            <% end %>
-          </div>
-    
-          
-        <% @educations.order(from: :desc).each do |education| %>
-          <div class="row">  
-            <div class="col s12 m6 l10">
-              <span><b><%= "#{education.degree&.name} | #{education.college}"  %></b></span>
-              <br/>
-
-              <% if education.is_current == true %>
-                <span><%= "#{education&.from.try(:strftime, "%b %Y")} - Current" %></span><br/>
-              <% else %>
-                <span><%= "#{education&.from.try(:strftime, "%b %Y")} - #{education&.to.try(:strftime, "%b %Y")}" %></span><br/>
-              <% end %>
-              <span><b><%= "Studied #{education.degree&.name} from the #{education.university}."  %></b></span><br/>
-            </div>
-            <div class="col s12 m6 l2">
-              <% if current_user.admin? %>
-                <%= link_to edit_education_detail_modal_users_path(id: @user.id, education_id: education.id), :remote => true do %>
-                  <i class="material-icons">edit</i>
-                <% end %>
-
-                <%= link_to delete_education_users_path(id: @user.id, education_id: education.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
-                  <i class="material-icons">delete</i>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <br>
-        <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  
-  
   <div class="col s12 card-content-link">
     <div class="card card-tabs">
       <div class="card-content">
@@ -366,6 +309,63 @@
       </div>
     </div>
   </div>
+
+  <% if true  %>
+    <div class="col s12 card-content-link">
+      <div class="card card-tabs">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 m6 l10">
+                  <div class="card-title">
+                <div class="row">
+              <div class="col s12 m6 l10">
+              <h5>Education Details</h5>
+            </div>
+          </div>
+            </div>
+          </div>
+            <% if current_user.admin? %>
+              <div class="col s12 m6 l2">
+                <ul class="profile-ui">
+                  <li><%= link_to("#add_education_detail_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+    
+          
+        <% @educations.order(from: :desc).each do |education| %>
+          <div class="row">  
+            <div class="col s12 m6 l10">
+              <span><b><%= "#{education.degree&.name} | #{education.college}"  %></b></span>
+              <br/>
+
+              <% if education.is_current == true %>
+                <span><%= "#{education&.from.try(:strftime, "%b %Y")} - Current" %></span><br/>
+              <% else %>
+                <span><%= "#{education&.from.try(:strftime, "%b %Y")} - #{education&.to.try(:strftime, "%b %Y")}" %></span><br/>
+              <% end %>
+              <span><b><%= "Studied #{education.degree&.name} from the #{education.university}."  %></b></span><br/>
+            </div>
+            <div class="col s12 m6 l2">
+              <% if current_user.admin? %>
+                <%= link_to edit_education_detail_modal_users_path(id: @user.id, education_id: education.id), :remote => true do %>
+                  <i class="material-icons">edit</i>
+                <% end %>
+
+                <%= link_to delete_education_users_path(id: @user.id, education_id: education.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <br>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <% if (can? :manage, Document) || (can? :show, Document) %>
     <div class="col s12 card-content-link">
       <div class="card card-tabs">
@@ -578,7 +578,7 @@
                     <span class="col s12 m6 l4 text_right">
                       <a href="javascript:void(0)" id="completed_list" class="completed_list" hidden><i class="material-icons">keyboard_arrow_down</i></a>
                       <a href="javascript:void(0)" id="hide_list" class="hide_list" hidden><i class="material-icons">keyboard_arrow_up</i></a>
-                      <a href="javascript:void(0)" id="remove_list" class="remove_list"><i class="material-icons">delete</i></a></span><br>
+                      <a href="javascript:void(0)" id="remove_list" class="remove_list" data-confirm="Are you sure?" data-method="delete"><i class="material-icons">delete</i></a></span><br>
                     <span id="checklist_items_detail" class="col s12 m6 l10">
                       <% checklist.checklist_items.each do |checklist_item| %>
                         <label>

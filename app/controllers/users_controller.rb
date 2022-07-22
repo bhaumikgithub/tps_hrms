@@ -30,6 +30,12 @@ class UsersController < ApplicationController
     @user_type_history = @user.audits.reverse
     @checklists = Checklist.joins(:checklist_items, users: :checklist_users).where(checklist_users: {user_id: @user.id}).where(status: 'Active').group('checklists.id').order('position ASC')
 
+    @start_date = Date.today.at_beginning_of_month
+    @end_date = Date.today.at_end_of_month
+
+    @taken_leave = User.taken_leave(@user,@start_date,@end_date).to_i
+    @free_leave = @user.free_leaves.find_by_leave_month(@start_date).to_i + 1
+    @prev_leave_bal = @user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 1.month).try(:current_leave_bal).to_i
   end
 
   def create_user

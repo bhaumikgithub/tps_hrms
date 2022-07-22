@@ -578,7 +578,7 @@
                     <span class="col s12 m6 l4 text_right">
                       <a href="javascript:void(0)" id="completed_list" class="completed_list" hidden><i class="material-icons">keyboard_arrow_down</i></a>
                       <a href="javascript:void(0)" id="hide_list" class="hide_list" hidden><i class="material-icons">keyboard_arrow_up</i></a>
-                      <a href="javascript:void(0)" id="remove_list" class="remove_list" data-confirm="Are you sure?" data-method="delete"><i class="material-icons">delete</i></a></span><br>
+                      <a href="javascript:void(0)" id="remove_list" class="remove_list" data-method="delete"><i class="material-icons">delete</i></a></span><br>
                     <span id="checklist_items_detail" class="col s12 m6 l10">
                       <% checklist.checklist_items.each do |checklist_item| %>
                         <label>
@@ -917,17 +917,21 @@
     $('.remove_list').on("click",function(){
       var current_checklist = $(this).closest("#checklist_module")
       var checklist_id = $(this).closest("#checklist_module").data('myval');
-      current_checklist.remove();
-      $.ajax({
-        url:  "/users/<%= @user.id %>/delete_user_checklist_item",
-        type: "DELETE",
-        dataType: "json",
-        data: {
-           checklist_id: checklist_id
-        },
-        success: function(data) {
-        }
-      });
+      if(confirm("Are you sure?")){
+        current_checklist.remove();
+        $.ajax({
+          url:  "/users/<%= @user.id %>/delete_user_checklist_item",
+          type: "DELETE",
+          dataType: "json",
+          data: {
+             checklist_id: checklist_id
+          },
+          success: function(data) {
+          }
+        });
+      } else{
+        return false;
+      }
     })
 
     var $checkboxes = $('#checklist_module input[type="checkbox"]');

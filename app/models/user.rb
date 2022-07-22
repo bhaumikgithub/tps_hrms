@@ -168,7 +168,7 @@ class User < ApplicationRecord
     current_month_leave = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", start_date.month,start_date.year, start_date.month,start_date.year)
     curr_taken_leave = 0
     current_month_leave.each do |leave|
-      leave = leave.total_leave_count(@start_date)
+      leave = leave.total_leave_count(start_date)
       curr_taken_leave += leave
     end
     return curr_taken_leave

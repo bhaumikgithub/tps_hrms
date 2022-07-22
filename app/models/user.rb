@@ -142,7 +142,7 @@ class User < ApplicationRecord
         user.update(leave_bal: (user.leave_bal.to_f + @current_free_leave))
 
         # Update current month leave if taken any leave on this current month
-        current_month_leave = User.current_month_leave(user)
+        current_month_leave = User.current_month_leave(user,@start_date)
         user.update(leave_bal: (user.leave_bal.to_f - current_month_leave))
       end
     end
@@ -163,9 +163,9 @@ class User < ApplicationRecord
     user.leave_reports.create(start_month: @start_date - 1.month, end_month: (@end_date - 1.month).at_end_of_month, prev_month_leave_bal: @prev_month_leave_bal, free_leave: @free_leave, taken_leave: @taken_leave, current_leave_bal: @current_bal)
   end
 
-  def self.current_month_leave(user)
+  def self.current_month_leave(user, start_date)
     # current_month_leave = user.user_leaves.where("leave_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", @start_date,@end_date,@start_date,@end_date)
-    current_month_leave = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", @start_date.month,@start_date.year, @start_date.month,@start_date.year)
+    current_month_leave = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", start_date.month,start_date.year, start_date.month,start_date.year)
     curr_taken_leave = 0
     current_month_leave.each do |leave|
       leave = leave.total_leave_count(@start_date)

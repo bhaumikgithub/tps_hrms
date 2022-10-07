@@ -99,10 +99,10 @@ class User < ApplicationRecord
   end
 
   def user_month_leave month, year
-    half_leave = self.user_leaves.where("leave_type IN (?)", ["first half","second half"]).where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", month, year, month, year).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
+    half_leave = self.user_leaves.where("leave_type IN (?)", ["first half","second half"]).where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", month, year, month, year).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
     # sum = self.user_leaves.where.not("leave_type IN (?)", ["first half","second half", "wfh"]).where( '(EXTRACT(month FROM leave_date) = ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) = ? AND EXTRACT(year FROM end_date) = ?) ',month, year, month, year ).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
 
-    sum = self.user_leaves.where.not("leave_type IN (?)", ["first half","second half", "wfh"]).where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", month, year, month, year).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
+    sum = self.user_leaves.where.not("leave_type IN (?)", ["first half","second half", "wfh"]).where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) OR (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", month, year, month, year).map{ |e| e.leave_array[0].map{|e| e if (e.month == month && e.year == year) }}
 
     (half_leave.flatten.compact.count/2.to_f) + sum.flatten.compact.count
   end
@@ -150,7 +150,7 @@ class User < ApplicationRecord
 
   def self.taken_leave(user,start_date,end_date)
 
-    user_leaves = current_month_leave = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", (start_date - 1.month).month,(start_date - 1.month).year, (start_date - 1.month).month,(start_date - 1.month).year)
+    user_leaves = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", (start_date - 1.month).month,(start_date - 1.month).year, (start_date - 1.month).month,(start_date - 1.month).year)
     taken_leave = 0
     user_leaves.each do |leave|
       leave = leave.total_leave_count(start_date - 1.month)

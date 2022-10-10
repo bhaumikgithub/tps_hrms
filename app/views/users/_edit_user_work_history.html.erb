@@ -1,0 +1,41 @@
+<div id="edit_user_work_history" class="modal">
+  <div class="modal-content">
+    <h4>Worked/Working With</h4>
+    <%= form_for :work_history, :url => url_for(:controller => 'users', :action => 'update_user_work_history'), method: :patch do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col s12">
+                  <%= f.text_area :year,  id: "work_year", class: "materialize-textarea", required: true %><br />
+                  <label for="work_year">Year</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.text_area :mentor,  id: "mentor_name", class: "materialize-textarea", required: true %><br />
+                  <label for="mentor_name">As a mentor of</label>
+                </div>
+                <%= f.hidden_field :user_id, :value => @work_history.user_id %>
+                <%= hidden_field_tag :work_history_id, @work_history.id %>
+                <div class="input-field col s12">
+                  <%= f.text_area :peer,  id: "peer_name", class: "materialize-textarea", required: true %><br />
+                  <label for="peer_name">As a peer of</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <%= f.text_area :team_member,  id: "team_member_name", class: "materialize-textarea", required: true %><br />
+                  <label for="team_member_name">As a team member of</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancel</a>
+      </div>
+    <% end %>
+  </div>
+</div>

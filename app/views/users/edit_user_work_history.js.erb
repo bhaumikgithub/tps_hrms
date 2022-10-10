@@ -1,0 +1,7 @@
+var $modal = $('#work_history_modal').modal();
+// $('.modal').modal();
+$modal.html('<%= escape_javascript(render partial: "edit_user_work_history",locals: {education: @education} ) %>');
+
+$('.modal').modal();
+$('#edit_user_work_history').modal('open');
+$('.trigger-modal').modal();

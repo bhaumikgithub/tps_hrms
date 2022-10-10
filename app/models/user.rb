@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :educations
   has_many :user_designations
   has_many :documents
+  has_many :work_histories
   has_many :project_members
   has_many :projects, through: :project_members
   has_many :checklist_item_users,dependent: :destroy

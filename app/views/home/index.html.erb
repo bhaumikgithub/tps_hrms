@@ -82,7 +82,8 @@
   <div class= '<%= current_user.admin? ? "col l9 s12" : "col s12"  %>' >
       <div class="row d-flex upcoming-card">
         <% unless current_user.admin? %>
-          <div class="col l6 s12 d-flex">
+          <%if current_user.user_type != 'Consultant'%>
+            <div class="col l6 s12 d-flex">
             <div class="card w-100">
               <div class="card-content">
                 <span class="font-22">Leave Balance</span><span class="span-wrap">(Upto end of current month)</span>
@@ -92,6 +93,7 @@
               </div>
             </div>
           </div>
+          <%end%>
         <% end %>
         <div class="col l6 s12 d-flex">
           <div class="card w-100">

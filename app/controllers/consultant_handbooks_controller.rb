@@ -3,7 +3,7 @@ class ConsultantHandbooksController < ApplicationController
   skip_authorize_resource :only => [:sort]
   skip_before_action :verify_authenticity_token, :only => [:sort]
   include InheritAction
-
+  
   def index
     @resources = ConsultantHandbook.all.order('position ASC')
     respond_to do |format|

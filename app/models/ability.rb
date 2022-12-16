@@ -5,6 +5,14 @@ class Ability
 
   def initialize(user)
     @user = user || User.new
+    if @user.user_type == 'Consultant'
+      can :read , ConsultantHandbook
+    elsif @user.user_type == 'Employee'
+      can :read , EmployeeHandbook
+    elsif @user.user_type == 'Director' || @user.user_type == 'Admin' 
+      can :all, ConsultantHandbook
+      can :all, EmployeeHandbook
+    end
     # if @user.team_leader? || @user.admin?
     #     can [:read, :manage], Leave
     #     can :manage, [ User, Holiday ,EmployeeHandbook ,Designation ,Degree ,Department ,EventLink ,CredentialType ,Credential ,EventCategory ,Vendor ,Bill ,AssetType ,Asset ,AssetHistory]

@@ -118,7 +118,8 @@ class User < ApplicationRecord
     if Date.today.at_beginning_of_month == Date.today.at_beginning_of_month
       User.where.not(user_type: "Director").where(job_status: 'Active').each do |user|
         # Return Taken Leave Balance
-        @taken_leave = User.taken_leave(user,@start_date,@end_date)
+        # @taken_leave = User.taken_leave(user,@start_date,@end_date)
+        @taken_leave = user.user_month_leave((@start_date - 1.month).month, (@start_date - 1.month).year)
         prev_extra_leave = user.free_leaves.find_by_leave_month(@start_date - 1.month)
         @free_leave = prev_extra_leave.present? ? prev_extra_leave.extra_leave + 1 : 1
         # @free_leave = 1
@@ -151,7 +152,12 @@ class User < ApplicationRecord
 
   def self.taken_leave(user,start_date,end_date)
 
-    user_leaves = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", (start_date - 1.month).month,(start_date - 1.month).year, (start_date - 1.month).month,(start_date - 1.month).year)
+    # user_leaves = user.user_leaves.where("((EXTRACT(month FROM leave_date) <= ? AND EXTRACT(year FROM leave_date) = ?) AND (EXTRACT(month FROM end_date) >= ? AND EXTRACT(year FROM end_date) = ?))", (start_date - 1.month).month,(start_date - 1.month).year, (start_date - 1.month).month,(start_date - 1.month).year)
+
+    # Working the below query
+
+    user_leaves = user.user_leaves.where("(leave_date <= ? OR leave_date >= ?) AND (end_date >= ? OR end_date >= ?) ",@start_date, @start_date,@end_date,@start_date )
+
     taken_leave = 0
     user_leaves.each do |leave|
       leave = leave.total_leave_count(start_date - 1.month)

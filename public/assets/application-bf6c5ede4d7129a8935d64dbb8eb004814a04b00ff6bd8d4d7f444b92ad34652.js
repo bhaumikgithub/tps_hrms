@@ -1,3 +1,137 @@
+
+
+
+
+
+
+// = jquery.dataTables.min
+
+// = plugins
+
+// = materialize
+// = vendors.min
+
+
+
+
+
+
+
+  $(document).ready(function(){
+    $("#employee_handbooks").sortable({
+      update: function(e, ui) {
+
+        $.ajax({
+          url: '/employee_handbooks/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    });
+    $("#consultant_handbooks").sortable({
+      update: function(e, ui) {
+
+        $.ajax({
+          url: '/consultant_handbooks/sort',
+          type: 'PATCH',
+          data: $(this).sortable('serialize')
+        });
+      }
+    });
+
+    if($('#user_marital_status').val() == 'Married')
+      $('.anniversary_date_div').show()
+    else
+      $('.anniversary_date_div').hide()
+    $("#user_marital_status").on('change', function() {
+      if($('option:selected', this).text() == 'Married')
+        $('.anniversary_date_div').show()
+      else
+        $('.anniversary_date_div').hide()
+    });
+    var currentYear = (new Date).getFullYear()
+    $('.birthdate ').datepicker({
+      yearRange: [currentYear - 50,currentYear -14],
+    });
+    $('.join_date, .anniversary_date').datepicker({
+       yearRange: [currentYear - 50,currentYear],
+    });
+     $('.join_date').datepicker({
+
+       yearRange: [2011 ,currentYear],
+    });
+    $('.arrange_date').datepicker({
+       yearRange: [2011 ,currentYear],
+    });
+
+
+    // $('.asset_to_date').datepicker();
+
+    console.log("this js is working in applicaion")
+    $('.arrange_time').timepicker();
+    $('.leave_date, .datepicker').datepicker();
+    $('.leave_end_date').datepicker({
+      onOpen: function(){
+        var startDate = new Date($("#start_date").val());
+        var instance = M.Datepicker.getInstance($('.leave_end_date'));
+        instance.options.minDate = new Date(startDate);
+      }
+    });
+
+    var cdate = new Date();
+    $('.free_leave_date').datepicker({
+      firstDay: 1,
+      selectMonths: true,
+      defaultDate: cdate,
+      setDefaultDate: true,
+      onOpen: function(){
+        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), 1);
+        var instance = M.Datepicker.getInstance($('.free_leave_date'));
+        instance.options.minDate = new Date(minDate);
+      },
+      disableDayFn: function(date) {
+        if (date.getDate() == 1)
+          return false;
+        else
+          return true;
+      }
+    });
+
+    function startOfMonth(date)
+    {
+      return new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+
+    $('.from_education_date').datepicker({
+      firstDay: 1,
+      selectMonths: true,
+      defaultDate: startOfMonth(cdate),
+      setDefaultDate: true,
+      disableDayFn: function(date) {
+        if (date.getDate() == 1)
+          return false;
+        else
+          return true;
+      }
+    });
+
+    $('.to_education_date').datepicker({
+      firstDay: 1,
+      onOpen: function(){
+        var startDate = new Date($("#start_education_date").val());
+        var instance = M.Datepicker.getInstance($('.to_education_date'));
+        instance.options.minDate = new Date(startDate);
+      },
+      disableDayFn: function(date) {
+        if (date.getDate() == 1)
+          return false;
+        else
+          return true;
+      }
+    });
+
+
+  });
 /*!
  * jQuery JavaScript Library v1.12.4
  * http://jquery.com/
@@ -17346,6 +17480,10 @@ $(document).ready(function() {
   this.App || (this.App = {});
 
   App.cable = ActionCable.createConsumer();
+
+}).call(this);
+(function() {
+
 
 }).call(this);
 CKEDITOR.config.coreStyles_bold = { element : 'b', overrides : 'strong' };
@@ -49965,133 +50103,142 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /***/ })
 /******/ ]);
 });
+(function($) {
 
+  var cocoon_element_counter = 0;
 
+  var create_new_id = function() {
+    return (new Date().getTime() + cocoon_element_counter++);
+  }
 
+  var newcontent_braced = function(id) {
+    return '[' + id + ']$1';
+  }
 
+  var newcontent_underscord = function(id) {
+    return '_' + id + '_$1';
+  }
 
-//= jquery.dataTables.min
+  var getInsertionNodeElem = function(insertionNode, insertionTraversal, $this){
 
-//= plugins
-
-//= materialize
-//= vendors.min
-
-
-
-
-
-  $(document).ready(function(){
-    $("#employee_handbooks").sortable({
-      update: function(e, ui) {
-
-        $.ajax({
-          url: '/employee_handbooks/sort',
-          type: 'PATCH',
-          data: $(this).sortable('serialize')
-        });
-      }
-    });
-    $("#consultant_handbooks").sortable({
-      update: function(e, ui) {
-
-        $.ajax({
-          url: '/consultant_handbooks/sort',
-          type: 'PATCH',
-          data: $(this).sortable('serialize')
-        });
-      }
-    });
-    if($('#user_marital_status').val() == 'Married')
-      $('.anniversary_date_div').show()
-    else
-      $('.anniversary_date_div').hide()
-    $("#user_marital_status").on('change', function() {
-      if($('option:selected', this).text() == 'Married')
-        $('.anniversary_date_div').show()
-      else
-        $('.anniversary_date_div').hide()
-    });
-    var currentYear = (new Date).getFullYear()
-    $('.birthdate ').datepicker({
-      yearRange: [currentYear - 50,currentYear -14],
-    });
-    $('.join_date, .anniversary_date').datepicker({
-       yearRange: [currentYear - 50,currentYear],
-    });
-     $('.join_date').datepicker({
-
-       yearRange: [2011 ,currentYear],
-    });
-    $('.arrange_date').datepicker({
-       yearRange: [2011 ,currentYear],
-    });
-
-
-    // $('.asset_to_date').datepicker();
-
-
-    $('.arrange_time').timepicker();
-    $('.leave_date, .datepicker').datepicker();
-    $('.leave_end_date').datepicker({
-      onOpen: function(){
-        var startDate = new Date($("#start_date").val());
-        var instance = M.Datepicker.getInstance($('.leave_end_date'));
-        instance.options.minDate = new Date(startDate);
-      }
-    });
-
-    var cdate = new Date();
-    $('.free_leave_date').datepicker({
-      firstDay: 1,
-      selectMonths: true,
-      defaultDate: cdate,
-      setDefaultDate: true,
-      onOpen: function(){
-        var minDate = new Date(cdate.getFullYear(), cdate.getMonth(), 1);
-        var instance = M.Datepicker.getInstance($('.free_leave_date'));
-        instance.options.minDate = new Date(minDate);
-      },
-      disableDayFn: function(date) {
-        if (date.getDate() == 1)
-          return false;
-        else
-          return true;
-      }
-    });
-
-    function startOfMonth(date)
-    {
-      return new Date(date.getFullYear(), date.getMonth(), 1);
+    if (!insertionNode){
+      return $this.parent();
     }
 
-    $('.from_education_date').datepicker({
-      firstDay: 1,
-      selectMonths: true,
-      defaultDate: startOfMonth(cdate),
-      setDefaultDate: true,
-      disableDayFn: function(date) {
-        if (date.getDate() == 1)
-          return false;
-        else
-          return true;
+    if (typeof insertionNode == 'function'){
+      if(insertionTraversal){
+        console.warn('association-insertion-traversal is ignored, because association-insertion-node is given as a function.')
+      }
+      return insertionNode($this);
+    }
+
+    if(typeof insertionNode == 'string'){
+      if (insertionTraversal){
+        return $this[insertionTraversal](insertionNode);
+      }else{
+        return insertionNode == "this" ? $this : $(insertionNode);
+      }
+    }
+
+  }
+
+  $(document).on('click', '.add_fields', function(e) {
+    e.preventDefault();
+    var $this                 = $(this),
+        assoc                 = $this.data('association'),
+        assocs                = $this.data('associations'),
+        content               = $this.data('association-insertion-template'),
+        insertionMethod       = $this.data('association-insertion-method') || $this.data('association-insertion-position') || 'before',
+        insertionNode         = $this.data('association-insertion-node'),
+        insertionTraversal    = $this.data('association-insertion-traversal'),
+        count                 = parseInt($this.data('count'), 10),
+        regexp_braced         = new RegExp('\\[new_' + assoc + '\\](.*?\\s)', 'g'),
+        regexp_underscord     = new RegExp('_new_' + assoc + '_(\\w*)', 'g'),
+        new_id                = create_new_id(),
+        new_content           = content.replace(regexp_braced, newcontent_braced(new_id)),
+        new_contents          = [];
+
+
+    if (new_content == content) {
+      regexp_braced     = new RegExp('\\[new_' + assocs + '\\](.*?\\s)', 'g');
+      regexp_underscord = new RegExp('_new_' + assocs + '_(\\w*)', 'g');
+      new_content       = content.replace(regexp_braced, newcontent_braced(new_id));
+    }
+
+    new_content = new_content.replace(regexp_underscord, newcontent_underscord(new_id));
+    new_contents = [new_content];
+
+    count = (isNaN(count) ? 1 : Math.max(count, 1));
+    count -= 1;
+
+    while (count) {
+      new_id      = create_new_id();
+      new_content = content.replace(regexp_braced, newcontent_braced(new_id));
+      new_content = new_content.replace(regexp_underscord, newcontent_underscord(new_id));
+      new_contents.push(new_content);
+
+      count -= 1;
+    }
+
+    var insertionNodeElem = getInsertionNodeElem(insertionNode, insertionTraversal, $this)
+
+    if( !insertionNodeElem || (insertionNodeElem.length == 0) ){
+      console.warn("Couldn't find the element to insert the template. Make sure your `data-association-insertion-*` on `link_to_add_association` is correct.")
+    }
+
+    $.each(new_contents, function(i, node) {
+      var contentNode = $(node);
+
+      var before_insert = jQuery.Event('cocoon:before-insert');
+      insertionNodeElem.trigger(before_insert, [contentNode]);
+
+      if (!before_insert.isDefaultPrevented()) {
+        // allow any of the jquery dom manipulation methods (after, before, append, prepend, etc)
+        // to be called on the node.  allows the insertion node to be the parent of the inserted
+        // code and doesn't force it to be a sibling like after/before does. default: 'before'
+        var addedContent = insertionNodeElem[insertionMethod](contentNode);
+
+        insertionNodeElem.trigger('cocoon:after-insert', [contentNode]);
       }
     });
-
-    $('.to_education_date').datepicker({
-      firstDay: 1,
-      onOpen: function(){
-        var startDate = new Date($("#start_education_date").val());
-        var instance = M.Datepicker.getInstance($('.to_education_date'));
-        instance.options.minDate = new Date(startDate);
-      },
-      disableDayFn: function(date) {
-        if (date.getDate() == 1)
-          return false;
-        else
-          return true;
-      }
-    });
-
-
   });
+
+  $(document).on('click', '.remove_fields.dynamic, .remove_fields.existing', function(e) {
+    var $this = $(this),
+        wrapper_class = $this.data('wrapper-class') || 'nested-fields',
+        node_to_delete = $this.closest('.' + wrapper_class),
+        trigger_node = node_to_delete.parent();
+
+    e.preventDefault();
+
+    var before_remove = jQuery.Event('cocoon:before-remove');
+    trigger_node.trigger(before_remove, [node_to_delete]);
+
+    if (!before_remove.isDefaultPrevented()) {
+      var timeout = trigger_node.data('remove-timeout') || 0;
+
+      setTimeout(function() {
+        if ($this.hasClass('dynamic')) {
+            node_to_delete.detach();
+        } else {
+            $this.prev("input[type=hidden]").val("1");
+            node_to_delete.hide();
+        }
+        trigger_node.trigger('cocoon:after-remove', [node_to_delete]);
+      }, timeout);
+    }
+  });
+
+
+  $(document).on("ready page:load turbolinks:load", function() {
+    $('.remove_fields.existing.destroyed').each(function(i, obj) {
+      var $this = $(this),
+          wrapper_class = $this.data('wrapper-class') || 'nested-fields';
+
+      $this.closest('.' + wrapper_class).hide();
+    });
+  });
+
+})(jQuery);
+
+

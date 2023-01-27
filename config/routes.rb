@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   devise_for :users#, :controllers => {:registrations => "users/registrations"}
   resources :roles do
     member do
-     get :add_permission
+     post :add_permission
      post :create_permission
     end
   end
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       post :create_user_designation
       post :create_work_history
       get :activation
-      get :generate_designation_pdf
+      post :generate_designation_pdf
       get :withdraw_resignation 
       post :create_user_checklist_item
       delete :delete_user_checklist_item

@@ -1,7 +1,7 @@
 <% resources.each do |holiday| %>
   <tr>
     <td><%= holiday.holiday_name %></td>
-    <td><%= holiday.holiday_date&.strftime('%d-%b-%Y -  %A') %></td>
+    <td><span style="display:none"><%= holiday.holiday_date&.strftime('%Y%m%d') %></span><%= holiday.holiday_date&.strftime('%d-%b-%Y -  %A') %></td>
     <td><%= link_to 'Edit', edit_holiday_path(holiday.id) if (can? :manage, Holiday) || (can? :update, Holiday) %></td>
     <td><%= link_to 'Delete', holiday_path(holiday.id), method: :delete , data: {confirm: "Are you sure?"} if (can? :manage, Holiday) || (can? :destroy, Holiday) %></td>
   </tr>

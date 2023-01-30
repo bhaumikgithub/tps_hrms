@@ -273,7 +273,7 @@
           <div class="col s12 m6 l10">
             <span><b><%= "#{user_des&.designation&.name} of #{user_des&.department&.name} Department."  %></b></span>
             <% if current_user.id == @user.id || current_user.admin? %>
-              <%= link_to "Download Certificate", generate_designation_pdf_user_path(id: user_des.user_id, designation_id: user_des.id, format: :pdf), target: "_blank" %>
+              <%= link_to "Download Certificate", generate_designation_pdf_user_path(id: user_des.user_id, designation_id: user_des.id, format: :pdf),method: :post, target: "_blank"  %>
             <% end %>
             <br/>
             <span>Mentor is <b><%= "#{User.find_by_id(user_des&.mentor)&.full_name}"  %></b></span>
@@ -625,6 +625,7 @@
                 <div class="col s12 m6 l10">
                   <% if audit.audited_changes.present? %>
                     <% audit.audited_changes.each do |key, value| %>
+                    <!--issue temporary set #{audit.user.full_name}-->
                       <p><%= "#{audit.user.full_name} changed #{key.gsub("_"," ").capitalize} from " %><b><%= "#{value[0]}" %></b> to <b><%= "#{value[1].blank? ? "NULL" : value[1]}" %></b><%= " on #{ audit&.created_at&.try(:strftime, "%d %b %Y")}" %></p>
                     <% end %>
                   <% end %>

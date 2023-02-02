@@ -93,4 +93,14 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  def admin_rights?
+    return true if @user.role_id == 1 or @user.role_id == 3
+  end
+  def only_admin_rights?
+    return true if @user.role_id == 1
+  end
+  def consultant_and_admin_rights?
+    return true if (@user.role_id == 1 and @user.user_type == "Admin") or @user.user_type == "Consultant"
+  end
+
 end

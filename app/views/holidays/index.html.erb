@@ -65,27 +65,28 @@
 $('#holiday_table').DataTable({
   "dom": 'lf<<"datatable-responsive"t>ip>',
   responsive: true,
-  "pageLength": 100
+  "pageLength": 100,
+  "bSort": false
 });
 
-$('.leave_type_seletbox').on('change', function(){
-  var leave_type = $(this).val();
-  console.log(leave_type);
-  $.ajax({
-    url: "/holidays/holiday_filter",
-    type: "GET",
-    data: { leave_type: leave_type },
-    dataType: "script"
-  });
-})
+// $('.leave_type_seletbox').on('change', function(){
+//   var leave_type = $(this).val();
+//   console.log(leave_type);
+//   $.ajax({
+//     url: "/holidays/holiday_filter",
+//     type: "GET",
+//     data: { leave_type: leave_type },
+//     dataType: "script"
+//   });
+// })
 
-$('#year_warpper').find('#date_year').on('change', function(){
-  var year = $(this).val();
-  $.ajax({
-    url: "/holidays/holiday_filter",
-    type: "GET",
-    data: { year: year },
-    dataType: "script"
-  });
-})
-</script>
+// $('#year_warpper').find('#date_year').on('change', function(){
+//   var year = $(this).val();
+//   $.ajax({
+//     url: "/holidays/holiday_filter",
+//     type: "GET",
+//     data: { year: year },
+//     dataType: "script"
+//   });
+// })
+// </script>

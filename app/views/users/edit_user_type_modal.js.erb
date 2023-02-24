@@ -1,0 +1,29 @@
+var $modal = $('#user_type_modal').modal();
+// $('.modal').modal();
+$modal.html('<%= escape_javascript(render partial: "edit_user_type_modal",locals: {user_type: @user_type} ) %>');
+
+$('.modal').modal();
+$('#edit_user_type_modal').modal('open');
+$('.trigger-modal').modal();
+$('select').formSelect();
+$('.leave_date').datepicker();
+$('.leave_end_date').datepicker({
+  onOpen: function(){
+    var startDate = new Date($("#start_date").val());
+    var instance = M.Datepicker.getInstance($('.leave_end_date'));
+    instance.options.minDate = new Date(startDate);
+  }
+});
+$(document).ready(function(){
+	$('#is_current').change(function() {
+    cb = $(this);
+    if(this.checked) {
+      $( "#end_date_modal" ).prop('disabled', true);
+      cb.val(cb.prop('checked'));
+    }
+    else{
+      $( "#end_date_modal" ).prop('disabled', false);
+      cb.val(false);
+    }
+  });
+});

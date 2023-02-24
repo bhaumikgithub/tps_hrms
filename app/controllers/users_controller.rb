@@ -2,13 +2,14 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :edit_user_type_modal, :update_user_type, :delete_education, :delete_designation, :delete_type, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile, :create_user_checklist_item, :delete_user_checklist_item]
-  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :delete_education, :delete_designation, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
+  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :edit_user_type_modal, :delete_education, :delete_designation, :delete_type, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
   before_action :find_education_user, only: [:update_education]
   before_action :find_education, only: [:update_education]
   before_action :find_designation_user, only: [:update_user_designation]
+  before_action :find_type_user, only: [:update_user_type]
   before_action :find_designation, only: [:update_user_designation]
   before_action :find_user_work_history, only: [:update_user_work_history]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
@@ -28,6 +29,7 @@ class UsersController < ApplicationController
   def show
     @educations = @user.educations
     @user_designations = @user.user_designations
+    @user_types = @user.user_types
     @user_type_history = @user.audits.reverse
     @work_histories = @user.work_histories
     @checklists = Checklist.joins(:checklist_items, users: :checklist_users).where(checklist_users: {user_id: @user.id}).where(status: 'Active').group('checklists.id').order('position ASC')
@@ -86,6 +88,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_user_type
+    @user_type = UserType.new(user_type_params)
+    if @user_type.save
+      if user_type_params[:is_current].present?
+        @user.update(user_type: user_type_params[:employee_type]) if user_type_params[:employee_type].present?
+      end
+      redirect_to user_path(@user)
+    else
+      puts @user_type.errors.inspect
+      redirect_to user_path(@user)
+    end
+  end
+
   def edit_education_detail_modal
     @education = Education.find(params[:education_id])
   end
@@ -106,6 +121,11 @@ class UsersController < ApplicationController
 
   def delete_designation
     UserDesignation.find(params[:user_des_id]).destroy!
+    redirect_to user_path(@user)
+  end
+
+  def delete_type
+    UserType.find(params[:user_type_id]).destroy!
     redirect_to user_path(@user)
   end
 
@@ -131,6 +151,22 @@ class UsersController < ApplicationController
 
   def update_user_designation
     if @user_designation.update(user_designation_params)
+      redirect_to user_path(@user)
+    else
+      redirect_to user_path(@user), alert: 'Something went wrong!'
+    end
+  end
+
+  def edit_user_type_modal
+    @user_type = UserType.find(params[:user_type_id])
+  end
+
+  def update_user_type
+    @user_type = UserType.find_by(id: params[:user_type_id])
+    if @user_type.update(user_type_params)
+      if user_type_params[:is_current].present?
+        @user.update(user_type: user_type_params[:employee_type]) if user_type_params[:employee_type].present?
+      end
       redirect_to user_path(@user)
     else
       redirect_to user_path(@user), alert: 'Something went wrong!'
@@ -294,6 +330,10 @@ class UsersController < ApplicationController
     params.require(:user_designation).permit(:designation_id, :department_id, :mentor, :start_date, :end_date, :is_current, :user_id)
   end
 
+  def user_type_params
+    params.require(:user_type).permit(:employee_type, :start_date, :end_date, :is_current, :user_id)
+  end
+
   def user_password
     generated_password = Devise.friendly_token.first(8)
   end
@@ -312,6 +352,10 @@ class UsersController < ApplicationController
 
   def find_designation_user
     @user = User.find_by(id: user_designation_params[:user_id]) || current_user
+  end
+
+  def find_type_user
+    @user = User.find_by(id: user_type_params[:user_id]) || current_user
   end
 
   def find_designation

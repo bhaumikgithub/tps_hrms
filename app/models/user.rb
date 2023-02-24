@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :leave_reports
   has_many :educations
   has_many :user_designations
+  has_many :user_types
   has_many :documents
   has_many :work_histories
   has_many :project_members

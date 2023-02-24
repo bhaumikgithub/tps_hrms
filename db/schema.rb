@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_22_070757) do
+ActiveRecord::Schema.define(version: 2023_02_24_073455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -389,6 +389,17 @@ ActiveRecord::Schema.define(version: 2022_07_22_070757) do
     t.index ["project_member_id"], name: "index_user_reports_on_project_member_id"
   end
 
+  create_table "user_types", force: :cascade do |t|
+    t.string "employee_type"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.bigint "user_id"
+    t.boolean "is_current", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_types_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -503,6 +514,7 @@ ActiveRecord::Schema.define(version: 2022_07_22_070757) do
   add_foreign_key "user_designations", "designations"
   add_foreign_key "user_designations", "users"
   add_foreign_key "user_reports", "project_members"
+  add_foreign_key "user_types", "users"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "roles"
   add_foreign_key "work_histories", "users"

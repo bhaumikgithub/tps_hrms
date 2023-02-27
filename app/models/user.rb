@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :checklist_users,dependent: :destroy
   has_many :checklists, through: :checklist_users
   has_many :asset_histories
-
+  has_many :trackers
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
   MARITAL_STATUS =  ["Married", "Single"].freeze

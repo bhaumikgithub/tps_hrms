@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     @taken_leave = User.current_month_leave(@user, @start_date).to_i
     @free_leave = @user.free_leaves.find_by_leave_month(@start_date).to_i + 1
     @prev_leave_bal = @user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 1.month).try(:current_leave_bal).to_i
-    @tracker = Tracker.all
+    @trackers = @user.trackers
   end
 
   def create_user
@@ -322,7 +322,7 @@ class UsersController < ApplicationController
     params.require(:user_designation).permit(:designation_id, :department_id, :mentor, :start_date, :end_date, :is_current, :user_id)
   end
   def user_tracker_params
-    params.require(:trackers).permit(:user_id, :project_name, :tracker_name,:start_date,:end_date,:is_current, :no_tracker)
+    params.require(:tracker).permit(:user_id, :project_name, :tracker_name,:start_date,:end_date,:is_current, :no_tracker)
   end
 
   def user_password
@@ -352,7 +352,7 @@ class UsersController < ApplicationController
     @user_designation = UserDesignation.find_by(id: params[:user_designation_id])
   end
   def find_tracker
-    @tracker = Tracker.find_by(id:  params[:trackers][:tracker_id])
+    @tracker = Tracker.find_by(id:  params[:tracker][:tracker_id])
     puts "running ..........#{params[:tracker_id]}"
   end
   def find_user_work_history

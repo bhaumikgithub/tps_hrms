@@ -7,7 +7,7 @@ class CreateTrackers < ActiveRecord::Migration[5.2]
       t.date :start_date
       t.date :end_date
       t.boolean :is_current, default: false
-      t.boolean :no_tracker,default: false
+      t.boolean :no_tracker
 
       t.timestamps
     end

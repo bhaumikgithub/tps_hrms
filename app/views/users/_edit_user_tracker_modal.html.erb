@@ -1,19 +1,19 @@
 <div id="edit_user_tracker_modal" class="modal">
   <div class="modal-content">
     <h4>Tracker Detail</h4>
-    <%= form_for :trackers, :url => url_for(:controller => 'users', :action => 'update_user_tracker') do |f| %>
+    <%= form_for :tracker, :url => url_for(:controller => 'users', :action => 'update_user_tracker') do |f| %>
       <div class="col s12">
         <div id="input-fields" class="card card-tabs">
           <div class="card-content">
             <div class="card-title">
               <div class="row">
                 <div class="input-field col m6 s12">
-                  <%= f.text_field :project_name, id: "project_name" , required: true , value: @tracker.project_name%>
+                  <%= f.text_field :project_name, id: "project_name1" , required: true , value: @tracker.project_name, :class => "some_class"%>
                   <label id="project_name">Project Name</label>
                 </div>
 
                 <div class="input-field col m6 s12 custom-dropdown">
-                  <%= f.text_field :tracker_name, id: "tracker_name" , required: true, value: @tracker.tracker_name %>
+                  <%= f.text_field :tracker_name, id: "tracker_name1" , required: true, value: @tracker.tracker_name %>
                   <label >Tracker Name</label>
                 </div>
                 <%= f.hidden_field :tracker_id, :value => @tracker.id %>
@@ -26,18 +26,18 @@
 
                 <div class="input-field col m6 s12">
                   <%#= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %>
-                  <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date", required: true, value: @tracker.end_date %><br />
+                  <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date_modal", required: true, value: @tracker.end_date %><br />
                   <label for="to">End Date</label>
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <%= f.check_box :is_current, {:id => "is_current",:value=> @tracker.is_current, :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <%= f.check_box :is_current, {:id => "is_current1", :class => @tracker.is_current, :style => "opacity: initial;pointer-events: auto;"},@tracker.is_current,"" %>
                   <label for="to">Current</label>
                 </div>
-  
+                
 
                 <div class="input-field col m6 s12" >
-                  <%= f.check_box :no_tracker, {:id => "no_tracker", :style => "opacity: initial;pointer-events: auto;margin-top:12px;"}, "", "" %>
+                  <%= f.check_box :no_tracker, {:id => "no_tracker1",:class => @tracker.no_tracker, :style => "opacity: initial;pointer-events: auto;margin-top:12px;"},@tracker.no_tracker,""%>
                   <label for="no_tracker" style="margin-top:8px">No Tracker</label>
                 </div>
               </div>

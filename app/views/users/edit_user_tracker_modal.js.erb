@@ -15,7 +15,28 @@ $('.leave_end_date').datepicker({
   }
 });
 $(document).ready(function(){
-	$('#is_current').change(function() {
+   $('#edit_user_tracker_modal .input-field input ~ label').attr('class','active')
+   $('#edit_user_tracker_modal .input-field input[type="checkbox"] ~ label').attr('class','')
+ //for is_current at load time
+  if($('#is_current1').attr('class')  ){
+    $( "#end_date_modal" ).prop('disabled', true);
+  }
+  else{
+    $( "#end_date_modal" ).prop('disabled', false);
+  }
+  //for no_tracker at load time
+  if($('#no_tracker1').attr('class')  ){
+   
+    $( "#project_name1" ).prop('disabled', true);
+    $( "#tracker_name1" ).prop('disabled', true);
+  }
+  else{
+ 
+    $( "#project_name1" ).prop('disabled', false);
+    $( "#tracker_name1" ).prop('disabled', false);
+  }
+  // for is_current dyanamic checkbox value
+	$('#is_current1').change(function() {
     cb = $(this);
     if(this.checked) {
       $( "#end_date_modal" ).prop('disabled', true);
@@ -26,16 +47,17 @@ $(document).ready(function(){
       cb.val(false);
     }
   });
-   $('#no_tracker').change(function() {
+  // for no_tracker dyanamic checkbox value
+   $('#no_tracker1').change(function() {
       cb = $(this);
       if(this.checked) {
-        $( "#project_name" ).prop('disabled', true);
-        $( "#tracker_name" ).prop('disabled', true);
+        $( "#project_name1" ).prop('disabled', true);
+        $( "#tracker_name1" ).prop('disabled', true);
         cb.val(cb.prop('checked'));
       }
       else{
-        $( "#project_name" ).prop('disabled', false);
-        $( "#tracker_name" ).prop('disabled', false);
+        $( "#project_name1" ).prop('disabled', false);
+        $( "#tracker_name1" ).prop('disabled', false);
 
         cb.val(false);
       }

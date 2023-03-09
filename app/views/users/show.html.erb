@@ -244,6 +244,70 @@
         </div>
       </div>
     </div>
+    <div class="col s12 card-content-link">
+    <div class="card card-tabs">
+      <div class="card-content">
+        <div class="row">
+          <div class="col s12 m6 l10">
+            <div class="card-title">
+              <div class="row">
+                <div class="col s12 m6 l10">
+                <h5>Tracker Detaills </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+          <% if current_user.admin? %>
+            <div class="col s12 m6 l2">
+              <ul class="profile-ui">
+                <li><%= link_to("#add_user_tracker_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+              </ul>
+            </div>
+          <% end %>
+      </div>
+       
+      <% if current_user.id == @user.id || current_user.admin? %>  
+        <% @trackers.order(id: :desc).each do |tracker| %>
+          <div class="row">
+            <div class="col s12 m6 l10">
+              <%if tracker.no_tracker%>
+                <div> No Tracker Using </div>
+                <%if tracker.is_current%>
+                    <div>From <%=tracker.start_date.try(:strftime, "%d %b %Y")%></div> 
+                    <div> Currently Not Using </div>
+                  <%else%>
+                    <div>From <%=tracker.start_date.try(:strftime, "%d %b %Y")%></div> 
+                    <div> <%= tracker.end_date.try(:strftime, "%d %b %Y")%> </div>
+                  <%end%>
+              <%else%>
+                <div><b>Tracker Name: <%= tracker.tracker_name%></b></div>
+                <div>For Project: <%= tracker.project_name%></div>
+                  <%if tracker.is_current%>
+                    <div>From <%=tracker.start_date.try(:strftime, "%d %b %Y")%></div> 
+                    <div> Currently Using </div>
+                  <%else%>
+                    <div>From <%=tracker.start_date.try(:strftime, "%d %b %Y")%></div> 
+                    <div> To <%= tracker.end_date.try(:strftime, "%d %b %Y")%> </div>
+                  <%end%>
+              <%end%>
+            </div>
+            <div class="col s12 m6 l2">
+            <% if current_user.admin? %>
+              <%= link_to edit_user_tracker_modal_users_path(id: @user.id, tracker_id: tracker.id), id:"editTracker", :remote => true do %>
+                <i class="material-icons">edit</i>
+              <% end %>
+              <%= link_to delete_tracker_users_path(id: @user.id, tracker_id: tracker.id),  method: :delete, data: {confirm: "Are you sure?"} do %>
+                <i class="material-icons">delete</i>
+              <% end %>
+            <% end %>
+          </div>
+          </div>
+          <br/>
+        <% end %>
+      <%end%>
+      </div>
+    </div>
+  </div>
 
   <div class="col s12 card-content-link">
     <div class="card card-tabs">
@@ -880,6 +944,61 @@
 </div>
 <!-- Worked and Working with function end -->
 
+<div id="add_user_tracker_modal" class="modal">
+  <div class="modal-content">
+    <h4>Tracker Detail</h4>
+    <%= form_for :tracker, :url => url_for(:controller => 'users', :action => 'create_tracker') do |f| %>
+      <div class="col s12">
+        <div id="input-fields" class="card card-tabs">
+          <div class="card-content">
+            <div class="card-title">
+              <div class="row">
+                <div class="input-field col m6 s12">
+                  <%= f.text_field :project_name, id: "project_name" , required: true %>
+                  <label id="project_name">Project Name</label>
+                </div>
+
+                <div class="input-field col m6 s12 custom-dropdown">
+                  <%= f.text_field :tracker_name, id: "tracker_name" , required: true %>
+                  <label >Tracker Name</label>
+                </div>
+
+                <%= f.hidden_field :user_id, :value => @user.id %>
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :from, class: 'datepicker from_education_date',id:"start_education_date" %>
+                  <%= f.text_field :start_date, class: 'datepicker leave_date',id:"start_date", required: true %><br /><br />
+                  <label for="from">Start Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%#= f.text_field :to, class: 'datepicker to_education_date',id:"end_education_date" %>
+                  <%= f.text_field :end_date, class: 'datepicker leave_end_date',id:"end_date", required: true %><br />
+                  <label for="to">End Date</label>
+                </div>
+
+                <div class="input-field col m6 s12">
+                  <%= f.check_box :is_current, {:id => "is_current", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <label for="to">Current</label>
+                </div>
+  
+
+                <div class="input-field col m6 s12" >
+                  <%= f.check_box :no_tracker, {:id => "no_tracker", :style => "opacity: initial;pointer-events: auto;margin-top:12px;"}, "", "" %>
+                  <label for="no_tracker" style="margin-top:8px">No Tracker</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12 mobile-center">
+        <%= f.submit 'Submit' ,class: "btn btn-success mb-2" %>
+        <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancel</a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div id="add_user_designation_modal" class="modal">
   <div class="modal-content">
     <h4>Designation Detail</h4>
@@ -1014,6 +1133,7 @@
 <div id="user_type_modal"></div>
 <div id="work_history_modal"></div>
 <div id="user_resign_modal"></div>
+<div id="user_tracker_modal"></div>
 
 <div id="resign_popup_modal" class="modal">
   <div class="modal-content">
@@ -1071,10 +1191,18 @@
     $('#add_education_detail_modal').modal();
     $('#add_worked_working_detail_modal').modal();
     $('#add_user_designation_modal').modal();
+<<<<<<< HEAD
     $('#add_user_type_modal').modal();
+=======
+    $('#add_user_tracker_modal').modal();
+>>>>>>> rspec_test
     $('#add_user_document_modal').modal();
     $('#resign_popup_modal').modal();
-
+    console.log("ready")
+    if($('#is_current').val() == "true"){
+      cb.prop('checked')
+      console.log("it is working")
+    }
     $('#is_current_checkbox').change(function() {
       cb = $(this);
       if(this.checked) {
@@ -1095,6 +1223,25 @@
       }
       else{
         $( "#end_date" ).prop('disabled', false);
+        cb.val(false);
+      }
+     
+      if($('#is_current').val() == true){
+      cb.prop('checked')
+      console.log("it is working")
+      }
+    });
+    $('#no_tracker').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#project_name" ).prop('disabled', true);
+        $( "#tracker_name" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#project_name" ).prop('disabled', false);
+        $( "#tracker_name" ).prop('disabled', false);
+
         cb.val(false);
       }
     });

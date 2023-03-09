@@ -1,0 +1,65 @@
+var $modal = $('#user_tracker_modal').modal();
+// $('.modal').modal();
+$modal.html('<%= escape_javascript(render partial: "edit_user_tracker_modal",locals: {tracker: @tracker} ) %>');
+
+$('.modal').modal();
+$('#edit_user_tracker_modal').modal('open');
+$('.trigger-modal').modal();
+$('select').formSelect();
+$('.leave_date').datepicker();
+$('.leave_end_date').datepicker({
+  onOpen: function(){
+    var startDate = new Date($("#start_date").val());
+    var instance = M.Datepicker.getInstance($('.leave_end_date'));
+    instance.options.minDate = new Date(startDate);
+  }
+});
+$(document).ready(function(){
+   $('#edit_user_tracker_modal .input-field input ~ label').attr('class','active')
+   $('#edit_user_tracker_modal .input-field input[type="checkbox"] ~ label').attr('class','')
+ //for is_current at load time
+  if($('#is_current1').attr('class')  ){
+    $( "#end_date_modal" ).prop('disabled', true);
+  }
+  else{
+    $( "#end_date_modal" ).prop('disabled', false);
+  }
+  //for no_tracker at load time
+  if($('#no_tracker1').attr('class')  ){
+   
+    $( "#project_name1" ).prop('disabled', true);
+    $( "#tracker_name1" ).prop('disabled', true);
+  }
+  else{
+ 
+    $( "#project_name1" ).prop('disabled', false);
+    $( "#tracker_name1" ).prop('disabled', false);
+  }
+  // for is_current dyanamic checkbox value
+	$('#is_current1').change(function() {
+    cb = $(this);
+    if(this.checked) {
+      $( "#end_date_modal" ).prop('disabled', true);
+      cb.val(cb.prop('checked'));
+    }
+    else{
+      $( "#end_date_modal" ).prop('disabled', false);
+      cb.val(false);
+    }
+  });
+  // for no_tracker dyanamic checkbox value
+   $('#no_tracker1').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#project_name1" ).prop('disabled', true);
+        $( "#tracker_name1" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#project_name1" ).prop('disabled', false);
+        $( "#tracker_name1" ).prop('disabled', false);
+
+        cb.val(false);
+      }
+    });
+});

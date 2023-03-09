@@ -2,15 +2,17 @@
 class UsersController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :update_education, :update_user_designation, :edit_user_type_modal, :update_user_type, :delete_education, :delete_designation, :delete_type, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
+  skip_authorize_resource :only => [:birthday_anniversary, :user_data, :recurring_user_data, :change_profile, :remove_profile, :create_education_detail, :edit_education_detail_modal, :edit_user_tracker_modal, :edit_user_type_modal, :update_user_type, :delete_type, :edit_user_designation_modal, :update_education, :update_user_designation, :delete_education, :delete_designation,:delete_tracker, :activation, :generate_designation_pdf, :edit_resign_model, :update_resign_user, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
   
   skip_before_action :verify_authenticity_token, :only => [:change_profile, :remove_profile, :create_user_checklist_item, :delete_user_checklist_item]
-  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :edit_user_type_modal, :delete_education, :delete_designation, :delete_type, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
+  before_action :find_user, only: [:activation, :edit, :update, :destroy, :show, :change_profile, :remove_profile, :authenticate_user, :create_education_detail, :edit_education_detail_modal, :edit_user_designation_modal, :edit_user_type_modal, :delete_type, :edit_user_tracker_modal, :delete_education, :delete_designation,:delete_tracker, :generate_designation_pdf, :edit_resign_model, :withdraw_resignation, :create_work_history, :edit_user_work_history, :delete_user_work_history]
   before_action :find_education_user, only: [:update_education]
   before_action :find_education, only: [:update_education]
   before_action :find_designation_user, only: [:update_user_designation]
   before_action :find_type_user, only: [:update_user_type]
   before_action :find_designation, only: [:update_user_designation]
+  before_action :find_tracker_user, only: [:update_user_tracker]
+  before_action :find_tracker, only: [:update_user_tracker]
   before_action :find_user_work_history, only: [:update_user_work_history]
   before_action :authenticate_user, only:  [:destroy, :update, :edit]
 
@@ -40,6 +42,7 @@ class UsersController < ApplicationController
     @taken_leave = User.current_month_leave(@user, @start_date).to_i
     @free_leave = @user.free_leaves.find_by_leave_month(@start_date).to_i + 1
     @prev_leave_bal = @user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 1.month).try(:current_leave_bal).to_i
+    @trackers = @user.trackers
   end
 
   def create_user
@@ -87,6 +90,17 @@ class UsersController < ApplicationController
       redirect_to user_path(@user)
     end
   end
+  
+  def create_tracker
+    @tracker = Tracker.new(user_tracker_params)
+    if @tracker.save
+      redirect_to user_path(@user)
+    else
+      puts @tracker.errors.inspect
+      redirect_to user_path(@user)
+    end
+  end
+
 
   def create_user_type
     @user_type = UserType.new(user_type_params)
@@ -123,6 +137,10 @@ class UsersController < ApplicationController
     UserDesignation.find(params[:user_des_id]).destroy!
     redirect_to user_path(@user)
   end
+  def delete_tracker
+    Tracker.find(params[:tracker_id]).destroy!
+    redirect_to user_path(@user)
+  end
 
   def delete_type
     UserType.find(params[:user_type_id]).destroy!
@@ -148,6 +166,9 @@ class UsersController < ApplicationController
   def edit_user_designation_modal
     @user_designation = UserDesignation.find(params[:user_designation_id])
   end
+  def edit_user_tracker_modal
+    @tracker = Tracker.find(params[:tracker_id])
+  end
 
   def update_user_designation
     if @user_designation.update(user_designation_params)
@@ -167,6 +188,15 @@ class UsersController < ApplicationController
       if user_type_params[:is_current].present?
         @user.update(user_type: user_type_params[:employee_type]) if user_type_params[:employee_type].present?
       end
+      redirect_to user_path(@user)
+    else
+      redirect_to user_path(@user), alert: 'Something went wrong!'
+    end
+  end
+
+  def update_user_tracker
+    # @tracker= Tracker.update(user_tracker_params)
+    if @tracker.update(user_tracker_params)
       redirect_to user_path(@user)
     else
       redirect_to user_path(@user), alert: 'Something went wrong!'
@@ -329,6 +359,9 @@ class UsersController < ApplicationController
   def user_designation_params
     params.require(:user_designation).permit(:designation_id, :department_id, :mentor, :start_date, :end_date, :is_current, :user_id)
   end
+  def user_tracker_params
+    params.require(:tracker).permit(:user_id, :project_name, :tracker_name,:start_date,:end_date,:is_current, :no_tracker)
+  end
 
   def user_type_params
     params.require(:user_type).permit(:employee_type, :start_date, :end_date, :is_current, :user_id)
@@ -353,6 +386,9 @@ class UsersController < ApplicationController
   def find_designation_user
     @user = User.find_by(id: user_designation_params[:user_id]) || current_user
   end
+  def find_tracker_user
+    @user = User.find_by(id: user_tracker_params[:user_id]) || current_user
+  end
 
   def find_type_user
     @user = User.find_by(id: user_type_params[:user_id]) || current_user
@@ -361,7 +397,10 @@ class UsersController < ApplicationController
   def find_designation
     @user_designation = UserDesignation.find_by(id: params[:user_designation_id])
   end
-
+  def find_tracker
+    @tracker = Tracker.find_by(id:  params[:tracker][:tracker_id])
+    puts "running ..........#{params[:tracker_id]}"
+  end
   def find_user_work_history
     @user = User.find_by(id: work_history_params[:user_id]) || current_user
     @work_history = WorkHistory.find_by(id: params[:work_history_id])

@@ -325,7 +325,7 @@
           <% if current_user.admin? %>
             <div class="col s12 m6 l2">
               <ul class="profile-ui">
-                <li><%= link_to("#add_user_designation_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
+                <li><%= link_to("#designation_warning_popup_modal", class: "modal-trigger") do %><i class="material-icons">control_point</i><% end %></li>
               </ul>
             </div>
           <% end %>
@@ -977,7 +977,7 @@
                 </div>
 
                 <div class="input-field col m6 s12">
-                  <%= f.check_box :is_current, {:id => "is_current", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
+                  <%= f.check_box :is_current, {:id => "is_current_tracker", :style => "opacity: initial;pointer-events: auto;"}, "", "" %>
                   <label for="to">Current</label>
                 </div>
   
@@ -1147,6 +1147,20 @@
   </div>
 </div>
 
+<div id="designation_warning_popup_modal" class="modal">
+  <div class="modal-content">
+    <div class="text_center">If anything is in current it must be completed before creating new record! </div>
+  </div>
+  <div class="modal-footer text_center">
+    <%= link_to("#add_user_designation_modal", class: "btn btn-success mb-2 modal-trigger") do %>
+      Sure!
+    <% end %>
+    <a href="#!" class="modal-close btn cyan waves-effect waves-light mb-2">Cancel</a>
+  </div>
+</div>
+
+
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -1190,7 +1204,17 @@
     $('#edit_contact_detail_modal').modal();
     $('#add_education_detail_modal').modal();
     $('#add_worked_working_detail_modal').modal();
-    $('#add_user_designation_modal').modal();
+    $('#add_user_designation_modal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      onOpenEnd: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        console.log('Ready');
+        $('#designation_warning_popup_modal').modal('close');
+      },
+      onCloseEnd: function() { // Callback for Modal close
+        console.log('Closed');
+      }
+    });
+    $('#designation_warning_popup_modal').modal();
     $('#add_user_type_modal').modal();
     $('#add_user_tracker_modal').modal();
     $('#add_user_document_modal').modal();
@@ -1228,6 +1252,23 @@
       console.log("it is working")
       }
     });
+
+    $('#is_current_tracker').change(function() {
+      cb = $(this);
+      if(this.checked) {
+        $( "#end_date" ).prop('disabled', true);
+        cb.val(cb.prop('checked'));
+      }
+      else{
+        $( "#end_date" ).prop('disabled', false);
+        cb.val(false);
+      }
+      if($('#is_current_tracker').val() == true){
+      cb.prop('checked')
+      console.log("tracker is working")
+      }
+    });
+
     $('#no_tracker').change(function() {
       cb = $(this);
       if(this.checked) {

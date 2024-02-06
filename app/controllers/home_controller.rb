@@ -30,6 +30,7 @@ class HomeController < ApplicationController
     @next_birthday_user = next_birthday_event.present? ? next_birthday_event.first[1].pluck(:email) : []
     today_birthday_event = User.where(job_status: 'Active').where( '(EXTRACT(month FROM birthday) = ? AND EXTRACT(day FROM birthday) = ?)', Date.today.month, Date.today.day).order("extract(month from birthday) ASC").order("extract(day from birthday) ASC").group_by(&:birthday)
     @today_birthday_user = today_birthday_event.present? ? today_birthday_event.first[1].pluck(:email) : []
+    @reminders = Reminder.joins(:reminder_users).where(reminder_users: {assigned_to_user_id: current_user.id})
   end
 
   def employee_handbook

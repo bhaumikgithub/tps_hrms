@@ -27,6 +27,10 @@ class User < ApplicationRecord
   has_many :checklists, through: :checklist_users
   has_many :asset_histories
   has_many :trackers
+  has_many :reminder_users
+  # has_many :reminders, through: :reminder_users
+  has_many :reminders
+
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
   MARITAL_STATUS =  ["Married", "Single"].freeze

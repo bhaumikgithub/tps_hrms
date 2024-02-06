@@ -126,6 +126,12 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
+
+  resources :reminders do
+    member do
+      patch :mark_completed
+    end
+  end
   get '/calender' => 'leaves#index', :as => 'calender'
   
 end

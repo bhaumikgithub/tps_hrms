@@ -1,3 +1,10 @@
+<% if @reminders.present? %>
+  <% @reminders.each do |reminder| %>
+    <% if ((reminder.reminder_date_time.to_date - Date.today)*24*60).to_i <= 1440 && reminder.status == "Upcoming" %>
+      <p class="bg-red"><%= reminder.title %></p>
+    <% end %>
+  <% end %>
+<% end %>
 <h3 class="center">Welcome <%= current_user.full_name %></h3>
 <% if current_user.admin? %>
   <div class="row">

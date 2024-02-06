@@ -63,7 +63,6 @@
        yearRange: [2011 ,currentYear],
     });
 
-
     // $('.asset_to_date').datepicker();
 
 
@@ -129,5 +128,7 @@
       }
     });
 
-
+    $('#reminder_date_time').datepicker({
+      minDate: new Date()
+    });
   });

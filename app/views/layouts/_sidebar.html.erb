@@ -33,12 +33,10 @@
           <li class=" <%= active_class(projects_path) %> + bold"><%= link_to(projects_path, class: "waves-effect waves-cyan") do %><i class="material-icons">work</i><span class="menu-title" data-i18n="">Projects</span><% end %>
           </li>
         <% end %>
+        <li class=" <%= active_class(reminders_path) %> + bold"><%= link_to(reminders_path, class: "waves-effect waves-cyan") do %><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Reminders</span><% end %>
+          </li>
         <% if (can? :index, Bill) || (can? :manage, Bill) %>
           <li class=" <%= active_class(bills_path) %> + bold"><%= link_to(bills_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Bills</span><% end %>
-          </li>
-        <% end %>
-        <% if (can? :index, Checklist) || (can? :manage, Checklist) %>
-          <li class=" <%= active_class(checklists_path) %> + bold"><%= link_to(checklists_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Checklist</span><% end %>
           </li>
         <% end %>
         <% if (can? :index, Credential) || (can? :manage, Credential) %>
@@ -120,6 +118,10 @@
  -->
         <%# end %>
         <li class=" <%= active_class(new_contact_path) %> + bold"><%= link_to(new_contact_path, class: "waves-effect waves-cyan") do %><i class="material-icons">mail</i><span class="menu-title" data-i18n="">Suggestion</span><% end %>
+        <% if (can? :index, Checklist) || (can? :manage, Checklist) %>
+          <li class=" <%= active_class(checklists_path) %> + bold"><%= link_to(checklists_path, class: "waves-effect waves-cyan") do %><i class="material-icons">book</i><span class="menu-title" data-i18n="">Checklist</span><% end %>
+          </li>
+        <% end %> 
 
         
       </ul>

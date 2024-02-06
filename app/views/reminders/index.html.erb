@@ -1,0 +1,65 @@
+<nav class="clean">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <%= link_to("Dashboard", root_path , class: "breadcrumb") %>
+      <%= link_to("Reminders", '#' , class: "breadcrumb") %>
+    </div>
+  </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+      <div id="borderless-table" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-title d-flex">
+                <span class="font-26 flex-grow-1">Reminders</span>
+                <span><%= link_to 'ADD', new_reminder_path, class: "btn cyan waves-effect waves-lightc " %></span>
+              </div>
+            </div>
+          </div>
+          <div id="view-borderless-table">
+            <div class="row">
+              <div class="col s12">
+                <table id="reminder_table">
+                  <thead>
+                    <tr>
+                      <th>Reminder date and time</th>
+                      <th>Reminder title</th>
+                      <th>Reminder content</th>
+                      <th>Reminder to(User)</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @resources.each do |reminder| %>
+                      <tr>
+                        <td><%= reminder.reminder_date_time.strftime("%d-%m-%Y %I:%M %p") %></td>
+                        <td><%= reminder.title %></td>
+                        <td><%= reminder.content.html_safe %></td>
+                        <td><%= reminder.reminder_users.map{|u| u.assigned_to_user.full_name}.join(",") %></td>
+                        <td><%= reminder.status %></td>
+                        <td><%= link_to 'View', reminder_path(reminder.id) %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+  
+  $('#reminder_table').DataTable({
+    "dom": 'lf<<"datatable-responsive"t>ip>',
+    responsive: true,
+    "pageLength": 100
+  });
+
+</script>

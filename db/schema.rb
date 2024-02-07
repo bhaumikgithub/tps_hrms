@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_03_132111) do
+ActiveRecord::Schema.define(version: 2024_02_06_132157) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -347,6 +348,26 @@ ActiveRecord::Schema.define(version: 2023_03_03_132111) do
     t.index ["department_id"], name: "index_projects_on_department_id"
   end
 
+  create_table "reminder_users", force: :cascade do |t|
+    t.bigint "reminder_id"
+    t.bigint "assigned_to_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assigned_to_user_id"], name: "index_reminder_users_on_assigned_to_user_id"
+    t.index ["reminder_id"], name: "index_reminder_users_on_reminder_id"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "reminder_date_time"
+    t.text "content"
+    t.integer "status", default: 0
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["user_id"], name: "index_reminders_on_user_id"
+  end
+
   create_table "role_permissions", force: :cascade do |t|
     t.bigint "permission_id"
     t.bigint "role_id"
@@ -521,6 +542,8 @@ ActiveRecord::Schema.define(version: 2023_03_03_132111) do
   add_foreign_key "project_members", "projects"
   add_foreign_key "project_members", "users"
   add_foreign_key "projects", "departments"
+  add_foreign_key "reminder_users", "reminders"
+  add_foreign_key "reminder_users", "users", column: "assigned_to_user_id"
   add_foreign_key "role_permissions", "permissions"
   add_foreign_key "role_permissions", "roles"
   add_foreign_key "trackers", "users"

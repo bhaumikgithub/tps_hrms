@@ -1,7 +1,7 @@
 <% if @reminders.present? %>
   <% @reminders.each do |reminder| %>
     <% if ((reminder.reminder_date_time.to_date - Date.today)*24*60).to_i <= 1440 && reminder.status == "Upcoming" %>
-      <p class="bg-red"><%= reminder.title %></p>
+      <p class="bg-red"><a href="<%= reminder_path(reminder) %>" class="reminder-block"><i class="material-icons notification-icon">notifications</i><span class="reminder-text">Reminder for <%= reminder.reminder_date_time.to_date.strftime("%d %b %Y") + " - " + reminder.title %></span></a></p>
     <% end %>
   <% end %>
 <% end %>

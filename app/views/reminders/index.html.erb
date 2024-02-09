@@ -36,7 +36,7 @@
                   <tbody>
                     <% @resources.each do |reminder| %>
                       <tr>
-                        <td><%= reminder.reminder_date_time.strftime("%d-%m-%Y %I:%M %p") %></td>
+                        <td><span><%= reminder.reminder_date_time.strftime("%Y%m%d") %></span><%= reminder.reminder_date_time.strftime("%d-%m-%Y %I:%M %p") %></td>
                         <td><%= reminder.title %></td>
                         <td><%= reminder.content.html_safe %></td>
                         <td><%= reminder.reminder_users.map{|u| u.assigned_to_user.full_name}.join(",") %></td>

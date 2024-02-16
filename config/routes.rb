@@ -131,6 +131,9 @@ Rails.application.routes.draw do
     member do
       patch :mark_completed
     end
+    collection do
+      get :reminder_status_filter
+    end
   end
   get '/calender' => 'leaves#index', :as => 'calender'
   

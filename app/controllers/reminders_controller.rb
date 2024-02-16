@@ -2,7 +2,7 @@ class RemindersController < ApplicationController
   include InheritAction
 
   def index
-  	@resources = current_user.reminders.all.order('created_at DESC')
+    @resources = current_user.reminders.all.where(status: "Upcoming").order('created_at DESC')
   end
 
   def create
@@ -21,6 +21,14 @@ class RemindersController < ApplicationController
   		@resource.update(status: 'Completed')
   	end
   	redirect_to reminders_path
+  end
+
+  def reminder_status_filter
+    if params[:reminder_status].present?
+      @resources = current_user.reminders.where(status: params[:reminder_status]).order('created_at DESC')
+    else
+      @resources = current_user.reminders.where(status: "Upcoming").order('created_at DESC')
+    end
   end
 
   private

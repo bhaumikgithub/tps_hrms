@@ -1,0 +1,10 @@
+<% reminders.each do |reminder| %>
+  <tr>
+    <td><span><%= reminder.reminder_date_time.strftime("%Y%m%d") %></span><%= reminder.reminder_date_time.strftime("%d-%m-%Y %I:%M %p") %></td>
+    <td><%= reminder.title %></td>
+    <td><%= reminder.content.html_safe %></td>
+    <td><%= reminder.reminder_users.map{|u| u.assigned_to_user.full_name}.join(",") %></td>
+    <td><%= reminder.status %></td>
+    <td><%= link_to 'View', reminder_path(reminder.id) %></td>
+  </tr>
+<% end %>

@@ -1,0 +1,10 @@
+$('#reminder_table').dataTable().fnDestroy();
+$('.dataTables_filter').html('');
+$('.dataTables_length').html('');
+$('#reminder_table_info').html('');
+$('#reminder_table_paginate').html('');
+$('.reminder_body').html("<%= escape_javascript(render partial: 'reminder_data', locals: {reminders: @resources}) %>");
+$('#reminder_table').DataTable({
+  responsive: true
+});
+$('select').formSelect();

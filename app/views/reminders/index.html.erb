@@ -19,6 +19,13 @@
               </div>
             </div>
           </div>
+          <div class="row">
+              <div class="col l3 m6 s12 mobile-center">
+                <div class="select_width">
+                  <%= select_tag "reminder_status", options_for_select([ "Upcoming", "Completed" ], "Upcoming"), class: "form-control reminder_status_selectbox" %>
+                </div>
+              </div>
+            </div>
           <div id="view-borderless-table">
             <div class="row">
               <div class="col s12">
@@ -33,17 +40,8 @@
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <% @resources.each do |reminder| %>
-                      <tr>
-                        <td><span><%= reminder.reminder_date_time.strftime("%Y%m%d") %></span><%= reminder.reminder_date_time.strftime("%d-%m-%Y %I:%M %p") %></td>
-                        <td><%= reminder.title %></td>
-                        <td><%= reminder.content.html_safe %></td>
-                        <td><%= reminder.reminder_users.map{|u| u.assigned_to_user.full_name}.join(",") %></td>
-                        <td><%= reminder.status %></td>
-                        <td><%= link_to 'View', reminder_path(reminder.id) %></td>
-                      </tr>
-                    <% end %>
+                  <tbody class="reminder_body">
+                    <%= render partial: 'reminder_data', locals: { reminders: @resources } %>
                   </tbody>
                 </table>
               </div>
@@ -60,6 +58,16 @@
     "dom": 'lf<<"datatable-responsive"t>ip>',
     responsive: true,
     "pageLength": 100
+  });
+
+  $('.reminder_status_selectbox').on('change', function(){
+    var reminder_status = $(this).val();
+    $.ajax({
+      url: "/reminders/reminder_status_filter",
+      type: "GET",
+      data: { reminder_status: reminder_status },
+      dataType: "script"
+    });
   });
 
 </script>

@@ -29,3 +29,5 @@ config/database.yml
 
 
 /db/schema.rb
+
+db/tps_hrms_development.sql

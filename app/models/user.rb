@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_many :reminders
 
   validates :profile_picture, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
+  after_create :create_checklist_user
 
   MARITAL_STATUS =  ["Married", "Single"].freeze
   DEPARTMENT = ["Admin" ,"HR", "ROR", "PHP", "Designing", "QA", "VR", "Android", 'Frontend']
@@ -184,5 +185,11 @@ class User < ApplicationRecord
       curr_taken_leave += leave
     end
     return curr_taken_leave
+  end
+
+  def create_checklist_user
+    Checklist.where(status: "Active").each do |c|
+      ChecklistUser.find_or_create_by(user_id: self.id, checklist_id: c.id)
+    end
   end
 end

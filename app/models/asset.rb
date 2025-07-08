@@ -1,7 +1,7 @@
 class Asset < ApplicationRecord
   belongs_to :asset_type
   belongs_to :bill, optional: true
-  has_many :asset_histories
+  has_many :asset_histories, dependent: :destroy
 
   enum bought_types: [:brand_new, :old, :refurbish]
   enum status: [:active, :idle, :assigned, :damaged, :sold, :ewaste, :scrapped]

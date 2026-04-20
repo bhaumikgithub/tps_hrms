@@ -121,38 +121,36 @@ class User < ApplicationRecord
   def self.leave_report
     @start_date = Date.today.at_beginning_of_month
     @end_date = Date.today.at_end_of_month
-    if Date.today.at_beginning_of_month == Date.today.at_beginning_of_month
-      User.where.not(user_type: "Director").where(job_status: 'Active').each do |user|
-        # Return Taken Leave Balance
-        # @taken_leave = User.taken_leave(user,@start_date,@end_date)
-        @taken_leave = user.user_month_leave((@start_date - 1.month).month, (@start_date - 1.month).year)
-        prev_extra_leave = user.free_leaves.find_by_leave_month(@start_date - 1.month)
-        @free_leave = prev_extra_leave.present? ? prev_extra_leave.extra_leave + 1 : 1
-        # @free_leave = 1
-        @prev_leave_bal = user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 2.month).try(:current_leave_bal)
-        @prev_month_leave_bal = @prev_leave_bal.nil? || @prev_leave_bal < 0 ? 0 : @prev_leave_bal
-        @current_bal = ( @prev_month_leave_bal.to_f + @free_leave.to_f ) - @taken_leave.to_f
-        # Create User Report
-        User.create_leave_report(user)
-        # Update leave balance if prev month leave balance is less than 0
-        @current_bal < 0 ? user.update(leave_bal: 0) : user.update(leave_bal: @current_bal)
+    User.where(user_type: "Employee").where(job_status: 'Active').each do |user|
+      # Return Taken Leave Balance
+      # @taken_leave = User.taken_leave(user,@start_date,@end_date)
+      @taken_leave = user.user_month_leave((@start_date - 1.month).month, (@start_date - 1.month).year)
+      prev_extra_leave = user.free_leaves.find_by_leave_month(@start_date - 1.month)
+      @free_leave = prev_extra_leave.present? ? prev_extra_leave.extra_leave + 1 : 1
+      # @free_leave = 1
+      @prev_leave_bal = user.leave_reports.find_by_start_month(@start_date.at_beginning_of_month - 2.month).try(:current_leave_bal)
+      @prev_month_leave_bal = @prev_leave_bal.nil? || @prev_leave_bal < 0 ? 0 : @prev_leave_bal
+      @current_bal = ( @prev_month_leave_bal.to_f + @free_leave.to_f ) - @taken_leave.to_f
+      # Create User Report
+      User.create_leave_report(user)
+      # Update leave balance if prev month leave balance is less than 0
+      @current_bal < 0 ? user.update(leave_bal: 0) : user.update(leave_bal: @current_bal)
 
-        # Add 1 free leave balance
-        current_extra_leave = user.free_leaves.find_by_leave_month(@start_date)
-        @current_free_leave = current_extra_leave.present? ? current_extra_leave.extra_leave + 1 : 1
+      # Add 1 free leave balance
+      current_extra_leave = user.free_leaves.find_by_leave_month(@start_date)
+      @current_free_leave = current_extra_leave.present? ? current_extra_leave.extra_leave + 1 : 1
 
-        if prev_extra_leave.present?
-          free_total = prev_extra_leave.extra_leave - @taken_leave.to_f
-          if free_total > 0
-            user.update(leave_bal: (user.leave_bal - free_total))
-          end
+      if prev_extra_leave.present?
+        free_total = prev_extra_leave.extra_leave - @taken_leave.to_f
+        if free_total > 0
+          user.update(leave_bal: (user.leave_bal - free_total))
         end
-        user.update(leave_bal: (user.leave_bal.to_f + @current_free_leave))
-
-        # Update current month leave if taken any leave on this current month
-        current_month_leave = User.current_month_leave(user,@start_date)
-        user.update(leave_bal: (user.leave_bal.to_f - current_month_leave))
       end
+      user.update(leave_bal: (user.leave_bal.to_f + @current_free_leave))
+
+      # Update current month leave if taken any leave on this current month
+      current_month_leave = User.current_month_leave(user,@start_date)
+      user.update(leave_bal: (user.leave_bal.to_f - current_month_leave))
     end
   end
 
@@ -173,7 +171,19 @@ class User < ApplicationRecord
   end
 
   def self.create_leave_report(user)
-    user.leave_reports.create(start_month: @start_date - 1.month, end_month: (@end_date - 1.month).at_end_of_month, prev_month_leave_bal: @prev_month_leave_bal, free_leave: @free_leave, taken_leave: @taken_leave, current_leave_bal: @current_bal)
+    report = user.leave_reports.find_or_initialize_by(
+      start_month: @start_date - 1.month,
+      end_month: (@end_date - 1.month).at_end_of_month
+    )
+
+    report.assign_attributes(
+      prev_month_leave_bal: @prev_month_leave_bal.to_f,
+      free_leave: @free_leave.to_f,
+      taken_leave: @taken_leave.to_f,
+      current_leave_bal: @current_bal.to_f
+    )
+
+    report.save!
   end
 
   def self.current_month_leave(user, start_date)

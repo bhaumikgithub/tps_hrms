@@ -6,24 +6,26 @@
               <input class="header-search-input z-depth-2" type="text" name="Search" placeholder="Explore Materialize">
             </div> -->
             <ul class="navbar-list right">
-             
-              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><%= image_tag(current_user.profile_picture.present? ? current_user.profile_picture : "avatar.png", height: '100', width: '100') %><i></i></span></a></li>
-              
+              <% if current_user.present? %>
+                <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><%= image_tag(current_user.profile_picture.present? ? current_user.profile_picture : "avatar.png", height: '100', width: '100') %><i></i></span></a></li>
+              <% end %>
             </ul>
             
             <!-- profile-dropdown-->
-            <ul class="dropdown-content" id="profile-dropdown">
-              <%= link_to 'Profile', user_path(current_user), class: "grey-text text-darken-1"%>
-              <!-- <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li> -->
-              <!-- <li><a class="grey-text text-darken-1" href="app-chat.html"><i class="material-icons">chat_bubble_outline</i> Chat</a></li> -->
-              <!-- <li><a class="grey-text text-darken-1" href="page-faq.html"><i class="material-icons">help_outline</i> Help</a></li> -->
-              <%= link_to "Change your password", edit_user_registration_path, class: "grey-text text-darken-1" %>
-              <li class="divider"></li>
+            <% if current_user.present? %>
+              <ul class="dropdown-content" id="profile-dropdown">
+                <%= link_to 'Profile', user_path(current_user), class: "grey-text text-darken-1"%>
+                <!-- <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li> -->
+                <!-- <li><a class="grey-text text-darken-1" href="app-chat.html"><i class="material-icons">chat_bubble_outline</i> Chat</a></li> -->
+                <!-- <li><a class="grey-text text-darken-1" href="page-faq.html"><i class="material-icons">help_outline</i> Help</a></li> -->
+                <%= link_to "Change your password", edit_user_registration_path, class: "grey-text text-darken-1" %>
+                <li class="divider"></li>
 
-              <!-- <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i> Lock</a></li> -->
-              <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "grey-text text-darken-1" ) %> 
-              <!-- <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li> -->
-            </ul>
+                <!-- <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i> Lock</a></li> -->
+                <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "grey-text text-darken-1" ) %> 
+                <!-- <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li> -->
+              </ul>
+            <% end %>
           </div>
           <nav class="display-none search-sm">
             <div class="nav-wrapper">

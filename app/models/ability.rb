@@ -12,6 +12,8 @@ class Ability
     elsif @user.user_type == 'Director' || @user.user_type == 'Admin' 
       can :all, ConsultantHandbook
       can :all, EmployeeHandbook
+    else
+      can :read, Leave
     end
     # if @user.team_leader? || @user.admin?
     #     can [:read, :manage], Leave
@@ -30,13 +32,14 @@ class Ability
     #     can :read, EventLink
     #     can :manage, AssetHistory
     # end
-
-    @user.role.permissions.each do |permission|
-      if permission.subject_class == "all"
-        can permission.action.to_sym, permission.subject_class.to_sym
-      else
-        can permission.action.to_sym, permission.subject_class.safe_constantize
-        # can permission.action.to_sym, permission.subject_class.singularize.to_sym.downcase
+    if @user.persisted?
+      @user.role.permissions.each do |permission|
+        if permission.subject_class == "all"
+          can permission.action.to_sym, permission.subject_class.to_sym
+        else
+          can permission.action.to_sym, permission.subject_class.safe_constantize
+          # can permission.action.to_sym, permission.subject_class.singularize.to_sym.downcase
+        end
       end
     end
     # Define abilities for the passed in user here. For example:
